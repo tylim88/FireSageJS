@@ -1,0 +1,89 @@
+{
+	"name": "firesage",
+	"version": "0.0.0",
+	"description": "🔥 Extremely High Precision Typescript Wrapper for Firestore Web, Providing Unparalleled Type Safe and Dev Experience",
+	"source": "src/index.ts",
+	"main": "dist/src/index.js",
+	"types": "dist/src/index.d.ts",
+	"targets": {
+		"types": false,
+		"main": {
+			"optimize": true
+		}
+	},
+	"scripts": {
+		"reinstall": "rm -rf node_modules && rm -rf package-lock.json && npm i && npx husky install",
+		"tsc": "tsc",
+		"lint": "eslint . --ext .ts --fix",
+		"pretty-quick": "pretty-quick --stage",
+		"test": "firebase emulators:exec --only firestore \"rm -rf coverage && jest --forceExit\"",
+		"parcel": "npm un firebase && npm i firebase && rm -rf dist && tsc --emitDeclarationOnly true && parcel build && npm i -D firebase",
+		"build": "rm -rf dist && tsc",
+		"link": "npm unlink firesage && npm link && npm link firesage",
+		"babel": "babel-node -x .ts -- src/fieldPath/documentId.ts",
+		"jest": "jest src/queryClauses/index.test.ts --forceExit",
+		"commit": "git commit --no-verify",
+		"dev": "---------------------dev------------------------",
+		"d-link": "npm run build && npm run link",
+		"d-test": "tsc && npm test",
+		"d-b-test": "npm run d-link && npm run b-uninstall && npm run b-tsc &&  npm run b-test",
+		"d-p-test": "npm run p-reinstall && npm run p-test",
+		"d-pub": "npm run build && npm publish --tag beta",
+		"built": "-------------test built file-----------------------",
+		"b-tsc": "tsc -p tsconfig.doc.json",
+		"b-test": "firebase emulators:exec --only firestore \"jest --forceExit -c=jest.config.doc.js\"",
+		"b-uninstall": "npm --prefix codeForDoc run uninstall",
+		"published": "-------------test published file-----------------------",
+		"p-reinstall": "npm --prefix codeForDoc run reinstall && babel-node -x .ts scripts/installLatest.ts",
+		"p-test": "npm --prefix codeForDoc test"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/tylim88/firesage.git"
+	},
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/tylim88/firesage/issues"
+	},
+	"homepage": "https://firesage.com",
+	"keywords": [
+		"firebase",
+		"firestore",
+		"wrapper",
+		"typescript",
+		"web",
+		"scalable",
+		"type-safe",
+		"V9"
+	],
+	"devDependencies": {
+		"@babel/node": "^7.18.9",
+		"@babel/preset-env": "^7.17.10",
+		"@babel/preset-typescript": "^7.16.7",
+		"@firebase/rules-unit-testing": "^2.0.2",
+		"@types/jest": "^27.5.0",
+		"@types/lodash": "^4.14.182",
+		"@types/shelljs": "^0.8.11",
+		"@typescript-eslint/eslint-plugin": "^5.23.0",
+		"@typescript-eslint/parser": "^5.23.0",
+		"betwin": "^1.1.3",
+		"dotenv": "^16.0.0",
+		"eslint": "^8.15.0",
+		"eslint-cli": "^1.1.1",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-import-resolver-typescript": "^2.7.1",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"firebase": "^9.8.1",
+		"husky": "^8.0.1",
+		"jest": "^28.1.0",
+		"jsdoc": "^3.6.10",
+		"lodash": "^4.17.21",
+		"parcel": "^2.5.0",
+		"pick-random": "^3.0.0",
+		"prettier": "^2.6.2",
+		"pretty-quick": "^3.1.3",
+		"shelljs": "^0.8.5",
+		"typescript": "^4.6.4"
+	}
+}
