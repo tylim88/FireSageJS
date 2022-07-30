@@ -1,7 +1,7 @@
 {
 	"name": "firesage",
 	"version": "0.0.0",
-	"description": "🔥 Extremely High Precision Typescript Wrapper for Firestore Web, Providing Unparalleled Type Safe and Dev Experience",
+	"description": "🔥Write type safe and scalable Firebase Realtime Database code!",
 	"source": "src/index.ts",
 	"main": "dist/src/index.js",
 	"types": "dist/src/index.d.ts",
