@@ -17,7 +17,7 @@ describe('test ref', () => {
 		type D = typeof d
 		type E = typeof e
 
-		IsTrue<IsEqual<A, DatabaseReference<Users, never>>>()
+		IsTrue<IsEqual<A, DatabaseReference<Users, null>>>()
 		IsTrue<IsEqual<B, DatabaseReference<Users, 'a'>>>()
 		IsTrue<IsEqual<C, DatabaseReference<Users, 'b'>>>()
 		IsTrue<IsEqual<D, DatabaseReference<Users, 'b/d/f/g'>>>()

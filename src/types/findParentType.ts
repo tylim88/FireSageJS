@@ -20,7 +20,7 @@ export type RemoveRootName<
 		| `${T['rootName']}/${keyof T['flattenRoot'] & string}`
 > = U[] extends `${T['rootName']}/${infer R}`[]
 	? R & keyof T['flattenRoot'] & string
-	: never
+	: null // null = root
 
 export type GetLastTwoSegment<U extends `${string}/${string}`> =
 	GetNumberOfSlash<U> extends 1
@@ -60,9 +60,11 @@ export type FindParentType<
 
 export type FindAllChildKeys<
 	T extends MetaType,
-	U extends keyof T['flattenRoot'] & string
-> = keyof T['flattenRoot'] extends infer R
-	? R extends `${U}/${string}`
-		? R
+	U extends (keyof T['flattenRoot'] & string) | null
+> = U[] extends null[]
+	? keyof T['flattenRoot'] & string
+	: keyof T['flattenRoot'] & string extends infer R
+	? R extends `${U}/${infer S}`
+		? S
 		: never
 	: never

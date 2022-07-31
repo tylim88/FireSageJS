@@ -7,11 +7,11 @@ const child = users.child
 describe('test ref', () => {
 	it('test return type', () => {
 		const a = child(ref('Users'), 'b/c')
-		const b = child(ref('Users/a'), 'b/c')
-		const c = child(ref('Users/b/c'), 'b/c')
-		const d = child(ref('Users/b/d/f/g'), 'b/c')
+		const b = child(ref('Users/a'), '')
+		const c = child(ref('Users/b/c'), '')
+		const d = child(ref('Users/b/d/f/g'), '')
 		const e = child(ref('Users/b/h'), 'b/c')
-
+		const f = child(ref('Users/b'), 'b/c')
 		type A = typeof a
 		type B = typeof b
 		type C = typeof c

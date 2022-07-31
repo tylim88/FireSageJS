@@ -3,9 +3,12 @@ import { MetaType, DatabaseReference, FindAllChildKeys } from '../types'
 export const childCreator =
 	<T extends MetaType>() =>
 	<
-		S extends DatabaseReference<T, keyof T['flattenRoot'] & string>,
+		//  eslint-disable-next-line @typescript-eslint/no-explicit-any
+		S extends DatabaseReference<T, any>,
 		U extends S extends DatabaseReference<T, infer Y>
-			? FindAllChildKeys<T, Y>
+			? FindAllChildKeys<T, Y> extends never
+				? ''
+				: FindAllChildKeys<T, Y>
 			: never
 	>(
 		parent: S,

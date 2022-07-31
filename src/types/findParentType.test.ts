@@ -51,7 +51,7 @@ describe('test', () => {
 		IsTrue<IsSame<B, 'a'>>()
 		IsTrue<IsSame<C, 'b/d'>>()
 		IsTrue<IsSame<D, 'b/d/f/g'>>()
-		IsTrue<IsSame<E, never>>()
+		IsTrue<IsSame<E, null>>()
 	})
 	it('test Find Parent Key', () => {
 		type A = FindParentKey<Users, 'a'>
@@ -86,9 +86,9 @@ describe('test', () => {
 		type F = FindAllChildKeys<Users, `b/h/${string}`>
 		IsTrue<IsSame<A, never>>()
 		IsTrue<IsSame<B, never>>()
-		IsTrue<IsSame<C, 'b/d/e' | 'b/d/f' | 'b/d/f/g'>>()
+		IsTrue<IsSame<C, 'e' | 'f' | 'f/g'>>()
 		IsTrue<IsSame<D, never>>()
-		IsTrue<IsSame<E, `b/h/${string}`>>()
+		IsTrue<IsSame<E, string>>()
 		IsTrue<IsSame<F, never>>()
 	})
 })
