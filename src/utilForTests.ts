@@ -10,12 +10,9 @@ export const initializeApp = () => {
 	return initializeApp_(config)
 }
 
-export type Users = MetaTypeCreator<
-	{
-		a: 1
-		b: { c: true; d: { e: 'abc'; f: { g: null } }; h: Record<string, boolean> }
-	},
-	'Users'
->
+export type Users = MetaTypeCreator<{
+	a: 1
+	b: { c: true; d: { e: 'abc'; f: { g: null } }; h: Record<string, boolean> }
+}>
 
 export const usersCreator = getFiresage<Users>()

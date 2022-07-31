@@ -4,10 +4,10 @@ import { refCreator, childCreator } from './refs'
 
 export const getFiresage =
 	<T extends MetaType>(db?: Database) =>
-	(rootPath: T['rootPath']) => {
+	() => {
 		const DB = db || getDatabase()
 		return {
-			ref: refCreator<T>(DB, rootPath),
+			ref: refCreator<T>(DB),
 			child: childCreator<T>(),
 		}
 	}

@@ -6,15 +6,28 @@ const ref = usersCreator().ref
 const child = usersCreator().child
 describe('test ref', () => {
 	it('test return type', () => {
-		const a = child(ref('Users'), 'b/c')
-		// @ts-expect-error
-		const b = child(ref('Users/a'), '')
-		// @ts-expect-error
-		const c = child(ref('Users/b/c'), '')
-		// @ts-expect-error
-		const d = child(ref('Users/b/d/f/g'), '')
-		const e = child(ref('Users/b/h'), 'anything')
-		const f = child(ref('Users/b'), 'c')
+		const a = child(
+			ref(),
+			// @ts-expect-error
+			'b/c'
+		)
+		const b = child(
+			ref('a'),
+			// @ts-expect-error
+			''
+		)
+		const c = child(
+			ref('b/c'),
+			// @ts-expect-error
+			''
+		)
+		const d = child(
+			ref('b/d/f/g'),
+			// @ts-expect-error
+			''
+		)
+		const e = child(ref('b/h'), 'anything')
+		const f = child(ref('b'), 'c')
 
 		type A = typeof a
 		type B = typeof b

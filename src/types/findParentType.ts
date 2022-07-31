@@ -13,15 +13,6 @@ export type GetNumberOfSlash<ID extends string> = GetNumberOfInvalidCharacter<
 	'/'
 >
 
-export type RemoveRootPath<
-	T extends MetaType,
-	U extends
-		| T['rootPath']
-		| `${T['rootPath']}/${keyof T['flattenRoot'] & string}`
-> = U[] extends `${T['rootPath']}/${infer R}`[]
-	? R & keyof T['flattenRoot'] & string
-	: null // null = root
-
 export type GetLastTwoSegment<U extends `${string}/${string}`> =
 	GetNumberOfSlash<U> extends 1
 		? U
@@ -49,7 +40,7 @@ export type RemoveLastSegment<
 export type FindParentKey<
 	T extends MetaType,
 	U extends keyof T['flattenRoot'] & string
-> = RemoveLastSegment<U> extends never ? T['rootPath'] : RemoveLastSegment<U>
+> = RemoveLastSegment<U> extends never ? null : RemoveLastSegment<U>
 
 export type FindParentType<
 	T extends MetaType,

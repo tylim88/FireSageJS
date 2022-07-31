@@ -21,13 +21,13 @@ export declare interface DatabaseReference<
 	 */
 	readonly parent: U extends string
 		? DatabaseReference<
-				MetaTypeCreator<FindParentType<T, U>, T['rootPath'], T['root']>,
+				MetaTypeCreator<FindParentType<T, U>, T['root']>,
 				FindParentKey<T, U> & keyof T['flattenRoot'] & string
 		  >
 		: null
 	/** The root `DatabaseReference` of the Database. */
 	readonly root: DatabaseReference<
-		MetaTypeCreator<T['root'], T['rootPath'], T['root']>,
+		MetaTypeCreator<T['root'], T['root']>,
 		undefined
 	>
 }
@@ -41,7 +41,6 @@ export declare interface Query<
 			U extends keyof T['flattenRoot'] & string
 				? T['flattenRoot'][U]
 				: T['root'],
-			T['rootPath'],
 			T['root']
 		>,
 		U
@@ -63,7 +62,7 @@ export declare interface Query<
 	 * @returns Whether or not the current and provided queries are equivalent.
 	 */
 	isEqual(
-		other: Query<MetaTypeCreator<unknown, string, unknown>, never> | null
+		other: Query<MetaTypeCreator<unknown, unknown>, never> | null
 	): boolean
 	/**
 	 * Returns a JSON-serializable representation of this object.

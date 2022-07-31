@@ -4,7 +4,6 @@ import {
 	RemoveLastSegment,
 	FindParentKey,
 	FindParentType,
-	RemoveRootPath,
 	FindAllChildKeys,
 } from './findParentType'
 import { IsTrue, IsSame } from './utils'
@@ -21,6 +20,7 @@ describe('test', () => {
 		IsTrue<IsSame<C, 'b/c'>>()
 		IsTrue<IsSame<D, 'c/d'>>()
 	})
+
 	it('test get last part', () => {
 		type A = GetLastPart<'a'>
 		type B = GetLastPart<'a/b'>
@@ -31,6 +31,7 @@ describe('test', () => {
 		IsTrue<IsSame<C, 'c'>>()
 		IsTrue<IsSame<D, 'd'>>()
 	})
+
 	it('test Remove Last Segment', () => {
 		type A = RemoveLastSegment<'a'>
 		type B = RemoveLastSegment<'a/b'>
@@ -41,30 +42,20 @@ describe('test', () => {
 		IsTrue<IsSame<C, 'a/b'>>()
 		IsTrue<IsSame<D, 'a/b/c'>>()
 	})
-	it('test remove root Name', () => {
-		// @ts-expect-error
-		type A = RemoveRootPath<Users, 'a'>
-		type B = RemoveRootPath<Users, 'Users/a'>
-		type C = RemoveRootPath<Users, 'Users/b/d'>
-		type D = RemoveRootPath<Users, 'Users/b/d/f/g'>
-		type E = RemoveRootPath<Users, 'Users'>
-		IsTrue<IsSame<B, 'a'>>()
-		IsTrue<IsSame<C, 'b/d'>>()
-		IsTrue<IsSame<D, 'b/d/f/g'>>()
-		IsTrue<IsSame<E, null>>()
-	})
+
 	it('test Find Parent Key', () => {
 		type A = FindParentKey<Users, 'a'>
 		type B = FindParentKey<Users, 'b/c'>
 		type C = FindParentKey<Users, 'b/d'>
 		type D = FindParentKey<Users, 'b/d/f/g'>
 		type E = FindParentKey<Users, 'b/h'>
-		IsTrue<IsSame<A, Users['rootPath']>>()
+		IsTrue<IsSame<A, null>>()
 		IsTrue<IsSame<B, 'b'>>()
 		IsTrue<IsSame<C, 'b'>>()
 		IsTrue<IsSame<D, 'b/d/f'>>()
 		IsTrue<IsSame<E, 'b'>>()
 	})
+
 	it('test Find Parent Type', () => {
 		type A = FindParentType<Users, 'a'>
 		type B = FindParentType<Users, 'b/c'>

@@ -1,15 +1,15 @@
 import { usersCreator, initializeApp, Users } from '../utilForTests'
 import { IsEqual, IsTrue, DatabaseReference } from '../types'
-console.log(1)
+
 initializeApp()
 const ref = usersCreator().ref
 describe('test ref', () => {
 	it('test return type', () => {
-		const a = ref('Users')
-		const b = ref('Users/a')
-		const c = ref('Users/b')
-		const d = ref('Users/b/d/f/g')
-		const e = ref('Users/b/h')
+		const a = ref()
+		const b = ref('a')
+		const c = ref('b')
+		const d = ref('b/d/f/g')
+		const e = ref('b/h')
 
 		type A = typeof a
 		type B = typeof b
@@ -17,7 +17,7 @@ describe('test ref', () => {
 		type D = typeof d
 		type E = typeof e
 
-		IsTrue<IsEqual<A, DatabaseReference<Users, null>>>()
+		IsTrue<IsEqual<A, DatabaseReference<Users, undefined>>>()
 		IsTrue<IsEqual<B, DatabaseReference<Users, 'a'>>>()
 		IsTrue<IsEqual<C, DatabaseReference<Users, 'b'>>>()
 		IsTrue<IsEqual<D, DatabaseReference<Users, 'b/d/f/g'>>>()
