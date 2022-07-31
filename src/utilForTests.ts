@@ -18,4 +18,4 @@ export type Users = MetaTypeCreator<
 	'Users'
 >
 
-export const users = getFiresage<Users>()
+export const usersCreator = getFiresage<Users>()

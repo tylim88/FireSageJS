@@ -1,8 +1,8 @@
-import { users, initializeApp, Users } from '../utilForTests'
+import { usersCreator, initializeApp, Users } from '../utilForTests'
 import { IsEqual, IsTrue, DatabaseReference } from '../types'
-
+console.log(1)
 initializeApp()
-const ref = users.ref
+const ref = usersCreator().ref
 describe('test ref', () => {
 	it('test return type', () => {
 		const a = ref('Users')

@@ -21,7 +21,7 @@
 		"build": "rm -rf dist && tsc",
 		"link": "npm unlink firesage && npm link && npm link firesage",
 		"babel": "babel-node -x .ts -- src/fieldPath/documentId.ts",
-		"jest": "jest src/queryClauses/index.test.ts --forceExit",
+		"jest": "jest src/refs/ref.test.ts --forceExit",
 		"commit": "git commit --no-verify",
 		"dev": "---------------------dev------------------------",
 		"d-link": "npm run build && npm run link",

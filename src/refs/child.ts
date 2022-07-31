@@ -1,5 +1,10 @@
 import { child } from 'firebase/database'
-import { MetaType, DatabaseReference, FindAllChildKeys } from '../types'
+import {
+	MetaType,
+	DatabaseReference,
+	FindAllChildKeys,
+	ErrorHasNoChild,
+} from '../types'
 export const childCreator =
 	<T extends MetaType>() =>
 	<
@@ -7,7 +12,7 @@ export const childCreator =
 		S extends DatabaseReference<T, any>,
 		U extends S extends DatabaseReference<T, infer Y>
 			? FindAllChildKeys<T, Y> extends never
-				? ''
+				? ErrorHasNoChild
 				: FindAllChildKeys<T, Y>
 			: never
 	>(

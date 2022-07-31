@@ -3,13 +3,13 @@ import { ObjectFlattenHybrid } from './objectFlatten'
 export type MetaType = {
 	base: unknown
 	root: unknown
-	rootName: string
+	rootPath: string
 	flattenRoot: unknown
 	flattenBase: unknown
 }
 
-export type MetaTypeCreator<Base, RootName extends string, Root = Base> = {
-	rootName: RootName
+export type MetaTypeCreator<Base, rootPath extends string, Root = Base> = {
+	rootPath: rootPath
 	root: Root
 	base: Base
 	flattenRoot: ObjectFlattenHybrid<Root>

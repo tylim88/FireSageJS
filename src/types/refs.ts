@@ -3,7 +3,7 @@ import { FindParentType, GetLastPart, FindParentKey } from './findParentType'
 
 export declare interface DatabaseReference<
 	T extends MetaType,
-	U extends (keyof T['flattenRoot'] & string) | null // null =  root
+	U extends (keyof T['flattenRoot'] & string) | undefined // null =  root
 > extends Query<T, U> {
 	/**
 	 * The last part of the `DatabaseReference`'s path.
@@ -21,19 +21,19 @@ export declare interface DatabaseReference<
 	 */
 	readonly parent: U extends string
 		? DatabaseReference<
-				MetaTypeCreator<FindParentType<T, U>, T['rootName'], T['root']>,
+				MetaTypeCreator<FindParentType<T, U>, T['rootPath'], T['root']>,
 				FindParentKey<T, U> & keyof T['flattenRoot'] & string
 		  >
 		: null
 	/** The root `DatabaseReference` of the Database. */
 	readonly root: DatabaseReference<
-		MetaTypeCreator<T['root'], T['rootName'], T['root']>,
-		null
+		MetaTypeCreator<T['root'], T['rootPath'], T['root']>,
+		undefined
 	>
 }
 export declare interface Query<
 	T extends MetaType,
-	U extends (keyof T['flattenRoot'] & string) | null // null =  root
+	U extends (keyof T['flattenRoot'] & string) | undefined // null =  root
 > {
 	/** The `DatabaseReference` for the `Query`'s location. */
 	readonly ref: DatabaseReference<
@@ -41,7 +41,7 @@ export declare interface Query<
 			U extends keyof T['flattenRoot'] & string
 				? T['flattenRoot'][U]
 				: T['root'],
-			T['rootName'],
+			T['rootPath'],
 			T['root']
 		>,
 		U
@@ -108,11 +108,11 @@ export declare interface Query<
 // 	readonly parent: IsEqual<T['root'], T['base']> extends true
 // 		? null
 // 		: DatabaseReference_<
-// 				MetaTypeCreator<FindParentType<T, U>, T['rootName'], T['root']>
+// 				MetaTypeCreator<FindParentType<T, U>, T['rootPath'], T['root']>
 // 		  >
 // 	/** The root `DatabaseReference` of the Database. */
 // 	readonly root: DatabaseReference_<
-// 		MetaTypeCreator<T['root'], T['rootName'], T['root']>
+// 		MetaTypeCreator<T['root'], T['rootPath'], T['root']>
 // 	>
 // }
 // export declare interface Query_<T extends MetaType> {
