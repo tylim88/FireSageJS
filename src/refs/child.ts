@@ -4,14 +4,12 @@ export const childCreator =
 	<T extends MetaType>() =>
 	<
 		S extends DatabaseReference<T, keyof T['flattenRoot'] & string>,
-		U extends `${T['rootName']}/${keyof T['flattenRoot'] & string}`
-	>(
-		parent: S,
-		path: U extends never
-			? U
-			: S extends DatabaseReference<T, infer Y>
+		U extends S extends DatabaseReference<T, infer Y>
 			? FindAllChildKeys<T, Y>
 			: never
+	>(
+		parent: S,
+		path: U
 	) => {
 		return child(parent, path) as DatabaseReference<
 			T,

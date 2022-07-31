@@ -1,9 +1,13 @@
 import { getDatabase } from 'firebase/database'
-import { Database } from './types'
+import { Database, MetaType } from './types'
+import { refCreator, childCreator } from './refs'
 
-export const getFiresage = (db?: Database) => {
+export const getFiresage = <T extends MetaType>(db?: Database) => {
 	const DB = db || getDatabase()
-	return {}
+	return {
+		ref: refCreator<T>(DB),
+		child: childCreator<T>(),
+	}
 }
 
 export {

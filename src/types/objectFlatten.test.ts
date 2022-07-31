@@ -20,6 +20,7 @@ describe('test object flatten type', () => {
 							}
 							'f/g': null
 						}
+						h: Record<string, boolean>
 						'd/e': 'abc'
 						'd/f': {
 							g: null
@@ -39,6 +40,7 @@ describe('test object flatten type', () => {
 						g: null
 					}
 					'b/d/f/g': null
+					'b/h': Record<string, boolean>
 				}
 			>
 		>

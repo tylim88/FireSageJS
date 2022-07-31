@@ -1,9 +1,8 @@
 import { MetaType, MetaTypeCreator } from './metaTypeCreator'
 import { FindParentType, GetLastPart, FindParentKey } from './findParentType'
-import { IsEqual } from './utils'
 export declare interface DatabaseReference<
 	T extends MetaType,
-	U extends keyof T['flattenRoot'] & string
+	U extends keyof T['flattenRoot'] & string = never
 > extends Query<T, U> {
 	/**
 	 * The last part of the `DatabaseReference`'s path.
@@ -13,15 +12,13 @@ export declare interface DatabaseReference<
 	 *
 	 * The key of a root `DatabaseReference` is `null`.
 	 */
-	readonly key: IsEqual<T['root'], T['base']> extends true
-		? null
-		: GetLastPart<U>
+	readonly key: U[] extends never[] ? null : GetLastPart<U>
 	/**
 	 * The parent location of a `DatabaseReference`.
 	 *
 	 * The parent of a root `DatabaseReference` is `null`.
 	 */
-	readonly parent: IsEqual<T['root'], T['base']> extends true
+	readonly parent: U[] extends never[]
 		? null
 		: DatabaseReference<
 				MetaTypeCreator<FindParentType<T, U>, T['rootName'], T['root']>,

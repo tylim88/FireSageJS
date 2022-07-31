@@ -15,15 +15,17 @@ export type GetNumberOfSlash<ID extends string> = GetNumberOfInvalidCharacter<
 
 export type RemoveRootName<
 	T extends MetaType,
-	U extends `${T['rootName']}/${keyof T['flattenRoot'] & string}`
-> = U extends `${T['rootName']}/${infer R}`
+	U extends
+		| T['rootName']
+		| `${T['rootName']}/${keyof T['flattenRoot'] & string}`
+> = U[] extends `${T['rootName']}/${infer R}`[]
 	? R & keyof T['flattenRoot'] & string
 	: never
 
 export type GetLastTwoSegment<U extends `${string}/${string}`> =
 	GetNumberOfSlash<U> extends 1
 		? U
-		: U extends `${string}/${infer R extends `${string}/${string}`}`
+		: U[] extends `${string}/${infer R extends `${string}/${string}`}`[]
 		? GetLastTwoSegment<R>
 		: never
 
@@ -37,10 +39,10 @@ export type RemoveLastSegment<
 	U extends string,
 	ACC extends `${string}/${string}` = never
 > = GetNumberOfSlash<U> extends 0
-	? ACC extends `${infer P}/`
+	? ACC extends `${infer P}/` // ! write article about ACC[] extends `${infer P}/`[]
 		? P
 		: never
-	: U extends `${infer S}/${infer R}`
+	: U[] extends `${infer S}/${infer R}`[]
 	? RemoveLastSegment<R, ACC[] extends never[] ? `${S}/` : `${ACC}${S}/`>
 	: never
 
