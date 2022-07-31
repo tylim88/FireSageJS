@@ -5,6 +5,7 @@ import {
 	FindParentKey,
 	FindParentType,
 	RemoveRootName,
+	FindAllChildKeys,
 } from './findParentType'
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
@@ -69,5 +70,15 @@ describe('test', () => {
 		IsTrue<IsSame<B, Users['flattenRoot']['b']>>()
 		IsTrue<IsSame<C, Users['flattenRoot']['b']>>()
 		IsTrue<IsSame<D, Users['flattenRoot']['b/d/f']>>()
+	})
+	it('test Find All Child Keys', () => {
+		type A = FindAllChildKeys<Users, 'a'>
+		type B = FindAllChildKeys<Users, 'b/c'>
+		type C = FindAllChildKeys<Users, 'b/d'>
+		type D = FindAllChildKeys<Users, 'b/d/f/g'>
+		IsTrue<IsSame<A, never>>()
+		IsTrue<IsSame<B, never>>()
+		IsTrue<IsSame<C, 'b/d/e' | 'b/d/f' | 'b/d/f/g'>>()
+		IsTrue<IsSame<D, never>>()
 	})
 })

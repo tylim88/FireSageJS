@@ -55,3 +55,12 @@ export type FindParentType<
 > = RemoveLastSegment<U> extends never
 	? T['root']
 	: T['flattenRoot'][FindParentKey<T, U> & keyof T['flattenRoot']]
+
+export type FindAllChildKeys<
+	T extends MetaType,
+	U extends keyof T['flattenRoot'] & string
+> = keyof T['flattenRoot'] extends infer R
+	? R extends `${U}/${string}`
+		? R
+		: never
+	: never
