@@ -51,8 +51,8 @@ export type FindParentType<
 
 export type FindAllChildKeys<
 	T extends MetaType,
-	U extends (keyof T['flattenRoot'] & string) | null
-> = U[] extends null[]
+	U extends (keyof T['flattenRoot'] & string) | undefined
+> = U[] extends undefined[]
 	? keyof T['flattenRoot'] & string
 	: keyof T['flattenRoot'] & string extends infer R
 	? R extends `${U}/${infer S}`

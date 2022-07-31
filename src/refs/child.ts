@@ -22,7 +22,13 @@ export const childCreator =
 		return child(parent, path) as DatabaseReference<
 			T,
 			S extends DatabaseReference<T, infer Y>
-				? `${Y}/${U}` & keyof T['flattenRoot'] & string
+				? `${Y}/${U}` extends keyof T['flattenRoot'] & string
+					? `${Y}/${U}`
+					: Y[] extends undefined[]
+					? U extends keyof T['flattenRoot'] & string
+						? U
+						: never
+					: never
 				: never
 		>
 	}
