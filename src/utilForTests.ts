@@ -16,3 +16,7 @@ export type Users = MetaTypeCreator<{
 }>
 
 export const usersCreator = getFiresage<Users>()
+
+export const generateRandomData = () => {
+	return
+}

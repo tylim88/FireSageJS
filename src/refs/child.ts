@@ -4,7 +4,9 @@ import {
 	DatabaseReference,
 	FindAllChildKeys,
 	ErrorHasNoChild,
+	GetFullPath,
 } from '../types'
+
 export const childCreator =
 	<T extends MetaType>() =>
 	<
@@ -21,14 +23,6 @@ export const childCreator =
 	) => {
 		return child(parent, path) as DatabaseReference<
 			T,
-			S extends DatabaseReference<T, infer Y>
-				? `${Y}/${U}` extends keyof T['flattenRoot'] & string
-					? `${Y}/${U}`
-					: Y[] extends undefined[]
-					? U extends keyof T['flattenRoot'] & string
-						? U
-						: never
-					: never
-				: never
+			S extends DatabaseReference<T, infer Y> ? GetFullPath<T, Y, U> : never
 		>
 	}

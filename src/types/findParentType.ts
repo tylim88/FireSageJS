@@ -59,3 +59,15 @@ export type FindAllChildKeys<
 		? S
 		: never
 	: never
+
+export type GetFullPath<
+	T extends MetaType,
+	Y extends (keyof T['flattenRoot'] & string) | undefined,
+	U extends string
+> = `${Y}/${U}` extends keyof T['flattenRoot'] & string
+	? `${Y}/${U}`
+	: Y[] extends undefined[]
+	? U extends keyof T['flattenRoot'] & string
+		? U
+		: never
+	: never
