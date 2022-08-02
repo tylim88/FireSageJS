@@ -12,9 +12,9 @@ export const update = <
 	U extends (keyof T['flattenRoot'] & string) | undefined
 >(
 	ref: DatabaseReference<T, U>,
-	value: {
+	value: Partial<{
 		[K in FindAllChildKeys<T, U>]: FindNestedType<T, GetFullPath<T, U, K>>
-	}
+	}>
 ) => {
 	return update_(ref, value)
 }

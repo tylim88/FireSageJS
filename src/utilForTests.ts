@@ -8,7 +8,7 @@ import { get } from './operations'
 export const initializeApp = () => {
 	const env = process.env
 	const config = {
-		projectId: env.PROJECT_ID,
+		projectId: env.PROJECT_ID!,
 	}
 	return initializeApp_(config)
 }
