@@ -26,9 +26,9 @@ describe('test set and get', () => {
 			// @ts-expect-error
 			set(ref, data['b']['d']['f']['j'])
 			// @ts-expect-error
-			set(ref, data['b']['h'])
-			// @ts-expect-error
 			set(ref, data['b']['h']['string']!)
+			// @ts-expect-error
+			set(ref, data['b']['h']['string']!['i'])
 		}
 	})
 	it('test "a" node', async () => {
@@ -46,9 +46,9 @@ describe('test set and get', () => {
 			// @ts-expect-error
 			set(ref, data['b']['d']['f']['j'])
 			// @ts-expect-error
-			set(ref, data['b']['h'])
-			// @ts-expect-error
 			set(ref, data['b']['h']['string']!)
+			// @ts-expect-error
+			set(ref, data['b']['h']['string']!['i'])
 		}
 	})
 	it('test "b/c" node', async () => {
@@ -66,9 +66,9 @@ describe('test set and get', () => {
 			// @ts-expect-error
 			set(ref, data['b']['d']['f']['j'])
 			// @ts-expect-error
-			set(ref, data['b']['h'])
-			// @ts-expect-error
 			set(ref, data['b']['h']['string']!)
+			// @ts-expect-error
+			set(ref, data['b']['h']['string']!['i'])
 		}
 	})
 	it('test "b/d" node', async () => {
@@ -86,9 +86,9 @@ describe('test set and get', () => {
 			// @ts-expect-error
 			set(ref, data['b']['d']['f']['j'])
 			// @ts-expect-error
-			set(ref, data['b']['h'])
-			// @ts-expect-error
 			set(ref, data['b']['h']['string']!)
+			// @ts-expect-error
+			set(ref, data['b']['h']['string']!['i'])
 		}
 	})
 	it('test "b/d/f/j" node', async () => {
@@ -105,29 +105,9 @@ describe('test set and get', () => {
 			// @ts-expect-error
 			set(ref, data)
 			// @ts-expect-error
-			set(ref, data['b']['h'])
-			// @ts-expect-error
 			set(ref, data['b']['h']['string']!)
-		}
-	})
-	it('test "b/h" node', async () => {
-		const ref = users.ref('b/h')
-		const data = generateRandomData().data
-		await set(ref, data['b']['h'])
-		await readAndExpect(data, ref, 'b/h')
-		;() => {
 			// @ts-expect-error
-			set(ref, data['a'])
-			// @ts-expect-error
-			set(ref, data['b']['c'])
-			// @ts-expect-error
-			set(ref, data['b']['d'])
-			// @ts-expect-error
-			set(ref, data['b']['d']['f']['j'])
-			// @ts-expect-error
-			set(ref, data)
-			// @ts-expect-error
-			set(ref, data['b']['h']['string']!)
+			set(ref, data['b']['h']['string']!['i'])
 		}
 	})
 	it('test "b/h/string" node', async () => {
@@ -140,15 +120,35 @@ describe('test set and get', () => {
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
+			// @ts-expect-error
+			set(ref, data['b']['c'])
+			// @ts-expect-error
+			set(ref, data['b']['d'])
+			// @ts-expect-error
+			set(ref, data['b']['d']['f']['j'])
+			set(ref, data['b']['h']['string']!)
+			// @ts-expect-error
+			set(ref, data['b']['h']['string']!['i'])
+		}
+	})
+	it('test "b/h/string/i" node', async () => {
+		const rand = generateRandomData()
+		const randString = rand.randString
+		const data = rand.data
+		const ref = users.ref(`b/h/${randString}/i`)
+		await set(ref, data['b']['h'][randString]!['i'])
+		await readAndExpect(data, ref, `b/h/${randString}/i`)
+		;() => {
+			// @ts-expect-error
+			set(ref, data['a'])
 			set(ref, data['b']['c']) // no error because 'c' is true and 'b/h/string' is boolean
 			// @ts-expect-error
 			set(ref, data['b']['d'])
 			// @ts-expect-error
 			set(ref, data['b']['d']['f']['j'])
 			// @ts-expect-error
-			set(ref, data['b']['h'])
-			// @ts-expect-error
-			set(ref, data)
+			set(ref, data['b']['h']['string']!)
+			set(ref, data['b']['h']['string']!['i'])
 		}
 	})
 
@@ -167,9 +167,9 @@ describe('test set and get', () => {
 			// @ts-expect-error
 			set(ref, data['b']['d']['f']['j'])
 			// @ts-expect-error
-			set(ref, data['b']['h'])
-			// @ts-expect-error
 			set(ref, data['b']['h']['string']!)
+			// @ts-expect-error
+			set(ref, data['b']['h']['string']!['i'])
 		}
 	})
 	it('test "b/c" node', async () => {
@@ -187,9 +187,9 @@ describe('test set and get', () => {
 			// @ts-expect-error
 			set(ref, data['b']['d']['f']['j'])
 			// @ts-expect-error
-			set(ref, data['b']['h'])
-			// @ts-expect-error
 			set(ref, data['b']['h']['string']!)
+			// @ts-expect-error
+			set(ref, data['b']['h']['string']!['i'])
 		}
 	})
 	it('test "b/d" node', async () => {
@@ -207,9 +207,9 @@ describe('test set and get', () => {
 			// @ts-expect-error
 			set(ref, data['b']['d']['f']['j'])
 			// @ts-expect-error
-			set(ref, data['b']['h'])
-			// @ts-expect-error
 			set(ref, data['b']['h']['string']!)
+			// @ts-expect-error
+			set(ref, data['b']['h']['string']!['i'])
 		}
 	})
 	it('test "b/d/f/j" node', async () => {
@@ -226,16 +226,18 @@ describe('test set and get', () => {
 			// @ts-expect-error
 			set(ref, data)
 			// @ts-expect-error
-			set(ref, data['b']['h'])
-			// @ts-expect-error
 			set(ref, data['b']['h']['string']!)
+			// @ts-expect-error
+			set(ref, data['b']['h']['string']!['i'])
 		}
 	})
-	it('test "b/h" node', async () => {
-		const ref = users.child(users.ref(), 'b/h')
-		const data = generateRandomData().data
-		await set(ref, data['b']['h'])
-		await readAndExpect(data, ref, 'b/h')
+	it('test "b/h/string" node', async () => {
+		const rand = generateRandomData()
+		const randString = rand.randString
+		const data = rand.data
+		const ref = users.child(users.ref(), `b/h/${randString}`)
+		await set(ref, data['b']['h'][randString]!)
+		await readAndExpect(data, ref, `b/h/${randString}`)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
@@ -245,19 +247,18 @@ describe('test set and get', () => {
 			set(ref, data['b']['d'])
 			// @ts-expect-error
 			set(ref, data['b']['d']['f']['j'])
-			// @ts-expect-error
-			set(ref, data)
-			// @ts-expect-error
 			set(ref, data['b']['h']['string']!)
+			// @ts-expect-error
+			set(ref, data['b']['h']['string']!['i'])
 		}
 	})
-	it('test "b/h/string" node', async () => {
+	it('test "b/h/string/i" node', async () => {
 		const rand = generateRandomData()
 		const randString = rand.randString
 		const data = rand.data
-		const ref = users.child(users.ref(`b`), `h/${randString}`)
-		await set(ref, data['b']['h'][randString]!)
-		await readAndExpect(data, ref, `b/h/${randString}`)
+		const ref = users.child(users.ref(`b`), `h/${randString}/i`)
+		await set(ref, data['b']['h'][randString]!['i'])
+		await readAndExpect(data, ref, `b/h/${randString}/i`)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
@@ -267,9 +268,8 @@ describe('test set and get', () => {
 			// @ts-expect-error
 			set(ref, data['b']['d']['f']['j'])
 			// @ts-expect-error
-			set(ref, data['b']['h'])
-			// @ts-expect-error
-			set(ref, data)
+			set(ref, data['b']['h']['string']!)
+			set(ref, data['b']['h']['string']!['i'])
 		}
 	})
 })
