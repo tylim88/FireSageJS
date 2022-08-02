@@ -1,3 +1,4 @@
+export type RemoveLastSlash<T extends string> = T extends `${infer R}/` ? R : T
 // https://javascript.plainenglish.io/using-firestore-with-more-typescript-8058b6a88674
 type DeepKeyHybridInner<
 	T,
@@ -6,15 +7,14 @@ type DeepKeyHybridInner<
 > = K extends string
 	? T[K] extends Record<string, unknown>
 		? Mode extends 'write'
-			? K | `${K}/${DeepKeyHybridInner<T[K], keyof T[K], Mode>}`
+			? `${K}/` | `${K}/${DeepKeyHybridInner<T[K], keyof T[K], Mode>}`
 			: `${K}/${DeepKeyHybridInner<T[K], keyof T[K], Mode>}`
-		: K
+		: `${K}/`
 	: never // impossible route
 
-export type DeepKeyHybrid<
-	T,
-	Mode extends 'read' | 'write'
-> = DeepKeyHybridInner<T, keyof T, Mode>
+export type DeepKeyHybrid<T, Mode extends 'read' | 'write'> = RemoveLastSlash<
+	DeepKeyHybridInner<T, keyof T, Mode>
+>
 
 type DeepValueHybrid<
 	T,
