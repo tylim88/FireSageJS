@@ -1,10 +1,10 @@
 import { get as get_ } from 'firebase/database'
 import { DatabaseReference, MetaType, DataSnapshot } from '../types'
 
-// get is tested together with set
+// get runtime is tested together with set and update
 export const get = <
 	T extends MetaType,
-	U extends keyof T['flattenRoot'] & string
+	U extends (keyof T['flattenRoot'] & string) | undefined
 >(
 	ref: DatabaseReference<T, U>
 ) => {

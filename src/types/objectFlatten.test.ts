@@ -1,45 +1,51 @@
 import { ObjectFlattenHybrid } from './objectFlatten'
 import { IsEqual, IsTrue } from './utils'
 import { Users } from '../utilForTests'
+import { ReplaceInvalidData } from './replaceInvalidData'
+
 describe('test object flatten type', () => {
 	it('positive test 1', () => {
 		type A = Users['root']
-		type B = ObjectFlattenHybrid<A>
+		type B = ObjectFlattenHybrid<ReplaceInvalidData<A>>
 
 		IsTrue<
 			IsEqual<
 				B,
 				{
-					a: 1
+					a: 1 | 2 | 3
 					b: {
 						c: true
 						d: {
 							e: 'abc'
 							f: {
-								g: null
+								j: number
 							}
-							'f/g': null
+							'f/j': number
+							k: string
 						}
 						h: Record<string, boolean>
 						'd/e': 'abc'
 						'd/f': {
-							g: null
+							j: number
 						}
-						'd/f/g': null
+						'd/f/j': number
+						'd/k': string
 					}
 					'b/c': true
 					'b/d': {
 						e: 'abc'
 						f: {
-							g: null
+							j: number
 						}
-						'f/g': null
+						'f/j': number
+						k: string
 					}
 					'b/d/e': 'abc'
 					'b/d/f': {
-						g: null
+						j: number
 					}
-					'b/d/f/g': null
+					'b/d/f/j': number
+					'b/d/k': string
 					'b/h': Record<string, boolean>
 				}
 			>

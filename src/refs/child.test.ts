@@ -19,7 +19,7 @@ describe('test ref', () => {
 				''
 			)
 			const d = child(
-				ref('b/d/f/g'),
+				ref('b/d/f/j'),
 				// @ts-expect-error
 				''
 			)

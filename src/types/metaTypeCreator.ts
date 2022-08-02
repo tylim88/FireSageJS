@@ -1,4 +1,5 @@
 import { ObjectFlattenHybrid } from './objectFlatten'
+import { ReplaceInvalidData } from './replaceInvalidData'
 
 export type MetaType = {
 	base: unknown
@@ -8,8 +9,8 @@ export type MetaType = {
 }
 
 export type MetaTypeCreator<Base, Root = Base> = {
-	root: Root
-	base: Base
-	flattenRoot: ObjectFlattenHybrid<Root>
-	flattenBase: ObjectFlattenHybrid<Base>
+	root: ReplaceInvalidData<Root>
+	base: ReplaceInvalidData<Base>
+	flattenRoot: ObjectFlattenHybrid<ReplaceInvalidData<Root>>
+	flattenBase: ObjectFlattenHybrid<ReplaceInvalidData<Base>>
 }

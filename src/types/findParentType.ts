@@ -30,7 +30,7 @@ export type RemoveLastSegment<
 	U extends string,
 	ACC extends `${string}/${string}` = never
 > = GetNumberOfSlash<U> extends 0
-	? ACC extends `${infer P}/` // ! write article about ACC[] extends `${infer P}/`[]
+	? ACC extends `${infer P}/` // ! write article about <ACC[] extends `${infer P}/`[]>, the P become string
 		? P
 		: never
 	: U[] extends `${infer S}/${infer R}`[]
@@ -70,4 +70,16 @@ export type GetFullPath<
 	? U extends keyof T['flattenRoot'] & string
 		? U
 		: never
+	: never
+
+export type FindNestedType<
+	T extends MetaType,
+	U extends string | undefined,
+	ACC extends T['flattenRoot'] = T['root']
+> = U[] extends undefined[]
+	? T['root']
+	: U extends `${infer R extends keyof ACC & string}/${infer S}`
+	? FindNestedType<T, S, ACC[R]>
+	: U extends keyof ACC & string
+	? ACC[U]
 	: never

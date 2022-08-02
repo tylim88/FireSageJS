@@ -1,12 +1,13 @@
 import { ref } from 'firebase/database'
 import { MetaType, Database, DatabaseReference } from '../types'
-import { isDatabase } from '../utils'
+import { isDatabase, isString } from '../utils'
 
 export const refCreator =
 	<T extends MetaType>(database: Database): Ref<T> =>
 	(db?: Database, path?: string) => {
 		const db_ = isDatabase(db) ? db : database
-		return ref(db_, path) as DatabaseReference<
+		const path_ = isString(db) ? db : path
+		return ref(db_, path_) as DatabaseReference<
 			T,
 			//  eslint-disable-next-line @typescript-eslint/no-explicit-any
 			any

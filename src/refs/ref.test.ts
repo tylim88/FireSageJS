@@ -8,7 +8,7 @@ describe('test ref', () => {
 		const a = ref()
 		const b = ref('a')
 		const c = ref('b')
-		const d = ref('b/d/f/g')
+		const d = ref('b/d/f/j')
 		const e = ref('b/h')
 
 		type A = typeof a
@@ -20,7 +20,7 @@ describe('test ref', () => {
 		IsTrue<IsEqual<A, DatabaseReference<Users, undefined>>>()
 		IsTrue<IsEqual<B, DatabaseReference<Users, 'a'>>>()
 		IsTrue<IsEqual<C, DatabaseReference<Users, 'b'>>>()
-		IsTrue<IsEqual<D, DatabaseReference<Users, 'b/d/f/g'>>>()
+		IsTrue<IsEqual<D, DatabaseReference<Users, 'b/d/f/j'>>>()
 		IsTrue<IsEqual<E, DatabaseReference<Users, 'b/h'>>>()
 
 		type A_key = A['key']
@@ -32,7 +32,7 @@ describe('test ref', () => {
 		IsTrue<IsEqual<A_key, null>>()
 		IsTrue<IsEqual<B_key, 'a'>>()
 		IsTrue<IsEqual<C_key, 'b'>>()
-		IsTrue<IsEqual<D_key, 'g'>>()
+		IsTrue<IsEqual<D_key, 'j'>>()
 		IsTrue<IsEqual<E_key, 'h'>>()
 
 		type A_parent = A['parent']
