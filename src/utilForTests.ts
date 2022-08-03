@@ -26,7 +26,7 @@ export type Users = MetaTypeCreator<{
 	a: 1 | 2 | 3
 	b: {
 		c: true
-		d: { e: 'abc'; f: { j: number }; k: string }
+		d: { e: 'abc' | 'xyz' | 'efg'; f: { j: number }; k: string }
 		h: Record<string, { i: boolean }>
 	}
 }>
@@ -46,7 +46,7 @@ export const generateRandomData = (): {
 			b: {
 				c: true,
 				d: {
-					e: 'abc',
+					e: pick(['abc', 'xyz', 'efg'] as const)[0]!,
 					f: { j: Math.random() },
 					k: v4(),
 				},

@@ -50,7 +50,7 @@ describe('test object flatten type', () => {
 					b: {
 						c: true
 						d: {
-							e: 'abc'
+							e: 'abc' | 'xyz' | 'efg'
 							f: {
 								j: number
 							}
@@ -60,7 +60,7 @@ describe('test object flatten type', () => {
 						h: Record<string, { i: boolean }>
 						[x: `h/${string}`]: { i: boolean }
 						[x: `h/${string}/i`]: boolean
-						'd/e': 'abc'
+						'd/e': 'abc' | 'xyz' | 'efg'
 						'd/f': {
 							j: number
 						}
@@ -69,14 +69,14 @@ describe('test object flatten type', () => {
 					}
 					'b/c': true
 					'b/d': {
-						e: 'abc'
+						e: 'abc' | 'xyz' | 'efg'
 						f: {
 							j: number
 						}
 						'f/j': number
 						k: string
 					}
-					'b/d/e': 'abc'
+					'b/d/e': 'abc' | 'xyz' | 'efg'
 					'b/d/f': {
 						j: number
 					}
