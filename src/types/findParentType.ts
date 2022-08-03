@@ -6,7 +6,7 @@ export type GetNumberOfSlash<ID extends string> = GetNumberOfCharacter<ID, '/'>
 export type GetLastTwoSegment<U extends `${string}/${string}`> =
 	GetNumberOfSlash<U> extends 1
 		? U
-		: U[] extends `${string}/${infer R extends `${string}/${string}`}`[]
+		: U extends `${string}/${infer R extends `${string}/${string}`}`
 		? GetLastTwoSegment<R>
 		: never
 
@@ -23,7 +23,7 @@ export type RemoveLastSegment<
 	? ACC extends `${infer P}/` // ! write article about <ACC[] extends `${infer P}/`[]>, the P become string
 		? P
 		: never
-	: U[] extends `${infer S}/${infer R}`[]
+	: U extends `${infer S}/${infer R}`
 	? RemoveLastSegment<R, ACC[] extends never[] ? `${S}/` : `${ACC}${S}/`>
 	: never
 
@@ -65,7 +65,7 @@ export type GetFullPath<
 > = `${ParentFullPath}/${ChildRelativePath}` extends keyof T['flattenRoot'] &
 	string
 	? `${ParentFullPath}/${ChildRelativePath}`
-	: ParentFullPath[] extends undefined[]
+	: ParentFullPath extends undefined
 	? ChildRelativePath extends keyof T['flattenRoot'] & string
 		? ChildRelativePath
 		: never
@@ -75,7 +75,7 @@ export type FindNestedType<
 	T extends MetaType,
 	U extends string | undefined,
 	ACC extends T['flattenRoot'] = T['root']
-> = U[] extends undefined[]
+> = U extends undefined
 	? T['root']
 	: U extends `${infer R extends keyof ACC & string}/${infer S}`
 	? FindNestedType<T, S, ACC[R]>
