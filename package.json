@@ -1,5 +1,5 @@
 {
-	"name": "firesage",
+	"name": "firesagejs",
 	"version": "0.0.0",
 	"description": "🔥Write type safe and scalable Firebase Realtime Database code!",
 	"source": "src/index.ts",
@@ -19,7 +19,7 @@
 		"test": "firebase emulators:exec --only firestore \"rm -rf coverage && jest\"",
 		"parcel": "npm un firebase && npm i firebase && rm -rf dist && tsc --emitDeclarationOnly true && parcel build && npm i -D firebase",
 		"build": "rm -rf dist && tsc",
-		"link": "npm unlink firesage && npm link && npm link firesage",
+		"link": "npm unlink firesagejs && npm link && npm link firesagejs",
 		"babel": "babel-node -x .ts -- src/fieldPath/documentId.ts",
 		"jest": "jest src/operations/update.test.ts",
 		"commit": "git commit --no-verify",
@@ -39,13 +39,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/tylim88/firesage.git"
+		"url": "git+https://github.com/tylim88/firesagejs.git"
 	},
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/tylim88/firesage/issues"
+		"url": "https://github.com/tylim88/firesagejs/issues"
 	},
-	"homepage": "https://firesage.com",
+	"homepage": "https://firesagejs.com",
 	"keywords": [
 		"firebase",
 		"firestore",
