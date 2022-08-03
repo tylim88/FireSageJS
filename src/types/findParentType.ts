@@ -1,17 +1,7 @@
 import { MetaType } from './metaTypeCreator'
+import { GetNumberOfCharacter } from './utils'
 
-export type GetNumberOfInvalidCharacter<
-	ID extends string,
-	InvalidCharacter extends string,
-	SlashCount extends unknown[] = []
-> = ID extends `${string}${InvalidCharacter}${infer Tail}`
-	? GetNumberOfInvalidCharacter<Tail, InvalidCharacter, [1, ...SlashCount]>
-	: SlashCount['length']
-
-export type GetNumberOfSlash<ID extends string> = GetNumberOfInvalidCharacter<
-	ID,
-	'/'
->
+export type GetNumberOfSlash<ID extends string> = GetNumberOfCharacter<ID, '/'>
 
 export type GetLastTwoSegment<U extends `${string}/${string}`> =
 	GetNumberOfSlash<U> extends 1
