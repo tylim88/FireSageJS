@@ -1,12 +1,19 @@
 import { ObjectFlattenHybrid } from './objectFlatten'
-import { ReplaceInvalidData } from './replaceInvalidData'
+import { ReplaceInvalidDataType } from './replaceInvalidData'
+import { ReadTypeConverter } from './readTypeConverter'
 
 export type MetaType = {
 	root: unknown
 	flattenRoot: unknown
+	read: unknown
+	flattenRead: unknown
 }
 
 export type MetaTypeCreator<Base, Root = Base> = {
-	root: ReplaceInvalidData<Root>
-	flattenRoot: ObjectFlattenHybrid<ReplaceInvalidData<Root>>
+	root: ReplaceInvalidDataType<Root>
+	flattenRoot: ObjectFlattenHybrid<ReplaceInvalidDataType<Root>>
+	read: ReplaceInvalidDataType<ReadTypeConverter<Root>>
+	flattenRead: ObjectFlattenHybrid<
+		ReplaceInvalidDataType<ReadTypeConverter<Root>>
+	>
 }

@@ -1,7 +1,7 @@
 import { ObjectFlattenHybrid, DeepKeyHybrid } from './objectFlatten'
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
-import { ReplaceInvalidData } from './replaceInvalidData'
+import { ReplaceInvalidDataType } from './replaceInvalidData'
 
 describe('test object flatten type', () => {
 	it('test DeepKeyHybrid', () => {
@@ -39,7 +39,7 @@ describe('test object flatten type', () => {
 	})
 	it('positive complex data structure', () => {
 		type A = Users['root']
-		type B = ObjectFlattenHybrid<ReplaceInvalidData<A>>
+		type B = ObjectFlattenHybrid<ReplaceInvalidDataType<A>>
 
 		IsTrue<
 			IsSame<
