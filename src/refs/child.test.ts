@@ -1,17 +1,16 @@
 import { usersCreator, initializeApp, Users } from '../utilForTests'
 import { IsEqual, IsTrue, DatabaseReference } from '../types'
-
+import { child } from './child'
 initializeApp()
 const ref = usersCreator().ref
-const child = usersCreator().child
 describe('test ref', () => {
 	it('test return type', () => {
 		expect(() => {
 			const a = child(ref(), 'b/c')
 			const b = child(
-				ref('a'),
+				ref(),
 				// @ts-expect-error
-				''
+				undefined
 			)
 			const c = child(
 				ref('b/c'),
@@ -34,7 +33,7 @@ describe('test ref', () => {
 			type F = typeof f
 
 			IsTrue<IsEqual<A, DatabaseReference<Users, 'b/c'>>>()
-			IsTrue<IsEqual<B, DatabaseReference<Users, never>>>()
+			IsTrue<IsEqual<B, DatabaseReference<Users, keyof Users['flattenRoot']>>>()
 			IsTrue<IsEqual<C, DatabaseReference<Users, never>>>()
 			IsTrue<IsEqual<D, DatabaseReference<Users, never>>>()
 			IsTrue<IsEqual<E, DatabaseReference<Users, 'b/h/anything'>>>()

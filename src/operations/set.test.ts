@@ -5,6 +5,7 @@ import {
 	initializeApp,
 	usersCreator,
 } from '../utilForTests'
+import { child } from '../refs'
 
 initializeApp()
 
@@ -153,7 +154,7 @@ describe('test set and get', () => {
 	})
 
 	it('test child "a" node', async () => {
-		const ref = users.child(users.ref(), 'a')
+		const ref = child(users.ref(), 'a')
 		const data = generateRandomData().data
 		await set(ref, data['a'])
 		await readAndExpect(data, ref, 'a')
@@ -173,7 +174,7 @@ describe('test set and get', () => {
 		}
 	})
 	it('test "b/c" node', async () => {
-		const ref = users.child(users.ref('b'), 'c')
+		const ref = child(users.ref('b'), 'c')
 		const data = generateRandomData().data
 		await set(ref, data['b']['c'])
 		await readAndExpect(data, ref, 'b/c')
@@ -193,7 +194,7 @@ describe('test set and get', () => {
 		}
 	})
 	it('test "b/d" node', async () => {
-		const ref = users.child(users.ref('b'), 'd')
+		const ref = child(users.ref('b'), 'd')
 		const data = generateRandomData().data
 		await set(ref, data['b']['d'])
 		await readAndExpect(data, ref, 'b/d')
@@ -213,7 +214,7 @@ describe('test set and get', () => {
 		}
 	})
 	it('test "b/d/f/j" node', async () => {
-		const ref = users.child(users.ref('b/d'), 'f/j')
+		const ref = child(users.ref('b/d'), 'f/j')
 		const data = generateRandomData().data
 		await set(ref, data['b']['d']['f']['j'])
 		await readAndExpect(data, ref, 'b/d/f/j')
@@ -235,7 +236,7 @@ describe('test set and get', () => {
 		const rand = generateRandomData()
 		const randString = rand.randString
 		const data = rand.data
-		const ref = users.child(users.ref(), `b/h/${randString}`)
+		const ref = child(users.ref(), `b/h/${randString}`)
 		await set(ref, data['b']['h'][randString]!)
 		await readAndExpect(data, ref, `b/h/${randString}`)
 		;() => {
@@ -256,7 +257,7 @@ describe('test set and get', () => {
 		const rand = generateRandomData()
 		const randString = rand.randString
 		const data = rand.data
-		const ref = users.child(users.ref(`b`), `h/${randString}/i`)
+		const ref = child(users.ref(`b`), `h/${randString}/i`)
 		await set(ref, data['b']['h'][randString]!['i'])
 		await readAndExpect(data, ref, `b/h/${randString}/i`)
 		;() => {
