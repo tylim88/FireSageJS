@@ -2,7 +2,7 @@ import { MetaType } from './metaTypeCreator'
 import { FindAllChildKeys, FindNestedType, GetFullPath } from './findParentType'
 import { ErrorHasNoChild, ErrorUnknownProperty } from './error'
 
-export type PartialButNoUndefined<
+export type PartialButNoUndefinedAndNoUnknown<
 	T extends MetaType,
 	U extends (keyof T['flattenRoot'] & string) | undefined,
 	Data extends Record<string, unknown>,

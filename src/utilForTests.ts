@@ -103,7 +103,7 @@ export const readAndExpectUpdate = async <
 	path: U extends never
 		? U
 		: string extends FindAllChildKeys<T['type'], T['path']>
-		? `${string}/`
+		? `${string}/` // some child key type is string and require differentiation
 		: U
 ) => {
 	const snapshot = await get(ref)
