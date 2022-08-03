@@ -1,4 +1,12 @@
-import { MetaType, MetaTypeCreator, DatabaseReference } from './types'
+import {
+	MetaType,
+	MetaTypeCreator,
+	DatabaseReference,
+	FindAllChildKeys,
+	ErrorHasNoChild,
+	FindNestedType,
+	RemoveLastSlash,
+} from './types'
 import { getFiresage } from '.'
 import { initializeApp as initializeApp_ } from 'firebase/app'
 import pick from 'pick-random'
@@ -51,22 +59,62 @@ export const generateRandomData = (): {
 }
 
 export const readAndExpect = async <
-	T extends MetaType,
-	U extends (keyof T['flattenRoot'] & string) | undefined
+	//  eslint-disable-next-line @typescript-eslint/no-explicit-any
+	S extends DatabaseReference<MetaType, any>,
+	T extends S extends DatabaseReference<infer I, infer Z>
+		? { type: I; path: Z }
+		: never
 >(
-	inputData: T['root'],
-	ref: DatabaseReference<T, U>,
-	path: U
+	inputData: T['type']['root'],
+	ref: S,
+	path: T['path']
 ) => {
 	const snapshot = await get(ref)
 	const data = snapshot.val()
+	// @ts-expect-error
 	const arr = path?.split('/') || []
+	// @ts-expect-error
 	const narrowedInputData = arr.reduce((acc, item) => {
-		// @ts-expect-error
 		return acc[item]
 	}, inputData)
 
 	expect(data).toEqual(narrowedInputData)
+
+	return snapshot
+}
+
+export const readAndExpectUpdate = async <
+	//  eslint-disable-next-line @typescript-eslint/no-explicit-any
+	S extends DatabaseReference<MetaType, any>,
+	T extends S extends DatabaseReference<infer I, infer Z>
+		? { type: I; path: Z }
+		: never,
+	U extends FindAllChildKeys<T['type'], T['path']> extends never
+		? ErrorHasNoChild<T['path']>
+		: FindAllChildKeys<T['type'], T['path']>
+>(
+	inputData: FindNestedType<
+		T['type'],
+		T['path'] extends undefined
+			? RemoveLastSlash<U>
+			: `${T['path']}/${RemoveLastSlash<U>}`
+	>,
+	ref: S,
+	path: U extends never
+		? U
+		: string extends FindAllChildKeys<T['type'], T['path']>
+		? `${string}/`
+		: U
+) => {
+	const snapshot = await get(ref)
+	const outputData = snapshot.val()
+	const arr = path?.split('/') || []
+	arr[arr.length - 1] === '' && arr.splice(-1, 1)
+	const narrowedOutputData = arr.reduce((acc, item) => {
+		// @ts-expect-error
+		return acc[item]
+	}, outputData)
+	expect(narrowedOutputData).toEqual(inputData)
 
 	return snapshot
 }

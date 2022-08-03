@@ -142,7 +142,7 @@ describe('test set and get', () => {
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
-			set(ref, data['b']['c']) // no error because 'c' is true and 'b/h/string' is boolean
+			set(ref, data['b']['c']) // no error because 'c' is true and 'b/h/string/i' is boolean
 			// @ts-expect-error
 			set(ref, data['b']['d'])
 			// @ts-expect-error
@@ -263,7 +263,7 @@ describe('test set and get', () => {
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
-			set(ref, data['b']['c']) // no error because 'c' is true and 'b/h/string' is boolean
+			set(ref, data['b']['c']) // no error because 'c' is true and 'b/h/string/i' is boolean
 			// @ts-expect-error
 			set(ref, data['b']['d'])
 			// @ts-expect-error

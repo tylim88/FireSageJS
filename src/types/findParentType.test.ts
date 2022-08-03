@@ -52,12 +52,14 @@ describe('test', () => {
 		type D = FindParentKey<Users, 'b/d/f/j'>
 		type E = FindParentKey<Users, `b/h/${string}`>
 		type F = FindParentKey<Users, `b/h/${string}/i`>
+		type G = FindParentKey<Users, `b/h`>
 		IsTrue<IsSame<A, never>>()
 		IsTrue<IsSame<B, null>>()
 		IsTrue<IsSame<C, 'b'>>()
 		IsTrue<IsSame<D, 'b/d/f'>>()
 		IsTrue<IsSame<E, 'b/h'>>()
 		IsTrue<IsSame<F, `b/h/${string}`>>()
+		IsTrue<IsSame<G, 'b'>>()
 	})
 
 	it('test Find Parent Type', () => {
@@ -67,12 +69,14 @@ describe('test', () => {
 		type D = FindParentType<Users, 'b/d/f/j'>
 		type E = FindParentType<Users, `b/h/${string}`>
 		type F = FindParentType<Users, `b/h/${string}/i`>
+		type G = FindParentType<Users, `b/h`>
 		IsTrue<IsSame<A, never>>()
 		IsTrue<IsSame<B, Users['root']>>()
 		IsTrue<IsSame<C, Users['flattenRoot']['b']>>()
 		IsTrue<IsSame<D, Users['flattenRoot']['b/d/f']>>()
 		IsTrue<IsSame<E, Users['flattenRoot']['b']['h']>>()
 		IsTrue<IsSame<F, Users['flattenRoot']['b']['h'][string]>>()
+		IsTrue<IsSame<G, Users['flattenRoot']['b']>>()
 	})
 	it('test Find All Child Keys', () => {
 		type A = FindAllChildKeys<Users, undefined>
@@ -81,12 +85,14 @@ describe('test', () => {
 		type D = FindAllChildKeys<Users, 'b/d/f/j'>
 		type E = FindAllChildKeys<Users, `b/h/${string}`>
 		type F = FindAllChildKeys<Users, `b/h/${string}/i`>
+		type G = FindAllChildKeys<Users, `b/h`>
 		IsTrue<IsSame<A, keyof Users['flattenRoot']>>()
 		IsTrue<IsSame<B, never>>()
 		IsTrue<IsSame<C, 'e' | 'f' | 'k' | 'f/j'>>()
 		IsTrue<IsSame<D, never>>()
 		IsTrue<IsSame<E, 'i'>>()
 		IsTrue<IsSame<F, never>>()
+		IsTrue<IsSame<G, string>>()
 	})
 
 	it('test Find All Child Keys', () => {
@@ -96,11 +102,13 @@ describe('test', () => {
 		type D = FindNestedType<Users, 'b/d/f/j'>
 		type E = FindNestedType<Users, `b/h/${string}`>
 		type F = FindNestedType<Users, `b/h/${string}/i`>
+		type G = FindNestedType<Users, `b/h`>
 		IsTrue<IsSame<A, Users['root']>>()
 		IsTrue<IsSame<B, Users['root']['a']>>()
 		IsTrue<IsSame<C, Users['root']['b']['d']>>()
 		IsTrue<IsSame<D, Users['root']['b']['d']['f']['j']>>()
 		IsTrue<IsSame<E, Users['root']['b']['h'][string]>>()
 		IsTrue<IsSame<F, Users['root']['b']['h'][string]['i']>>()
+		IsTrue<IsSame<G, Users['root']['b']['h']>>()
 	})
 })

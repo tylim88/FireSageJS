@@ -14,7 +14,7 @@ export const child = <
 		? { type: I; path: Z }
 		: never,
 	U extends FindAllChildKeys<T['type'], T['path']> extends never
-		? ErrorHasNoChild
+		? ErrorHasNoChild<T['path']>
 		: FindAllChildKeys<T['type'], T['path']>
 >(
 	parent: S,

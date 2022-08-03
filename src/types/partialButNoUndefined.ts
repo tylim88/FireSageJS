@@ -1,5 +1,6 @@
 import { MetaType } from './metaTypeCreator'
 import { FindAllChildKeys, FindNestedType, GetFullPath } from './findParentType'
+import { ErrorHasNoChild, ErrorUnknownProperty } from './error'
 
 export type PartialButNoUndefined<
 	T extends MetaType,
@@ -8,8 +9,10 @@ export type PartialButNoUndefined<
 	Type extends Record<string, unknown> = {
 		[K in FindAllChildKeys<T, U>]: FindNestedType<T, GetFullPath<T, U, K>>
 	}
-> = keyof Data extends keyof Type
+> = FindAllChildKeys<T, U> extends never
+	? ErrorHasNoChild<U>
+	: keyof Data & string extends keyof Type
 	? {
-			[K in keyof Data]: Type[K]
+			[K in keyof Data]: Type[K & keyof Type]
 	  }
-	: `unknown properties:${Exclude<keyof Data, keyof Type> & string}`
+	: ErrorUnknownProperty<Exclude<keyof Data, keyof Type> & string>

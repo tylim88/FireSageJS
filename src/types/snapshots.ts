@@ -48,7 +48,7 @@ export declare class DataSnapshot<
 	child<
 		T extends MetaType,
 		V extends FindAllChildKeys<T, U> extends never
-			? ErrorHasNoChild
+			? ErrorHasNoChild<U>
 			: FindAllChildKeys<T, U>
 	>(path: V): DataSnapshot<T, GetFullPath<T, U, V>>
 	/**
