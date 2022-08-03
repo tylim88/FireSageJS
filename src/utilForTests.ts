@@ -58,7 +58,7 @@ export const generateRandomData = (): {
 	}
 }
 
-export const readAndExpect = async <
+export const readAndExpectSet = async <
 	//  eslint-disable-next-line @typescript-eslint/no-explicit-any
 	S extends DatabaseReference<MetaType, any>,
 	T extends S extends DatabaseReference<infer I, infer Z>
