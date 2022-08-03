@@ -17,6 +17,7 @@ describe('test', () => {
 		type B = GetLastTwoSegment<'a/b'>
 		type C = GetLastTwoSegment<'a/b/c'>
 		type D = GetLastTwoSegment<'a/b/c/d'>
+		IsTrue<IsSame<A, never>>()
 		IsTrue<IsSame<B, 'a/b'>>()
 		IsTrue<IsSame<C, 'b/c'>>()
 		IsTrue<IsSame<D, 'c/d'>>()
@@ -45,14 +46,14 @@ describe('test', () => {
 	})
 
 	it('test Find Parent Key', () => {
-		type A = FindParentKey<Users, 'a'>
-		type B = FindParentKey<Users, 'b/c'>
+		type A = FindParentKey<Users, undefined>
+		type B = FindParentKey<Users, 'a'>
 		type C = FindParentKey<Users, 'b/d'>
 		type D = FindParentKey<Users, 'b/d/f/j'>
 		type E = FindParentKey<Users, `b/h/${string}`>
 		type F = FindParentKey<Users, `b/h/${string}/i`>
-		IsTrue<IsSame<A, null>>()
-		IsTrue<IsSame<B, 'b'>>()
+		IsTrue<IsSame<A, never>>()
+		IsTrue<IsSame<B, null>>()
 		IsTrue<IsSame<C, 'b'>>()
 		IsTrue<IsSame<D, 'b/d/f'>>()
 		IsTrue<IsSame<E, 'b/h'>>()
@@ -60,27 +61,27 @@ describe('test', () => {
 	})
 
 	it('test Find Parent Type', () => {
-		type A = FindParentType<Users, 'a'>
-		type B = FindParentType<Users, 'b/c'>
+		type A = FindParentType<Users, undefined>
+		type B = FindParentType<Users, 'a'>
 		type C = FindParentType<Users, 'b/d'>
 		type D = FindParentType<Users, 'b/d/f/j'>
 		type E = FindParentType<Users, `b/h/${string}`>
 		type F = FindParentType<Users, `b/h/${string}/i`>
-		IsTrue<IsSame<A, Users['root']>>()
-		IsTrue<IsSame<B, Users['flattenRoot']['b']>>()
+		IsTrue<IsSame<A, never>>()
+		IsTrue<IsSame<B, Users['root']>>()
 		IsTrue<IsSame<C, Users['flattenRoot']['b']>>()
 		IsTrue<IsSame<D, Users['flattenRoot']['b/d/f']>>()
 		IsTrue<IsSame<E, Users['flattenRoot']['b']['h']>>()
 		IsTrue<IsSame<F, Users['flattenRoot']['b']['h'][string]>>()
 	})
 	it('test Find All Child Keys', () => {
-		type A = FindAllChildKeys<Users, 'a'>
-		type B = FindAllChildKeys<Users, 'b/c'>
+		type A = FindAllChildKeys<Users, undefined>
+		type B = FindAllChildKeys<Users, 'a'>
 		type C = FindAllChildKeys<Users, 'b/d'>
 		type D = FindAllChildKeys<Users, 'b/d/f/j'>
 		type E = FindAllChildKeys<Users, `b/h/${string}`>
 		type F = FindAllChildKeys<Users, `b/h/${string}/i`>
-		IsTrue<IsSame<A, never>>()
+		IsTrue<IsSame<A, keyof Users['flattenRoot']>>()
 		IsTrue<IsSame<B, never>>()
 		IsTrue<IsSame<C, 'e' | 'f' | 'k' | 'f/j'>>()
 		IsTrue<IsSame<D, never>>()
@@ -89,14 +90,14 @@ describe('test', () => {
 	})
 
 	it('test Find All Child Keys', () => {
-		type A = FindNestedType<Users, 'a'>
-		type B = FindNestedType<Users, 'b/c'>
+		type A = FindNestedType<Users, undefined>
+		type B = FindNestedType<Users, 'a'>
 		type C = FindNestedType<Users, 'b/d'>
 		type D = FindNestedType<Users, 'b/d/f/j'>
 		type E = FindNestedType<Users, `b/h/${string}`>
 		type F = FindNestedType<Users, `b/h/${string}/i`>
-		IsTrue<IsSame<A, Users['root']['a']>>()
-		IsTrue<IsSame<B, Users['root']['b']['c']>>()
+		IsTrue<IsSame<A, Users['root']>>()
+		IsTrue<IsSame<B, Users['root']['a']>>()
 		IsTrue<IsSame<C, Users['root']['b']['d']>>()
 		IsTrue<IsSame<D, Users['root']['b']['d']['f']['j']>>()
 		IsTrue<IsSame<E, Users['root']['b']['h'][string]>>()

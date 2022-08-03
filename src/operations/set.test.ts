@@ -97,7 +97,7 @@ describe('test set and get', () => {
 		await set(ref, data['b']['d']['f']['j'])
 		await readAndExpect(data, ref, 'b/d/f/j')
 		;() => {
-			set(ref, data['a']) // no error because 'a' is numberic literal and 'j' is number
+			set(ref, data['a']) // no error because 'a' is numeric literal and 'j' is number
 			// @ts-expect-error
 			set(ref, data['b']['c'])
 			// @ts-expect-error
@@ -218,7 +218,7 @@ describe('test set and get', () => {
 		await set(ref, data['b']['d']['f']['j'])
 		await readAndExpect(data, ref, 'b/d/f/j')
 		;() => {
-			set(ref, data['a']) // no error because 'a' is numberic literal and 'j' is number
+			set(ref, data['a']) // no error because 'a' is numeric literal and 'j' is number
 			// @ts-expect-error
 			set(ref, data['b']['c'])
 			// @ts-expect-error

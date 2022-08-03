@@ -4,7 +4,7 @@
 
 <div align="center">
 		<img src="https://raw.githubusercontent.com/tylim88/Firelord/main/img/ozai.png" width="200px"/>
-		<h1>FireSage 烈火贤</h1>
+		<h1>FireSageJS 烈火贤JS</h1>
 </div>
 
 <div align="center">

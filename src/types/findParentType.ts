@@ -39,16 +39,22 @@ export type RemoveLastSegment<
 
 export type FindParentKey<
 	T extends MetaType,
-	U extends keyof T['flattenRoot'] & string
-> = RemoveLastSegment<U> extends never ? null : RemoveLastSegment<U>
+	U extends (keyof T['flattenRoot'] & string) | undefined
+> = U extends keyof T['flattenRoot'] & string
+	? RemoveLastSegment<U> extends never
+		? null
+		: RemoveLastSegment<U>
+	: never
 
 export type FindParentType<
 	T extends MetaType,
-	U extends keyof T['flattenRoot'] & string
-> = RemoveLastSegment<U> extends never
-	? T['root']
-	: FindParentKey<T, U> extends keyof T['flattenRoot']
-	? T['flattenRoot'][FindParentKey<T, U>]
+	U extends (keyof T['flattenRoot'] & string) | undefined
+> = U extends keyof T['flattenRoot'] & string
+	? RemoveLastSegment<U> extends never
+		? T['root']
+		: FindParentKey<T, U> extends keyof T['flattenRoot']
+		? T['flattenRoot'][FindParentKey<T, U>]
+		: never
 	: never
 
 export type FindAllChildKeys<
