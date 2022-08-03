@@ -1,1 +1,2 @@
 1.  set(ref(db, "users////////abc"), something) is equivalent to set(ref(db, "users/abc"), something)
+2. Root type key cannot be string, because 'someString/' | `${string}/` = `${string}/`

@@ -4,6 +4,7 @@ import { initializeApp as initializeApp_ } from 'firebase/app'
 import pick from 'pick-random'
 import { v4 } from 'uuid'
 import { get } from './operations'
+import betwin from 'betwin'
 
 export const initializeApp = () => {
 	const env = process.env
@@ -27,8 +28,10 @@ export const usersCreator = getFiresage<Users>()
 export const generateRandomData = (): {
 	data: Users['root']
 	randString: string
+	k: string
 } => {
-	const v4_ = v4()
+	const randString = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
+	const k = v4()
 	return {
 		data: {
 			a: pick([1, 2, 3] as const)[0]!,
@@ -39,10 +42,11 @@ export const generateRandomData = (): {
 					f: { j: Math.random() },
 					k: v4(),
 				},
-				h: { [v4_]: { i: pick([true, false])[0]! } },
+				h: { [randString]: { i: pick([true, false])[0]! } },
 			},
 		},
-		randString: v4_,
+		randString,
+		k,
 	}
 }
 
