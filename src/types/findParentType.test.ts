@@ -5,11 +5,11 @@ import {
 	FindParentKey,
 	FindParentType,
 	FindAllChildKeys,
-	FindNestedType,
+	FindNestedType as FindType,
 } from './findParentType'
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
-import { ServerTimestamp } from './fieldValue'
+import { Increment, ServerTimestamp } from './fieldValue'
 
 describe('test', () => {
 	it('test last 2 segments', () => {
@@ -102,22 +102,51 @@ describe('test', () => {
 	})
 
 	it('test Find Write Type', () => {
-		type A = FindNestedType<Users, undefined, 'write'>
-		type B = FindNestedType<Users, 'a', 'write'>
-		type C = FindNestedType<Users, 'b/d', 'write'>
-		type D = FindNestedType<Users, 'b/d/f/j', 'write'>
-		type E = FindNestedType<Users, `b/h/${string}`, 'write'>
-		type F = FindNestedType<Users, `b/h/${string}/i`, 'write'>
-		type G = FindNestedType<Users, `b/h`, 'write'>
-		type H = FindNestedType<Users, `b/h/${string}/l`, 'write'>
-		type L = FindNestedType<Users, `b/h/${string}/l`, 'read'>
+		type A = FindType<Users, undefined, 'write'>
+		type B = FindType<Users, 'a', 'write'>
+		type C = FindType<Users, 'b/d', 'write'>
+		type D = FindType<Users, 'b/d/f/j', 'write'>
+		type E = FindType<Users, `b/h/${string}`, 'write'>
+		type F = FindType<Users, `b/h/${string}/i`, 'write'>
+		type G = FindType<Users, `b/h`, 'write'>
+		type H = FindType<Users, `b/h/${string}/l`, 'write'>
+		type L = FindType<Users, `b/h/${string}/l`, 'read'>
 		IsTrue<IsSame<A, Users['write']>>()
-		IsTrue<IsSame<B, Users['write']['a']>>()
-		IsTrue<IsSame<C, Users['write']['b']['d']>>()
-		IsTrue<IsSame<D, Users['write']['b']['d']['f']['j']>>()
-		IsTrue<IsSame<E, Users['write']['b']['h'][string]>>()
-		IsTrue<IsSame<F, Users['write']['b']['h'][string]['i']>>()
-		IsTrue<IsSame<G, Users['write']['b']['h']>>()
+		IsTrue<IsSame<B, 1 | 2 | 3>>()
+		IsTrue<
+			IsSame<
+				C,
+				{
+					e: 'abc' | 'xyz' | 'efg'
+					f: {
+						j: number | Increment
+					}
+					k: string
+				}
+			>
+		>()
+		IsTrue<IsSame<D, number | Increment>>()
+		IsTrue<
+			IsSame<
+				E,
+				{
+					i: boolean
+					l: ServerTimestamp
+				}
+			>
+		>()
+		IsTrue<IsSame<F, boolean>>()
+		IsTrue<
+			IsSame<
+				G,
+				{
+					[x: string]: {
+						i: boolean
+						l: ServerTimestamp
+					}
+				}
+			>
+		>()
 		IsTrue<IsSame<H, ServerTimestamp>>()
 		IsTrue<IsSame<L, number>>()
 	})

@@ -17,6 +17,10 @@ export {
 	enableLogging,
 	goOffline,
 	goOnline,
+	forceLongPolling,
+	forceWebSockets,
+	off,
+	remove,
 } from 'firebase/database'
 export * from './fieldValue'
 export * from './onValue'

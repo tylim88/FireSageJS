@@ -50,7 +50,7 @@ export const generateRandomData = (): {
 				d: {
 					e: pick(['abc', 'xyz', 'efg'] as const)[0]!,
 					f: { j: Math.random() },
-					k: v4(),
+					k,
 				},
 				// no point testing server timestamp
 				// @ts-expect-error
