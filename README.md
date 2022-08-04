@@ -69,22 +69,22 @@
 			</a>
 			&nbsp;
 			<a
-				href="https://lgtm.com/projects/g/tylim88/firesagejs/alerts/"
+				href="https://lgtm.com/projects/g/tylim88/FireSageJS/alerts/"
 				target="_blank"
 			>
 				<img
 					alt="Total alerts"
-					src="https://img.shields.io/lgtm/alerts/g/tylim88/firesagejs.svg?logo=lgtm&logoWidth=18"
+					src="https://img.shields.io/lgtm/alerts/g/tylim88/FireSageJS.svg?logo=lgtm&logoWidth=18"
 				/>
 			</a>
 			&nbsp;
 			<a
-				href="https://lgtm.com/projects/g/tylim88/firesagejs/context:javascript"
+				href="https://lgtm.com/projects/g/tylim88/FireSageJS/context:javascript"
 				target="_blank"
 			>
 				<img
 					alt="Language grade: JavaScript"
-					src="https://img.shields.io/lgtm/grade/javascript/g/tylim88/firesagejs.svg?logo=lgtm&logoWidth=18"
+					src="https://img.shields.io/lgtm/grade/javascript/g/tylim88/FireSageJS.svg?logo=lgtm&logoWidth=18"
 				/>
 			</a>
 </div>
