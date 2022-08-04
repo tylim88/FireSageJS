@@ -29,8 +29,8 @@ export type RemoveLastSegment<
 
 export type FindParentKey<
 	T extends MetaType,
-	U extends (keyof T['flattenWrite'] & string) | undefined
-> = U extends keyof T['flattenWrite'] & string
+	U extends (keyof T['flatten_write'] & string) | undefined
+> = U extends keyof T['flatten_write'] & string
 	? RemoveLastSegment<U> extends never
 		? null
 		: RemoveLastSegment<U>
@@ -38,21 +38,22 @@ export type FindParentKey<
 
 export type FindParentType<
 	T extends MetaType,
-	U extends (keyof T['flattenWrite'] & string) | undefined
-> = U extends keyof T['flattenWrite'] & string
+	U extends (keyof T['flatten_write'] & string) | undefined,
+	M extends 'read' | 'write'
+> = U extends keyof T['flatten_write'] & string
 	? RemoveLastSegment<U> extends never
-		? T['write']
-		: FindParentKey<T, U> extends keyof T['flattenWrite']
-		? T['flattenWrite'][FindParentKey<T, U>]
+		? T[M]
+		: FindParentKey<T, U> extends keyof T[`flatten_${M}`]
+		? T[`flatten_${M}`][FindParentKey<T, U>]
 		: never
 	: never
 
 export type FindAllChildKeys<
 	T extends MetaType,
-	U extends (keyof T['flattenWrite'] & string) | undefined
+	U extends (keyof T['flatten_write'] & string) | undefined
 > = U[] extends undefined[]
-	? keyof T['flattenWrite'] & string
-	: keyof T['flattenWrite'] & string extends infer R
+	? keyof T['flatten_write'] & string
+	: keyof T['flatten_write'] & string extends infer R
 	? R extends `${U}/${infer S}`
 		? S
 		: never
@@ -60,13 +61,13 @@ export type FindAllChildKeys<
 
 export type GetFullPath<
 	T extends MetaType,
-	ParentFullPath extends (keyof T['flattenWrite'] & string) | undefined,
+	ParentFullPath extends (keyof T['flatten_write'] & string) | undefined,
 	ChildRelativePath extends string
-> = `${ParentFullPath}/${ChildRelativePath}` extends keyof T['flattenWrite'] &
+> = `${ParentFullPath}/${ChildRelativePath}` extends keyof T['flatten_write'] &
 	string
 	? `${ParentFullPath}/${ChildRelativePath}`
 	: ParentFullPath extends undefined
-	? ChildRelativePath extends keyof T['flattenWrite'] & string
+	? ChildRelativePath extends keyof T['flatten_write'] & string
 		? ChildRelativePath
 		: never
 	: never
@@ -74,11 +75,12 @@ export type GetFullPath<
 export type FindNestedType<
 	T extends MetaType,
 	U extends string | undefined,
-	ACC extends T['flattenWrite'] = T['write']
+	M extends 'read' | 'write',
+	ACC extends T[`flatten_${M}`] = T[M]
 > = U extends undefined
-	? T['write']
+	? T[M]
 	: U extends `${infer R extends keyof ACC & string}/${infer S}`
-	? FindNestedType<T, S, ACC[R]>
+	? FindNestedType<T, S, M, ACC[R]>
 	: U extends keyof ACC & string
 	? ACC[U]
 	: never

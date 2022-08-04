@@ -6,7 +6,7 @@ import { Unsubscribe, ListenOptions } from './alias'
 export type OnValue = {
 	<
 		T extends MetaType,
-		U extends (keyof T['flattenWrite'] & string) | undefined
+		U extends (keyof T['flatten_write'] & string) | undefined
 	>(
 		ref: DatabaseReference<T, U>,
 		callback: (snapshot: DataSnapshot<T, U>) => unknown,
@@ -14,7 +14,7 @@ export type OnValue = {
 	): Unsubscribe
 	<
 		T extends MetaType,
-		U extends (keyof T['flattenWrite'] & string) | undefined
+		U extends (keyof T['flatten_write'] & string) | undefined
 	>(
 		ref: DatabaseReference<T, U>,
 		callback: (snapshot: DataSnapshot<T, U>) => unknown,

@@ -62,22 +62,6 @@ describe('test', () => {
 		IsTrue<IsSame<G, 'b'>>()
 	})
 
-	it('test Find Parent Type', () => {
-		type A = FindParentType<Users, undefined>
-		type B = FindParentType<Users, 'a'>
-		type C = FindParentType<Users, 'b/d'>
-		type D = FindParentType<Users, 'b/d/f/j'>
-		type E = FindParentType<Users, `b/h/${string}`>
-		type F = FindParentType<Users, `b/h/${string}/i`>
-		type G = FindParentType<Users, `b/h`>
-		IsTrue<IsSame<A, never>>()
-		IsTrue<IsSame<B, Users['write']>>()
-		IsTrue<IsSame<C, Users['flattenWrite']['b']>>()
-		IsTrue<IsSame<D, Users['flattenWrite']['b/d/f']>>()
-		IsTrue<IsSame<E, Users['flattenWrite']['b']['h']>>()
-		IsTrue<IsSame<F, Users['flattenWrite']['b']['h'][string]>>()
-		IsTrue<IsSame<G, Users['flattenWrite']['b']>>()
-	})
 	it('test Find All Child Keys', () => {
 		type A = FindAllChildKeys<Users, undefined>
 		type B = FindAllChildKeys<Users, 'a'>
@@ -86,7 +70,7 @@ describe('test', () => {
 		type E = FindAllChildKeys<Users, `b/h/${string}`>
 		type F = FindAllChildKeys<Users, `b/h/${string}/i`>
 		type G = FindAllChildKeys<Users, `b/h`>
-		IsTrue<IsSame<A, keyof Users['flattenWrite']>>()
+		IsTrue<IsSame<A, keyof Users['flatten_write']>>()
 		IsTrue<IsSame<B, never>>()
 		IsTrue<IsSame<C, 'e' | 'f' | 'k' | 'f/j'>>()
 		IsTrue<IsSame<D, never>>()
@@ -95,14 +79,31 @@ describe('test', () => {
 		IsTrue<IsSame<G, string>>()
 	})
 
-	it('test Find All Child Keys', () => {
-		type A = FindNestedType<Users, undefined>
-		type B = FindNestedType<Users, 'a'>
-		type C = FindNestedType<Users, 'b/d'>
-		type D = FindNestedType<Users, 'b/d/f/j'>
-		type E = FindNestedType<Users, `b/h/${string}`>
-		type F = FindNestedType<Users, `b/h/${string}/i`>
-		type G = FindNestedType<Users, `b/h`>
+	it('test Find Parent Write Type', () => {
+		type A = FindParentType<Users, undefined, 'write'>
+		type B = FindParentType<Users, 'a', 'write'>
+		type C = FindParentType<Users, 'b/d', 'write'>
+		type D = FindParentType<Users, 'b/d/f/j', 'write'>
+		type E = FindParentType<Users, `b/h/${string}`, 'write'>
+		type F = FindParentType<Users, `b/h/${string}/i`, 'write'>
+		type G = FindParentType<Users, `b/h`, 'write'>
+		IsTrue<IsSame<A, never>>()
+		IsTrue<IsSame<B, Users['write']>>()
+		IsTrue<IsSame<C, Users['flatten_write']['b']>>()
+		IsTrue<IsSame<D, Users['flatten_write']['b/d/f']>>()
+		IsTrue<IsSame<E, Users['flatten_write']['b']['h']>>()
+		IsTrue<IsSame<F, Users['flatten_write']['b']['h'][string]>>()
+		IsTrue<IsSame<G, Users['flatten_write']['b']>>()
+	})
+
+	it('test Find Nested Write Type', () => {
+		type A = FindNestedType<Users, undefined, 'write'>
+		type B = FindNestedType<Users, 'a', 'write'>
+		type C = FindNestedType<Users, 'b/d', 'write'>
+		type D = FindNestedType<Users, 'b/d/f/j', 'write'>
+		type E = FindNestedType<Users, `b/h/${string}`, 'write'>
+		type F = FindNestedType<Users, `b/h/${string}/i`, 'write'>
+		type G = FindNestedType<Users, `b/h`, 'write'>
 		IsTrue<IsSame<A, Users['write']>>()
 		IsTrue<IsSame<B, Users['write']['a']>>()
 		IsTrue<IsSame<C, Users['write']['b']['d']>>()

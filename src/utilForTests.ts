@@ -97,7 +97,8 @@ export const readAndExpectUpdate = async <
 		T['type'],
 		T['path'] extends undefined
 			? RemoveLastSlash<U>
-			: `${T['path']}/${RemoveLastSlash<U>}`
+			: `${T['path']}/${RemoveLastSlash<U>}`,
+		'write'
 	>,
 	ref: S,
 	path: U extends never

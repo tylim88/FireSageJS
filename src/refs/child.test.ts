@@ -43,7 +43,7 @@ describe('test ref', () => {
 
 			IsTrue<IsEqual<A, DatabaseReference<Users, 'b/c'>>>()
 			IsTrue<
-				IsEqual<B, DatabaseReference<Users, keyof Users['flattenWrite']>>
+				IsEqual<B, DatabaseReference<Users, keyof Users['flatten_write']>>
 			>()
 			IsTrue<IsEqual<C, DatabaseReference<Users, never>>>()
 			IsTrue<IsEqual<D, DatabaseReference<Users, never>>>()

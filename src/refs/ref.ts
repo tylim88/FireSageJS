@@ -15,10 +15,10 @@ export const refCreator =
 	}
 
 type Ref<T extends MetaType> = {
-	<U extends (keyof T['flattenWrite'] & string) | undefined = undefined>(
+	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
 		path?: U
 	): DatabaseReference<T, U>
-	<U extends (keyof T['flattenWrite'] & string) | undefined = undefined>(
+	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
 		db?: Database,
 		path?: U
 	): DatabaseReference<T, U>

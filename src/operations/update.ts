@@ -7,7 +7,7 @@ import {
 
 export const update = <
 	T extends MetaType,
-	U extends (keyof T['flattenWrite'] & string) | undefined,
+	U extends (keyof T['flatten_write'] & string) | undefined,
 	V extends Record<string, unknown>
 >(
 	ref: DatabaseReference<T, U>,

@@ -4,16 +4,16 @@ import { ReadTypeConverter } from './readTypeConverter'
 
 export type MetaType = {
 	write: unknown
-	flattenWrite: unknown
+	flatten_write: unknown
 	read: unknown
-	flattenRead: unknown
+	flatten_read: unknown
 }
 
 export type MetaTypeCreator<Base, Root = Base> = {
 	write: ReplaceInvalidDataType<Root>
-	flattenWrite: ObjectFlattenHybrid<ReplaceInvalidDataType<Root>>
+	flatten_write: ObjectFlattenHybrid<ReplaceInvalidDataType<Root>>
 	read: ReplaceInvalidDataType<ReadTypeConverter<Root>>
-	flattenRead: ObjectFlattenHybrid<
+	flatten_read: ObjectFlattenHybrid<
 		ReplaceInvalidDataType<ReadTypeConverter<Root>>
 	>
 }
