@@ -10,4 +10,4 @@ export type ReplaceInvalidDataType<T> = T[] extends (
 	? T
 	: T extends Record<string, unknown>
 	? { [K in keyof T]: ReplaceInvalidDataType<T[K]> }
-	: ErrorInvalidDataType<T extends string ? T : 'write'>
+	: ErrorInvalidDataType<T extends string ? T : 'root'>

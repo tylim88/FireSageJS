@@ -5,7 +5,7 @@ import { ErrorHasNoChild } from './error'
 
 export declare class DataSnapshot<
 	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
+	U extends (keyof T['flatten_base'] & string) | undefined
 > {
 	/**
 	 * The location of this DataSnapshot.
@@ -65,9 +65,11 @@ export declare class DataSnapshot<
 	 * @returns The DataSnapshot's contents as a JavaScript value (Object,
 	 *   Array, string, number, boolean, or `null`).
 	 */
-	exportVal(): U extends keyof T['flatten_write'] & string
-		? T['flatten_write'][U]
-		: T['write'] | null
+	exportVal():
+		| (U extends keyof T['flatten_read'] & string
+				? T['flatten_read'][U]
+				: T['read'])
+		| null
 	/**
 	 * Enumerates the top-level children in the `DataSnapshot`.
 	 *
@@ -123,7 +125,9 @@ export declare class DataSnapshot<
 	 * @returns The DataSnapshot's contents as a JavaScript value (Object,
 	 *   Array, string, number, boolean, or `null`).
 	 */
-	val(): U extends keyof T['flatten_write'] & string
-		? T['flatten_write'][U]
-		: T['write'] | null
+	val():
+		| (U extends keyof T['flatten_read'] & string
+				? T['flatten_read'][U]
+				: T['read'])
+		| null
 }
