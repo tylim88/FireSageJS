@@ -1,12 +1,12 @@
-import { OriDatabase, OriFirestoreTesting, Database } from './types'
+import { Database, FirestoreTesting } from './types'
 
 export const isDatabase = (value: unknown): value is Database => {
-	const v = value as Partial<OriDatabase>
-	const e = value as Partial<OriFirestoreTesting>
+	const v = value as Partial<Database>
+	const e = value as Partial<FirestoreTesting>
 	return v?.type === 'database' || !!e?.useEmulator
 }
 
 export const isString = (value: unknown): value is string => {
-	const v = value as Partial<OriDatabase>
+	const v = value as Partial<Database>
 	return typeof v === 'string'
 }

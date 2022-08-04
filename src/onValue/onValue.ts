@@ -1,18 +1,18 @@
 import { onValue as onValue_ } from 'firebase/database'
-import { OriListenOptions, OnValue } from '../types'
+import { ListenOptions, OnValue } from '../types'
 
 export const isOptions = (
-	arg: ((error: Error) => unknown) | (() => void) | OriListenOptions | undefined
-): arg is OriListenOptions => {
-	const v = arg as Partial<OriListenOptions>
+	arg: ((error: Error) => unknown) | (() => void) | ListenOptions | undefined
+): arg is ListenOptions => {
+	const v = arg as Partial<ListenOptions>
 	return v?.onlyOnce !== undefined // onlyOnce is boolean, so check for undefined
 }
 
 export const onValue: OnValue = (
 	ref,
 	callback,
-	cancelCallback?: ((error: Error) => unknown) | OriListenOptions,
-	options?: OriListenOptions
+	cancelCallback?: ((error: Error) => unknown) | ListenOptions,
+	options?: ListenOptions
 ) => {
 	const cancelCallback_ = isOptions(cancelCallback) ? undefined : cancelCallback
 	const options_ =

@@ -20,6 +20,7 @@ export {
 	forceLongPolling,
 	forceWebSockets,
 	off,
+	onDisconnect,
 	remove,
 } from 'firebase/database'
 export * from './fieldValue'

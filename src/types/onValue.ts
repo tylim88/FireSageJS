@@ -1,7 +1,7 @@
 import { MetaType } from '../types'
 import { DatabaseReference } from './refs'
 import { DataSnapshot } from './snapshots'
-import { Unsubscribe, ListenOptions } from './alias'
+import { Unsubscribe, ListenOptions } from './ori'
 
 export type OnValue = {
 	/**
