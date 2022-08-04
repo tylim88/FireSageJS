@@ -65,21 +65,18 @@ export const generateRandomData = (): {
 }
 
 export const readAndExpectSet = async <
-	S extends DatabaseReference<MetaType, any>,
-	T extends S extends DatabaseReference<infer I, infer Z>
-		? { type: I; path: Z }
-		: never
+	T extends MetaType,
+	U extends (keyof T['flatten_write'] & string) | undefined
 >(
-	ref: S,
-	path: T['path'],
-	inputData: T['type']['write']
+	ref: DatabaseReference<T, U>,
+	path: U,
+	inputData: T['write']
 ) => {
 	const snapshot = await get(ref)
 	const data = snapshot.val()
-	// @ts-expect-error
 	const arr = path?.split('/') || []
-	// @ts-expect-error
 	const narrowedInputData = arr.reduce((acc, item) => {
+		// @ts-expect-error
 		return acc[item]
 	}, inputData)
 
@@ -89,27 +86,23 @@ export const readAndExpectSet = async <
 }
 
 export const readAndExpectUpdate = async <
-	S extends DatabaseReference<MetaType, any>,
-	T extends S extends DatabaseReference<infer I, infer Z>
-		? { type: I; path: Z }
-		: never,
-	U extends FindAllChildKeys<T['type'], T['path']> extends never
-		? ErrorHasNoChild<T['path']>
-		: FindAllChildKeys<T['type'], T['path']>
+	T extends MetaType,
+	U extends (keyof T['flatten_write'] & string) | undefined,
+	V extends FindAllChildKeys<T, U> extends never
+		? ErrorHasNoChild<U>
+		: FindAllChildKeys<T, U>
 >(
-	inputData: FindNestedType<
-		T['type'],
-		T['path'] extends undefined
-			? RemoveLastSlash<U>
-			: `${T['path']}/${RemoveLastSlash<U>}`,
-		'write'
-	>,
-	ref: S,
-	path: U extends never
-		? U
-		: string extends FindAllChildKeys<T['type'], T['path']>
+	ref: DatabaseReference<T, U>,
+	path: V extends never
+		? V
+		: string extends FindAllChildKeys<T, U>
 		? `${string}/` // some child key type is string and require differentiation
-		: U
+		: V,
+	inputData: FindNestedType<
+		T,
+		U extends undefined ? RemoveLastSlash<V> : `${U}/${RemoveLastSlash<V>}`,
+		'write'
+	>
 ) => {
 	const snapshot = await get(ref)
 	const outputData = snapshot.val()

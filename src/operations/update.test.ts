@@ -15,7 +15,7 @@ describe('test update and get', () => {
 		const ref = users.ref()
 		const data = generateRandomData().data
 		await update(ref, { a: data['a'] })
-		await readAndExpectUpdate(data['a'], ref, 'a')
+		await readAndExpectUpdate(ref, 'a', data['a'])
 		;() => {
 			update(ref, { a: data['a'] })
 			// @ts-expect-error
@@ -44,7 +44,7 @@ describe('test update and get', () => {
 		const ref = users.ref('b')
 		const data = generateRandomData().data
 		await update(ref, { c: data['b']['c'] })
-		await readAndExpectUpdate(data['b']['c'], ref, 'c')
+		await readAndExpectUpdate(ref, 'c', data['b']['c'])
 		;() => {
 			// @ts-expect-error
 			update(ref, { c: data['a'] })
@@ -63,7 +63,7 @@ describe('test update and get', () => {
 		const ref = users.ref()
 		const data = generateRandomData().data
 		await update(ref, { 'b/d': data['b']['d'] })
-		await readAndExpectUpdate(data['b']['d'], ref, 'b/d')
+		await readAndExpectUpdate(ref, 'b/d', data['b']['d'])
 		;() => {
 			// @ts-expect-error
 			update(ref, { 'b/d': data['a'] })
@@ -82,7 +82,7 @@ describe('test update and get', () => {
 		const ref = users.ref('b/d')
 		const data = generateRandomData().data
 		await update(ref, { 'f/j': data['b']['d']['f']['j'] })
-		await readAndExpectUpdate(data['b']['d']['f']['j'], ref, 'f/j')
+		await readAndExpectUpdate(ref, 'f/j', data['b']['d']['f']['j'])
 		;() => {
 			update(ref, { 'f/j': data['a'] }) // because 'a' is also a number
 			// @ts-expect-error
@@ -103,9 +103,9 @@ describe('test update and get', () => {
 		const ref = users.ref(`b/h`)
 		await update(ref, { [randString]: data['b']['h'][randString]! })
 		await readAndExpectUpdate(
-			data['b']['h'][randString]!,
 			ref,
-			`${randString}/`
+			`${randString}/`,
+			data['b']['h'][randString]!
 		)
 		;() => {
 			// @ts-expect-error
@@ -127,7 +127,7 @@ describe('test update and get', () => {
 		const data = rand.data
 		const ref = users.ref(`b/h/${randString}`)
 		await update(ref, { i: data['b']['h'][randString]!['i'] })
-		await readAndExpectUpdate(data['b']['h'][randString]!['i'], ref, `i`)
+		await readAndExpectUpdate(ref, `i`, data['b']['h'][randString]!['i'])
 		;() => {
 			// @ts-expect-error
 			update(ref, { i: data['a'] })

@@ -8,19 +8,15 @@ import {
 } from '../types'
 
 export const child = <
-	S extends DatabaseReference<MetaType, any>,
-	T extends S extends DatabaseReference<infer I, infer Z>
-		? { type: I; path: Z }
-		: never,
-	U extends FindAllChildKeys<T['type'], T['path']> extends never
-		? ErrorHasNoChild<T['path']>
-		: FindAllChildKeys<T['type'], T['path']>
+	T extends MetaType,
+	U extends (keyof T['flatten_write'] & string) | undefined,
+	V extends FindAllChildKeys<T, U> extends never
+		? ErrorHasNoChild<U>
+		: FindAllChildKeys<T, U>
 >(
-	parent: S,
-	path: U
+	parent: DatabaseReference<T, U>,
+	path: V
 ) => {
-	return child_(parent, path) as DatabaseReference<
-		T['type'],
-		GetFullPath<T['type'], T['path'], U>
-	>
+	// @ts-expect-error
+	return child_(parent, path) as DatabaseReference<T, GetFullPath<T, U, V>>
 }
