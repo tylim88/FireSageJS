@@ -16,7 +16,7 @@ describe('test set and get', () => {
 		const ref = users.ref()
 		const data = generateRandomData().data
 		await set(ref, data)
-		await readAndExpectSet(data, ref, undefined)
+		await readAndExpectSet(ref, undefined, data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
@@ -36,7 +36,7 @@ describe('test set and get', () => {
 		const ref = users.ref('a')
 		const data = generateRandomData().data
 		await set(ref, data['a'])
-		await readAndExpectSet(data, ref, 'a')
+		await readAndExpectSet(ref, 'a', data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data)
@@ -56,7 +56,7 @@ describe('test set and get', () => {
 		const ref = users.ref('b/c')
 		const data = generateRandomData().data
 		await set(ref, data['b']['c'])
-		await readAndExpectSet(data, ref, 'b/c')
+		await readAndExpectSet(ref, 'b/c', data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
@@ -76,7 +76,7 @@ describe('test set and get', () => {
 		const ref = users.ref('b/d')
 		const data = generateRandomData().data
 		await set(ref, data['b']['d'])
-		await readAndExpectSet(data, ref, 'b/d')
+		await readAndExpectSet(ref, 'b/d', data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
@@ -96,7 +96,7 @@ describe('test set and get', () => {
 		const ref = users.ref('b/d/f/j')
 		const data = generateRandomData().data
 		await set(ref, data['b']['d']['f']['j'])
-		await readAndExpectSet(data, ref, 'b/d/f/j')
+		await readAndExpectSet(ref, 'b/d/f/j', data)
 		;() => {
 			set(ref, data['a']) // no error because 'a' is numeric literal and 'j' is number
 			// @ts-expect-error
@@ -117,7 +117,7 @@ describe('test set and get', () => {
 		const data = rand.data
 		const ref = users.ref(`b/h/${randString}`)
 		await set(ref, data['b']['h'][randString]!)
-		await readAndExpectSet(data, ref, `b/h/${randString}`)
+		await readAndExpectSet(ref, `b/h/${randString}`, data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
@@ -138,7 +138,7 @@ describe('test set and get', () => {
 		const data = rand.data
 		const ref = users.ref(`b/h/${randString}/i`)
 		await set(ref, data['b']['h'][randString]!['i'])
-		await readAndExpectSet(data, ref, `b/h/${randString}/i`)
+		await readAndExpectSet(ref, `b/h/${randString}/i`, data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
@@ -157,7 +157,7 @@ describe('test set and get', () => {
 		const ref = child(users.ref(), 'a')
 		const data = generateRandomData().data
 		await set(ref, data['a'])
-		await readAndExpectSet(data, ref, 'a')
+		await readAndExpectSet(ref, 'a', data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data)
@@ -177,7 +177,7 @@ describe('test set and get', () => {
 		const ref = child(users.ref('b'), 'c')
 		const data = generateRandomData().data
 		await set(ref, data['b']['c'])
-		await readAndExpectSet(data, ref, 'b/c')
+		await readAndExpectSet(ref, 'b/c', data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
@@ -197,7 +197,7 @@ describe('test set and get', () => {
 		const ref = child(users.ref('b'), 'd')
 		const data = generateRandomData().data
 		await set(ref, data['b']['d'])
-		await readAndExpectSet(data, ref, 'b/d')
+		await readAndExpectSet(ref, 'b/d', data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
@@ -217,7 +217,7 @@ describe('test set and get', () => {
 		const ref = child(users.ref('b/d'), 'f/j')
 		const data = generateRandomData().data
 		await set(ref, data['b']['d']['f']['j'])
-		await readAndExpectSet(data, ref, 'b/d/f/j')
+		await readAndExpectSet(ref, 'b/d/f/j', data)
 		;() => {
 			set(ref, data['a']) // no error because 'a' is numeric literal and 'j' is number
 			// @ts-expect-error
@@ -238,7 +238,7 @@ describe('test set and get', () => {
 		const data = rand.data
 		const ref = child(users.ref(), `b/h/${randString}`)
 		await set(ref, data['b']['h'][randString]!)
-		await readAndExpectSet(data, ref, `b/h/${randString}`)
+		await readAndExpectSet(ref, `b/h/${randString}`, data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
@@ -259,7 +259,7 @@ describe('test set and get', () => {
 		const data = rand.data
 		const ref = child(users.ref(`b`), `h/${randString}/i`)
 		await set(ref, data['b']['h'][randString]!['i'])
-		await readAndExpectSet(data, ref, `b/h/${randString}/i`)
+		await readAndExpectSet(ref, `b/h/${randString}/i`, data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])

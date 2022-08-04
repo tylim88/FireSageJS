@@ -70,9 +70,9 @@ export const readAndExpectSet = async <
 		? { type: I; path: Z }
 		: never
 >(
-	inputData: T['type']['write'],
 	ref: S,
-	path: T['path']
+	path: T['path'],
+	inputData: T['type']['write']
 ) => {
 	const snapshot = await get(ref)
 	const data = snapshot.val()
