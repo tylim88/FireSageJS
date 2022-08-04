@@ -6,7 +6,9 @@ import {
 	ErrorHasNoChild,
 	FindNestedType,
 	RemoveLastSlash,
+	ServerTimestamp,
 } from './types'
+import { serverTimestamp } from './fieldValue'
 import { getFiresage } from '.'
 import { initializeApp as initializeApp_ } from 'firebase/app'
 import pick from 'pick-random'
@@ -27,7 +29,7 @@ export type Users = MetaTypeCreator<{
 	b: {
 		c: true
 		d: { e: 'abc' | 'xyz' | 'efg'; f: { j: number }; k: string }
-		h: Record<string, { i: boolean }>
+		h: Record<string, { i: boolean; l: ServerTimestamp }>
 	}
 }>
 
@@ -50,7 +52,11 @@ export const generateRandomData = (): {
 					f: { j: Math.random() },
 					k: v4(),
 				},
-				h: { [randString]: { i: pick([true, false])[0]! } },
+				// no point testing server timestamp
+				// @ts-expect-error
+				h: {
+					[randString]: { i: pick([true, false])[0]! },
+				},
 			},
 		},
 		randString,

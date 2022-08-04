@@ -9,6 +9,7 @@ import {
 } from './findParentType'
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
+import { ServerTimestamp } from './fieldValue'
 
 describe('test', () => {
 	it('test last 2 segments', () => {
@@ -70,16 +71,18 @@ describe('test', () => {
 		type E = FindAllChildKeys<Users, `b/h/${string}`>
 		type F = FindAllChildKeys<Users, `b/h/${string}/i`>
 		type G = FindAllChildKeys<Users, `b/h`>
+		type H = FindAllChildKeys<Users, `b/h/${string}/l`>
 		IsTrue<IsSame<A, keyof Users['flatten_write']>>()
 		IsTrue<IsSame<B, never>>()
 		IsTrue<IsSame<C, 'e' | 'f' | 'k' | 'f/j'>>()
 		IsTrue<IsSame<D, never>>()
-		IsTrue<IsSame<E, 'i'>>()
+		IsTrue<IsSame<E, 'i' | 'l'>>()
 		IsTrue<IsSame<F, never>>()
 		IsTrue<IsSame<G, string>>()
+		IsTrue<IsSame<H, never>>()
 	})
 
-	it('test Find Parent Write Type', () => {
+	it('test Find Parent Type', () => {
 		type A = FindParentType<Users, undefined, 'write'>
 		type B = FindParentType<Users, 'a', 'write'>
 		type C = FindParentType<Users, 'b/d', 'write'>
@@ -87,6 +90,7 @@ describe('test', () => {
 		type E = FindParentType<Users, `b/h/${string}`, 'write'>
 		type F = FindParentType<Users, `b/h/${string}/i`, 'write'>
 		type G = FindParentType<Users, `b/h`, 'write'>
+		type H = FindParentType<Users, `b/h/${string}/l`, 'write'>
 		IsTrue<IsSame<A, never>>()
 		IsTrue<IsSame<B, Users['write']>>()
 		IsTrue<IsSame<C, Users['flatten_write']['b']>>()
@@ -94,9 +98,10 @@ describe('test', () => {
 		IsTrue<IsSame<E, Users['flatten_write']['b']['h']>>()
 		IsTrue<IsSame<F, Users['flatten_write']['b']['h'][string]>>()
 		IsTrue<IsSame<G, Users['flatten_write']['b']>>()
+		IsTrue<IsSame<H, Users['flatten_write']['b']['h'][string]>>()
 	})
 
-	it('test Find Nested Write Type', () => {
+	it('test Find Write Type', () => {
 		type A = FindNestedType<Users, undefined, 'write'>
 		type B = FindNestedType<Users, 'a', 'write'>
 		type C = FindNestedType<Users, 'b/d', 'write'>
@@ -104,6 +109,8 @@ describe('test', () => {
 		type E = FindNestedType<Users, `b/h/${string}`, 'write'>
 		type F = FindNestedType<Users, `b/h/${string}/i`, 'write'>
 		type G = FindNestedType<Users, `b/h`, 'write'>
+		type H = FindNestedType<Users, `b/h/${string}/l`, 'write'>
+		type L = FindNestedType<Users, `b/h/${string}/l`, 'read'>
 		IsTrue<IsSame<A, Users['write']>>()
 		IsTrue<IsSame<B, Users['write']['a']>>()
 		IsTrue<IsSame<C, Users['write']['b']['d']>>()
@@ -111,5 +118,7 @@ describe('test', () => {
 		IsTrue<IsSame<E, Users['write']['b']['h'][string]>>()
 		IsTrue<IsSame<F, Users['write']['b']['h'][string]['i']>>()
 		IsTrue<IsSame<G, Users['write']['b']['h']>>()
+		IsTrue<IsSame<H, ServerTimestamp>>()
+		IsTrue<IsSame<L, number>>()
 	})
 })

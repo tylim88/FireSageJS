@@ -37,13 +37,12 @@ describe('test object flatten type', () => {
 			>
 		>
 	})
-	it('positive complex data structure', () => {
-		type A = Users['write']
+	it('complex data structure', () => {
+		type A = Users['read']
 		type B = ObjectFlattenHybrid<ReplaceInvalidDataType<A>>
 
 		IsTrue<
 			IsSame<
-				// IsSame is more accurate
 				B,
 				{
 					a: 1 | 2 | 3
@@ -57,9 +56,10 @@ describe('test object flatten type', () => {
 							'f/j': number
 							k: string
 						}
-						h: Record<string, { i: boolean }>
-						[x: `h/${string}`]: { i: boolean }
+						h: Record<string, { i: boolean; l: number }>
+						[x: `h/${string}`]: { i: boolean; l: number }
 						[x: `h/${string}/i`]: boolean
+						[x: `h/${string}/l`]: number
 						'd/e': 'abc' | 'xyz' | 'efg'
 						'd/f': {
 							j: number
@@ -82,9 +82,10 @@ describe('test object flatten type', () => {
 					}
 					'b/d/f/j': number
 					'b/d/k': string
-					'b/h': Record<string, { i: boolean }>
-					[x: `b/h/${string}`]: { i: boolean }
+					'b/h': Record<string, { i: boolean; l: number }>
+					[x: `b/h/${string}`]: { i: boolean; l: number }
 					[x: `b/h/${string}/i`]: boolean
+					[x: `b/h/${string}/l`]: number
 				}
 			>
 		>
