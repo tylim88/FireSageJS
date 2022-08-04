@@ -11,13 +11,13 @@ export type MetaType = {
 	flatten_read: unknown
 }
 
-export type MetaTypeCreator<Base, Root = Base> = {
-	base: ReplaceInvalidDataType<Root>
-	flatten_base: ObjectFlattenHybrid<ReplaceInvalidDataType<Root>>
-	write: ReplaceInvalidDataType<Root>
-	flatten_write: ObjectFlattenHybrid<ReplaceInvalidDataType<Root>>
-	read: ReplaceInvalidDataType<ReadTypeConverter<Root>>
+export type MetaTypeCreator<Base> = {
+	base: ReplaceInvalidDataType<Base>
+	flatten_base: ObjectFlattenHybrid<ReplaceInvalidDataType<Base>>
+	write: ReplaceInvalidDataType<Base>
+	flatten_write: ObjectFlattenHybrid<ReplaceInvalidDataType<Base>>
+	read: ReplaceInvalidDataType<ReadTypeConverter<Base>>
 	flatten_read: ObjectFlattenHybrid<
-		ReplaceInvalidDataType<ReadTypeConverter<Root>>
+		ReplaceInvalidDataType<ReadTypeConverter<Base>>
 	>
 }

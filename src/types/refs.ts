@@ -1,5 +1,5 @@
 import { MetaType, MetaTypeCreator } from './metaTypeCreator'
-import { FindParentType, GetLastPart, FindParentKey } from './findParentType'
+import { GetLastPart, FindParentKey } from './findParentType'
 
 export declare interface DatabaseReference<
 	T extends MetaType,
@@ -21,30 +21,19 @@ export declare interface DatabaseReference<
 	 */
 	readonly parent: U extends string
 		? DatabaseReference<
-				MetaTypeCreator<FindParentType<T, U, 'base'>, T['base']>,
+				MetaTypeCreator<T['base']>,
 				FindParentKey<T, U> & keyof T['flatten_base'] & string
 		  >
 		: null
 	/** The root `DatabaseReference` of the Database. */
-	readonly root: DatabaseReference<
-		MetaTypeCreator<T['base'], T['base']>,
-		undefined
-	>
+	readonly root: DatabaseReference<MetaTypeCreator<T['base']>, undefined>
 }
 export declare interface Query<
 	T extends MetaType,
 	U extends (keyof T['flatten_base'] & string) | undefined
 > {
 	/** The `DatabaseReference` for the `Query`'s location. */
-	readonly ref: DatabaseReference<
-		MetaTypeCreator<
-			U extends keyof T['flatten_base'] & string
-				? T['flatten_base'][U]
-				: T['base'],
-			T['base']
-		>,
-		U
-	>
+	readonly ref: DatabaseReference<MetaTypeCreator<T['base']>, U>
 	/**
 	 * Returns whether or not the current and provided queries represent the same
 	 * location, have the same query parameters, and are from the same instance of
@@ -61,9 +50,7 @@ export declare interface Query<
 	 * @param other - The query to compare against.
 	 * @returns Whether or not the current and provided queries are equivalent.
 	 */
-	isEqual(
-		other: Query<MetaTypeCreator<unknown, unknown>, never> | null
-	): boolean
+	isEqual(other: Query<any, any> | null): boolean
 	/**
 	 * Returns a JSON-serializable representation of this object.
 	 *

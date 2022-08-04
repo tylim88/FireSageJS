@@ -59,7 +59,6 @@ export const generateRandomData = (): {
 }
 
 export const readAndExpectSet = async <
-	//  eslint-disable-next-line @typescript-eslint/no-explicit-any
 	S extends DatabaseReference<MetaType, any>,
 	T extends S extends DatabaseReference<infer I, infer Z>
 		? { type: I; path: Z }
@@ -84,7 +83,6 @@ export const readAndExpectSet = async <
 }
 
 export const readAndExpectUpdate = async <
-	//  eslint-disable-next-line @typescript-eslint/no-explicit-any
 	S extends DatabaseReference<MetaType, any>,
 	T extends S extends DatabaseReference<infer I, infer Z>
 		? { type: I; path: Z }

@@ -8,7 +8,6 @@ import {
 } from '../types'
 
 export const child = <
-	//  eslint-disable-next-line @typescript-eslint/no-explicit-any
 	S extends DatabaseReference<MetaType, any>,
 	T extends S extends DatabaseReference<infer I, infer Z>
 		? { type: I; path: Z }

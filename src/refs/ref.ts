@@ -7,11 +7,7 @@ export const refCreator =
 	(db?: Database, path?: string) => {
 		const db_ = isDatabase(db) ? db : database
 		const path_ = isString(db) ? db : path
-		return ref(db_, path_) as DatabaseReference<
-			T,
-			//  eslint-disable-next-line @typescript-eslint/no-explicit-any
-			any
-		>
+		return ref(db_, path_) as DatabaseReference<T, any>
 	}
 
 type Ref<T extends MetaType> = {
