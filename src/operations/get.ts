@@ -8,5 +8,5 @@ export const get = <
 >(
 	ref: DatabaseReference<T, U>
 ) => {
-	return get_(ref) as unknown as Promise<DataSnapshot<T, U>>
+	return get_(ref as any) as unknown as Promise<DataSnapshot<T, U>>
 }

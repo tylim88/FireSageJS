@@ -8,7 +8,6 @@ import {
 	RemoveLastSlash,
 	ServerTimestamp,
 } from './types'
-import { serverTimestamp } from './fieldValue'
 import { getFiresage } from '.'
 import { initializeApp as initializeApp_ } from 'firebase/app'
 import pick from 'pick-random'
