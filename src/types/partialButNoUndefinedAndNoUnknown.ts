@@ -4,7 +4,7 @@ import { ErrorHasNoChild, ErrorUnknownProperty } from './error'
 
 export type PartialButNoUndefinedAndNoUnknown<
 	T extends MetaType,
-	U extends (keyof T['flattenRoot'] & string) | undefined,
+	U extends (keyof T['flattenWrite'] & string) | undefined,
 	Data extends Record<string, unknown>,
 	Type extends Record<string, unknown> = {
 		[K in FindAllChildKeys<T, U>]: FindNestedType<T, GetFullPath<T, U, K>>

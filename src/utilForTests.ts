@@ -34,7 +34,7 @@ export type Users = MetaTypeCreator<{
 export const usersCreator = getFiresage<Users>()
 
 export const generateRandomData = (): {
-	data: Users['root']
+	data: Users['write']
 	randString: string
 	k: string
 } => {
@@ -65,7 +65,7 @@ export const readAndExpectSet = async <
 		? { type: I; path: Z }
 		: never
 >(
-	inputData: T['type']['root'],
+	inputData: T['type']['write'],
 	ref: S,
 	path: T['path']
 ) => {

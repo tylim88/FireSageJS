@@ -4,7 +4,7 @@ import { DatabaseReference, MetaType, DataSnapshot } from '../types'
 // get runtime is tested together with set and update
 export const get = <
 	T extends MetaType,
-	U extends (keyof T['flattenRoot'] & string) | undefined
+	U extends (keyof T['flattenWrite'] & string) | undefined
 >(
 	ref: DatabaseReference<T, U>
 ) => {

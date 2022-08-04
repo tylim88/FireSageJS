@@ -3,7 +3,7 @@ import { DatabaseReference, MetaType, FindNestedType } from '../types'
 
 export const set = <
 	T extends MetaType,
-	U extends (keyof T['flattenRoot'] & string) | undefined,
+	U extends (keyof T['flattenWrite'] & string) | undefined,
 	V extends FindNestedType<T, U>
 >(
 	ref: DatabaseReference<T, U>,

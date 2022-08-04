@@ -42,7 +42,9 @@ describe('test ref', () => {
 			type F = typeof f
 
 			IsTrue<IsEqual<A, DatabaseReference<Users, 'b/c'>>>()
-			IsTrue<IsEqual<B, DatabaseReference<Users, keyof Users['flattenRoot']>>>()
+			IsTrue<
+				IsEqual<B, DatabaseReference<Users, keyof Users['flattenWrite']>>
+			>()
 			IsTrue<IsEqual<C, DatabaseReference<Users, never>>>()
 			IsTrue<IsEqual<D, DatabaseReference<Users, never>>>()
 			IsTrue<IsEqual<E, DatabaseReference<Users, 'b/h/anything'>>>()
