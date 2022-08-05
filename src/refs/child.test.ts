@@ -135,11 +135,11 @@ describe('test child runtime', () => {
 	})
 	it('test "b/h/string" node', async () => {
 		const rand = generateRandomData()
-		const randString = rand.randString
+		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = child(users.ref(), `b/h/${randString}`)
-		await set(ref, data['b']['h'][randString]!)
-		await readAndExpectSet(ref, `b/h/${randString}`, data)
+		const ref = child(users.ref(), `b/h/${randStringHKey}`)
+		await set(ref, data['b']['h'][randStringHKey]!)
+		await readAndExpectSet(ref, `b/h/${randStringHKey}`, data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])
@@ -156,11 +156,11 @@ describe('test child runtime', () => {
 	})
 	it('test "b/h/string/i" node', async () => {
 		const rand = generateRandomData()
-		const randString = rand.randString
+		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = child(users.ref(`b`), `h/${randString}/i`)
-		await set(ref, data['b']['h'][randString]!['i'])
-		await readAndExpectSet(ref, `b/h/${randString}/i`, data)
+		const ref = child(users.ref(`b`), `h/${randStringHKey}/i`)
+		await set(ref, data['b']['h'][randStringHKey]!['i'])
+		await readAndExpectSet(ref, `b/h/${randStringHKey}/i`, data)
 		;() => {
 			// @ts-expect-error
 			set(ref, data['a'])

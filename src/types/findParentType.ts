@@ -31,8 +31,8 @@ export type RemoveLastSegment<
 
 export type FindParentKey<
 	T extends MetaType,
-	U extends (keyof T['flatten_base'] & string) | undefined
-> = U extends keyof T['flatten_base'] & string
+	U extends (keyof T['flatten_write'] & string) | undefined
+> = U extends keyof T['flatten_write'] & string
 	? RemoveLastSegment<U> extends never
 		? null
 		: RemoveLastSegment<U>
@@ -40,9 +40,9 @@ export type FindParentKey<
 
 export type FindParentType<
 	T extends MetaType,
-	U extends (keyof T['flatten_base'] & string) | undefined,
+	U extends (keyof T['flatten_write'] & string) | undefined,
 	M extends Mode
-> = U extends keyof T['flatten_base'] & string
+> = U extends keyof T['flatten_write'] & string
 	? RemoveLastSegment<U> extends never
 		? T[M]
 		: FindParentKey<T, U> extends keyof T[`flatten_${M}`]
@@ -52,10 +52,10 @@ export type FindParentType<
 
 export type FindAllChildKeys<
 	T extends MetaType,
-	U extends (keyof T['flatten_base'] & string) | undefined
+	U extends (keyof T['flatten_write'] & string) | undefined
 > = U[] extends undefined[]
-	? keyof T['flatten_base'] & string
-	: keyof T['flatten_base'] & string extends infer R
+	? keyof T['flatten_write'] & string
+	: keyof T['flatten_write'] & string extends infer R
 	? R extends `${U}/${infer S}`
 		? S
 		: never
@@ -63,13 +63,13 @@ export type FindAllChildKeys<
 
 export type GetFullPath<
 	T extends MetaType,
-	ParentFullPath extends (keyof T['flatten_base'] & string) | undefined,
+	ParentFullPath extends (keyof T['flatten_write'] & string) | undefined,
 	ChildRelativePath extends string
-> = `${ParentFullPath}/${ChildRelativePath}` extends keyof T['flatten_base'] &
+> = `${ParentFullPath}/${ChildRelativePath}` extends keyof T['flatten_write'] &
 	string
 	? `${ParentFullPath}/${ChildRelativePath}`
 	: ParentFullPath extends undefined
-	? ChildRelativePath extends keyof T['flatten_base'] & string
+	? ChildRelativePath extends keyof T['flatten_write'] & string
 		? ChildRelativePath
 		: never
 	: never

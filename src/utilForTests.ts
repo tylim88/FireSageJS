@@ -7,6 +7,7 @@ import {
 	FindNestedType,
 	RemoveLastSlash,
 	ServerTimestamp,
+	Push,
 } from './types'
 import { getFiresage } from '.'
 import { initializeApp as initializeApp_ } from 'firebase/app'
@@ -28,7 +29,10 @@ export type Users = MetaTypeCreator<{
 	b: {
 		c: true
 		d: { e: 'abc' | 'xyz' | 'efg'; f: { j: number }; k: string }
-		h: Record<string, { i: boolean; l: ServerTimestamp }>
+		h: Record<
+			string,
+			{ i: boolean; l: ServerTimestamp; m: Push<{ n: '7' | '8' | '9' }> }
+		>
 	}
 }>
 
@@ -36,10 +40,12 @@ export const usersCreator = getFiresage<Users>()
 
 export const generateRandomData = (): {
 	data: Users['write']
-	randString: string
 	k: string
+	randStringHKey: string
+	randStringMKey: string
 } => {
-	const randString = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
+	const randStringHKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
+	const randStringMKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const k = v4()
 	return {
 		data: {
@@ -51,14 +57,18 @@ export const generateRandomData = (): {
 					f: { j: Math.random() },
 					k,
 				},
-				// no point testing server timestamp
-				// @ts-expect-error
 				h: {
-					[randString]: { i: pick([true, false])[0]! },
+					[randStringHKey]: {
+						i: pick([true, false])[0]!,
+						// no point testing server timestamp
+						l: 'fake ServerTimestamp' as unknown as ServerTimestamp,
+						m: { [randStringMKey]: { n: pick(['7', '8', '9'] as const)[0]! } },
+					},
 				},
 			},
 		},
-		randString,
+		randStringMKey,
+		randStringHKey,
 		k,
 	}
 }

@@ -39,18 +39,18 @@ describe('test onValue', () => {
 	})
 	it('test with cancel callback', done => {
 		const rand = generateRandomData()
-		const randString = rand.randString
+		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randString}`)
+		const ref = users.ref(`b/h/${randStringHKey}`)
 		expect.hasAssertions()
-		set(ref, data['b']['h'][randString]!).then(() => {
+		set(ref, data['b']['h'][randStringHKey]!).then(() => {
 			const unsub = onValue(
 				ref,
 				async documentSnapshot => {
 					type A = typeof documentSnapshot
 					type B = DataSnapshot<Users, `b/h/${string}`>
 					IsTrue<IsSame<B, A>>()
-					await readAndExpectSet(ref, `b/h/${randString}`, data)
+					await readAndExpectSet(ref, `b/h/${randStringHKey}`, data)
 					unsub()
 					done()
 				},
@@ -62,18 +62,18 @@ describe('test onValue', () => {
 	})
 	it('test with options and cancel callback', done => {
 		const rand = generateRandomData()
-		const randString = rand.randString
+		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randString}/i`)
+		const ref = users.ref(`b/h/${randStringHKey}/i`)
 		expect.hasAssertions()
-		set(ref, data['b']['h'][randString]!['i']).then(() => {
+		set(ref, data['b']['h'][randStringHKey]!['i']).then(() => {
 			const unsub = onValue(
 				ref,
 				async documentSnapshot => {
 					type A = typeof documentSnapshot
 					type B = DataSnapshot<Users, `b/h/${string}/i`>
 					IsTrue<IsSame<B, A>>()
-					await readAndExpectSet(ref, `b/h/${randString}/i`, data)
+					await readAndExpectSet(ref, `b/h/${randStringHKey}/i`, data)
 					unsub()
 					done()
 				},

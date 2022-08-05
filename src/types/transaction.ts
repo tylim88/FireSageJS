@@ -3,7 +3,7 @@ import { DataSnapshot } from './snapshots'
 
 export declare class TransactionResult<
 	T extends MetaType,
-	U extends (keyof T['flatten_base'] & string) | undefined
+	U extends (keyof T['flatten_write'] & string) | undefined
 > {
 	/** Whether the transaction was successfully committed. */
 	readonly committed: boolean

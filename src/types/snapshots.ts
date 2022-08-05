@@ -5,7 +5,7 @@ import { ErrorHasNoChild } from './error'
 
 export declare class DataSnapshot<
 	T extends MetaType,
-	U extends (keyof T['flatten_base'] & string) | undefined
+	U extends (keyof T['flatten_write'] & string) | undefined
 > {
 	/**
 	 * The location of this DataSnapshot.

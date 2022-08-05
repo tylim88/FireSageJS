@@ -98,36 +98,36 @@ describe('test update and get', () => {
 	})
 	it('test "b/h/string" node', async () => {
 		const rand = generateRandomData()
-		const randString = rand.randString
+		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const ref = users.ref(`b/h`)
-		await update(ref, { [randString]: data['b']['h'][randString]! })
+		await update(ref, { [randStringHKey]: data['b']['h'][randStringHKey]! })
 		await readAndExpectUpdate(
 			ref,
-			`${randString}/`,
-			data['b']['h'][randString]!
+			`${randStringHKey}/`,
+			data['b']['h'][randStringHKey]!
 		)
 		;() => {
 			// @ts-expect-error
-			update(ref, { [randString]: data['a'] })
+			update(ref, { [randStringHKey]: data['a'] })
 			// @ts-expect-error
-			update(ref, { [randString]: data['b']['c'] })
+			update(ref, { [randStringHKey]: data['b']['c'] })
 			// @ts-expect-error
-			update(ref, { [randString]: data['b']['d'] })
+			update(ref, { [randStringHKey]: data['b']['d'] })
 			// @ts-expect-error
-			update(ref, { [randString]: data['b']['d']['f']['j'] })
-			update(ref, { [randString]: data['b']['h']['string']! })
+			update(ref, { [randStringHKey]: data['b']['d']['f']['j'] })
+			update(ref, { [randStringHKey]: data['b']['h']['string']! })
 			// @ts-expect-error
-			update(ref, { [randString]: data['b']['h']['string']!['i'] })
+			update(ref, { [randStringHKey]: data['b']['h']['string']!['i'] })
 		}
 	})
 	it('test "b/h/string/i" node', async () => {
 		const rand = generateRandomData()
-		const randString = rand.randString
+		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randString}`)
-		await update(ref, { i: data['b']['h'][randString]!['i'] })
-		await readAndExpectUpdate(ref, `i`, data['b']['h'][randString]!['i'])
+		const ref = users.ref(`b/h/${randStringHKey}`)
+		await update(ref, { i: data['b']['h'][randStringHKey]!['i'] })
+		await readAndExpectUpdate(ref, `i`, data['b']['h'][randStringHKey]!['i'])
 		;() => {
 			// @ts-expect-error
 			update(ref, { i: data['a'] })

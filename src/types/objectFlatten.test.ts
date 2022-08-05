@@ -56,10 +56,30 @@ describe('test object flatten type', () => {
 							'f/j': number
 							k: string
 						}
-						h: Record<string, { i: boolean; l: number }>
-						[x: `h/${string}`]: { i: boolean; l: number }
+						h: Record<
+							string,
+							{
+								i: boolean
+								l: number
+								m: { [x: string]: { n: '7' | '8' | '9' } }
+								[x: `m/${string}`]: { n: '7' | '8' | '9' }
+								[x: `m/${string}/n`]: '7' | '8' | '9'
+							}
+						>
+						[x: `h/${string}`]: {
+							i: boolean
+							l: number
+							m: {
+								[x: string]: { n: '7' | '8' | '9' }
+							}
+							[x: `m/${string}`]: { n: '7' | '8' | '9' }
+							[x: `m/${string}/n`]: '7' | '8' | '9'
+						}
 						[x: `h/${string}/i`]: boolean
 						[x: `h/${string}/l`]: number
+						[x: `h/${string}/m`]: { [x: string]: { n: '7' | '8' | '9' } }
+						[x: `h/${string}/m/${string}`]: { n: '7' | '8' | '9' }
+						[x: `h/${string}/m/${string}/n`]: '7' | '8' | '9'
 						'd/e': 'abc' | 'xyz' | 'efg'
 						'd/f': {
 							j: number
@@ -82,10 +102,28 @@ describe('test object flatten type', () => {
 					}
 					'b/d/f/j': number
 					'b/d/k': string
-					'b/h': Record<string, { i: boolean; l: number }>
-					[x: `b/h/${string}`]: { i: boolean; l: number }
+					'b/h': Record<
+						string,
+						{
+							i: boolean
+							l: number
+							m: { [x: string]: { n: '7' | '8' | '9' } }
+							[x: `m/${string}`]: { n: '7' | '8' | '9' }
+							[x: `m/${string}/n`]: '7' | '8' | '9'
+						}
+					>
+					[x: `b/h/${string}`]: {
+						i: boolean
+						l: number
+						m: { [x: string]: { n: '7' | '8' | '9' } }
+						[x: `m/${string}`]: { n: '7' | '8' | '9' }
+						[x: `m/${string}/n`]: '7' | '8' | '9'
+					}
 					[x: `b/h/${string}/i`]: boolean
 					[x: `b/h/${string}/l`]: number
+					[x: `b/h/${string}/m`]: { [x: string]: { n: '7' | '8' | '9' } }
+					[x: `b/h/${string}/m/${string}`]: { n: '7' | '8' | '9' }
+					[x: `b/h/${string}/m/${string}/n`]: '7' | '8' | '9'
 				}
 			>
 		>

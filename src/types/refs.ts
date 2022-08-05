@@ -3,7 +3,7 @@ import { GetLastPart, FindParentKey } from './findParentType'
 
 export declare interface DatabaseReference<
 	T extends MetaType,
-	U extends (keyof T['flatten_base'] & string) | undefined
+	U extends (keyof T['flatten_write'] & string) | undefined
 > extends Query<T, U> {
 	/**
 	 * The last part of the `DatabaseReference`'s path.
@@ -22,7 +22,7 @@ export declare interface DatabaseReference<
 	readonly parent: U extends string
 		? DatabaseReference<
 				MetaTypeCreator<T['base']>,
-				FindParentKey<T, U> & keyof T['flatten_base'] & string
+				FindParentKey<T, U> & keyof T['flatten_write'] & string
 		  >
 		: null
 	/** The root `DatabaseReference` of the Database. */
@@ -30,7 +30,7 @@ export declare interface DatabaseReference<
 }
 export declare interface Query<
 	T extends MetaType,
-	U extends (keyof T['flatten_base'] & string) | undefined
+	U extends (keyof T['flatten_write'] & string) | undefined
 > {
 	/** The `DatabaseReference` for the `Query`'s location. */
 	readonly ref: DatabaseReference<MetaTypeCreator<T['base']>, U>

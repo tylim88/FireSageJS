@@ -72,11 +72,12 @@ describe('test', () => {
 		type F = FindAllChildKeys<Users, `b/h/${string}/i`>
 		type G = FindAllChildKeys<Users, `b/h`>
 		type H = FindAllChildKeys<Users, `b/h/${string}/l`>
+
 		IsTrue<IsSame<A, keyof Users['flatten_write']>>()
 		IsTrue<IsSame<B, never>>()
 		IsTrue<IsSame<C, 'e' | 'f' | 'k' | 'f/j'>>()
 		IsTrue<IsSame<D, never>>()
-		IsTrue<IsSame<E, 'i' | 'l'>>()
+		IsTrue<IsSame<E, 'i' | 'l' | 'm' | `m/${string}` | `m/${string}/n`>>()
 		IsTrue<IsSame<F, never>>()
 		IsTrue<IsSame<G, string>>()
 		IsTrue<IsSame<H, never>>()
@@ -108,7 +109,7 @@ describe('test', () => {
 		type D = FindType<Users, 'b/d/f/j', 'write'>
 		type E = FindType<Users, `b/h/${string}`, 'write'>
 		type F = FindType<Users, `b/h/${string}/i`, 'write'>
-		type G = FindType<Users, `b/h`, 'write'>
+		type G = FindType<Users, `b/h`, 'read'>
 		type H = FindType<Users, `b/h/${string}/l`, 'write'>
 		type L = FindType<Users, `b/h/${string}/l`, 'read'>
 		IsTrue<IsSame<A, Users['write']>>()
@@ -132,6 +133,7 @@ describe('test', () => {
 				{
 					i: boolean
 					l: ServerTimestamp
+					m: { [x: string]: { n: '7' | '8' | '9' } }
 				}
 			>
 		>()
@@ -142,7 +144,8 @@ describe('test', () => {
 				{
 					[x: string]: {
 						i: boolean
-						l: ServerTimestamp
+						l: number
+						m: { [x: string]: { n: '7' | '8' | '9' } }
 					}
 				}
 			>

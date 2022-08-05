@@ -17,6 +17,5 @@ export const child = <
 	parent: DatabaseReference<T, U>,
 	path: V
 ) => {
-	// @ts-expect-error
 	return child_(parent, path) as DatabaseReference<T, GetFullPath<T, U, V>>
 }
