@@ -28,3 +28,12 @@ export * from './onValue'
 export * from './operations'
 export * from './refs'
 export * from './transaction'
+export type {
+	ServerTimestamp,
+	Push,
+	Increment,
+	MetaTypeCreator,
+	DataSnapshot,
+	DatabaseReference,
+	Query,
+} from './types'
