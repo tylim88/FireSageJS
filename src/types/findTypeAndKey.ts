@@ -1,7 +1,7 @@
 import { MetaType } from './metaTypeCreator'
 import { GetNumberOfCharacter } from './utils'
 
-export type Mode = 'read' | 'write' | 'base'
+export type Mode = 'read' | 'write'
 
 export type GetNumberOfSlash<ID extends string> = GetNumberOfCharacter<ID, '/'>
 
@@ -45,8 +45,8 @@ export type FindParentType<
 > = U extends keyof T['flatten_write'] & string
 	? RemoveLastSegment<U> extends never
 		? T[M]
-		: FindParentKey<T, U> extends keyof T[`flatten_${M}`]
-		? T[`flatten_${M}`][FindParentKey<T, U>]
+		: FindParentKey<T, U> extends keyof T[`flatten_write`]
+		? T[`flatten_write`][FindParentKey<T, U>]
 		: never
 	: never
 

@@ -26,15 +26,15 @@ Combined Promise and Reference; resolves when write is complete, but can be used
  */
 export const push = <
 	T extends MetaType,
-	U extends (keyof T['flatten_base'] & string) | undefined
+	U extends (keyof T['flatten_write'] & string) | undefined
 >(
 	ref: DatabaseReference<T, U> extends never
 		? DatabaseReference<T, U>
-		: FindNestedType<T, U, 'base'> extends Push<any>
+		: FindNestedType<T, U, 'write'> extends Push<any>
 		? DatabaseReference<T, U>
 		: ErrorNotPushAble<U>,
-	value: FindNestedType<T, U, 'base'> extends Push<any>
-		? FindNestedType<T, U, 'base'>['FireSage.PushValue']
+	value: FindNestedType<T, U, 'write'> extends Push<any>
+		? FindNestedType<T, U, 'write'>['FireSage.PushValue']
 		: ErrorNotPushAble<U>
 ) => {
 	return push_(ref as any, value)

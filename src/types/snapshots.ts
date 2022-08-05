@@ -1,6 +1,6 @@
 import { MetaType } from './metaTypeCreator'
 import { DatabaseReference } from './refs'
-import { GetLastPart, FindAllChildKeys, GetFullPath } from './findParentType'
+import { GetLastPart, FindAllChildKeys, GetFullPath } from './findTypeAndKey'
 import { ErrorHasNoChild } from './error'
 
 export declare class DataSnapshot<

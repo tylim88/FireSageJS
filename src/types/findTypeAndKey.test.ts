@@ -6,7 +6,7 @@ import {
 	FindParentType,
 	FindAllChildKeys,
 	FindNestedType as FindType,
-} from './findParentType'
+} from './findTypeAndKey'
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
 import { Increment, ServerTimestamp } from './fieldValue'

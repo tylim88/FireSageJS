@@ -1,5 +1,5 @@
 import { MetaType, MetaTypeCreator } from './metaTypeCreator'
-import { GetLastPart, FindParentKey } from './findParentType'
+import { GetLastPart, FindParentKey } from './findTypeAndKey'
 
 export declare interface DatabaseReference<
 	T extends MetaType,

@@ -1,5 +1,5 @@
 import { MetaType } from './metaTypeCreator'
-import { FindAllChildKeys, FindNestedType, GetFullPath } from './findParentType'
+import { FindAllChildKeys, FindNestedType, GetFullPath } from './findTypeAndKey'
 import { ErrorHasNoChild, ErrorUnknownProperty } from './error'
 
 export type PartialButNoUndefinedAndNoUnknown<
