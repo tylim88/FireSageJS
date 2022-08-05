@@ -1,10 +1,9 @@
 import { push as push_ } from 'firebase/database'
 import {
-	Push,
 	MetaType,
 	DatabaseReference,
 	FindType,
-	ErrorNotPushAble,
+	IfIsPushAbleThenReturnV,
 } from '../types'
 /**
 Generates a new child location using a unique key and returns its Reference.
@@ -30,10 +29,8 @@ export const push = <
 >(
 	ref: DatabaseReference<T, U> extends never
 		? DatabaseReference<T, U>
-		: FindType<T, U, 'write'> extends Push<any>
-		? DatabaseReference<T, U>
-		: ErrorNotPushAble<U>,
-	value: FindType<T, U, 'write'>
+		: IfIsPushAbleThenReturnV<T, U, DatabaseReference<T, U>>,
+	value: FindType<T, `${U}/string`, 'write'>
 ) => {
 	return push_(ref as any, value)
 }

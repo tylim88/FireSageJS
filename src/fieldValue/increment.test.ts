@@ -6,9 +6,9 @@ import { increment } from './increment'
 
 initializeApp()
 describe('test increment', () => {
-	const testIncrement = getFiresage<MetaTypeCreator<{ a: number }>>()()
-	const node = testIncrement.ref('a')
-	const root = testIncrement.ref()
+	const firesage = getFiresage<MetaTypeCreator<{ a: number }>>()()
+	const node = firesage.ref('a')
+	const root = firesage.ref()
 	it('test with set', async () => {
 		await set(node, -100)
 		await set(node, increment(100)) // * unlike firestore, RTDB increment behave like update

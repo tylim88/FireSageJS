@@ -67,7 +67,7 @@ export type FindType<
 	? ACC[U]
 	: never
 
-export type IfIsPushReturnV<
+export type IfIsPushAbleThenReturnV<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	V,
@@ -81,7 +81,7 @@ export type IfIsPushReturnV<
 	? Push<any> extends FindType<T, ACC, 'base'>
 		? V
 		: ErrorNotPushAble<U>
-	: IfIsPushReturnV<
+	: IfIsPushAbleThenReturnV<
 			T,
 			U,
 			V,

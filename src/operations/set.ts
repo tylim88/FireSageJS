@@ -3,11 +3,10 @@ import { DatabaseReference, MetaType, FindType } from '../types'
 
 export const set = <
 	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V extends FindType<T, U, 'write'>
+	U extends (keyof T['flatten_write'] & string) | undefined
 >(
 	ref: DatabaseReference<T, U>,
-	value: V
+	value: FindType<T, U, 'write'>
 ) => {
-	return set_(ref, value)
+	return set_(ref as any, value)
 }

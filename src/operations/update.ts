@@ -14,5 +14,5 @@ export const update = <
 	value: V extends never ? V : PartialButNoUndefinedAndNoUnknown<T, U, V>
 ) => {
 	// @ts-expect-error
-	return update_(ref, value)
+	return update_(ref as any, value)
 }

@@ -6,8 +6,8 @@ import { serverTimestamp } from './serverTimestamp'
 
 initializeApp()
 describe('test serverTimestamp', () => {
-	const testIncrement = getFiresage<MetaTypeCreator<{ a: ServerTimestamp }>>()()
-	const node = testIncrement.ref('a')
+	const firesage = getFiresage<MetaTypeCreator<{ a: ServerTimestamp }>>()()
+	const node = firesage.ref('a')
 	it('test with set', async () => {
 		await set(node, serverTimestamp())
 		const dataSnapshot = await get(node)

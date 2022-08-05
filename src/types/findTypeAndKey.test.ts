@@ -3,7 +3,7 @@ import {
 	FindParentType,
 	FindAllChildKeys,
 	FindType,
-	IfIsPushReturnV,
+	IfIsPushAbleThenReturnV,
 } from './findTypeAndKey'
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
@@ -124,15 +124,15 @@ describe('test', () => {
 		type Meta = MetaTypeCreator<{
 			a: Push<{ b: 1; c: Push<number>; d: Push<{ j: 1 }> }>
 		}>
-		type A = IfIsPushReturnV<Meta, undefined, true>
-		type B = IfIsPushReturnV<Meta, 'a', true>
-		type C = IfIsPushReturnV<Meta, `a/${string}`, true>
-		type D = IfIsPushReturnV<Meta, `a/${string}/b`, true>
-		type E = IfIsPushReturnV<Meta, `a/${string}/c`, true>
-		type F = IfIsPushReturnV<Meta, `a/${string}/c/${string}`, true>
-		type G = IfIsPushReturnV<Meta, `a/${string}/d`, true>
-		type H = IfIsPushReturnV<Meta, `a/${string}/d/${string}`, true>
-		type I = IfIsPushReturnV<Meta, `a/${string}/d/${string}/j`, true>
+		type A = IfIsPushAbleThenReturnV<Meta, undefined, true>
+		type B = IfIsPushAbleThenReturnV<Meta, 'a', true>
+		type C = IfIsPushAbleThenReturnV<Meta, `a/${string}`, true>
+		type D = IfIsPushAbleThenReturnV<Meta, `a/${string}/b`, true>
+		type E = IfIsPushAbleThenReturnV<Meta, `a/${string}/c`, true>
+		type F = IfIsPushAbleThenReturnV<Meta, `a/${string}/c/${string}`, true>
+		type G = IfIsPushAbleThenReturnV<Meta, `a/${string}/d`, true>
+		type H = IfIsPushAbleThenReturnV<Meta, `a/${string}/d/${string}`, true>
+		type I = IfIsPushAbleThenReturnV<Meta, `a/${string}/d/${string}/j`, true>
 
 		IsTrue<IsSame<A, ErrorNotPushAble<undefined>>>()
 		IsTrue<IsSame<B, true>>()

@@ -17,5 +17,8 @@ export const child = <
 	parent: DatabaseReference<T, U>,
 	path: V
 ) => {
-	return child_(parent, path) as DatabaseReference<T, GetFullPath<T, U, V>>
+	return child_(parent as any, path) as DatabaseReference<
+		T,
+		GetFullPath<T, U, V>
+	>
 }
