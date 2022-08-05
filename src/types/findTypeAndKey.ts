@@ -90,7 +90,7 @@ export type IfIsPushAbleThenReturnV<
 						RemoveFirstSegment<DCC>
 				  >}`
 				: `${ACC}/${GetFirstSegment<DCC>}`,
-			FindType<T, ACC, 'base'> extends Push<any>
+			Push<any> extends FindType<T, ACC, 'base'>
 				? RemoveFirstSegment<RemoveFirstSegment<DCC>>
 				: RemoveFirstSegment<DCC>
 	  >

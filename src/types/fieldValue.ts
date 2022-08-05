@@ -4,9 +4,10 @@ const incrementSymbol: unique symbol = Symbol()
 type IncrementSymbol = typeof incrementSymbol
 const pushSymbol: unique symbol = Symbol()
 type PushSymbol = typeof pushSymbol
+const removeSymbol: unique symbol = Symbol()
+type RemoveSymbol = typeof removeSymbol
 
-export type FireSagePushValue = 'FireSage.PushValue'
-export declare class FieldValue<T extends symbol> {
+declare class FieldValue<T extends symbol> {
 	protected constructor()
 	protected 'FireSage.FieldValue': T
 }
@@ -17,4 +18,7 @@ export interface ServerTimestamp extends FieldValue<ServerTimestampSymbol> {}
 
 export interface Increment extends FieldValue<IncrementSymbol> {}
 
+export interface Remove extends FieldValue<RemoveSymbol> {}
+
+export type FireSagePushValue = 'FireSage.PushValue'
 export interface Push<T> extends FieldValue<PushSymbol>, PushValue<T> {}

@@ -37,7 +37,7 @@ describe('test object flatten type', () => {
 			>
 		>
 	})
-	it('complex data structure', () => {
+	it('test flatten read type of complex data structure', () => {
 		type A = Users['read']
 		type B = ObjectFlattenHybrid<ReplaceInvalidDataType<A>>
 

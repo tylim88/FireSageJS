@@ -1,6 +1,11 @@
 import { ObjectFlattenHybrid } from './objectFlatten'
 import { ReplaceInvalidDataType } from './replaceInvalidData'
-import { ReadTypeConverter, WriteTypeConverter } from './typeConverter'
+import {
+	ReadTypeConverter,
+	WriteTypeConverter,
+	RemoveRemove,
+	ReplaceRemoveWithUndefined,
+} from './typeConverter'
 
 export type MetaType = {
 	base: unknown
@@ -9,17 +14,24 @@ export type MetaType = {
 	flatten_write: unknown
 	read: unknown
 	flatten_read: unknown
+	compare: unknown
+	flatten_compare: unknown
 }
 
-export type MetaTypeCreator<Base> = {
+export type MetaTypeCreator<
+	Base,
+	Write = ReplaceInvalidDataType<WriteTypeConverter<RemoveRemove<Base>>>,
+	Read = ReplaceInvalidDataType<
+		ReadTypeConverter<ReplaceRemoveWithUndefined<Base>>
+	>,
+	Compare = ReplaceInvalidDataType<ReadTypeConverter<RemoveRemove<Base>>>
+> = {
 	base: ReplaceInvalidDataType<Base>
 	flatten_base: ObjectFlattenHybrid<ReplaceInvalidDataType<Base>>
-	write: ReplaceInvalidDataType<WriteTypeConverter<Base>>
-	flatten_write: ObjectFlattenHybrid<
-		ReplaceInvalidDataType<WriteTypeConverter<Base>>
-	>
-	read: ReplaceInvalidDataType<ReadTypeConverter<Base>>
-	flatten_read: ObjectFlattenHybrid<
-		ReplaceInvalidDataType<ReadTypeConverter<Base>>
-	>
+	write: Write
+	flatten_write: ObjectFlattenHybrid<Write>
+	read: Read
+	flatten_read: ObjectFlattenHybrid<Read>
+	compare: Compare
+	flatten_compare: ObjectFlattenHybrid<Compare>
 }
