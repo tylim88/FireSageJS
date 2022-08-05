@@ -1,5 +1,9 @@
 import { remove as remove_ } from 'firebase/database'
-import { DatabaseReference, MetaType, IfIsPushAbleThenReturnV } from '../types'
+import {
+	DatabaseReference,
+	MetaType,
+	IfIsRemoveAbleThenReturnV,
+} from '../types'
 
 /**
 Removes the data at this Database location.
@@ -18,7 +22,7 @@ export const remove = <
 >(
 	ref: DatabaseReference<T, U> extends never
 		? DatabaseReference<T, U>
-		: IfIsPushAbleThenReturnV<T, U, DatabaseReference<T, U>>
+		: IfIsRemoveAbleThenReturnV<T, U, DatabaseReference<T, U>>
 ) => {
 	return remove_(ref as any)
 }

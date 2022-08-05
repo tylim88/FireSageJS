@@ -4,12 +4,13 @@ import {
 	FindAllChildKeys,
 	FindType,
 	IfIsPushAbleThenReturnV,
+	IfIsRemoveAbleThenReturnV,
 } from './findTypeAndKey'
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
-import { Increment, ServerTimestamp, Push } from './fieldValue'
+import { Increment, ServerTimestamp, Push, Remove } from './fieldValue'
 import { MetaTypeCreator } from './metaTypeCreator'
-import { ErrorNotPushAble } from './error'
+import { ErrorNotPushAble, ErrorNotRemoveAble } from './error'
 
 describe('test', () => {
 	it('test Find Parent Key', () => {
@@ -143,5 +144,30 @@ describe('test', () => {
 		IsTrue<IsSame<G, true>>()
 		IsTrue<IsSame<H, ErrorNotPushAble<`a/${string}/d/${string}`>>>()
 		IsTrue<IsSame<I, ErrorNotPushAble<`a/${string}/d/${string}/j`>>>()
+	})
+
+	it('test IfIsPushReturnV', () => {
+		type Meta = MetaTypeCreator<{
+			a: Push<{ b: 1; c: Remove | { k: boolean }; d: Push<{ j: Remove | 1 }> }>
+		}>
+		type A = IfIsRemoveAbleThenReturnV<Meta, undefined, true>
+		type B = IfIsRemoveAbleThenReturnV<Meta, 'a', true>
+		type C = IfIsRemoveAbleThenReturnV<Meta, `a/${string}`, true>
+		type D = IfIsRemoveAbleThenReturnV<Meta, `a/${string}/b`, true>
+		type E = IfIsRemoveAbleThenReturnV<Meta, `a/${string}/c`, true>
+		type F = IfIsRemoveAbleThenReturnV<Meta, `a/${string}/c/${string}`, true>
+		type G = IfIsRemoveAbleThenReturnV<Meta, `a/${string}/d`, true>
+		type H = IfIsRemoveAbleThenReturnV<Meta, `a/${string}/d/${string}`, true>
+		type I = IfIsRemoveAbleThenReturnV<Meta, `a/${string}/d/${string}/j`, true>
+
+		IsTrue<IsSame<A, ErrorNotRemoveAble<undefined>>>()
+		IsTrue<IsSame<B, ErrorNotRemoveAble<'a'>>>()
+		IsTrue<IsSame<C, ErrorNotRemoveAble<`a/${string}`>>>()
+		IsTrue<IsSame<D, ErrorNotRemoveAble<`a/${string}/b`>>>()
+		IsTrue<IsSame<E, true>>()
+		IsTrue<IsSame<F, ErrorNotRemoveAble<`a/${string}/c/${string}`>>>()
+		IsTrue<IsSame<G, ErrorNotRemoveAble<`a/${string}/d`>>>()
+		IsTrue<IsSame<H, ErrorNotRemoveAble<`a/${string}/d/${string}`>>>()
+		IsTrue<IsSame<I, true>>()
 	})
 })

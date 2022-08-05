@@ -4,8 +4,8 @@ import {
 	GetFirstSegment,
 	RemoveFirstSegment,
 } from './stringManipulation'
-import { Push, FireSagePushValue } from './fieldValue'
-import { ErrorNotPushAble } from './error'
+import { Push, FireSagePushValue, Remove } from './fieldValue'
+import { ErrorNotRemoveAble, ErrorNotPushAble } from './error'
 
 export type Mode = 'read' | 'write' | 'base'
 
@@ -67,30 +67,46 @@ export type FindType<
 	? ACC[U]
 	: never
 
-export type IfIsPushAbleThenReturnV<
+export type IfIsXAbleThenReturnV<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	V,
+	X,
+	Error extends string,
 	ACC extends string | undefined = GetFirstSegment<U>,
 	DCC extends string | undefined = RemoveFirstSegment<U>
 > = U extends undefined
-	? T['base'] extends Push<any>
+	? T['base'] extends X
 		? V
-		: ErrorNotPushAble<U>
+		: Error
 	: DCC extends ''
-	? Push<any> extends FindType<T, ACC, 'base'>
+	? X[] extends FindType<T, ACC, 'base'>[]
 		? V
-		: ErrorNotPushAble<U>
-	: IfIsPushAbleThenReturnV<
+		: Error
+	: IfIsXAbleThenReturnV<
 			T,
 			U,
 			V,
-			Push<any> extends FindType<T, ACC, 'base'>
+			X,
+			Error,
+			Push<any>[] extends FindType<T, ACC, 'base'>[]
 				? `${ACC}/${FireSagePushValue}/${GetFirstSegment<
 						RemoveFirstSegment<DCC>
 				  >}`
 				: `${ACC}/${GetFirstSegment<DCC>}`,
-			Push<any> extends FindType<T, ACC, 'base'>
+			Push<any>[] extends FindType<T, ACC, 'base'>[]
 				? RemoveFirstSegment<RemoveFirstSegment<DCC>>
 				: RemoveFirstSegment<DCC>
 	  >
+
+export type IfIsPushAbleThenReturnV<
+	T extends MetaType,
+	U extends (keyof T['flatten_write'] & string) | undefined,
+	V
+> = IfIsXAbleThenReturnV<T, U, V, Push<any>, ErrorNotPushAble<U>>
+
+export type IfIsRemoveAbleThenReturnV<
+	T extends MetaType,
+	U extends (keyof T['flatten_write'] & string) | undefined,
+	V
+> = IfIsXAbleThenReturnV<T, U, V, Remove, ErrorNotRemoveAble<U>>
