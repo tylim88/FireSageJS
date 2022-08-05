@@ -1,11 +1,12 @@
 import { ErrorInvalidDataType } from './error'
-import { ServerTimestamp, Increment } from './fieldValue'
+import { ServerTimestamp, Increment, Push } from './fieldValue'
 export type ReplaceInvalidDataType<T> = T[] extends (
 	| boolean
 	| string
 	| number
 	| ServerTimestamp
 	| Increment
+	| Push<any>
 )[]
 	? T
 	: T extends Record<string, unknown>

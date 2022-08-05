@@ -1,5 +1,5 @@
-export type RemoveLastSlash<T extends string> = T extends `${infer R}/` ? R : T
-// https://javascript.plainenglish.io/using-firestore-with-more-typescript-8058b6a88674
+import { RemoveLastSlash } from './stringManipulation'
+
 type DeepKeyHybridInner<
 	T,
 	K extends keyof T,

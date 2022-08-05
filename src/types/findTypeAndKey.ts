@@ -1,33 +1,13 @@
 import { MetaType } from './metaTypeCreator'
-import { GetNumberOfCharacter } from './utils'
+import {
+	RemoveLastSegment,
+	GetFirstSegment,
+	RemoveFirstSegment,
+} from './stringManipulation'
+import { Push, FireSagePushValue } from './fieldValue'
+import { ErrorNotPushAble } from './error'
 
-export type Mode = 'read' | 'write'
-
-export type GetNumberOfSlash<ID extends string> = GetNumberOfCharacter<ID, '/'>
-
-export type GetLastTwoSegment<U extends `${string}/${string}`> =
-	GetNumberOfSlash<U> extends 1
-		? U
-		: U extends `${string}/${infer R extends `${string}/${string}`}`
-		? GetLastTwoSegment<R>
-		: never
-
-export type GetLastPart<U extends string> = U extends `${string}/${string}`
-	? GetLastTwoSegment<U> extends `${string}/${infer R}`
-		? R
-		: never
-	: U
-
-export type RemoveLastSegment<
-	U extends string,
-	ACC extends `${string}/${string}` = never
-> = GetNumberOfSlash<U> extends 0
-	? ACC extends `${infer P}/` // TODO write article about <ACC[] extends `${infer P}/`[]>, the P become string
-		? P
-		: never
-	: U extends `${infer S}/${infer R}`
-	? RemoveLastSegment<R, ACC[] extends never[] ? `${S}/` : `${ACC}${S}/`>
-	: never
+export type Mode = 'read' | 'write' | 'base'
 
 export type FindParentKey<
 	T extends MetaType,
@@ -74,7 +54,7 @@ export type GetFullPath<
 		: never
 	: never
 
-export type FindNestedType<
+export type FindType<
 	T extends MetaType,
 	U extends string | undefined,
 	M extends Mode,
@@ -82,7 +62,35 @@ export type FindNestedType<
 > = U extends undefined
 	? T[M]
 	: U extends `${infer R extends keyof ACC & string}/${infer S}`
-	? FindNestedType<T, S, M, ACC[R]>
-	: U extends keyof ACC & string
+	? FindType<T, S, M, ACC[R]>
+	: U extends keyof ACC
 	? ACC[U]
 	: never
+
+export type IfIsPushReturnV<
+	T extends MetaType,
+	U extends (keyof T['flatten_write'] & string) | undefined,
+	V,
+	ACC extends string | undefined = GetFirstSegment<U>,
+	DCC extends string | undefined = RemoveFirstSegment<U>
+> = U extends undefined
+	? T['base'] extends Push<any>
+		? V
+		: ErrorNotPushAble<U>
+	: DCC extends ''
+	? Push<any> extends FindType<T, ACC, 'base'>
+		? V
+		: ErrorNotPushAble<U>
+	: IfIsPushReturnV<
+			T,
+			U,
+			V,
+			Push<any> extends FindType<T, ACC, 'base'>
+				? `${ACC}/${FireSagePushValue}/${GetFirstSegment<
+						RemoveFirstSegment<DCC>
+				  >}`
+				: `${ACC}/${GetFirstSegment<DCC>}`,
+			FindType<T, ACC, 'base'> extends Push<any>
+				? RemoveFirstSegment<RemoveFirstSegment<DCC>>
+				: RemoveFirstSegment<DCC>
+	  >

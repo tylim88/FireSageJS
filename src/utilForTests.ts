@@ -4,7 +4,7 @@ import {
 	DatabaseReference,
 	FindAllChildKeys,
 	ErrorHasNoChild,
-	FindNestedType,
+	FindType,
 	RemoveLastSlash,
 	ServerTimestamp,
 	Push,
@@ -107,7 +107,7 @@ export const readAndExpectUpdate = async <
 		: string extends FindAllChildKeys<T, U>
 		? `${string}/` // some child key type is string and require differentiation
 		: V,
-	inputData: FindNestedType<
+	inputData: FindType<
 		T,
 		U extends undefined ? RemoveLastSlash<V> : `${U}/${RemoveLastSlash<V>}`,
 		'write'

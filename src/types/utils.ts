@@ -44,11 +44,3 @@ export type EvenNumber<
 > = Y['length'] extends X
 	? Z | Y['length']
 	: OddNumber<X, [1, 1, ...Y], Z | Y['length']>
-
-export type GetNumberOfCharacter<
-	ID extends string,
-	Character extends string,
-	SlashCount extends unknown[] = []
-> = ID extends `${string}${Character}${infer Tail}`
-	? GetNumberOfCharacter<Tail, Character, [1, ...SlashCount]>
-	: SlashCount['length']

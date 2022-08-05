@@ -1,5 +1,5 @@
 import { MetaType } from './metaTypeCreator'
-import { FindAllChildKeys, FindNestedType, GetFullPath } from './findTypeAndKey'
+import { FindAllChildKeys, FindType, GetFullPath } from './findTypeAndKey'
 import { ErrorHasNoChild, ErrorUnknownProperty } from './error'
 
 export type PartialButNoUndefinedAndNoUnknown<
@@ -7,11 +7,7 @@ export type PartialButNoUndefinedAndNoUnknown<
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	Data extends Record<string, unknown>,
 	Type extends Record<string, unknown> = {
-		[K in FindAllChildKeys<T, U>]: FindNestedType<
-			T,
-			GetFullPath<T, U, K>,
-			'write'
-		>
+		[K in FindAllChildKeys<T, U>]: FindType<T, GetFullPath<T, U, K>, 'write'>
 	}
 > = FindAllChildKeys<T, U> extends never
 	? ErrorHasNoChild<U>

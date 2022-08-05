@@ -4,6 +4,8 @@ const incrementSymbol: unique symbol = Symbol()
 type IncrementSymbol = typeof incrementSymbol
 const pushSymbol: unique symbol = Symbol()
 type PushSymbol = typeof pushSymbol
+
+export type FireSagePushValue = 'FireSage.PushValue'
 export declare class FieldValue<T extends symbol> {
 	protected constructor()
 	protected 'FireSage.FieldValue': T

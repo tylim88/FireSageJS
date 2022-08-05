@@ -1,51 +1,17 @@
 import {
-	GetLastTwoSegment,
-	GetLastPart,
-	RemoveLastSegment,
 	FindParentKey,
 	FindParentType,
 	FindAllChildKeys,
-	FindNestedType as FindType,
+	FindType,
+	IfIsPushReturnV,
 } from './findTypeAndKey'
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
-import { Increment, ServerTimestamp } from './fieldValue'
+import { Increment, ServerTimestamp, Push } from './fieldValue'
+import { MetaTypeCreator } from './metaTypeCreator'
+import { ErrorNotPushAble } from './error'
 
 describe('test', () => {
-	it('test last 2 segments', () => {
-		// @ts-expect-error
-		type A = GetLastTwoSegment<'a'>
-		type B = GetLastTwoSegment<'a/b'>
-		type C = GetLastTwoSegment<'a/b/c'>
-		type D = GetLastTwoSegment<'a/b/c/d'>
-		IsTrue<IsSame<A, never>>()
-		IsTrue<IsSame<B, 'a/b'>>()
-		IsTrue<IsSame<C, 'b/c'>>()
-		IsTrue<IsSame<D, 'c/d'>>()
-	})
-
-	it('test get last part', () => {
-		type A = GetLastPart<'a'>
-		type B = GetLastPart<'a/b'>
-		type C = GetLastPart<'a/b/c'>
-		type D = GetLastPart<'a/b/c/d'>
-		IsTrue<IsSame<A, 'a'>>()
-		IsTrue<IsSame<B, 'b'>>()
-		IsTrue<IsSame<C, 'c'>>()
-		IsTrue<IsSame<D, 'd'>>()
-	})
-
-	it('test Remove Last Segment', () => {
-		type A = RemoveLastSegment<'a'>
-		type B = RemoveLastSegment<'a/b'>
-		type C = RemoveLastSegment<'a/b/c'>
-		type D = RemoveLastSegment<'a/b/c/d'>
-		IsTrue<IsSame<A, never>>()
-		IsTrue<IsSame<B, 'a'>>()
-		IsTrue<IsSame<C, 'a/b'>>()
-		IsTrue<IsSame<D, 'a/b/c'>>()
-	})
-
 	it('test Find Parent Key', () => {
 		type A = FindParentKey<Users, undefined>
 		type B = FindParentKey<Users, 'a'>
@@ -152,5 +118,30 @@ describe('test', () => {
 		>()
 		IsTrue<IsSame<H, ServerTimestamp>>()
 		IsTrue<IsSame<L, number>>()
+	})
+
+	it('test IfIsPushReturnV', () => {
+		type Meta = MetaTypeCreator<{
+			a: Push<{ b: 1; c: Push<number>; d: Push<{ j: 1 }> }>
+		}>
+		type A = IfIsPushReturnV<Meta, undefined, true>
+		type B = IfIsPushReturnV<Meta, 'a', true>
+		type C = IfIsPushReturnV<Meta, `a/${string}`, true>
+		type D = IfIsPushReturnV<Meta, `a/${string}/b`, true>
+		type E = IfIsPushReturnV<Meta, `a/${string}/c`, true>
+		type F = IfIsPushReturnV<Meta, `a/${string}/c/${string}`, true>
+		type G = IfIsPushReturnV<Meta, `a/${string}/d`, true>
+		type H = IfIsPushReturnV<Meta, `a/${string}/d/${string}`, true>
+		type I = IfIsPushReturnV<Meta, `a/${string}/d/${string}/j`, true>
+
+		IsTrue<IsSame<A, ErrorNotPushAble<undefined>>>()
+		IsTrue<IsSame<B, true>>()
+		IsTrue<IsSame<C, ErrorNotPushAble<`a/${string}`>>>()
+		IsTrue<IsSame<D, ErrorNotPushAble<`a/${string}/b`>>>()
+		IsTrue<IsSame<E, true>>()
+		IsTrue<IsSame<F, ErrorNotPushAble<`a/${string}/c/${string}`>>>()
+		IsTrue<IsSame<G, true>>()
+		IsTrue<IsSame<H, ErrorNotPushAble<`a/${string}/d/${string}`>>>()
+		IsTrue<IsSame<I, ErrorNotPushAble<`a/${string}/d/${string}/j`>>>()
 	})
 })

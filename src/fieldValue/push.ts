@@ -3,7 +3,7 @@ import {
 	Push,
 	MetaType,
 	DatabaseReference,
-	FindNestedType,
+	FindType,
 	ErrorNotPushAble,
 } from '../types'
 /**
@@ -19,7 +19,7 @@ See | Append to a list of data See ttps://firebase.googleblog.com/2015/02/the-21
 
 @param parent — The parent location.
 
-@param value — Optional value to be written at the generated location.
+@param value —  value to be written at the generated location.
 
 @returns
 Combined Promise and Reference; resolves when write is complete, but can be used immediately as the Reference to the child location.
@@ -30,12 +30,10 @@ export const push = <
 >(
 	ref: DatabaseReference<T, U> extends never
 		? DatabaseReference<T, U>
-		: FindNestedType<T, U, 'write'> extends Push<any>
+		: FindType<T, U, 'write'> extends Push<any>
 		? DatabaseReference<T, U>
 		: ErrorNotPushAble<U>,
-	value: FindNestedType<T, U, 'write'> extends Push<any>
-		? FindNestedType<T, U, 'write'>['FireSage.PushValue']
-		: ErrorNotPushAble<U>
+	value: FindType<T, U, 'write'>
 ) => {
 	return push_(ref as any, value)
 }
