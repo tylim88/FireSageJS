@@ -67,51 +67,6 @@ export type FindNestedTypeFromFullPath<
 	? ACC[U]
 	: never
 
-// not in use
-export type IfIsXAbleThenReturnV<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V,
-	X,
-	Error extends string,
-	ACC extends string | undefined = GetFirstSegment<U>,
-	DCC extends string | undefined = RemoveFirstSegment<U>
-> = U extends undefined
-	? T['base'] extends X
-		? V
-		: Error
-	: DCC extends ''
-	? X extends FindNestedTypeFromFullPath<T, ACC, 'base'>
-		? V
-		: Error
-	: IfIsXAbleThenReturnV<
-			T,
-			U,
-			V,
-			X,
-			Error,
-			Push<any>[] extends FindNestedTypeFromFullPath<T, ACC, 'base'>[]
-				? `${ACC}/${FireSagePushValue}/${GetFirstSegment<
-						RemoveFirstSegment<DCC>
-				  >}`
-				: `${ACC}/${GetFirstSegment<DCC>}`,
-			Push<any>[] extends FindNestedTypeFromFullPath<T, ACC, 'base'>[]
-				? RemoveFirstSegment<RemoveFirstSegment<DCC>>
-				: RemoveFirstSegment<DCC>
-	  >
-// not in use
-export type IfIsPushAbleThenReturnV<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V
-> = IfIsXAbleThenReturnV<T, U, V, Push<any>, ErrorNotPushAble<U>>
-// not in use
-export type IfIsRemoveAbleThenReturnV<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V
-> = IfIsXAbleThenReturnV<T, U, V, Remove, ErrorNotRemoveAble<U>>
-
 export type GetAllVPath<
 	T,
 	V,

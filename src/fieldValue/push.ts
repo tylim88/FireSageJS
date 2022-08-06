@@ -2,9 +2,9 @@ import { push as push_ } from 'firebase/database'
 import {
 	MetaType,
 	DatabaseReference,
-	FindNestedTypeFromFullPath,
 	GetAllPushPath,
 	ErrorNotPushAble,
+	FindNestedTypeFromFullPath,
 } from '../types'
 /**
 Generates a new child location using a unique key and returns its Reference.

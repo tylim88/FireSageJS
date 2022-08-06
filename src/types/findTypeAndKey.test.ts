@@ -3,8 +3,6 @@ import {
 	FindParentType,
 	FindAllChildKeys,
 	FindNestedTypeFromFullPath,
-	IfIsPushAbleThenReturnV,
-	IfIsRemoveAbleThenReturnV,
 	GetAllRemovePath,
 	GetAllPushPath,
 } from './findTypeAndKey'
@@ -123,55 +121,6 @@ describe('test', () => {
 		IsTrue<IsSame<L, number | undefined>>()
 	})
 
-	it('test IfIsPushReturnV', () => {
-		type Meta = MetaTypeCreator<{
-			a: Push<{ b: 1; c: Push<number>; d: Push<{ j: 1 }> }>
-		}>
-		type A = IfIsPushAbleThenReturnV<Meta, undefined, true>
-		type B = IfIsPushAbleThenReturnV<Meta, 'a', true>
-		type C = IfIsPushAbleThenReturnV<Meta, `a/${string}`, true>
-		type D = IfIsPushAbleThenReturnV<Meta, `a/${string}/b`, true>
-		type E = IfIsPushAbleThenReturnV<Meta, `a/${string}/c`, true>
-		type F = IfIsPushAbleThenReturnV<Meta, `a/${string}/c/${string}`, true>
-		type G = IfIsPushAbleThenReturnV<Meta, `a/${string}/d`, true>
-		type H = IfIsPushAbleThenReturnV<Meta, `a/${string}/d/${string}`, true>
-		type I = IfIsPushAbleThenReturnV<Meta, `a/${string}/d/${string}/j`, true>
-
-		IsTrue<IsSame<A, ErrorNotPushAble<undefined>>>()
-		IsTrue<IsSame<B, true>>()
-		IsTrue<IsSame<C, ErrorNotPushAble<`a/${string}`>>>()
-		IsTrue<IsSame<D, ErrorNotPushAble<`a/${string}/b`>>>()
-		IsTrue<IsSame<E, true>>()
-		IsTrue<IsSame<F, ErrorNotPushAble<`a/${string}/c/${string}`>>>()
-		IsTrue<IsSame<G, true>>()
-		IsTrue<IsSame<H, ErrorNotPushAble<`a/${string}/d/${string}`>>>()
-		IsTrue<IsSame<I, ErrorNotPushAble<`a/${string}/d/${string}/j`>>>()
-	})
-
-	it('test IfIsPushReturnV', () => {
-		type Meta = MetaTypeCreator<{
-			a: Push<{ b: 1; c: Remove | { k: boolean }; d: Push<{ j: Remove | 1 }> }>
-		}>
-		type A = IfIsRemoveAbleThenReturnV<Meta, undefined, true>
-		type B = IfIsRemoveAbleThenReturnV<Meta, 'a', true>
-		type C = IfIsRemoveAbleThenReturnV<Meta, `a/${string}`, true>
-		type D = IfIsRemoveAbleThenReturnV<Meta, `a/${string}/b`, true>
-		type E = IfIsRemoveAbleThenReturnV<Meta, `a/${string}/c`, true>
-		type F = IfIsRemoveAbleThenReturnV<Meta, `a/${string}/c/${string}`, true>
-		type G = IfIsRemoveAbleThenReturnV<Meta, `a/${string}/d`, true>
-		type H = IfIsRemoveAbleThenReturnV<Meta, `a/${string}/d/${string}`, true>
-		type I = IfIsRemoveAbleThenReturnV<Meta, `a/${string}/d/${string}/j`, true>
-
-		IsTrue<IsSame<A, ErrorNotRemoveAble<undefined>>>()
-		IsTrue<IsSame<B, ErrorNotRemoveAble<'a'>>>()
-		IsTrue<IsSame<C, ErrorNotRemoveAble<`a/${string}`>>>()
-		IsTrue<IsSame<D, ErrorNotRemoveAble<`a/${string}/b`>>>()
-		IsTrue<IsSame<E, true>>()
-		IsTrue<IsSame<F, ErrorNotRemoveAble<`a/${string}/c/${string}`>>>()
-		IsTrue<IsSame<G, ErrorNotRemoveAble<`a/${string}/d`>>>()
-		IsTrue<IsSame<H, ErrorNotRemoveAble<`a/${string}/d/${string}`>>>()
-		IsTrue<IsSame<I, true>>()
-	})
 	it('test Get All Remove Path', () => {
 		IsTrue<
 			IsSame<
