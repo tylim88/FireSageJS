@@ -43,6 +43,6 @@ export const runTransaction = <
 	return runTransaction_(
 		ref as any,
 		transactionUpdate,
-		options || {}
+		options
 	) as unknown as Promise<TransactionResult<T, U>>
 }
