@@ -13,43 +13,43 @@ describe('test', () => {
 		type A = GetLastTwoSegment<'a'>
 		type B = GetLastTwoSegment<'a/b'>
 		type C = GetLastTwoSegment<'a/b/c'>
-		type D = GetLastTwoSegment<'a/b/c/d'>
+		type D = GetLastTwoSegment<`a/b/${string}/d`>
 		IsTrue<IsSame<A, never>>()
 		IsTrue<IsSame<B, 'a/b'>>()
 		IsTrue<IsSame<C, 'b/c'>>()
-		IsTrue<IsSame<D, 'c/d'>>()
+		IsTrue<IsSame<D, `${string}/d`>>()
 	})
 
 	it('test get last part', () => {
 		type A = GetLastPart<'a'>
 		type B = GetLastPart<'a/b'>
-		type C = GetLastPart<'a/b/c'>
-		type D = GetLastPart<'a/b/c/d'>
+		type C = GetLastPart<`a/b/${string}`>
+		type D = GetLastPart<`a/b/${string}/d`>
 		IsTrue<IsSame<A, 'a'>>()
 		IsTrue<IsSame<B, 'b'>>()
-		IsTrue<IsSame<C, 'c'>>()
+		IsTrue<IsSame<C, string>>()
 		IsTrue<IsSame<D, 'd'>>()
 	})
 
 	it('test Remove Last Segment', () => {
 		type A = RemoveLastSegment<'a'>
 		type B = RemoveLastSegment<'a/b'>
-		type C = RemoveLastSegment<'a/b/c'>
-		type D = RemoveLastSegment<'a/b/c/d'>
+		type C = RemoveLastSegment<`a/b/${string}`>
+		type D = RemoveLastSegment<`a/b/${string}/d`>
 		IsTrue<IsSame<A, never>>()
 		IsTrue<IsSame<B, 'a'>>()
 		IsTrue<IsSame<C, 'a/b'>>()
-		IsTrue<IsSame<D, 'a/b/c'>>()
+		IsTrue<IsSame<D, `a/b/${string}`>>()
 	})
 
 	it('test Get First Segment', () => {
 		type A = GetFirstSegment<'a'>
-		type B = GetFirstSegment<'a/b'>
-		type C = GetFirstSegment<'a/b/c'>
+		type B = GetFirstSegment<`a/${string}`>
+		type C = GetFirstSegment<`${string}/b/c`>
 		type D = GetFirstSegment<undefined>
 		IsTrue<IsSame<A, 'a'>>()
 		IsTrue<IsSame<B, 'a'>>()
-		IsTrue<IsSame<C, 'a'>>()
+		IsTrue<IsSame<C, string>>()
 		IsTrue<IsSame<D, undefined>>()
 	})
 

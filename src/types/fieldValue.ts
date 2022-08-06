@@ -20,5 +20,4 @@ export interface Increment extends FieldValue<IncrementSymbol> {}
 
 export interface Remove extends FieldValue<RemoveSymbol> {}
 
-export type FireSagePushValue = 'FireSage.PushValue'
 export interface Push<T> extends FieldValue<PushSymbol>, PushValue<T> {}

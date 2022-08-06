@@ -1,13 +1,12 @@
 import { MetaType } from './metaTypeCreator'
-import {
-	RemoveLastSegment,
-	GetFirstSegment,
-	RemoveFirstSegment,
-} from './stringManipulation'
-import { Push, FireSagePushValue, Remove } from './fieldValue'
-import { ErrorNotRemoveAble, ErrorNotPushAble } from './error'
+import { RemoveLastSegment } from './stringManipulation'
+import { Push, Remove } from './fieldValue'
 
 export type Mode = 'read' | 'write' | 'base' | 'compare'
+
+export type TypeDiving<T, U extends string> = U extends `${infer Y}/${infer S}`
+	? TypeDiving<T[Y & keyof T], S>
+	: T[U & keyof T]
 
 export type FindParentKey<
 	T extends MetaType,
@@ -18,15 +17,14 @@ export type FindParentKey<
 		: RemoveLastSegment<U>
 	: never
 
-export type FindParentType<
+export type FindParentNestedTypeFromFullPath<
 	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	M extends Mode
+	U extends (keyof T['flatten_write'] & string) | undefined
 > = U extends keyof T['flatten_write'] & string
 	? RemoveLastSegment<U> extends never
-		? T[M]
+		? T['write']
 		: FindParentKey<T, U> extends keyof T[`flatten_write`]
-		? T[`flatten_write`][FindParentKey<T, U>]
+		? TypeDiving<T[`flatten_write`], FindParentKey<T, U> & string>
 		: never
 	: never
 
