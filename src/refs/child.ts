@@ -7,6 +7,18 @@ import {
 	GetFullPath,
 } from '../types'
 
+/**
+Gets a Reference for the location at the specified relative path.
+
+The relative path can either be a simple child name (for example, "ada") or a deeper slash-separated path (for example, "ada/name/first").
+
+@param parent — The parent location.
+
+@param path
+A relative path from this location to the desired child location.
+
+@returns — The specified child location.
+ */
 export const child = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,

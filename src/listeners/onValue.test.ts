@@ -46,8 +46,8 @@ describe('test onValue', () => {
 		set(ref, data['b']['h'][randStringHKey]!).then(() => {
 			const unsub = onValue(
 				ref,
-				async documentSnapshot => {
-					type A = typeof documentSnapshot
+				async dataSnapshot => {
+					type A = typeof dataSnapshot
 					type B = DataSnapshot<Users, `b/h/${string}`>
 					IsTrue<IsSame<B, A>>()
 					await readAndExpectSet(ref, `b/h/${randStringHKey}`, data)
@@ -69,8 +69,8 @@ describe('test onValue', () => {
 		set(ref, data['b']['h'][randStringHKey]!['i']).then(() => {
 			const unsub = onValue(
 				ref,
-				async documentSnapshot => {
-					type A = typeof documentSnapshot
+				async dataSnapshot => {
+					type A = typeof dataSnapshot
 					type B = DataSnapshot<Users, `b/h/${string}/i`>
 					IsTrue<IsSame<B, A>>()
 					await readAndExpectSet(ref, `b/h/${randStringHKey}/i`, data)
@@ -84,17 +84,18 @@ describe('test onValue', () => {
 			)
 		})
 	})
-	it('test with nothing', done => {
+	it('test with push-able and remove-able', done => {
 		const rand = generateRandomData()
+		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/c`)
+		const ref = users.ref(`b/h/${randStringHKey}/m`)
 		expect.hasAssertions()
-		set(ref, data['b']['c']!).then(() => {
-			const unsub = onValue(ref, async documentSnapshot => {
-				type A = typeof documentSnapshot
-				type B = DataSnapshot<Users, `b/c`>
+		set(ref, data['b']['h'][randStringHKey]!['m']).then(() => {
+			const unsub = onValue(ref, async dataSnapshot => {
+				type A = typeof dataSnapshot
+				type B = DataSnapshot<Users, `b/h/${string}/m`>
 				IsTrue<IsSame<B, A>>()
-				await readAndExpectSet(ref, `b/c`, data)
+				await readAndExpectSet(ref, `b/h/${randStringHKey}/m`, data)
 				unsub()
 				done()
 			})

@@ -26,7 +26,7 @@ export * from './fieldValue'
 export * from './listeners'
 export * from './operations'
 export * from './refs'
-export * from './transaction'
+export * from './runTransaction'
 export type {
 	ServerTimestamp,
 	Push,

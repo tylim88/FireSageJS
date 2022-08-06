@@ -1,6 +1,10 @@
 import { MetaType } from './metaType'
 import { DatabaseReference } from './refs'
-import { FindAllChildKeys, GetFullPath } from './findTypeAndKey'
+import {
+	FindAllChildKeys,
+	GetFullPath,
+	FindAllTopLevelChildKeys,
+} from './findTypeAndKey'
 import { ErrorHasNoChild } from './error'
 import { GetLastPart } from './stringManipulation'
 
@@ -89,7 +93,22 @@ export declare class DataSnapshot<
 	 * @returns true if enumeration was canceled due to your callback returning
 	 * true.
 	 */
-	forEach(action: (child: DataSnapshot<T, U>) => boolean | void): boolean
+	forEach(
+		action: (
+			child: FindAllTopLevelChildKeys<T, U> extends never
+				? ErrorHasNoChild<U>
+				: (
+						U extends string
+							? `${U}/${FindAllTopLevelChildKeys<T, U>}`
+							: FindAllTopLevelChildKeys<T, U> &
+									((keyof T['flatten_write'] & string) | undefined)
+				  ) extends infer R
+				? R extends (keyof T['flatten_write'] & string) | undefined
+					? DataSnapshot<T, R>
+					: never
+				: never
+		) => boolean | void
+	): boolean
 	/**
 	 * Returns true if the specified child path has (non-null) data.
 	 *
@@ -97,7 +116,7 @@ export declare class DataSnapshot<
 	 * @returns `true` if data exists at the specified child path; else
 	 *  `false`.
 	 */
-	hasChild(path: string): boolean
+	hasChild(path: FindAllChildKeys<T, U>): boolean
 	/**
 	 * Returns whether or not the `DataSnapshot` has any non-`null` child
 	 * properties.

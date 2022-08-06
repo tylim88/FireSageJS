@@ -40,6 +40,15 @@ export type FindAllChildKeys<
 		: never
 	: never
 
+export type FindAllTopLevelChildKeys<
+	T extends MetaType,
+	U extends (keyof T['flatten_write'] & string) | undefined
+> = FindAllChildKeys<T, U> extends infer R
+	? R extends `${string}/${string}`
+		? never
+		: R & string
+	: never
+
 export type GetFullPath<
 	T extends MetaType,
 	ParentFullPath extends (keyof T['flatten_write'] & string) | undefined,
@@ -60,8 +69,14 @@ export type FindNestedTypeFromFullPath<
 	ACC extends T[M] = T[M]
 > = U extends undefined
 	? T[M]
+	: ACC extends undefined
+	? undefined
 	: U extends `${infer R extends keyof ACC & string}/${infer S}`
-	? FindNestedTypeFromFullPath<T, S, M, ACC[R]>
+	? ACC[R] extends infer P
+		? P extends P
+			? FindNestedTypeFromFullPath<T, S, M, P>
+			: never
+		: never
 	: U extends keyof ACC
 	? ACC[U]
 	: never
