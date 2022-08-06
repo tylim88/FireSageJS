@@ -5,6 +5,8 @@ import {
 	FindNestedTypeFromFullPath,
 	IfIsPushAbleThenReturnV,
 	IfIsRemoveAbleThenReturnV,
+	GetAllRemovePath,
+	GetAllPushPath,
 } from './findTypeAndKey'
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
@@ -111,14 +113,14 @@ describe('test', () => {
 				{
 					[x: string]: {
 						i: boolean
-						l: number
-						m: { [x: string]: { n: '7' | '8' | '9' | undefined } }
+						l: number | undefined
+						m: { [x: string]: { n: '7' | '8' | '9' | undefined } } | undefined
 					}
 				}
 			>
 		>()
 		IsTrue<IsSame<H, ServerTimestamp>>()
-		IsTrue<IsSame<L, number>>()
+		IsTrue<IsSame<L, number | undefined>>()
 	})
 
 	it('test IfIsPushReturnV', () => {
@@ -169,5 +171,21 @@ describe('test', () => {
 		IsTrue<IsSame<G, ErrorNotRemoveAble<`a/${string}/d`>>>()
 		IsTrue<IsSame<H, ErrorNotRemoveAble<`a/${string}/d/${string}`>>>()
 		IsTrue<IsSame<I, true>>()
+	})
+	it('test Get All Remove Path', () => {
+		IsTrue<
+			IsSame<
+				GetAllRemovePath<Users>,
+				| 'b/d'
+				| 'b/d/k'
+				| `b/h/${string}/m`
+				| `b/h/${string}/l`
+				| `b/h/${string}/m/${string}/n`
+			>
+		>
+	})
+
+	it('test Get All Push Path', () => {
+		IsTrue<IsSame<GetAllPushPath<Users>, `b/h/${string}/m` | 'o'>>
 	})
 })

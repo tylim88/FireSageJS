@@ -67,6 +67,7 @@ export type FindNestedTypeFromFullPath<
 	? ACC[U]
 	: never
 
+// not in use
 export type IfIsXAbleThenReturnV<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
@@ -98,15 +99,53 @@ export type IfIsXAbleThenReturnV<
 				? RemoveFirstSegment<RemoveFirstSegment<DCC>>
 				: RemoveFirstSegment<DCC>
 	  >
-
+// not in use
 export type IfIsPushAbleThenReturnV<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	V
 > = IfIsXAbleThenReturnV<T, U, V, Push<any>, ErrorNotPushAble<U>>
-
+// not in use
 export type IfIsRemoveAbleThenReturnV<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	V
 > = IfIsXAbleThenReturnV<T, U, V, Remove, ErrorNotRemoveAble<U>>
+
+export type GetAllVPath<
+	T,
+	V,
+	Key extends string | undefined = undefined
+> = T extends V
+	?
+			| Key
+			| (T extends Push<infer X>
+					? GetAllVPath<
+							X,
+							V,
+							Key extends undefined ? string : `${Key}/${string}`
+					  >
+					: never)
+	: T extends Record<string, unknown>
+	? keyof T extends infer K
+		? K extends K // make it distributive
+			? GetAllVPath<
+					T[K & keyof T],
+					V,
+					Key extends undefined ? K & string : `${Key}/${K & string}`
+			  >
+			: never
+		: never
+	: T extends Push<infer X>
+	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${string}`>
+	: never
+
+export type GetAllRemovePath<T extends MetaType> = GetAllVPath<
+	T['base'],
+	Remove
+>
+
+export type GetAllPushPath<T extends MetaType> = GetAllVPath<
+	T['base'],
+	Push<any>
+>

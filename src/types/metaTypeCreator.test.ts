@@ -10,6 +10,8 @@ describe('test generated meta type', () => {
 			IsSame<
 				A,
 				{
+					o: { [x: string]: number | Increment }
+					[x: `o/${string}`]: number | Increment
 					a: 1 | 2 | 3
 					b: {
 						c: true

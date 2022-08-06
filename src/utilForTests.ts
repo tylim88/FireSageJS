@@ -29,16 +29,19 @@ export type Users = MetaTypeCreator<{
 	a: 1 | 2 | 3
 	b: {
 		c: true
-		d: { e: 'abc' | 'xyz' | 'efg'; f: { j: number }; k: string | Remove }
+		d:
+			| { e: 'abc' | 'xyz' | 'efg'; f: { j: number }; k: string | Remove }
+			| Remove
 		h: Record<
 			string,
 			{
 				i: boolean
-				l: ServerTimestamp
-				m: Push<{ n: '7' | '8' | '9' | Remove }>
+				l: ServerTimestamp | Remove
+				m: Push<{ n: '7' | '8' | '9' | Remove }> | Remove
 			}
 		>
 	}
+	o: Push<number>
 }>
 
 export const usersCreator = getFiresage<Users>()
@@ -48,9 +51,11 @@ export const generateRandomData = (): {
 	k: string
 	randStringHKey: string
 	randStringMKey: string
+	randStringOKey: string
 } => {
 	const randStringHKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const randStringMKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
+	const randStringOKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const k = v4()
 	return {
 		data: {
@@ -71,9 +76,11 @@ export const generateRandomData = (): {
 					},
 				},
 			},
+			o: { [randStringOKey]: Math.random() },
 		},
 		randStringMKey,
 		randStringHKey,
+		randStringOKey,
 		k,
 	}
 }

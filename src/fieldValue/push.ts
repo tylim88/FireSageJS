@@ -3,7 +3,8 @@ import {
 	MetaType,
 	DatabaseReference,
 	FindNestedTypeFromFullPath,
-	IfIsPushAbleThenReturnV,
+	GetAllPushPath,
+	ErrorNotPushAble,
 } from '../types'
 /**
 Generates a new child location using a unique key and returns its Reference.
@@ -29,7 +30,9 @@ export const push = <
 >(
 	ref: DatabaseReference<T, U> extends never
 		? DatabaseReference<T, U>
-		: IfIsPushAbleThenReturnV<T, U, DatabaseReference<T, U>>,
+		: U extends GetAllPushPath<T>
+		? DatabaseReference<T, U>
+		: ErrorNotPushAble<U>,
 	value: FindNestedTypeFromFullPath<T, `${U}/string`, 'write'>
 ) => {
 	return push_(ref as any, value)

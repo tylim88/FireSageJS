@@ -8,7 +8,7 @@ import { ServerTimestamp, Increment, Push, Remove } from './fieldValue'
 export type ReplaceInvalidDataTypeBase<
 	T,
 	K extends string = keyof T & string
-> = T[] extends (
+> = T extends
 	| boolean
 	| string
 	| number
@@ -16,7 +16,6 @@ export type ReplaceInvalidDataTypeBase<
 	| Increment
 	| Push<any>
 	| Remove
-)[]
 	? T
 	: T extends Record<string, unknown>
 	? { [K in keyof T]: ReplaceInvalidDataTypeBase<T[K], K & string> }
@@ -27,7 +26,7 @@ export type ReplaceInvalidDataTypeBase<
 export type ReplaceInvalidDataTypeRead<
 	T,
 	K extends string = keyof T & string
-> = T[] extends (boolean | string | number | undefined)[]
+> = T extends boolean | string | number | undefined
 	? T
 	: T extends Record<string, unknown>
 	? { [K in keyof T]: ReplaceInvalidDataTypeRead<T[K], K & string> }
@@ -38,7 +37,7 @@ export type ReplaceInvalidDataTypeRead<
 export type ReplaceInvalidDataTypeWrite<
 	T,
 	K extends string = keyof T & string
-> = T[] extends (boolean | string | number | ServerTimestamp | Increment)[]
+> = T extends boolean | string | number | ServerTimestamp | Increment
 	? T
 	: T extends Record<string, unknown>
 	? { [K in keyof T]: ReplaceInvalidDataTypeWrite<T[K], K & string> }

@@ -26,13 +26,20 @@ describe('test push]', () => {
 	})
 
 	it('test functionality', async () => {
-		const path = 'b/h/abc/m'
+		const ref1 = users.ref('b/h/abc/m')
+		const ref2 = users.ref('o')
 		await set(
-			users.ref(path),
+			ref1,
 			// @ts-expect-error
 			null
 		)
-		await push(users.ref(path), { n: '7' })
+		await push(ref1, { n: '7' })
+		await set(
+			ref2,
+			// @ts-expect-error
+			null
+		)
+		await push(ref2, 1)
 
 		// TODO check return data
 	})
