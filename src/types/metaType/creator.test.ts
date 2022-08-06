@@ -139,17 +139,21 @@ describe('test generated meta type', () => {
 					a: 1 | 2 | 3
 					b: {
 						c: true
-						d: {
-							e: 'abc' | 'xyz' | 'efg'
-							f: { j: number }
-							k: string | null
-						} | null
+						d:
+							| {
+									e: 'abc' | 'xyz' | 'efg'
+									f: { j: number }
+									k: string | undefined
+							  }
+							| undefined
 						h: Record<
 							string,
 							{
 								i: boolean
-								l: number | null
-								m: Record<string, { n: '7' | '8' | '9' | null }> | null
+								l: number | undefined
+								m:
+									| Record<string, { n: '7' | '8' | '9' | undefined }>
+									| undefined
 							}
 						>
 					}

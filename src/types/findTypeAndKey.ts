@@ -69,8 +69,8 @@ export type FindNestedTypeFromFullPath<
 	ACC extends T[M] = T[M]
 > = U extends undefined
 	? T[M]
-	: ACC extends null // distributive, remove able read need this
-	? null
+	: ACC extends undefined // distributive, remove able read need this
+	? undefined
 	: U extends `${infer R extends keyof ACC & string}/${infer S}`
 	? ACC[R] extends infer P
 		? P extends P

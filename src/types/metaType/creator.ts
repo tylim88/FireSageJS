@@ -4,7 +4,7 @@ import {
 	ReplaceInvalidDataTypeBase,
 	ReplaceInvalidDataTypeWrite,
 	ReplaceRemove,
-	ReplaceRemoveWithNull,
+	ReplaceRemoveWithUndefined,
 } from './replaceInvalidDataType'
 import {
 	ReadTypeConverter,
@@ -29,7 +29,7 @@ export type MetaTypeCreator<
 	},
 	Write = ReplaceInvalidDataTypeWrite<WriteTypeConverter<ReplaceRemove<Base>>>,
 	Read = ReplaceInvalidDataTypeRead<
-		ReadTypeConverter<ReplaceRemoveWithNull<Base>>
+		ReadTypeConverter<ReplaceRemoveWithUndefined<Base>>
 	>,
 	Compare = ReplaceInvalidDataTypeRead<ReadTypeConverter<ReplaceRemove<Base>>>
 > = {
