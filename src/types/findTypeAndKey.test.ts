@@ -175,7 +175,7 @@ describe('test', () => {
 		IsTrue<IsSame<A, Users['read']>>()
 		IsTrue<IsSame<B, Users['read']['a']>>()
 		IsTrue<IsSame<C, Users['read']['b']['d']>>()
-		IsTrue<IsSame<D, number | undefined>>()
+		IsTrue<IsSame<D, number | null>>()
 		IsTrue<IsSame<E, Users['read']['b']['h'][string]>>()
 		IsTrue<IsSame<F, Users['read']['b']['h'][string]['i']>>()
 		IsTrue<IsSame<G, Users['read']['b']['h']>>()
@@ -184,13 +184,12 @@ describe('test', () => {
 		IsTrue<
 			IsSame<
 				J,
-				| {
-						n: '7' | '8' | '9' | undefined
-				  }
-				| undefined
+				{
+					n: '7' | '8' | '9' | null
+				} | null
 			>
 		>()
-		IsTrue<IsSame<K, '7' | '8' | '9' | undefined>>()
+		IsTrue<IsSame<K, '7' | '8' | '9' | null>>()
 	})
 
 	it('test Get All Remove Path', () => {

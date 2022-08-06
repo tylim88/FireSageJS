@@ -54,10 +54,10 @@ export type ReplaceRemove<T> = T extends Removable
 	? { [x: string]: ReplaceRemove<X> }
 	: T
 
-export type ReplaceRemoveWithUndefined<T> = T extends Removable
-	? undefined
+export type ReplaceRemoveWithNull<T> = T extends Removable
+	? null
 	: T extends Record<string, unknown>
-	? { [K in keyof T]: ReplaceRemoveWithUndefined<T[K]> }
+	? { [K in keyof T]: ReplaceRemoveWithNull<T[K]> }
 	: T extends PushAble<infer X>
-	? { [x: string]: ReplaceRemoveWithUndefined<X> }
+	? { [x: string]: ReplaceRemoveWithNull<X> }
 	: T

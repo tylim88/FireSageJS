@@ -16,26 +16,17 @@ describe('test read all node as null', () => {
 					a: 1 | 2 | 3 | null
 					b: {
 						c: true | null
-						d:
-							| {
-									e: 'abc' | 'xyz' | 'efg' | null
-									f: { j: number | null } | null
-									k: string | undefined | null
-							  }
-							| undefined
-							| null
+						d: {
+							e: 'abc' | 'xyz' | 'efg' | null
+							f: { j: number | null } | null
+							k: string | null
+						} | null
 						h: Record<
 							string,
 							{
 								i: boolean | null
-								l: number | undefined | null
-								m:
-									| Record<
-											string,
-											{ n: '7' | '8' | '9' | undefined | null } | null
-									  >
-									| null
-									| undefined
+								l: number | null
+								m: Record<string, { n: '7' | '8' | '9' | null } | null> | null
 							} | null
 						> | null
 					} | null
