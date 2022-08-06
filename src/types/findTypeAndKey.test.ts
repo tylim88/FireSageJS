@@ -2,7 +2,7 @@ import {
 	FindParentKey,
 	FindParentType,
 	FindAllChildKeys,
-	FindType,
+	FindNestedTypeFromFullPath,
 	IfIsPushAbleThenReturnV,
 	IfIsRemoveAbleThenReturnV,
 } from './findTypeAndKey'
@@ -70,15 +70,15 @@ describe('test', () => {
 	})
 
 	it('test Find Write Type', () => {
-		type A = FindType<Users, undefined, 'write'>
-		type B = FindType<Users, 'a', 'write'>
-		type C = FindType<Users, 'b/d', 'write'>
-		type D = FindType<Users, 'b/d/f/j', 'write'>
-		type E = FindType<Users, `b/h/${string}`, 'write'>
-		type F = FindType<Users, `b/h/${string}/i`, 'write'>
-		type G = FindType<Users, `b/h`, 'read'>
-		type H = FindType<Users, `b/h/${string}/l`, 'write'>
-		type L = FindType<Users, `b/h/${string}/l`, 'read'>
+		type A = FindNestedTypeFromFullPath<Users, undefined, 'write'>
+		type B = FindNestedTypeFromFullPath<Users, 'a', 'write'>
+		type C = FindNestedTypeFromFullPath<Users, 'b/d', 'write'>
+		type D = FindNestedTypeFromFullPath<Users, 'b/d/f/j', 'write'>
+		type E = FindNestedTypeFromFullPath<Users, `b/h/${string}`, 'write'>
+		type F = FindNestedTypeFromFullPath<Users, `b/h/${string}/i`, 'write'>
+		type G = FindNestedTypeFromFullPath<Users, `b/h`, 'read'>
+		type H = FindNestedTypeFromFullPath<Users, `b/h/${string}/l`, 'write'>
+		type L = FindNestedTypeFromFullPath<Users, `b/h/${string}/l`, 'read'>
 		IsTrue<IsSame<A, Users['write']>>()
 		IsTrue<IsSame<B, 1 | 2 | 3>>()
 		IsTrue<
@@ -112,7 +112,7 @@ describe('test', () => {
 					[x: string]: {
 						i: boolean
 						l: number
-						m: { [x: string]: { n: '7' | '8' | '9' } }
+						m: { [x: string]: { n: '7' | '8' | '9' | undefined } }
 					}
 				}
 			>

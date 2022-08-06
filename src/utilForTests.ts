@@ -4,10 +4,11 @@ import {
 	DatabaseReference,
 	FindAllChildKeys,
 	ErrorHasNoChild,
-	FindType,
+	FindNestedTypeFromFullPath,
 	RemoveLastSlash,
 	ServerTimestamp,
 	Push,
+	Remove,
 } from './types'
 import { getFiresage } from '.'
 import { initializeApp as initializeApp_ } from 'firebase/app'
@@ -28,10 +29,14 @@ export type Users = MetaTypeCreator<{
 	a: 1 | 2 | 3
 	b: {
 		c: true
-		d: { e: 'abc' | 'xyz' | 'efg'; f: { j: number }; k: string }
+		d: { e: 'abc' | 'xyz' | 'efg'; f: { j: number }; k: string | Remove }
 		h: Record<
 			string,
-			{ i: boolean; l: ServerTimestamp; m: Push<{ n: '7' | '8' | '9' }> }
+			{
+				i: boolean
+				l: ServerTimestamp
+				m: Push<{ n: '7' | '8' | '9' | Remove }>
+			}
 		>
 	}
 }>
@@ -107,7 +112,7 @@ export const readAndExpectUpdate = async <
 		: string extends FindAllChildKeys<T, U>
 		? `${string}/` // some child key type is string and require differentiation
 		: V,
-	inputData: FindType<
+	inputData: FindNestedTypeFromFullPath<
 		T,
 		U extends undefined ? RemoveLastSlash<V> : `${U}/${RemoveLastSlash<V>}`,
 		'write'

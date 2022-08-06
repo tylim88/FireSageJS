@@ -67,8 +67,8 @@ export declare class DataSnapshot<
 	 *   Array, string, number, boolean, or `null`).
 	 */
 	exportVal():
-		| (U extends keyof T['flatten_read'] & string
-				? T['flatten_read'][U]
+		| (U extends keyof T['flatten_write'] & string
+				? T['flatten_write'][U]
 				: T['read'])
 		| null
 	/**
@@ -127,8 +127,8 @@ export declare class DataSnapshot<
 	 *   Array, string, number, boolean, or `null`).
 	 */
 	val():
-		| (U extends keyof T['flatten_read'] & string
-				? T['flatten_read'][U]
+		| (U extends keyof T['flatten_write'] & string
+				? T['flatten_write'][U]
 				: T['read'])
 		| null
 }

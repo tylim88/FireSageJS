@@ -7,7 +7,7 @@ import {
 import { Push, FireSagePushValue, Remove } from './fieldValue'
 import { ErrorNotRemoveAble, ErrorNotPushAble } from './error'
 
-export type Mode = 'read' | 'write' | 'base'
+export type Mode = 'read' | 'write' | 'base' | 'compare'
 
 export type FindParentKey<
 	T extends MetaType,
@@ -54,15 +54,15 @@ export type GetFullPath<
 		: never
 	: never
 
-export type FindType<
+export type FindNestedTypeFromFullPath<
 	T extends MetaType,
 	U extends string | undefined,
 	M extends Mode,
-	ACC extends T[`flatten_${M}`] = T[M]
+	ACC extends T[M] = T[M]
 > = U extends undefined
 	? T[M]
 	: U extends `${infer R extends keyof ACC & string}/${infer S}`
-	? FindType<T, S, M, ACC[R]>
+	? FindNestedTypeFromFullPath<T, S, M, ACC[R]>
 	: U extends keyof ACC
 	? ACC[U]
 	: never
@@ -80,7 +80,7 @@ export type IfIsXAbleThenReturnV<
 		? V
 		: Error
 	: DCC extends ''
-	? X[] extends FindType<T, ACC, 'base'>[]
+	? X extends FindNestedTypeFromFullPath<T, ACC, 'base'>
 		? V
 		: Error
 	: IfIsXAbleThenReturnV<
@@ -89,12 +89,12 @@ export type IfIsXAbleThenReturnV<
 			V,
 			X,
 			Error,
-			Push<any>[] extends FindType<T, ACC, 'base'>[]
+			Push<any>[] extends FindNestedTypeFromFullPath<T, ACC, 'base'>[]
 				? `${ACC}/${FireSagePushValue}/${GetFirstSegment<
 						RemoveFirstSegment<DCC>
 				  >}`
 				: `${ACC}/${GetFirstSegment<DCC>}`,
-			Push<any>[] extends FindType<T, ACC, 'base'>[]
+			Push<any>[] extends FindNestedTypeFromFullPath<T, ACC, 'base'>[]
 				? RemoveFirstSegment<RemoveFirstSegment<DCC>>
 				: RemoveFirstSegment<DCC>
 	  >

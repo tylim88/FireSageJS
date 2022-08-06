@@ -22,7 +22,7 @@ A callback that fires when the specified event occurs. The callback will be pass
  */
 	<
 		T extends MetaType,
-		U extends (keyof T['flatten_read'] & string) | undefined
+		U extends (keyof T['flatten_write'] & string) | undefined
 	>(
 		ref: DatabaseReference<T, U>,
 		callback: (snapshot: DataSnapshot<T, U>) => unknown,
@@ -49,7 +49,7 @@ An optional callback that will be notified if your event subscription is ever ca
  */
 	<
 		T extends MetaType,
-		U extends (keyof T['flatten_read'] & string) | undefined
+		U extends (keyof T['flatten_write'] & string) | undefined
 	>(
 		ref: DatabaseReference<T, U>,
 		callback: (snapshot: DataSnapshot<T, U>) => unknown,
