@@ -6,7 +6,11 @@ import {
 	ReplaceRemove,
 	ReplaceRemoveWithUndefined,
 } from './replaceInvalidDataType'
-import { ReadTypeConverter, WriteTypeConverter } from './typeConverter'
+import {
+	ReadTypeConverter,
+	WriteTypeConverter,
+	AllNodesPossiblyReadAsNull,
+} from './typeConverter'
 
 export type MetaType = {
 	base: unknown
@@ -20,6 +24,9 @@ export type MetaType = {
 
 export type MetaTypeCreator<
 	Base,
+	Settings extends { AllNodesPossiblyReadAsUndefined?: boolean } = {
+		AllNodesPossiblyReadAsUndefined: false
+	},
 	Write = ReplaceInvalidDataTypeWrite<WriteTypeConverter<ReplaceRemove<Base>>>,
 	Read = ReplaceInvalidDataTypeRead<
 		ReadTypeConverter<ReplaceRemoveWithUndefined<Base>>
@@ -30,7 +37,9 @@ export type MetaTypeCreator<
 	flatten_base: ObjectFlattenHybrid<ReplaceInvalidDataTypeBase<Base>>
 	write: Write
 	flatten_write: ObjectFlattenHybrid<Write>
-	read: Read
+	read: Settings['AllNodesPossiblyReadAsUndefined'] extends true
+		? AllNodesPossiblyReadAsNull<Read>
+		: Read
 	compare: Compare
 	flatten_compare: ObjectFlattenHybrid<Compare>
 }
