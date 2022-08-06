@@ -1,6 +1,6 @@
 import { MetaType } from './metaType'
 import { RemoveLastSegment } from './stringManipulation'
-import { PushAble, Removable } from './fieldValue'
+import { PushAble, Removable, PushAbleOnly } from './fieldValue'
 
 export type Mode = 'read' | 'write' | 'base' | 'compare'
 
@@ -95,6 +95,13 @@ export type GetAllVPath<
 							Key extends undefined ? string : `${Key}/${string}`
 					  >
 					: never)
+			| (T extends PushAbleOnly<infer X>
+					? GetAllVPath<
+							X,
+							V,
+							Key extends undefined ? string : `${Key}/${string}`
+					  >
+					: never)
 	: T extends Record<string, unknown>
 	? keyof T extends infer K
 		? K extends K // make it distributive
@@ -107,14 +114,21 @@ export type GetAllVPath<
 		: never
 	: T extends PushAble<infer X>
 	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${string}`>
+	: T extends PushAbleOnly<infer X>
+	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${string}`>
 	: never
 
-export type GetAllRemovePath<T extends MetaType> = GetAllVPath<
+export type GetAllRemovablePath<T extends MetaType> = GetAllVPath<
 	T['base'],
 	Removable
 >
 
-export type GetAllPushPath<T extends MetaType> = GetAllVPath<
+export type GetAllPushAblePath<T extends MetaType> = GetAllVPath<
 	T['base'],
-	PushAble<any>
+	PushAble<unknown>
+>
+
+export type GetAllPushOnlyPath<T extends MetaType> = GetAllVPath<
+	T['base'],
+	PushAbleOnly<unknown>
 >

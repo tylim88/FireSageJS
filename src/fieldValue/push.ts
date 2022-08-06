@@ -2,7 +2,7 @@ import { push as push_ } from 'firebase/database'
 import {
 	MetaType,
 	DatabaseReference,
-	GetAllPushPath,
+	GetAllPushAblePath,
 	ErrorNotPushAble,
 	FindNestedTypeFromFullPath,
 } from '../types'
@@ -30,7 +30,7 @@ export const push = <
 >(
 	ref: DatabaseReference<T, U> extends never
 		? DatabaseReference<T, U>
-		: U extends GetAllPushPath<T>
+		: U extends GetAllPushAblePath<T>
 		? DatabaseReference<T, U>
 		: ErrorNotPushAble<U>,
 	value: FindNestedTypeFromFullPath<T, `${U}/string`, 'write'>

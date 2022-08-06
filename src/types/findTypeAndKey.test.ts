@@ -3,8 +3,8 @@ import {
 	FindParentNestedTypeFromFullPath,
 	FindAllChildKeys,
 	FindNestedTypeFromFullPath,
-	GetAllRemovePath,
-	GetAllPushPath,
+	GetAllRemovablePath,
+	GetAllPushAblePath,
 	FindAllTopLevelChildKeys,
 } from './findTypeAndKey'
 import { IsTrue, IsSame } from './utils'
@@ -196,7 +196,7 @@ describe('test', () => {
 	it('test Get All Remove Path', () => {
 		IsTrue<
 			IsSame<
-				GetAllRemovePath<Users>,
+				GetAllRemovablePath<Users>,
 				| 'b/d'
 				| 'b/d/k'
 				| `b/h/${string}/m`
@@ -207,6 +207,6 @@ describe('test', () => {
 	})
 
 	it('test Get All Push Path', () => {
-		IsTrue<IsSame<GetAllPushPath<Users>, `b/h/${string}/m` | 'o'>>
+		IsTrue<IsSame<GetAllPushAblePath<Users>, `b/h/${string}/m` | 'o'>>
 	})
 })

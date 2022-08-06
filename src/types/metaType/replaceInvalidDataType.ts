@@ -3,7 +3,13 @@ import {
 	ErrorInvalidDataTypeBase,
 	ErrorInvalidDataTypeWrite,
 } from '../error'
-import { ServerTimestamp, Increment, PushAble, Removable } from '../fieldValue'
+import {
+	ServerTimestamp,
+	Increment,
+	PushAble,
+	Removable,
+	PushAbleOnly,
+} from '../fieldValue'
 
 export type ReplaceInvalidDataTypeBase<
 	T,
@@ -14,13 +20,16 @@ export type ReplaceInvalidDataTypeBase<
 	| number
 	| ServerTimestamp
 	| Increment
-	| PushAble<any>
+	| PushAble<unknown>
+	| PushAbleOnly<unknown>
 	| Removable
 	| null
 	? T
 	: T extends Record<string, unknown>
 	? { [K in keyof T]: ReplaceInvalidDataTypeBase<T[K], K & string> }
 	: T extends PushAble<infer X>
+	? { [x: string]: ReplaceInvalidDataTypeBase<X> }
+	: T extends PushAbleOnly<infer X>
 	? { [x: string]: ReplaceInvalidDataTypeBase<X> }
 	: ErrorInvalidDataTypeBase<K extends string ? K : 'root'>
 
@@ -33,6 +42,8 @@ export type ReplaceInvalidDataTypeRead<
 	? { [K in keyof T]: ReplaceInvalidDataTypeRead<T[K], K & string> }
 	: T extends PushAble<infer X>
 	? { [x: string]: ReplaceInvalidDataTypeRead<X> }
+	: T extends PushAbleOnly<infer X>
+	? { [x: string]: ReplaceInvalidDataTypeRead<X> }
 	: ErrorInvalidDataTypeRead<K extends string ? K : 'root'>
 
 export type ReplaceInvalidDataTypeWrite<
@@ -44,6 +55,8 @@ export type ReplaceInvalidDataTypeWrite<
 	? { [K in keyof T]: ReplaceInvalidDataTypeWrite<T[K], K & string> }
 	: T extends PushAble<infer X>
 	? { [x: string]: ReplaceInvalidDataTypeWrite<X> }
+	: T extends PushAbleOnly<infer X>
+	? { [x: string]: ReplaceInvalidDataTypeWrite<X> }
 	: ErrorInvalidDataTypeWrite<K extends string ? K : 'root'>
 
 export type ReplaceRemove<T> = T extends Removable
@@ -52,6 +65,8 @@ export type ReplaceRemove<T> = T extends Removable
 	? { [K in keyof T]: ReplaceRemove<T[K]> }
 	: T extends PushAble<infer X>
 	? { [x: string]: ReplaceRemove<X> }
+	: T extends PushAbleOnly<infer X>
+	? { [x: string]: ReplaceRemove<X> }
 	: T
 
 export type ReplaceRemoveWithUndefined<T> = T extends Removable
@@ -59,5 +74,7 @@ export type ReplaceRemoveWithUndefined<T> = T extends Removable
 	: T extends Record<string, unknown>
 	? { [K in keyof T]: ReplaceRemoveWithUndefined<T[K]> }
 	: T extends PushAble<infer X>
+	? { [x: string]: ReplaceRemoveWithUndefined<X> }
+	: T extends PushAbleOnly<infer X>
 	? { [x: string]: ReplaceRemoveWithUndefined<X> }
 	: T

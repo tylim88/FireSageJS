@@ -9,6 +9,7 @@ import {
 	ServerTimestamp,
 	PushAble,
 	Removable,
+	PushAbleOnly,
 } from './types'
 import { getFiresage } from '.'
 import { initializeApp as initializeApp_ } from 'firebase/app'
