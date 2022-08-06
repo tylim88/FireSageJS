@@ -1,4 +1,4 @@
-import { MetaType, MetaTypeCreator } from './metaTypeCreator'
+import { MetaType, MetaTypeCreator } from './metaType'
 import { FindParentKey } from './findTypeAndKey'
 import { GetLastPart } from './stringManipulation'
 

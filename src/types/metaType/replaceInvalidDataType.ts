@@ -2,8 +2,8 @@ import {
 	ErrorInvalidDataTypeRead,
 	ErrorInvalidDataTypeBase,
 	ErrorInvalidDataTypeWrite,
-} from './error'
-import { ServerTimestamp, Increment, Push, Remove } from './fieldValue'
+} from '../error'
+import { ServerTimestamp, Increment, Push, Remove } from '../fieldValue'
 
 export type ReplaceInvalidDataTypeBase<
 	T,

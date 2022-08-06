@@ -1,4 +1,4 @@
-import { RemoveLastSlash } from './stringManipulation'
+import { RemoveLastSlash } from '../stringManipulation'
 
 type DeepKeyHybridInner<
 	T,

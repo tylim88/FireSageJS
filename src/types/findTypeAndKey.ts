@@ -1,12 +1,8 @@
-import { MetaType } from './metaTypeCreator'
+import { MetaType } from './metaType'
 import { RemoveLastSegment } from './stringManipulation'
 import { Push, Remove } from './fieldValue'
 
 export type Mode = 'read' | 'write' | 'base' | 'compare'
-
-export type TypeDiving<T, U extends string> = U extends `${infer Y}/${infer S}`
-	? TypeDiving<T[Y & keyof T], S>
-	: T[U & keyof T]
 
 export type FindParentKey<
 	T extends MetaType,
@@ -17,6 +13,11 @@ export type FindParentKey<
 		: RemoveLastSegment<U>
 	: never
 
+type TypeDiving<T, U extends string> = U extends `${infer Y}/${infer S}`
+	? TypeDiving<T[Y & keyof T], S>
+	: T[U & keyof T]
+
+// not in use
 export type FindParentNestedTypeFromFullPath<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined

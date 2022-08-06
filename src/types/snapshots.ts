@@ -1,4 +1,4 @@
-import { MetaType } from './metaTypeCreator'
+import { MetaType } from './metaType'
 import { DatabaseReference } from './refs'
 import { FindAllChildKeys, GetFullPath } from './findTypeAndKey'
 import { ErrorHasNoChild } from './error'

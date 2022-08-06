@@ -1,4 +1,4 @@
-import { ServerTimestamp, Increment, Push } from './fieldValue'
+import { ServerTimestamp, Increment, Push } from '../fieldValue'
 
 export type ReadTypeConverter<T> = T extends ServerTimestamp
 	? number

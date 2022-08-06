@@ -1,6 +1,6 @@
-import { ServerTimestamp, Increment } from './fieldValue'
-import { IsTrue, IsSame } from './utils'
-import { Users } from '../utilForTests'
+import { ServerTimestamp, Increment } from '../fieldValue'
+import { IsTrue, IsSame } from '../utils'
+import { Users } from '../../utilForTests'
 
 describe('test generated meta type', () => {
 	it('test flatten_write', () => {

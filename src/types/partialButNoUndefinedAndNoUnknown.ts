@@ -1,4 +1,4 @@
-import { MetaType } from './metaTypeCreator'
+import { MetaType } from './metaType'
 import {
 	FindAllChildKeys,
 	FindNestedTypeFromFullPath,

@@ -34,8 +34,10 @@ export type RemoveLastSegment<
 	? RemoveLastSegment<R, ACC[] extends never[] ? `${S}/` : `${ACC}${S}/`>
 	: never
 
+// not in use
 export type GetFirstSegment<U extends string | undefined> =
 	U extends `${infer Y}/${string}` ? Y : U
 
+// not in use
 export type RemoveFirstSegment<U extends string | undefined> =
 	U extends `${string}/${infer Y}` ? Y : ''
