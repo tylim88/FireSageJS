@@ -206,19 +206,6 @@ describe('test', () => {
 		>
 	})
 
-	it('test Get All Remove Path', () => {
-		IsTrue<
-			IsSame<
-				GetAllRemovePath<Users>,
-				| 'b/d'
-				| 'b/d/k'
-				| `b/h/${string}/m`
-				| `b/h/${string}/l`
-				| `b/h/${string}/m/${string}/n`
-			>
-		>
-	})
-
 	it('test Get All Push Path', () => {
 		IsTrue<IsSame<GetAllPushPath<Users>, `b/h/${string}/m` | 'o'>>
 	})

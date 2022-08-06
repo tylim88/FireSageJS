@@ -2,8 +2,8 @@ const serverTimestampSymbol: unique symbol = Symbol()
 type ServerTimestampSymbol = typeof serverTimestampSymbol
 const incrementSymbol: unique symbol = Symbol()
 type IncrementSymbol = typeof incrementSymbol
-const pushSymbol: unique symbol = Symbol()
-type PushSymbol = typeof pushSymbol
+const pushAbleSymbol: unique symbol = Symbol()
+type PushAbleSymbol = typeof pushAbleSymbol
 const removeSymbol: unique symbol = Symbol()
 type RemoveSymbol = typeof removeSymbol
 
@@ -18,6 +18,6 @@ export interface ServerTimestamp extends FieldValue<ServerTimestampSymbol> {}
 
 export interface Increment extends FieldValue<IncrementSymbol> {}
 
-export interface Remove extends FieldValue<RemoveSymbol> {}
+export interface Removable extends FieldValue<RemoveSymbol> {}
 
-export interface Push<T> extends FieldValue<PushSymbol>, PushValue<T> {}
+export interface PushAble<T> extends FieldValue<PushAbleSymbol>, PushValue<T> {}

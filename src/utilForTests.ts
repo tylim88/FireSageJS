@@ -7,8 +7,8 @@ import {
 	FindNestedTypeFromFullPath,
 	RemoveLastSlash,
 	ServerTimestamp,
-	Push,
-	Remove,
+	PushAble,
+	Removable,
 } from './types'
 import { getFiresage } from '.'
 import { initializeApp as initializeApp_ } from 'firebase/app'
@@ -30,18 +30,18 @@ export type Users = MetaTypeCreator<{
 	b: {
 		c: true
 		d:
-			| { e: 'abc' | 'xyz' | 'efg'; f: { j: number }; k: string | Remove }
-			| Remove
+			| { e: 'abc' | 'xyz' | 'efg'; f: { j: number }; k: string | Removable }
+			| Removable
 		h: Record<
 			string,
 			{
 				i: boolean
-				l: ServerTimestamp | Remove
-				m: Push<{ n: '7' | '8' | '9' | Remove }> | Remove
+				l: ServerTimestamp | Removable
+				m: PushAble<{ n: '7' | '8' | '9' | Removable }> | Removable
 			}
 		>
 	}
-	o: Push<number>
+	o: PushAble<number>
 }>
 
 export const usersCreator = getFiresage<Users>()

@@ -29,7 +29,7 @@ export * from './refs'
 export * from './runTransaction'
 export type {
 	ServerTimestamp,
-	Push,
+	PushAble as Push,
 	Increment,
 	MetaTypeCreator,
 	DataSnapshot,

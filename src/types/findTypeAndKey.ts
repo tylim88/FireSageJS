@@ -1,6 +1,6 @@
 import { MetaType } from './metaType'
 import { RemoveLastSegment } from './stringManipulation'
-import { Push, Remove } from './fieldValue'
+import { PushAble, Removable } from './fieldValue'
 
 export type Mode = 'read' | 'write' | 'base' | 'compare'
 
@@ -69,7 +69,7 @@ export type FindNestedTypeFromFullPath<
 	ACC extends T[M] = T[M]
 > = U extends undefined
 	? T[M]
-	: ACC extends undefined
+	: ACC extends undefined // distributive, remove able read need this
 	? undefined
 	: U extends `${infer R extends keyof ACC & string}/${infer S}`
 	? ACC[R] extends infer P
@@ -88,7 +88,7 @@ export type GetAllVPath<
 > = T extends V
 	?
 			| Key
-			| (T extends Push<infer X>
+			| (T extends PushAble<infer X>
 					? GetAllVPath<
 							X,
 							V,
@@ -105,16 +105,16 @@ export type GetAllVPath<
 			  >
 			: never
 		: never
-	: T extends Push<infer X>
+	: T extends PushAble<infer X>
 	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${string}`>
 	: never
 
 export type GetAllRemovePath<T extends MetaType> = GetAllVPath<
 	T['base'],
-	Remove
+	Removable
 >
 
 export type GetAllPushPath<T extends MetaType> = GetAllVPath<
 	T['base'],
-	Push<any>
+	PushAble<any>
 >
