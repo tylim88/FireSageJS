@@ -32,7 +32,7 @@ export type FindParentNestedTypeFromFullPath<
 export type FindAllChildKeys<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
-> = U[] extends undefined[]
+> = U extends undefined
 	? keyof T['flatten_write'] & string
 	: keyof T['flatten_write'] & string extends infer R
 	? R extends `${U}/${infer S}`
