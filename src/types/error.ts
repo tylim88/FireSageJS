@@ -11,8 +11,12 @@ export type ErrorUnknownProperty<T extends string> =
 export type ErrorNotPushAble<T extends string | undefined> =
 	`Error: The '${T extends string
 		? T
-		: 'Root'}' node is not push-able, only Push<T> type can be pushed. Please check the MetaType and assign Push<T> type to '${T}' node`
+		: 'Root'}' node is not push-able, only PushAble<T> or PushAbleOnly<T> type can be pushed. Please check the MetaType and assign Push<T> or PushAbleOnly<T> type to '${T}' node`
 export type ErrorNotRemoveAble<T extends string | undefined> =
 	`Error: The '${T extends string
 		? T
 		: 'Root'}' node is not remove-able, only Remove type can be removed. Please check the MetaType and union Remove type to '${T}' node`
+export type ErrorIsPushOnlyAbleType<T extends string | undefined> =
+	`Error: The '${T extends string
+		? T
+		: 'Root'}' node is PushAbleOnly<T> type, you cannot set or update PushAbleOnly<T> node, to add new node use 'push'. You can still set or update the child nodes as long as they are not PushAbleOnly<T>`

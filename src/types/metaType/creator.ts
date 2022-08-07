@@ -9,7 +9,7 @@ import {
 import {
 	ReadTypeConverter,
 	WriteTypeConverter,
-	AllNodesPossiblyReadAsNull,
+	AllNodesPossiblyReadAsUndefined,
 } from './typeConverter'
 
 export type MetaType = {
@@ -38,7 +38,7 @@ export type MetaTypeCreator<
 	write: Write
 	flatten_write: ObjectFlattenHybrid<Write>
 	read: Settings['AllNodesPossiblyReadAsUndefined'] extends true
-		? AllNodesPossiblyReadAsNull<Read>
+		? AllNodesPossiblyReadAsUndefined<Read>
 		: Read
 	compare: Compare
 	flatten_compare: ObjectFlattenHybrid<Compare>

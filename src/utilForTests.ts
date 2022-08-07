@@ -39,10 +39,12 @@ export type Users = MetaTypeCreator<{
 				i: boolean
 				l: ServerTimestamp | Removable
 				m: PushAble<{ n: '7' | '8' | '9' | Removable }> | Removable
+				p: PushAbleOnly<{ r: ServerTimestamp | Removable }> | Removable
 			}
 		>
 	}
 	o: PushAble<number>
+	q: PushAbleOnly<4 | 5 | 6>
 }>
 
 export const usersCreator = getFiresage<Users>()
@@ -53,10 +55,12 @@ export const generateRandomData = (): {
 	randStringHKey: string
 	randStringMKey: string
 	randStringOKey: string
+	randStringPKey: string
 } => {
 	const randStringHKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const randStringMKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const randStringOKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
+	const randStringPKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const k = v4()
 	return {
 		data: {
@@ -74,14 +78,22 @@ export const generateRandomData = (): {
 						// no point testing server timestamp
 						l: 'fake ServerTimestamp' as unknown as ServerTimestamp,
 						m: { [randStringMKey]: { n: pick(['7', '8', '9'] as const)[0]! } },
+						p: {
+							[randStringMKey]: {
+								// no point testing server timestamp
+								r: 'fake ServerTimestamp' as unknown as ServerTimestamp,
+							},
+						},
 					},
 				},
 			},
 			o: { [randStringOKey]: Math.random() },
+			q: { [randStringOKey]: pick([4, 5, 6] as const)[0]! },
 		},
 		randStringMKey,
 		randStringHKey,
 		randStringOKey,
+		randStringPKey,
 		k,
 	}
 }

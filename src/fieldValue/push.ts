@@ -3,6 +3,7 @@ import {
 	MetaType,
 	DatabaseReference,
 	GetAllPushAblePath,
+	GetAllPushAbleOnlyPath,
 	ErrorNotPushAble,
 	FindNestedTypeFromFullPath,
 } from '../types'
@@ -30,7 +31,7 @@ export const push = <
 >(
 	ref: DatabaseReference<T, U> extends never
 		? DatabaseReference<T, U>
-		: U extends GetAllPushAblePath<T>
+		: U extends GetAllPushAblePath<T> | GetAllPushAbleOnlyPath<T>
 		? DatabaseReference<T, U>
 		: ErrorNotPushAble<U>,
 	value: FindNestedTypeFromFullPath<T, `${U}/string`, 'write'>

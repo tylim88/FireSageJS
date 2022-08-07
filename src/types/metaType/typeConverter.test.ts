@@ -2,7 +2,7 @@ import { Users } from '../../utilForTests'
 import { MetaTypeCreator } from './creator'
 import { IsTrue, IsSame } from '../utils'
 
-describe('test read all node as null', () => {
+describe('test read all node as undefined', () => {
 	it('test', () => {
 		type A = MetaTypeCreator<
 			Users['base'],
@@ -12,35 +12,53 @@ describe('test read all node as null', () => {
 		IsTrue<
 			IsSame<
 				A,
-				{
-					a: 1 | 2 | 3 | null
-					b: {
-						c: true | null
-						d:
+				| {
+						a: 1 | 2 | 3 | undefined
+						b:
 							| {
-									e: 'abc' | 'xyz' | 'efg' | null
-									f: { j: number | null } | null
-									k: string | undefined | null
+									c: true | undefined
+									d:
+										| {
+												e: 'abc' | 'xyz' | 'efg' | undefined
+												f: { j: number | undefined } | undefined
+												k: string | undefined
+										  }
+										| undefined
+
+									h:
+										| Record<
+												string,
+												| {
+														i: boolean | undefined
+														l: number | undefined
+														m:
+															| Record<
+																	string,
+																	| {
+																			n: '7' | '8' | '9' | undefined
+																	  }
+																	| undefined
+															  >
+															| undefined
+														p:
+															| Record<
+																	string,
+																	| {
+																			r: number | undefined
+																	  }
+																	| undefined
+															  >
+															| undefined
+												  }
+												| undefined
+										  >
+										| undefined
 							  }
 							| undefined
-							| null
-						h: Record<
-							string,
-							{
-								i: boolean | null
-								l: number | undefined | null
-								m:
-									| Record<
-											string,
-											{ n: '7' | '8' | '9' | undefined | null } | null
-									  >
-									| null
-									| undefined
-							} | null
-						> | null
-					} | null
-					o: Record<string, number | null> | null
-				} | null
+						o: Record<string, number | undefined> | undefined
+						q: Record<string, 4 | 5 | 6 | undefined> | undefined
+				  }
+				| undefined
 			>
 		>
 	})

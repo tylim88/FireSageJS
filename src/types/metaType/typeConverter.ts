@@ -25,10 +25,15 @@ export type WriteTypeConverter<T> = T extends Record<string, unknown>
 	? number | Increment
 	: T
 
-export type AllNodesPossiblyReadAsNull<T> = T extends Record<string, unknown>
-	? { [K in keyof T]: AllNodesPossiblyReadAsNull<T[K]> | null } | null
+export type AllNodesPossiblyReadAsUndefined<T> = T extends Record<
+	string,
+	unknown
+>
+	?
+			| { [K in keyof T]: AllNodesPossiblyReadAsUndefined<T[K]> | undefined }
+			| undefined
 	: T extends PushAble<infer X>
-	? { [x: string]: AllNodesPossiblyReadAsNull<X> | null } | null
+	? { [x: string]: AllNodesPossiblyReadAsUndefined<X> | undefined } | undefined
 	: T extends PushAbleOnly<infer X>
-	? { [x: string]: AllNodesPossiblyReadAsNull<X> | null } | null
-	: T | null
+	? { [x: string]: AllNodesPossiblyReadAsUndefined<X> | undefined } | undefined
+	: T | undefined

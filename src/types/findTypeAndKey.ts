@@ -128,7 +128,7 @@ export type GetAllPushAblePath<T extends MetaType> = GetAllVPath<
 	PushAble<unknown>
 >
 
-export type GetAllPushOnlyPath<T extends MetaType> = GetAllVPath<
+export type GetAllPushAbleOnlyPath<T extends MetaType> = GetAllVPath<
 	T['base'],
 	PushAbleOnly<unknown>
 >
