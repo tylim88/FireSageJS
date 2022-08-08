@@ -27,7 +27,7 @@ export type RemoveLastSegment<
 	U extends string,
 	ACC extends `${string}/${string}` = never
 > = GetNumberOfSlash<U> extends 0
-	? ACC extends `${infer P}/` // TODO write article about <ACC[] extends `${infer P}/`[]>, the P become string
+	? ACC extends `${infer P}/`
 		? P
 		: never
 	: U extends `${infer S}/${infer R}`

@@ -8,17 +8,14 @@ import {
 	UpdateValuesLoopCheck,
 } from '../types'
 
+// TODO research the 2 dimensions tuple inference issue, check old commit
 export const update = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
-	V extends (FindAllChildKeys<T, U> extends infer R
-		? R extends string
-			? [R, FindNestedTypeFromFullPath<T, GetFullPath<T, U, R>, 'write'>]
-			: never
-		: never)[]
+	V extends ('a' | 'b' | 'c' extends infer R ? [R, unknown] : never)[]
 >(
 	ref: DatabaseReference<T, U>,
-	...values: V extends never ? V : UpdateValuesLoopCheck<T, U, V>
+	...values: V // extends never ? V : UpdateValuesLoopCheck<T, U, V>
 ) => {
 	const obj: Record<string, unknown> = {}
 

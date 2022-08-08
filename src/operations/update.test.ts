@@ -10,12 +10,18 @@ initializeApp()
 
 const users = usersCreator()
 
+type u<T extends ['a' | 'b', unknown][]> = T extends [infer R, ...infer S]
+	? R
+	: 2
+
+type o = u<[['a', 2 | 1 | 3]]>
+
 describe('test update and get', () => {
 	it('test root', async () => {
 		const ref = users.ref()
 		const data = generateRandomData().data
 		const childPath = 'a'
-		await update(ref, [childPath, data['a']])
+		await update(ref, ['ppp' as const, data['a']])
 		await readAndExpectUpdate(ref, childPath, data['a'])
 		;() => {
 			update(ref, [childPath, data['a']])
