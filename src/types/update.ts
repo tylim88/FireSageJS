@@ -10,46 +10,31 @@ import {
 	ErrorUnknownProperty,
 	ErrorIsPushOnlyAbleType,
 	ErrorNeedTupleNotArray,
+	ErrorElementNeedConstAssertion,
+	ErrorNoSuchChild,
 } from './error'
-
-const a = [1, 2, 3] as const
-type o = (readonly ['a', 'b'])['length']
-
-//  not in use
-export type PartialButNoUndefinedAndNoUnknown<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	Data extends Record<string, unknown>,
-	Type extends Record<string, unknown> = {
-		[K in FindAllChildKeys<T, U>]: FindNestedTypeFromFullPath<
-			T,
-			GetFullPath<T, U, K>,
-			'write'
-		>
-	}
-> = FindAllChildKeys<T, U> extends never
-	? ErrorHasNoChild<U>
-	: keyof Data & string extends keyof Type
-	? {
-			[K in keyof Data]: Type[K & keyof Type]
-	  }
-	: ErrorUnknownProperty<Exclude<keyof Data, keyof Type> & string>
 
 export type VerifyNodeNames<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
-	V,
-	ACC extends string[] = []
-> = V extends []
-	? ACC
-	: V extends [infer P, ...infer S]
+	V extends readonly string[],
+	ACC extends readonly string[] = []
+> = number extends V[number]
+	? [ErrorNeedTupleNotArray]
+	: V extends []
+	? Readonly<ACC>
+	: V extends readonly [infer P extends string, ...infer S extends string[]] // ? why [infer P extends FindAllChildKeys<T, U>, ...infer S extends FindAllChildKeys<T, U>[]] does not work
 	? VerifyNodeNames<
 			T,
 			U,
 			S,
 			[
 				...ACC,
-				GetFullPath<T, U, P> extends GetAllPushAbleOnlyPath<T>
+				string extends GetFullPath<T, U, P>
+					? ErrorElementNeedConstAssertion
+					: GetFullPath<T, U, P> extends never
+					? ErrorNoSuchChild<P, U>
+					: GetFullPath<T, U, P> extends GetAllPushAbleOnlyPath<T>
 					? ErrorIsPushOnlyAbleType<`child ${P}`>
 					: P
 			]
@@ -59,14 +44,11 @@ export type VerifyNodeNames<
 export type GetNodeTypes<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
-	V,
+	V extends readonly string[],
 	ACC extends unknown[] = []
 > = V extends []
 	? ACC
-	: V extends [
-			infer P extends string,
-			...infer S extends FindAllChildKeys<T, U>[]
-	  ]
+	: V extends readonly [infer P extends string, ...infer S extends string[]]
 	? GetNodeTypes<
 			T,
 			U,

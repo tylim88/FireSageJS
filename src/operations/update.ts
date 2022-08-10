@@ -2,7 +2,6 @@ import { update as update_ } from 'firebase/database'
 import {
 	DatabaseReference,
 	MetaType,
-	FindAllChildKeys,
 	VerifyNodeNames,
 	GetNodeTypes,
 } from '../types'
@@ -11,7 +10,7 @@ import {
 export const update = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
-	N
+	N extends readonly string[]
 >(
 	ref: DatabaseReference<T, U>,
 	nodeNames: N extends never ? N : VerifyNodeNames<T, U, N>,
@@ -19,8 +18,8 @@ export const update = <
 ) => {
 	const obj: Record<string, unknown> = {}
 
-	nodeNames.forEach(item => {
-		obj[item] = nodeTypes
+	nodeNames.forEach((item, index) => {
+		obj[item] = nodeTypes[index]
 	})
 
 	return update_(ref as any, obj)

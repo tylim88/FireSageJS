@@ -17,7 +17,7 @@ describe('test increment', () => {
 		expect(data).toBe(0)
 	})
 	it('test with update ', async () => {
-		await update(root, { a: increment(-100) })
+		await update(root, ['a'], [increment(-100)])
 		const dataSnapshot = await get(node)
 		const data = dataSnapshot.val()
 		expect(data).toBe(-100)

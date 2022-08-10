@@ -1,5 +1,5 @@
 export type ErrorHasNoChild<T extends string | undefined> =
-	`Error: The '${T extends string ? T : 'write'}' node has no child`
+	`Error: The '${T extends string ? T : 'root'}' node has no child`
 export type ErrorInvalidDataTypeRead<T extends string> =
 	`Error: The '${T}' node has invalid data type and is replaced with this error message. Valid data type is boolean, number, string, object literal(or map type)`
 export type ErrorInvalidDataTypeWrite<T extends string> =
@@ -15,10 +15,16 @@ export type ErrorNotPushAble<T extends string | undefined> =
 export type ErrorNotRemoveAble<T extends string | undefined> =
 	`Error: The '${T extends string
 		? T
-		: 'Root'}' node is not remove-able, only Remove type can be removed. Please check the MetaType and union Remove type to '${T}' node`
+		: 'Root'}' node is not removable, only Removable type can be removed. Please check the MetaType and union Removable type to '${T}' node`
 export type ErrorIsPushOnlyAbleType<T extends string | undefined> =
 	`Error: The '${T extends string
 		? T
-		: 'Root'}' node is PushAbleOnly<T> type, you cannot set or update PushAbleOnly<T> node, to add new node use 'push'. You can still set or update the child nodes as long as they are not PushAbleOnly<T>`
+		: 'Root'}' node type is PushAbleOnly<T>, you cannot set or update PushAbleOnly<T> node, to add new node use 'push'. You can still set or update the child nodes as long as they are not PushAbleOnly<T>`
 export type ErrorNeedTupleNotArray =
 	`Error: The type of argument is an array but require tuple, it seem like you forgot to assert it as const, eg: "[1, 2, 3] as const".`
+export type ErrorElementNeedConstAssertion =
+	`Error: This element type is string, you may forgot to assert it as const, eg: 'abc' as const`
+export type ErrorNoSuchChild<
+	T extends string,
+	U extends string | undefined
+> = `Error: ${T} is not a direct child of ${U extends string ? U : 'root'}`
