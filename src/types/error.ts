@@ -20,3 +20,5 @@ export type ErrorIsPushOnlyAbleType<T extends string | undefined> =
 	`Error: The '${T extends string
 		? T
 		: 'Root'}' node is PushAbleOnly<T> type, you cannot set or update PushAbleOnly<T> node, to add new node use 'push'. You can still set or update the child nodes as long as they are not PushAbleOnly<T>`
+export type ErrorNeedTupleNotArray =
+	`Error: The type of argument is an array but require tuple, it seem like you forgot to assert it as const, eg: "[1, 2, 3] as const".`
