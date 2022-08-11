@@ -23,7 +23,7 @@ export type VerifyNodeNames<
 	? [ErrorNeedTupleNotArray]
 	: V extends []
 	? Readonly<ACC>
-	: V extends readonly [infer P extends string, ...infer S extends string[]] // ? why [infer P extends FindAllChildKeys<T, U>, ...infer S extends FindAllChildKeys<T, U>[]] does not work
+	: V extends readonly [infer P extends string, ...infer S extends string[]]
 	? VerifyNodeNames<
 			T,
 			U,
