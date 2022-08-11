@@ -27,9 +27,9 @@ export type MetaTypeCreator<
 	Settings extends { AllNodesPossiblyReadAsUndefined?: boolean } = {
 		AllNodesPossiblyReadAsUndefined: false
 	},
-	Write = ReplaceInvalidDataTypeWrite<WriteTypeConverter<ReplaceRemove<Base>>>,
-	Read = ReplaceInvalidDataTypeRead<
-		ReadTypeConverter<ReplaceRemoveWithUndefined<Base>>
+	Write = WriteTypeConverter<ReplaceInvalidDataTypeWrite<ReplaceRemove<Base>>>,
+	Read = ReadTypeConverter<
+		ReplaceInvalidDataTypeRead<ReplaceRemoveWithUndefined<Base>>
 	>,
 	Compare = ReplaceInvalidDataTypeRead<ReadTypeConverter<ReplaceRemove<Base>>>
 > = {

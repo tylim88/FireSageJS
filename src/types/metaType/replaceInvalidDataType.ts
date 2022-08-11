@@ -5,21 +5,17 @@ import {
 } from '../error'
 import {
 	ServerTimestamp,
-	Increment,
 	PushAble,
 	Removable,
 	PushAbleOnly,
 	PseudoArray,
 } from '../fieldValue'
 
-type i = ReplaceInvalidDataTypeBase<{ a: PseudoArray<{ b: 1 }> }>
-
 export type ReplaceInvalidDataTypeBase<T> = T extends
 	| boolean
 	| string
 	| number
 	| ServerTimestamp
-	| Increment
 	| Removable
 	| null
 	? T
@@ -38,16 +34,18 @@ export type ReplaceInvalidDataTypeRead<T> = T extends
 	| string
 	| number
 	| undefined
+	| ServerTimestamp
+	| Removable
 	| null
 	? T
 	: T extends Record<string, unknown>
 	? { [K in keyof T]: ReplaceInvalidDataTypeRead<T[K]> }
 	: T extends PushAble<infer X>
-	? { [x: string]: ReplaceInvalidDataTypeRead<X> }
+	? PushAble<ReplaceInvalidDataTypeRead<X>>
 	: T extends PushAbleOnly<infer X>
-	? { [x: string]: ReplaceInvalidDataTypeRead<X> }
+	? PushAbleOnly<ReplaceInvalidDataTypeRead<X>>
 	: T extends PseudoArray<infer X>
-	? { [x: string]: ReplaceInvalidDataTypeRead<X> }
+	? PseudoArray<ReplaceInvalidDataTypeRead<X>>
 	: ErrorInvalidDataTypeRead
 
 export type ReplaceInvalidDataTypeWrite<T> = T extends
@@ -55,17 +53,17 @@ export type ReplaceInvalidDataTypeWrite<T> = T extends
 	| string
 	| number
 	| ServerTimestamp
-	| Increment
+	| Removable
 	| null
 	? T
 	: T extends Record<string, unknown>
 	? { [K in keyof T]: ReplaceInvalidDataTypeWrite<T[K]> }
 	: T extends PushAble<infer X>
-	? { [x: string]: ReplaceInvalidDataTypeWrite<X> }
+	? PushAble<ReplaceInvalidDataTypeWrite<X>>
 	: T extends PushAbleOnly<infer X>
-	? { [x: string]: ReplaceInvalidDataTypeWrite<X> }
+	? PushAbleOnly<ReplaceInvalidDataTypeWrite<X>>
 	: T extends PseudoArray<infer X>
-	? { [x: string]: ReplaceInvalidDataTypeWrite<X> }
+	? PseudoArray<ReplaceInvalidDataTypeWrite<X>>
 	: ErrorInvalidDataTypeWrite
 
 export type ReplaceRemove<T> = T extends Removable
@@ -73,11 +71,11 @@ export type ReplaceRemove<T> = T extends Removable
 	: T extends Record<string, unknown>
 	? { [K in keyof T]: ReplaceRemove<T[K]> }
 	: T extends PushAble<infer X>
-	? { [x: string]: ReplaceRemove<X> }
+	? PushAble<ReplaceRemove<X>>
 	: T extends PushAbleOnly<infer X>
-	? { [x: string]: ReplaceRemove<X> }
+	? PushAbleOnly<ReplaceRemove<X>>
 	: T extends PseudoArray<infer X>
-	? { [x: string]: ReplaceRemove<X> }
+	? PseudoArray<ReplaceRemove<X>>
 	: T
 
 export type ReplaceRemoveWithUndefined<T> = T extends Removable
@@ -85,7 +83,9 @@ export type ReplaceRemoveWithUndefined<T> = T extends Removable
 	: T extends Record<string, unknown>
 	? { [K in keyof T]: ReplaceRemoveWithUndefined<T[K]> }
 	: T extends PushAble<infer X>
-	? { [x: string]: ReplaceRemoveWithUndefined<X> }
+	? PushAble<ReplaceRemoveWithUndefined<X>>
 	: T extends PushAbleOnly<infer X>
-	? { [x: string]: ReplaceRemoveWithUndefined<X> }
+	? PushAbleOnly<ReplaceRemoveWithUndefined<X>>
+	: T extends PushAbleOnly<infer X>
+	? PseudoArray<ReplaceRemoveWithUndefined<X>>
 	: T
