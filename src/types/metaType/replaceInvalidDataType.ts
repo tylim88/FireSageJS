@@ -86,6 +86,6 @@ export type ReplaceRemoveWithUndefined<T> = T extends Removable
 	? PushAble<ReplaceRemoveWithUndefined<X>>
 	: T extends PushAbleOnly<infer X>
 	? PushAbleOnly<ReplaceRemoveWithUndefined<X>>
-	: T extends PushAbleOnly<infer X>
+	: T extends PseudoArray<infer X>
 	? PseudoArray<ReplaceRemoveWithUndefined<X>>
 	: T

@@ -36,7 +36,9 @@ export type MetaTypeCreator<
 	base: ReplaceInvalidDataTypeBase<Base>
 	flatten_base: ObjectFlattenHybrid<ReplaceInvalidDataTypeBase<Base>>
 	write: Write
-	flatten_write: ObjectFlattenHybrid<Write>
+	flatten_write: WriteTypeConverter<
+		ObjectFlattenHybrid<ReplaceInvalidDataTypeWrite<ReplaceRemove<Base>>>
+	>
 	read: Settings['AllNodesPossiblyReadAsUndefined'] extends true
 		? AllNodesPossiblyReadAsUndefined<Read>
 		: Read

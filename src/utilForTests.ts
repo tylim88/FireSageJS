@@ -10,6 +10,7 @@ import {
 	PushAble,
 	Removable,
 	PushAbleOnly,
+	PseudoArray,
 } from './types'
 import { getFiresage } from '.'
 import { initializeApp as initializeApp_ } from 'firebase/app'
@@ -40,11 +41,13 @@ export type Users = MetaTypeCreator<{
 				l: ServerTimestamp | Removable
 				m: PushAble<{ n: '7' | '8' | '9' | Removable }> | Removable
 				p: PushAbleOnly<{ r: ServerTimestamp | Removable }> | Removable
+				s: PseudoArray<{ t: number | Removable }> | Removable
 			}
 		>
 	}
 	o: PushAble<number>
 	q: PushAbleOnly<4 | 5 | 6>
+	u: PseudoArray<string>
 }>
 
 export const usersCreator = getFiresage<Users>()
@@ -52,16 +55,20 @@ export const usersCreator = getFiresage<Users>()
 export const generateRandomData = (): {
 	data: Users['write']
 	k: string
+	u: string
 	randStringHKey: string
 	randStringMKey: string
 	randStringOKey: string
 	randStringPKey: string
+	randStringSKey: string
 } => {
 	const randStringHKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const randStringMKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const randStringOKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const randStringPKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
+	const randStringSKey = pick(['0', ...betwin('0', '9'), '9'])[0]!
 	const k = v4()
+	const u = v4()
 	return {
 		data: {
 			a: pick([1, 2, 3] as const)[0]!,
@@ -84,17 +91,25 @@ export const generateRandomData = (): {
 								r: 'fake ServerTimestamp' as unknown as ServerTimestamp,
 							},
 						},
+						s: {
+							[randStringSKey]: {
+								t: Math.random(),
+							},
+						},
 					},
 				},
 			},
 			o: { [randStringOKey]: Math.random() },
 			q: { [randStringOKey]: pick([4, 5, 6] as const)[0]! },
+			u: [u],
 		},
 		randStringMKey,
 		randStringHKey,
 		randStringOKey,
 		randStringPKey,
+		randStringSKey,
 		k,
+		u,
 	}
 }
 

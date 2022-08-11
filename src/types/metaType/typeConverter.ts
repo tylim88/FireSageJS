@@ -42,5 +42,5 @@ export type AllNodesPossiblyReadAsUndefined<T> = T extends Record<
 	: T extends PushAbleOnly<infer X>
 	? { [x: string]: AllNodesPossiblyReadAsUndefined<X> | undefined } | undefined
 	: T extends PseudoArray<infer X>
-	? (AllNodesPossiblyReadAsUndefined<X> | undefined)[] | undefined
+	? AllNodesPossiblyReadAsUndefined<X>[] | undefined
 	: T | undefined

@@ -49,6 +49,7 @@ describe('test read all node as undefined', () => {
 																	| undefined
 															  >
 															| undefined
+														s: { t: number | undefined }[] | undefined
 												  }
 												| undefined
 										  >
@@ -57,6 +58,7 @@ describe('test read all node as undefined', () => {
 							| undefined
 						o: Record<string, number | undefined> | undefined
 						q: Record<string, 4 | 5 | 6 | undefined> | undefined
+						u: string[] | undefined
 				  }
 				| undefined
 			>
