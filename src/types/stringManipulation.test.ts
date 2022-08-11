@@ -1,9 +1,7 @@
 import {
 	GetLastTwoSegment,
-	GetLastPart,
+	GetLastSegment,
 	RemoveLastSegment,
-	GetFirstSegment,
-	RemoveFirstSegment,
 } from './stringManipulation'
 import { IsTrue, IsSame } from './utils'
 
@@ -20,11 +18,11 @@ describe('test', () => {
 		IsTrue<IsSame<D, `${string}/d`>>()
 	})
 
-	it('test get last part', () => {
-		type A = GetLastPart<'a'>
-		type B = GetLastPart<'a/b'>
-		type C = GetLastPart<`a/b/${string}`>
-		type D = GetLastPart<`a/b/${string}/d`>
+	it('test get last segment', () => {
+		type A = GetLastSegment<'a'>
+		type B = GetLastSegment<'a/b'>
+		type C = GetLastSegment<`a/b/${string}`>
+		type D = GetLastSegment<`a/b/${string}/d`>
 		IsTrue<IsSame<A, 'a'>>()
 		IsTrue<IsSame<B, 'b'>>()
 		IsTrue<IsSame<C, string>>()
@@ -40,29 +38,5 @@ describe('test', () => {
 		IsTrue<IsSame<B, 'a'>>()
 		IsTrue<IsSame<C, 'a/b'>>()
 		IsTrue<IsSame<D, `a/b/${string}`>>()
-	})
-
-	it('test Get First Segment', () => {
-		type A = GetFirstSegment<'a'>
-		type B = GetFirstSegment<`a/${string}`>
-		type C = GetFirstSegment<`${string}/b/c`>
-		type D = GetFirstSegment<undefined>
-		IsTrue<IsSame<A, 'a'>>()
-		IsTrue<IsSame<B, 'a'>>()
-		IsTrue<IsSame<C, string>>()
-		IsTrue<IsSame<D, undefined>>()
-	})
-
-	it('test Remove First Segment', () => {
-		type A = RemoveFirstSegment<'a'>
-		type B = RemoveFirstSegment<'a/b'>
-		type C = RemoveFirstSegment<`a/${string}/c`>
-		type D = RemoveFirstSegment<undefined>
-		type E = RemoveFirstSegment<`${string}/c`>
-		IsTrue<IsSame<A, ''>>()
-		IsTrue<IsSame<B, 'b'>>()
-		IsTrue<IsSame<C, `${string}/c`>>()
-		IsTrue<IsSame<D, ''>>()
-		IsTrue<IsSame<E, 'c'>>()
 	})
 })

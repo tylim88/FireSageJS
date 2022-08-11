@@ -6,7 +6,7 @@ import {
 	FindAllTopLevelChildKeys,
 } from './findTypeAndKey'
 import { ErrorHasNoChild } from './error'
-import { GetLastPart } from './stringManipulation'
+import { GetLastSegment } from './stringManipulation'
 
 export declare class DataSnapshot<
 	T extends MetaType,
@@ -35,7 +35,7 @@ export declare class DataSnapshot<
 	 * However, accessing the key on the root URL of a Database will return
 	 * `null`.
 	 */
-	get key(): U extends string ? GetLastPart<U> : null
+	get key(): U extends string ? GetLastSegment<U> : null
 	/** Returns the number of child properties of this `DataSnapshot`. */
 	get size(): number
 	/**

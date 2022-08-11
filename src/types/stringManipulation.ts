@@ -17,7 +17,7 @@ export type GetLastTwoSegment<U extends `${string}/${string}`> =
 		? GetLastTwoSegment<R>
 		: never
 
-export type GetLastPart<U extends string> = U extends `${string}/${string}`
+export type GetLastSegment<U extends string> = U extends `${string}/${string}`
 	? GetLastTwoSegment<U> extends `${string}/${infer R}`
 		? R
 		: never
@@ -33,11 +33,3 @@ export type RemoveLastSegment<
 	: U extends `${infer S}/${infer R}`
 	? RemoveLastSegment<R, ACC[] extends never[] ? `${S}/` : `${ACC}${S}/`>
 	: never
-
-// not in use
-export type GetFirstSegment<U extends string | undefined> =
-	U extends `${infer Y}/${string}` ? Y : U
-
-// not in use
-export type RemoveFirstSegment<U extends string | undefined> =
-	U extends `${string}/${infer Y}` ? Y : ''

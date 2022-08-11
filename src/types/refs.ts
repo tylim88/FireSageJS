@@ -1,6 +1,6 @@
 import { MetaType, MetaTypeCreator } from './metaType'
 import { FindParentKey } from './findTypeAndKey'
-import { GetLastPart } from './stringManipulation'
+import { GetLastSegment } from './stringManipulation'
 
 export declare interface DatabaseReference<
 	T extends MetaType,
@@ -14,7 +14,7 @@ export declare interface DatabaseReference<
 	 *
 	 * The key of a root `DatabaseReference` is `null`.
 	 */
-	readonly key: U extends string ? GetLastPart<U> : null
+	readonly key: U extends string ? GetLastSegment<U> : null
 	/**
 	 * The parent location of a `DatabaseReference`.
 	 *

@@ -1,13 +1,10 @@
 import { MetaType } from './metaType'
 import {
-	FindAllChildKeys,
 	FindNestedTypeFromFullPath,
 	GetFullPath,
 	GetAllPushAbleOnlyPath,
 } from './findTypeAndKey'
 import {
-	ErrorHasNoChild,
-	ErrorUnknownProperty,
 	ErrorIsPushOnlyAbleType,
 	ErrorNeedTupleNotArray,
 	ErrorElementNeedConstAssertion,
