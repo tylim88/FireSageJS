@@ -2,7 +2,7 @@ import { MetaType } from './metaType'
 import {
 	FindNestedTypeFromFullPath,
 	GetFullPath,
-	GetAllPushAbleOnlyPath,
+	GetAllPushAbleOnlyPaths,
 } from './findTypeAndKey'
 import {
 	ErrorIsPushOnlyAbleType,
@@ -31,7 +31,7 @@ export type VerifyNodeNames<
 					? ErrorElementNeedConstAssertion
 					: GetFullPath<T, U, P> extends never
 					? ErrorNoSuchChild<P, U>
-					: GetFullPath<T, U, P> extends GetAllPushAbleOnlyPath<T>
+					: GetFullPath<T, U, P> extends GetAllPushAbleOnlyPaths<T>
 					? ErrorIsPushOnlyAbleType<`child ${P}`>
 					: P
 			]

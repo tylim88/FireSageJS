@@ -9,55 +9,64 @@ import {
 	PushAble,
 	Removable,
 	PushAbleOnly,
+	PseudoArray,
 } from '../fieldValue'
 
-export type ReplaceInvalidDataTypeBase<
-	T,
-	K extends string = keyof T & string
-> = T extends
+type i = ReplaceInvalidDataTypeBase<{ a: PseudoArray<{ b: 1 }> }>
+
+export type ReplaceInvalidDataTypeBase<T> = T extends
 	| boolean
 	| string
 	| number
 	| ServerTimestamp
 	| Increment
-	| PushAble<unknown>
-	| PushAbleOnly<unknown>
 	| Removable
 	| null
 	? T
 	: T extends Record<string, unknown>
-	? { [K in keyof T]: ReplaceInvalidDataTypeBase<T[K], K & string> }
+	? { [K in keyof T]: ReplaceInvalidDataTypeBase<T[K]> }
 	: T extends PushAble<infer X>
-	? { [x: string]: ReplaceInvalidDataTypeBase<X> }
+	? PushAble<ReplaceInvalidDataTypeBase<X>>
 	: T extends PushAbleOnly<infer X>
-	? { [x: string]: ReplaceInvalidDataTypeBase<X> }
-	: ErrorInvalidDataTypeBase<K extends string ? K : 'root'>
+	? PushAbleOnly<ReplaceInvalidDataTypeBase<X>>
+	: T extends PseudoArray<infer X>
+	? PseudoArray<ReplaceInvalidDataTypeBase<X>>
+	: ErrorInvalidDataTypeBase
 
-export type ReplaceInvalidDataTypeRead<
-	T,
-	K extends string = keyof T & string
-> = T extends boolean | string | number | undefined | null
+export type ReplaceInvalidDataTypeRead<T> = T extends
+	| boolean
+	| string
+	| number
+	| undefined
+	| null
 	? T
 	: T extends Record<string, unknown>
-	? { [K in keyof T]: ReplaceInvalidDataTypeRead<T[K], K & string> }
+	? { [K in keyof T]: ReplaceInvalidDataTypeRead<T[K]> }
 	: T extends PushAble<infer X>
 	? { [x: string]: ReplaceInvalidDataTypeRead<X> }
 	: T extends PushAbleOnly<infer X>
 	? { [x: string]: ReplaceInvalidDataTypeRead<X> }
-	: ErrorInvalidDataTypeRead<K extends string ? K : 'root'>
+	: T extends PseudoArray<infer X>
+	? { [x: string]: ReplaceInvalidDataTypeRead<X> }
+	: ErrorInvalidDataTypeRead
 
-export type ReplaceInvalidDataTypeWrite<
-	T,
-	K extends string = keyof T & string
-> = T extends boolean | string | number | ServerTimestamp | Increment | null
+export type ReplaceInvalidDataTypeWrite<T> = T extends
+	| boolean
+	| string
+	| number
+	| ServerTimestamp
+	| Increment
+	| null
 	? T
 	: T extends Record<string, unknown>
-	? { [K in keyof T]: ReplaceInvalidDataTypeWrite<T[K], K & string> }
+	? { [K in keyof T]: ReplaceInvalidDataTypeWrite<T[K]> }
 	: T extends PushAble<infer X>
 	? { [x: string]: ReplaceInvalidDataTypeWrite<X> }
 	: T extends PushAbleOnly<infer X>
 	? { [x: string]: ReplaceInvalidDataTypeWrite<X> }
-	: ErrorInvalidDataTypeWrite<K extends string ? K : 'root'>
+	: T extends PseudoArray<infer X>
+	? { [x: string]: ReplaceInvalidDataTypeWrite<X> }
+	: ErrorInvalidDataTypeWrite
 
 export type ReplaceRemove<T> = T extends Removable
 	? never
@@ -66,6 +75,8 @@ export type ReplaceRemove<T> = T extends Removable
 	: T extends PushAble<infer X>
 	? { [x: string]: ReplaceRemove<X> }
 	: T extends PushAbleOnly<infer X>
+	? { [x: string]: ReplaceRemove<X> }
+	: T extends PseudoArray<infer X>
 	? { [x: string]: ReplaceRemove<X> }
 	: T
 

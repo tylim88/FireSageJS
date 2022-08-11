@@ -1,13 +1,16 @@
 const serverTimestampSymbol: unique symbol = Symbol()
-type ServerTimestampSymbol = typeof serverTimestampSymbol
 const incrementSymbol: unique symbol = Symbol()
-type IncrementSymbol = typeof incrementSymbol
 const pushAbleSymbol: unique symbol = Symbol()
-type PushAbleSymbol = typeof pushAbleSymbol
 const pushAbleOnlySymbol: unique symbol = Symbol()
-type PushAbleOnlySymbol = typeof pushAbleOnlySymbol
 const removeSymbol: unique symbol = Symbol()
+const pseudoArray: unique symbol = Symbol()
+
+type ServerTimestampSymbol = typeof serverTimestampSymbol
+type IncrementSymbol = typeof incrementSymbol
+type PushAbleSymbol = typeof pushAbleSymbol
+type PushAbleOnlySymbol = typeof pushAbleOnlySymbol
 type RemoveSymbol = typeof removeSymbol
+type PseudoArraySymbol = typeof pseudoArray
 
 declare class FieldValue<T extends symbol> {
 	protected constructor()
@@ -23,3 +26,5 @@ export interface Removable extends FieldValue<RemoveSymbol> {}
 export interface PushAble<T> extends FieldValue<PushAbleSymbol> {}
 
 export interface PushAbleOnly<T> extends FieldValue<PushAbleOnlySymbol> {}
+
+export interface PseudoArray<T> extends FieldValue<PseudoArraySymbol> {}

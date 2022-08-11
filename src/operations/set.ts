@@ -3,7 +3,7 @@ import {
 	DatabaseReference,
 	MetaType,
 	FindNestedTypeFromFullPath,
-	GetAllPushAbleOnlyPath,
+	GetAllPushAbleOnlyPaths,
 	ErrorIsPushOnlyAbleType,
 } from '../types'
 /**
@@ -28,7 +28,7 @@ export const set = <
 	U extends (keyof T['flatten_write'] & string) | undefined
 >(
 	ref: DatabaseReference<T, U>,
-	value: U extends GetAllPushAbleOnlyPath<T>
+	value: U extends GetAllPushAbleOnlyPaths<T>
 		? ErrorIsPushOnlyAbleType<U>
 		: FindNestedTypeFromFullPath<T, U, 'write'>
 ) => {

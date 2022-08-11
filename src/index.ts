@@ -28,6 +28,7 @@ export * from './operations'
 export * from './refs'
 export * from './runTransaction'
 export type {
+	PseudoArray,
 	ServerTimestamp,
 	PushAble,
 	PushAbleOnly,
