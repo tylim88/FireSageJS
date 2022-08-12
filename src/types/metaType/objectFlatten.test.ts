@@ -1,9 +1,9 @@
-import { ObjectFlattenHybrid, DeepKeyHybrid } from './objectFlatten'
+import { ObjectFlatten, DeepKey } from './objectFlatten'
 import { IsTrue, IsSame } from '../utils'
 
 describe('test object flatten type', () => {
 	it('test DeepKeyHybrid', () => {
-		type A = DeepKeyHybrid<
+		type A = DeepKey<
 			{
 				a: 1
 				b: {
@@ -11,7 +11,8 @@ describe('test object flatten type', () => {
 					d: {
 						e: 5
 						f: Record<string, boolean>
-						g: Record<string, Record<string, { i: 1 }>>
+						g: Record<string, Record<number, { i: 1 }>>
+						h: Record<number, Record<string, { j: 1 }>>
 					}
 				}
 			},
@@ -30,27 +31,31 @@ describe('test object flatten type', () => {
 				| `b/d/f/${string}`
 				| 'b/d/g'
 				| `b/d/g/${string}`
-				| `b/d/g/${string}/${string}`
-				| `b/d/g/${string}/${string}/i`
+				| `b/d/g/${string}/${number}`
+				| `b/d/g/${string}/${number}/i`
+				| `b/d/h`
+				| `b/d/h/${number}`
+				| `b/d/h/${number}/${string}`
+				| `b/d/h/${number}/${string}/j`
 			>
 		>
 	})
 
 	it('test primitive type', () => {
-		type A = false | null | string | number
-		type B = ObjectFlattenHybrid<A>
+		type A = boolean | null | string | number
+		type B = ObjectFlatten<A>
 
 		IsTrue<IsSame<B[], A[]>>
 	})
 	it('test unknown type', () => {
 		type A = unknown
-		type B = ObjectFlattenHybrid<A>
+		type B = ObjectFlatten<A>
 
 		IsTrue<IsSame<B[], A[]>>
 	})
 	it('test never type', () => {
 		type A = never
-		type B = ObjectFlattenHybrid<A>
+		type B = ObjectFlatten<A>
 
 		IsTrue<IsSame<B[], A[]>>
 	})

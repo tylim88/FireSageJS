@@ -1,4 +1,4 @@
-import { ObjectFlattenHybrid } from './objectFlatten'
+import { ObjectFlatten } from './objectFlatten'
 import {
 	ReplaceInvalidDataTypeRead,
 	ReplaceInvalidDataTypeBase,
@@ -34,14 +34,12 @@ export type MetaTypeCreator<
 	Compare = ReplaceInvalidDataTypeRead<ReadTypeConverter<ReplaceRemove<Base>>>
 > = {
 	base: ReplaceInvalidDataTypeBase<Base>
-	flatten_base: ObjectFlattenHybrid<ReplaceInvalidDataTypeBase<Base>>
+	flatten_base: ObjectFlatten<ReplaceInvalidDataTypeBase<Base>>
 	write: Write
-	flatten_write: WriteTypeConverter<
-		ObjectFlattenHybrid<ReplaceInvalidDataTypeWrite<ReplaceRemove<Base>>>
-	>
+	flatten_write: ObjectFlatten<Write>
 	read: Settings['AllNodesPossiblyReadAsUndefined'] extends true
 		? AllNodesPossiblyReadAsUndefined<Read>
 		: Read
 	compare: Compare
-	flatten_compare: ObjectFlattenHybrid<Compare>
+	flatten_compare: ObjectFlatten<Compare>
 }

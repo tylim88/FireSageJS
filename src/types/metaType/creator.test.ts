@@ -20,18 +20,33 @@ import {
 	WriteTypeConverter,
 	AllNodesPossiblyReadAsUndefined,
 } from './typeConverter'
-import { ObjectFlattenHybrid } from './objectFlatten'
-type u = WriteTypeConverter<
-	ObjectFlattenHybrid<
-		ReplaceInvalidDataTypeWrite<
-			ReplaceRemove<{ a: PseudoArray<{ x: 1 | Removable }> | Removable }>
-		>
+import { ObjectFlatten } from './objectFlatten'
+
+type u = ObjectFlatten<
+	WriteTypeConverter<
+		ReplaceInvalidDataTypeWrite<ReplaceRemove<{ a: PushAbleOnly<number> }>>
 	>
+>
+
+type o = WriteTypeConverter<
+	ReplaceInvalidDataTypeWrite<ReplaceRemove<{ a: PushAbleOnly<number> }>>
 >
 describe('test generated meta type', () => {
 	it('test flatten_write', () => {
 		type A = Users['flatten_write']
-		type B = A['b']['h'][string]['s']
+		type B = A[`q/${string}`]
+		IsTrue<
+			IsSame<
+				| {
+						[x: `${number}`]: string
+				  }
+				| string[],
+				| string[]
+				| {
+						[x: `${number}`]: string
+				  }
+			>
+		>()
 
 		IsTrue<
 			IsSame<
@@ -39,8 +54,10 @@ describe('test generated meta type', () => {
 				{
 					o: { [x: string]: number | Increment }
 					q: { [x: string]: 4 | 5 | 6 }
+					u: { [x: `${number}`]: string } | string[]
 					[x: `o/${string}`]: number | Increment
 					[x: `q/${string}`]: 4 | 5 | 6
+					[x: `u/${number}`]: string
 					a: 1 | 2 | 3
 					b: {
 						c: true
@@ -62,6 +79,16 @@ describe('test generated meta type', () => {
 								p: { [x: string]: { r: ServerTimestamp } }
 								[x: `p/${string}`]: { r: ServerTimestamp }
 								[x: `p/${string}/r`]: ServerTimestamp
+								s:
+									| {
+											[x: `${number}`]: {
+												t: number | Increment
+											}
+											[x: `${number}/t`]: number | Increment
+									  }
+									| { t: number | Increment }[]
+								[x: `s/${number}`]: { t: number | Increment }
+								[x: `s/${number}/t`]: number | Increment
 							}
 						}
 						[x: `h/${string}`]: {
@@ -75,6 +102,14 @@ describe('test generated meta type', () => {
 							p: { [x: string]: { r: ServerTimestamp } }
 							[x: `p/${string}`]: { r: ServerTimestamp }
 							[x: `p/${string}/r`]: ServerTimestamp
+							s:
+								| {
+										[x: `${number}`]: { t: number | Increment }
+										[x: `${number}/t`]: number | Increment
+								  }
+								| { t: number | Increment }[]
+							[x: `s/${number}`]: { t: number | Increment }
+							[x: `s/${number}/t`]: number | Increment
 						}
 						[x: `h/${string}/i`]: boolean
 						[x: `h/${string}/l`]: ServerTimestamp
@@ -86,6 +121,14 @@ describe('test generated meta type', () => {
 						[x: `h/${string}/p`]: { [x: string]: { r: ServerTimestamp } }
 						[x: `h/${string}/p/${string}`]: { r: ServerTimestamp }
 						[x: `h/${string}/p/${string}/r`]: ServerTimestamp
+						[x: `h/${string}/s`]:
+							| {
+									[x: `${number}`]: { t: number | Increment }
+									[x: `${number}/t`]: number | Increment
+							  }
+							| { t: number | Increment }[]
+						[x: `h/${string}/s/${number}`]: { t: number | Increment }
+						[x: `h/${string}/s/${number}/t`]: number | Increment
 						'd/e': 'abc' | 'xyz' | 'efg'
 						'd/f': {
 							j: number | Increment
@@ -118,6 +161,14 @@ describe('test generated meta type', () => {
 							p: { [x: string]: { r: ServerTimestamp } }
 							[x: `p/${string}`]: { r: ServerTimestamp }
 							[x: `p/${string}/r`]: ServerTimestamp
+							s:
+								| {
+										[x: `${number}`]: { t: number | Increment }
+										[x: `${number}/t`]: number | Increment
+								  }
+								| { t: number | Increment }[]
+							[x: `s/${number}`]: { t: number | Increment }
+							[x: `s/${number}/t`]: number | Increment
 						}
 					}
 					[x: `b/h/${string}`]: {
@@ -129,6 +180,14 @@ describe('test generated meta type', () => {
 						p: { [x: string]: { r: ServerTimestamp } }
 						[x: `p/${string}`]: { r: ServerTimestamp }
 						[x: `p/${string}/r`]: ServerTimestamp
+						s:
+							| {
+									[x: `${number}`]: { t: number | Increment }
+									[x: `${number}/t`]: number | Increment
+							  }
+							| { t: number | Increment }[]
+						[x: `s/${number}`]: { t: number | Increment }
+						[x: `s/${number}/t`]: number | Increment
 					}
 					[x: `b/h/${string}/i`]: boolean
 					[x: `b/h/${string}/l`]: ServerTimestamp
@@ -140,6 +199,14 @@ describe('test generated meta type', () => {
 					[x: `b/h/${string}/p`]: { [x: string]: { r: ServerTimestamp } }
 					[x: `b/h/${string}/p/${string}`]: { r: ServerTimestamp }
 					[x: `b/h/${string}/p/${string}/r`]: ServerTimestamp
+					[x: `b/h/${string}/s`]:
+						| {
+								[x: `${number}`]: { t: number | Increment }
+								[x: `${number}/t`]: number | Increment
+						  }
+						| { t: number | Increment }[]
+					[x: `b/h/${string}/s/${number}`]: { t: number | Increment }
+					[x: `b/h/${string}/s/${number}/t`]: number | Increment
 				}
 			>
 		>
