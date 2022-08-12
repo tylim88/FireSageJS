@@ -25,7 +25,7 @@ export type WriteTypeConverter<T> = T extends Record<string, unknown>
 	: T extends PushAbleOnly<infer X>
 	? { [x in string]: WriteTypeConverter<X> }
 	: T extends PseudoArray<infer X>
-	? { [x in number]: WriteTypeConverter<X> } | WriteTypeConverter<X>[]
+	? { [x in `${number}`]: WriteTypeConverter<X> } | WriteTypeConverter<X>[]
 	: number extends T
 	? number | Increment
 	: T

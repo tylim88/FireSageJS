@@ -5,7 +5,7 @@ import {
 	GetAllPushAblePaths,
 	GetAllPushAbleOnlyPaths,
 	ErrorNotPushAble,
-	FindNestedTypeFromFullPath,
+	FindNestedWriteTypeFromFullPath,
 } from '../types'
 /**
 Generates a new child location using a unique key and returns its Reference.
@@ -34,7 +34,7 @@ export const push = <
 		: U extends GetAllPushAblePaths<T> | GetAllPushAbleOnlyPaths<T>
 		? DatabaseReference<T, U>
 		: ErrorNotPushAble<U>,
-	value: FindNestedTypeFromFullPath<T, `${U}/string`, 'write'>
+	value: FindNestedWriteTypeFromFullPath<T, `${U}/string`>
 ) => {
 	return push_(ref as any, value)
 }

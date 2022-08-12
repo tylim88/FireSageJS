@@ -1,6 +1,6 @@
 import { MetaType } from './metaType'
 import {
-	FindNestedTypeFromFullPath,
+	FindNestedWriteTypeFromFullPath,
 	GetFullPath,
 	GetAllPushAbleOnlyPaths,
 } from './findTypeAndKey'
@@ -50,6 +50,6 @@ export type GetNodeTypes<
 			T,
 			U,
 			S,
-			[...ACC, FindNestedTypeFromFullPath<T, GetFullPath<T, U, P>, 'write'>]
+			[...ACC, FindNestedWriteTypeFromFullPath<T, GetFullPath<T, U, P>>]
 	  >
 	: never

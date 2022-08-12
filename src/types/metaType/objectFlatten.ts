@@ -10,8 +10,8 @@ type DeepKey_<T, K extends keyof T, Mode extends 'read' | 'write'> = K extends
 					| (`${K}/` & (Mode extends 'write' ? unknown : never))
 					| `${K}/${DeepKey_<R, keyof R, Mode>}`
 			: `${K}/`
-		: '1' // impossible route
-	: '2' // impossible route
+		: never // impossible route
+	: never // impossible route
 
 export type DeepKey<T, Mode extends 'read' | 'write'> = RemoveLastSlash<
 	DeepKey_<T, keyof T, Mode>
@@ -29,12 +29,12 @@ type DeepValue<
 				? never
 				: Rest extends DeepKey<S, Mode>
 				? DeepValue<S, Rest, Mode>
-				: never
-			: never
-		: never
+				: never // impossible route
+			: never // impossible route
+		: never // impossible route
 	: P extends `${keyof T & (string | number)}`
 	? T[P & keyof T]
-	: 5 // impossible route
+	: never // impossible route
 
 export type ObjectFlatten<Data> = Data extends string | unknown[]
 	? Data

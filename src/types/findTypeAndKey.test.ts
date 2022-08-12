@@ -1,15 +1,18 @@
 import {
 	FindParentKey,
-	FindParentNestedTypeFromFullPath,
+	FindParentNestedWriteTypeFromFullPath,
 	FindAllChildKeys,
-	FindNestedTypeFromFullPath,
+	FindNestedReadTypeFromFullPath,
 	GetAllRemovablePaths,
 	GetAllPushAblePaths,
 	GetAllPushAbleOnlyPaths,
 	FindAllTopLevelChildKeys,
+	GetAllPseudoArrayPaths,
+	FindNestedWriteTypeFromFullPath,
 } from './findTypeAndKey'
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
+import { Increment } from './fieldValue'
 
 describe('test', () => {
 	it('test Find Parent Key', () => {
@@ -27,6 +30,9 @@ describe('test', () => {
 		type L = FindParentKey<Users, `b/h/${string}/p`>
 		type M = FindParentKey<Users, `b/h/${string}/p/${string}`>
 		type N = FindParentKey<Users, `b/h/${string}/p/${string}/r`>
+		type O = FindParentKey<Users, `b/h/${string}/s`>
+		type P = FindParentKey<Users, `b/h/${string}/s/${number}`>
+		type Q = FindParentKey<Users, `b/h/${string}/s/${number}/t`>
 
 		IsTrue<IsSame<A, never>>()
 		IsTrue<IsSame<B, null>>()
@@ -42,6 +48,9 @@ describe('test', () => {
 		IsTrue<IsSame<L, `b/h/${string}`>>()
 		IsTrue<IsSame<M, `b/h/${string}/p`>>()
 		IsTrue<IsSame<N, `b/h/${string}/p/${string}`>>()
+		IsTrue<IsSame<O, `b/h/${string}`>>()
+		IsTrue<IsSame<P, `b/h/${string}/s`>>()
+		IsTrue<IsSame<Q, `b/h/${string}/s/${number}`>>()
 	})
 
 	it('test Find All Child Keys', () => {
@@ -59,6 +68,9 @@ describe('test', () => {
 		type L = FindAllChildKeys<Users, `b/h/${string}/p`>
 		type M = FindAllChildKeys<Users, `b/h/${string}/p/${string}`>
 		type N = FindAllChildKeys<Users, `b/h/${string}/p/${string}/r`>
+		type O = FindAllChildKeys<Users, `b/h/${string}/s`>
+		type P = FindAllChildKeys<Users, `b/h/${string}/s/${string}`>
+		type Q = FindAllChildKeys<Users, `b/h/${string}/s/${string}/t`>
 
 		IsTrue<IsSame<A, keyof Users['flatten_write']>>()
 		IsTrue<IsSame<B, never>>()
@@ -89,6 +101,9 @@ describe('test', () => {
 		IsTrue<IsSame<L, string>>()
 		IsTrue<IsSame<M, 'r'>>()
 		IsTrue<IsSame<N, never>>()
+		IsTrue<IsSame<O, `${number}` | `${number}/t`>>()
+		IsTrue<IsSame<P, 't'>>()
+		IsTrue<IsSame<Q, never>>()
 	})
 
 	it('test Find All Top Level Child Keys', () => {
@@ -106,7 +121,9 @@ describe('test', () => {
 		type L = FindAllTopLevelChildKeys<Users, `b/h/${string}/p`>
 		type M = FindAllTopLevelChildKeys<Users, `b/h/${string}/p/${string}`>
 		type N = FindAllTopLevelChildKeys<Users, `b/h/${string}/p/${string}/r`>
-
+		type O = FindAllTopLevelChildKeys<Users, `b/h/${string}/s`>
+		type P = FindAllTopLevelChildKeys<Users, `b/h/${string}/s/${string}`>
+		type Q = FindAllTopLevelChildKeys<Users, `b/h/${string}/s/${string}/t`>
 		IsTrue<IsSame<A, 'a' | 'b' | 'o' | 'q' | 'u'>>()
 		IsTrue<IsSame<B, never>>()
 		IsTrue<IsSame<C, 'e' | 'f' | 'k'>>()
@@ -121,34 +138,46 @@ describe('test', () => {
 		IsTrue<IsSame<L, string>>()
 		IsTrue<IsSame<M, 'r'>>()
 		IsTrue<IsSame<N, never>>()
+		IsTrue<IsSame<O, `${number}`>>()
+		IsTrue<IsSame<P, 't'>>()
+		IsTrue<IsSame<Q, never>>()
 	})
 
 	it('test Find Parent Type', () => {
-		type A = FindParentNestedTypeFromFullPath<Users, undefined>
-		type B = FindParentNestedTypeFromFullPath<Users, 'a'>
-		type C = FindParentNestedTypeFromFullPath<Users, 'b/d'>
-		type D = FindParentNestedTypeFromFullPath<Users, 'b/d/f/j'>
-		type E = FindParentNestedTypeFromFullPath<Users, `b/h/${string}`>
-		type F = FindParentNestedTypeFromFullPath<Users, `b/h/${string}/i`>
-		type G = FindParentNestedTypeFromFullPath<Users, `b/h`>
-		type H = FindParentNestedTypeFromFullPath<Users, `b/h/${string}/l`>
-		type I = FindParentNestedTypeFromFullPath<Users, `b/h/${string}/m`>
-		type J = FindParentNestedTypeFromFullPath<
+		type A = FindParentNestedWriteTypeFromFullPath<Users, undefined>
+		type B = FindParentNestedWriteTypeFromFullPath<Users, 'a'>
+		type C = FindParentNestedWriteTypeFromFullPath<Users, 'b/d'>
+		type D = FindParentNestedWriteTypeFromFullPath<Users, 'b/d/f/j'>
+		type E = FindParentNestedWriteTypeFromFullPath<Users, `b/h/${string}`>
+		type F = FindParentNestedWriteTypeFromFullPath<Users, `b/h/${string}/i`>
+		type G = FindParentNestedWriteTypeFromFullPath<Users, `b/h`>
+		type H = FindParentNestedWriteTypeFromFullPath<Users, `b/h/${string}/l`>
+		type I = FindParentNestedWriteTypeFromFullPath<Users, `b/h/${string}/m`>
+		type J = FindParentNestedWriteTypeFromFullPath<
 			Users,
 			`b/h/${string}/m/${string}`
 		>
-		type K = FindParentNestedTypeFromFullPath<
+		type K = FindParentNestedWriteTypeFromFullPath<
 			Users,
 			`b/h/${string}/m/${string}/n`
 		>
-		type L = FindParentNestedTypeFromFullPath<Users, `b/h/${string}/p`>
-		type M = FindParentNestedTypeFromFullPath<
+		type L = FindParentNestedWriteTypeFromFullPath<Users, `b/h/${string}/p`>
+		type M = FindParentNestedWriteTypeFromFullPath<
 			Users,
 			`b/h/${string}/p/${string}`
 		>
-		type N = FindParentNestedTypeFromFullPath<
+		type N = FindParentNestedWriteTypeFromFullPath<
 			Users,
 			`b/h/${string}/p/${string}/r`
+		>
+		type O = FindParentNestedWriteTypeFromFullPath<Users, `b/h/${string}/s`>
+		type P = FindParentNestedWriteTypeFromFullPath<
+			Users,
+			`b/h/${string}/s/${number}`
+		>
+		type Q = FindParentNestedWriteTypeFromFullPath<
+			Users,
+			`b/h/${string}/s/${number}/t`
 		>
 
 		IsTrue<IsSame<A, never>>()
@@ -165,38 +194,44 @@ describe('test', () => {
 		IsTrue<IsSame<L, Users['flatten_write']['b']['h'][string]>>()
 		IsTrue<IsSame<M, Users['flatten_write']['b']['h'][string]['p']>>()
 		IsTrue<IsSame<N, Users['flatten_write']['b']['h'][string]['p']['string']>>()
+		IsTrue<IsSame<O, Users['flatten_write']['b']['h'][string]>>()
+		IsTrue<IsSame<P, Users['flatten_write']['b']['h'][string]['s']>>()
+		IsTrue<
+			IsSame<
+				Q,
+				{
+					t: number | Increment
+				}
+			>
+		>()
 	})
 
-	it('test Find Write Nested Type', () => {
-		type A = FindNestedTypeFromFullPath<Users, undefined, 'write'>
-		type B = FindNestedTypeFromFullPath<Users, 'a', 'write'>
-		type C = FindNestedTypeFromFullPath<Users, 'b/d', 'write'>
-		type D = FindNestedTypeFromFullPath<Users, 'b/d/f/j', 'write'>
-		type E = FindNestedTypeFromFullPath<Users, `b/h/${string}`, 'write'>
-		type F = FindNestedTypeFromFullPath<Users, `b/h/${string}/i`, 'write'>
-		type G = FindNestedTypeFromFullPath<Users, `b/h`, 'write'>
-		type H = FindNestedTypeFromFullPath<Users, `b/h/${string}/l`, 'write'>
-		type I = FindNestedTypeFromFullPath<Users, `b/h/${string}/m`, 'write'>
-		type J = FindNestedTypeFromFullPath<
+	it('test Find Nested Write Type', () => {
+		type A = FindNestedWriteTypeFromFullPath<Users, undefined>
+		type B = FindNestedWriteTypeFromFullPath<Users, 'a'>
+		type C = FindNestedWriteTypeFromFullPath<Users, 'b/d'>
+		type D = FindNestedWriteTypeFromFullPath<Users, 'b/d/f/j'>
+		type E = FindNestedWriteTypeFromFullPath<Users, `b/h/${string}`>
+		type F = FindNestedWriteTypeFromFullPath<Users, `b/h/${string}/i`>
+		type G = FindNestedWriteTypeFromFullPath<Users, `b/h`>
+		type H = FindNestedWriteTypeFromFullPath<Users, `b/h/${string}/l`>
+		type I = FindNestedWriteTypeFromFullPath<Users, `b/h/${string}/m`>
+		type J = FindNestedWriteTypeFromFullPath<Users, `b/h/${string}/m/${string}`>
+		type K = FindNestedWriteTypeFromFullPath<
 			Users,
-			`b/h/${string}/m/${string}`,
-			'write'
+			`b/h/${string}/m/${string}/n`
 		>
-		type K = FindNestedTypeFromFullPath<
+		type L = FindNestedWriteTypeFromFullPath<Users, `b/h/${string}/p`>
+		type M = FindNestedWriteTypeFromFullPath<Users, `b/h/${string}/p/${string}`>
+		type N = FindNestedWriteTypeFromFullPath<
 			Users,
-			`b/h/${string}/m/${string}/n`,
-			'write'
+			`b/h/${string}/p/${string}/r`
 		>
-		type L = FindNestedTypeFromFullPath<Users, `b/h/${string}/p`, 'write'>
-		type M = FindNestedTypeFromFullPath<
+		type O = FindNestedWriteTypeFromFullPath<Users, `b/h/${string}/s`>
+		type P = FindNestedWriteTypeFromFullPath<Users, `b/h/${string}/s/${number}`>
+		type Q = FindNestedWriteTypeFromFullPath<
 			Users,
-			`b/h/${string}/p/${string}`,
-			'write'
-		>
-		type N = FindNestedTypeFromFullPath<
-			Users,
-			`b/h/${string}/p/${string}/r`,
-			'write'
+			`b/h/${string}/s/${number}/t`
 		>
 
 		IsTrue<IsSame<A, Users['write']>>()
@@ -213,43 +248,49 @@ describe('test', () => {
 		IsTrue<IsSame<L, Users['write']['b']['h'][string]['p']>>()
 		IsTrue<IsSame<M, Users['write']['b']['h'][string]['p'][string]>>()
 		IsTrue<IsSame<N, Users['write']['b']['h'][string]['p'][string]['r']>>()
+		IsTrue<IsSame<O, Users['write']['b']['h'][string]['s']>>()
+		IsTrue<
+			IsSame<
+				P,
+				{
+					t: number | Increment
+				}
+			>
+		>()
+		IsTrue<IsSame<Q, number | Increment>>()
 	})
 
-	it('test Find Read Nested Type', () => {
-		type A = FindNestedTypeFromFullPath<Users, undefined, 'read'>
-		type B = FindNestedTypeFromFullPath<Users, 'a', 'read'>
-		type C = FindNestedTypeFromFullPath<Users, 'b/d', 'read'>
-		type D = FindNestedTypeFromFullPath<Users, 'b/d/f/j', 'read'>
-		type E = FindNestedTypeFromFullPath<Users, `b/h/${string}`, 'read'>
-		type F = FindNestedTypeFromFullPath<Users, `b/h/${string}/i`, 'read'>
-		type G = FindNestedTypeFromFullPath<Users, `b/h`, 'read'>
-		type H = FindNestedTypeFromFullPath<Users, `b/h/${string}/l`, 'read'>
-		type I = FindNestedTypeFromFullPath<Users, `b/h/${string}/m`, 'read'>
-		type J = FindNestedTypeFromFullPath<
+	it('test Find Nested Read Type', () => {
+		type A = FindNestedReadTypeFromFullPath<Users, undefined>
+		type B = FindNestedReadTypeFromFullPath<Users, 'a'>
+		type C = FindNestedReadTypeFromFullPath<Users, 'b/d'>
+		type D = FindNestedReadTypeFromFullPath<Users, 'b/d/f/j'>
+		type E = FindNestedReadTypeFromFullPath<Users, `b/h/${string}`>
+		type F = FindNestedReadTypeFromFullPath<Users, `b/h/${string}/i`>
+		type G = FindNestedReadTypeFromFullPath<Users, `b/h`>
+		type H = FindNestedReadTypeFromFullPath<Users, `b/h/${string}/l`>
+		type I = FindNestedReadTypeFromFullPath<Users, `b/h/${string}/m`>
+		type J = FindNestedReadTypeFromFullPath<Users, `b/h/${string}/m/${string}`>
+		type K = FindNestedReadTypeFromFullPath<
 			Users,
-			`b/h/${string}/m/${string}`,
-			'read'
+			`b/h/${string}/m/${string}/n`
 		>
-		type K = FindNestedTypeFromFullPath<
+		type L = FindNestedReadTypeFromFullPath<Users, `b/h/${string}/p`>
+		type M = FindNestedReadTypeFromFullPath<Users, `b/h/${string}/p/${string}`>
+		type N = FindNestedReadTypeFromFullPath<
 			Users,
-			`b/h/${string}/m/${string}/n`,
-			'read'
+			`b/h/${string}/p/${string}/r`
 		>
-		type L = FindNestedTypeFromFullPath<Users, `b/h/${string}/p`, 'read'>
-		type M = FindNestedTypeFromFullPath<
+		type O = FindNestedReadTypeFromFullPath<Users, `b/h/${string}/s`>
+		type P = FindNestedReadTypeFromFullPath<Users, `b/h/${string}/s/${number}`>
+		type Q = FindNestedReadTypeFromFullPath<
 			Users,
-			`b/h/${string}/p/${string}`,
-			'read'
-		>
-		type N = FindNestedTypeFromFullPath<
-			Users,
-			`b/h/${string}/p/${string}/r`,
-			'read'
+			`b/h/${string}/s/${number}/t`
 		>
 		IsTrue<IsSame<A, Users['read']>>()
 		IsTrue<IsSame<B, Users['read']['a']>>()
 		IsTrue<IsSame<C, Users['read']['b']['d']>>()
-		IsTrue<IsSame<D, number | undefined>>()
+		IsTrue<IsSame<D, number>>()
 		IsTrue<IsSame<E, Users['read']['b']['h'][string]>>()
 		IsTrue<IsSame<F, Users['read']['b']['h'][string]['i']>>()
 		IsTrue<IsSame<G, Users['read']['b']['h']>>()
@@ -258,10 +299,9 @@ describe('test', () => {
 		IsTrue<
 			IsSame<
 				J,
-				| {
-						n: '7' | '8' | '9' | undefined
-				  }
-				| undefined
+				{
+					n: '7' | '8' | '9' | undefined
+				}
 			>
 		>()
 		IsTrue<IsSame<K, '7' | '8' | '9' | undefined>>()
@@ -269,13 +309,22 @@ describe('test', () => {
 		IsTrue<
 			IsSame<
 				M,
-				| {
-						r: number | undefined
-				  }
-				| undefined
+				{
+					r: number | undefined
+				}
 			>
 		>()
 		IsTrue<IsSame<N, number | undefined>>()
+		IsTrue<IsSame<O, Users['read']['b']['h'][string]['s']>>()
+		IsTrue<
+			IsSame<
+				P,
+				{
+					t: number | undefined
+				}
+			>
+		>()
+		IsTrue<IsSame<Q, number | undefined>>()
 	})
 
 	it('test Get All Removable Path', () => {
@@ -299,7 +348,12 @@ describe('test', () => {
 	it('test Get All Push Able Path', () => {
 		IsTrue<IsSame<GetAllPushAblePaths<Users>, `b/h/${string}/m` | 'o'>>
 	})
+
 	it('test Get All Push Able Only Path', () => {
 		IsTrue<IsSame<GetAllPushAbleOnlyPaths<Users>, `b/h/${string}/p` | 'q'>>
+	})
+
+	it('test Get All Pseudo Array Path', () => {
+		IsTrue<IsSame<GetAllPseudoArrayPaths<Users>, `b/h/${string}/s` | 'u'>>
 	})
 })

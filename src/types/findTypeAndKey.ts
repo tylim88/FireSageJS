@@ -13,12 +13,19 @@ export type FindParentKey<
 		: RemoveLastSegment<U>
 	: never
 
-type TypeDiving<T, U extends string> = U extends `${infer Y}/${infer S}`
+type TypeDiving<
+	T,
+	U extends string | number | `${number}`
+> = T extends unknown[]
+	? never
+	: U extends `${infer Y}/${infer S}`
 	? TypeDiving<T[Y & keyof T], S>
-	: T[U & keyof T]
+	: U extends keyof T
+	? T[U]
+	: never
 
 // not in use
-export type FindParentNestedTypeFromFullPath<
+export type FindParentNestedWriteTypeFromFullPath<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
 > = U extends keyof T['flatten_write'] & string
@@ -62,19 +69,38 @@ export type GetFullPath<
 		: never
 	: never
 
-export type FindNestedTypeFromFullPath<
+export type FindNestedWriteTypeFromFullPath<
 	T extends MetaType,
 	U extends string | undefined,
-	M extends Mode,
-	ACC extends T[M] = T[M]
+	ACC extends T['write'] = T['write']
 > = U extends undefined
-	? T[M]
-	: ACC extends undefined // distributive, remove able read need this
-	? undefined
-	: U extends `${infer R extends keyof ACC & string}/${infer S}`
-	? ACC[R] extends infer P
-		? P extends P
-			? FindNestedTypeFromFullPath<T, S, M, P>
+	? T['write']
+	: U extends `${infer R}/${infer S}`
+	? R extends keyof ACC
+		? ACC[R] extends infer P
+			? P extends P // make distributive
+				? FindNestedWriteTypeFromFullPath<T, S, P>
+				: never
+			: never
+		: never
+	: U extends keyof ACC
+	? ACC[U]
+	: never
+
+export type FindNestedReadTypeFromFullPath<
+	T extends MetaType,
+	U extends string | undefined,
+	ACC extends T['read'] = T['read']
+> = U extends undefined
+	? T['read']
+	: ACC extends undefined
+	? never
+	: U extends `${infer R}/${infer S}`
+	? R extends keyof ACC
+		? ACC[R] extends infer P
+			? P extends (infer Q)[]
+				? FindNestedReadTypeFromFullPath<T, S, Record<`${number}`, Q>>
+				: FindNestedReadTypeFromFullPath<T, S, P>
 			: never
 		: never
 	: U extends keyof ACC

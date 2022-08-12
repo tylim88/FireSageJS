@@ -2,7 +2,7 @@ import { set as set_ } from 'firebase/database'
 import {
 	DatabaseReference,
 	MetaType,
-	FindNestedTypeFromFullPath,
+	FindNestedWriteTypeFromFullPath,
 	GetAllPushAbleOnlyPaths,
 	ErrorIsPushOnlyAbleType,
 } from '../types'
@@ -30,7 +30,7 @@ export const set = <
 	ref: DatabaseReference<T, U>,
 	value: U extends GetAllPushAbleOnlyPaths<T>
 		? ErrorIsPushOnlyAbleType<U>
-		: FindNestedTypeFromFullPath<T, U, 'write'>
+		: FindNestedWriteTypeFromFullPath<T, U>
 ) => {
 	return set_(ref as any, value)
 }

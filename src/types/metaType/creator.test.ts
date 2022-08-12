@@ -214,7 +214,7 @@ describe('test generated meta type', () => {
 								m: Record<string, { n: '7' | '8' | '9' }>
 								p: Record<string, { r: ServerTimestamp }>
 								s:
-									| Record<number, { t: number | Increment }>
+									| Record<`${number}`, { t: number | Increment }>
 									| {
 											t: number | Increment
 									  }[]
@@ -223,7 +223,7 @@ describe('test generated meta type', () => {
 					}
 					o: Record<string, number | Increment>
 					q: Record<string, 4 | 5 | 6>
-					u: Record<number, string> | string[]
+					u: Record<`${number}`, string> | string[]
 				}
 			>
 		>

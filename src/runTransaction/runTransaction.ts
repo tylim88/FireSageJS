@@ -2,7 +2,8 @@ import { runTransaction as runTransaction_ } from 'firebase/database'
 import {
 	DatabaseReference,
 	MetaType,
-	FindNestedTypeFromFullPath,
+	FindNestedReadTypeFromFullPath,
+	FindNestedWriteTypeFromFullPath,
 	TransactionOptions,
 	TransactionResult,
 } from '../types'
@@ -36,8 +37,8 @@ export const runTransaction = <
 >(
 	ref: DatabaseReference<T, U>,
 	transactionUpdate: (
-		currentData: FindNestedTypeFromFullPath<T, U, 'read'> | null
-	) => FindNestedTypeFromFullPath<T, U, 'write'> | null | undefined,
+		currentData: FindNestedReadTypeFromFullPath<T, U> | null
+	) => FindNestedWriteTypeFromFullPath<T, U> | null | undefined,
 	options?: TransactionOptions
 ) => {
 	return runTransaction_(
