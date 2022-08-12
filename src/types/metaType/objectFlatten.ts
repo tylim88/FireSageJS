@@ -1,5 +1,4 @@
 import { RemoveLastSlash } from '../stringManipulation'
-import { IsSame, IsEqual } from '../utils'
 
 type DeepKey_<T, K extends keyof T, Mode extends 'read' | 'write'> = K extends
 	| string
@@ -17,20 +16,7 @@ type DeepKey_<T, K extends keyof T, Mode extends 'read' | 'write'> = K extends
 export type DeepKey<T, Mode extends 'read' | 'write'> = RemoveLastSlash<
 	DeepKey_<T, keyof T, Mode>
 >
-type o = DeepKey<
-	{ a: { b: Record<`${number}`, { c: 1 }> | { d: 1 }[] } },
-	'write'
->
-type u = DeepKey<
-	{
-		a: {
-			b: {
-				[x in string]: 1 | 2 | 3
-			}
-		}
-	},
-	'write'
->
+
 type DeepValue<
 	T,
 	P extends DeepKey<T, Mode>,
@@ -50,12 +36,6 @@ type DeepValue<
 	? T[P & keyof T]
 	: 5 // impossible route
 
-type p = DeepValue<
-	{ a: { b: Record<number, { c: 123 }> | { d: 456 }[] } },
-	`a/b/${number}/c`,
-	'write'
->
-
 export type ObjectFlatten<Data> = Data extends string | unknown[]
 	? Data
 	: Data extends Record<string, unknown>
@@ -65,12 +45,3 @@ export type ObjectFlatten<Data> = Data extends string | unknown[]
 			>
 	  }
 	: Data
-type q = ObjectFlatten<{
-	a: { b: Record<number, { c: 1123 }> | { d: 3451 }[] }
-}>
-
-type e = ObjectFlatten<{
-	b: {
-		[x: string]: 1 | 2 | 3
-	}
-}>

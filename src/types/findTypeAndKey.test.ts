@@ -75,6 +75,9 @@ describe('test', () => {
 				| 'p'
 				| `p/${string}`
 				| `p/${string}/r`
+				| 's'
+				| `s/${number}`
+				| `s/${number}/t`
 			>
 		>()
 		IsTrue<IsSame<F, never>>()
@@ -104,11 +107,11 @@ describe('test', () => {
 		type M = FindAllTopLevelChildKeys<Users, `b/h/${string}/p/${string}`>
 		type N = FindAllTopLevelChildKeys<Users, `b/h/${string}/p/${string}/r`>
 
-		IsTrue<IsSame<A, 'a' | 'b' | 'o' | 'q'>>()
+		IsTrue<IsSame<A, 'a' | 'b' | 'o' | 'q' | 'u'>>()
 		IsTrue<IsSame<B, never>>()
 		IsTrue<IsSame<C, 'e' | 'f' | 'k'>>()
 		IsTrue<IsSame<D, never>>()
-		IsTrue<IsSame<E, 'i' | 'l' | 'm' | 'p'>>()
+		IsTrue<IsSame<E, 'i' | 'l' | 'm' | 'p' | 's'>>()
 		IsTrue<IsSame<F, never>>()
 		IsTrue<IsSame<G, string>>()
 		IsTrue<IsSame<H, never>>()
@@ -275,10 +278,11 @@ describe('test', () => {
 		IsTrue<IsSame<N, number | undefined>>()
 	})
 
-	it('test Get All Remove Path', () => {
+	it('test Get All Removable Path', () => {
+		type A = GetAllRemovablePaths<Users>
 		IsTrue<
 			IsSame<
-				GetAllRemovablePaths<Users>,
+				A,
 				| 'b/d'
 				| 'b/d/k'
 				| `b/h/${string}/l`
@@ -286,6 +290,8 @@ describe('test', () => {
 				| `b/h/${string}/m/${string}/n`
 				| `b/h/${string}/p`
 				| `b/h/${string}/p/${string}/r`
+				| `b/h/${string}/s`
+				| `b/h/${string}/s/${number}/t`
 			>
 		>
 	})

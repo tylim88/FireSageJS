@@ -8,33 +8,11 @@ import {
 } from '../fieldValue'
 import { IsTrue, IsSame } from '../utils'
 import { Users } from '../../utilForTests'
-import {
-	ReplaceInvalidDataTypeRead,
-	ReplaceInvalidDataTypeBase,
-	ReplaceInvalidDataTypeWrite,
-	ReplaceRemove,
-	ReplaceRemoveWithUndefined,
-} from './replaceInvalidDataType'
-import {
-	ReadTypeConverter,
-	WriteTypeConverter,
-	AllNodesPossiblyReadAsUndefined,
-} from './typeConverter'
-import { ObjectFlatten } from './objectFlatten'
 
-type u = ObjectFlatten<
-	WriteTypeConverter<
-		ReplaceInvalidDataTypeWrite<ReplaceRemove<{ a: PushAbleOnly<number> }>>
-	>
->
-
-type o = WriteTypeConverter<
-	ReplaceInvalidDataTypeWrite<ReplaceRemove<{ a: PushAbleOnly<number> }>>
->
 describe('test generated meta type', () => {
 	it('test flatten_write', () => {
 		type A = Users['flatten_write']
-		type B = A[`q/${string}`]
+
 		IsTrue<
 			IsSame<
 				| {

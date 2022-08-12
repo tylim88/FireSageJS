@@ -106,7 +106,7 @@ export type GetAllVPath<
 					? GetAllVPath<
 							X,
 							V,
-							Key extends undefined ? string : `${Key}/${string}`
+							Key extends undefined ? string : `${Key}/${number}`
 					  >
 					: never)
 	: T extends Record<string, unknown>
@@ -124,7 +124,7 @@ export type GetAllVPath<
 	: T extends PushAbleOnly<infer X>
 	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${string}`>
 	: T extends PseudoArray<infer X>
-	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${string}`>
+	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${number}`>
 	: never
 
 export type GetAllRemovablePaths<T extends MetaType> = GetAllVPath<

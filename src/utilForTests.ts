@@ -60,13 +60,11 @@ export const generateRandomData = (): {
 	randStringMKey: string
 	randStringOKey: string
 	randStringPKey: string
-	randStringSKey: string
 } => {
 	const randStringHKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const randStringMKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const randStringOKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const randStringPKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
-	const randStringSKey = pick(['0', ...betwin('0', '9'), '9'])[0]!
 	const k = v4()
 	const u = v4()
 	return {
@@ -91,11 +89,11 @@ export const generateRandomData = (): {
 								r: 'fake ServerTimestamp' as unknown as ServerTimestamp,
 							},
 						},
-						s: {
-							[randStringSKey]: {
+						s: [
+							{
 								t: Math.random(),
 							},
-						},
+						],
 					},
 				},
 			},
@@ -107,7 +105,6 @@ export const generateRandomData = (): {
 		randStringHKey,
 		randStringOKey,
 		randStringPKey,
-		randStringSKey,
 		k,
 		u,
 	}
