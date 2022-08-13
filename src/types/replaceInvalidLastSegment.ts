@@ -1,11 +1,8 @@
 import { MetaType } from './metaType'
 import { GetLastSegment } from './stringManipulation'
-import {
-	ErrorNodeNeedToBeStringButFoundNumber,
-	ErrorNodeNeedToBeNumberButFoundString,
-} from './error'
+import { ErrorLastSegmentNeedString, ErrorLastSegmentNeedNumber } from './error'
 
-export type ShouldLastSegmentNumericOrString<
+export type ReplaceInvalidLastSegment<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	Input extends string | undefined
@@ -14,9 +11,9 @@ export type ShouldLastSegmentNumericOrString<
 		? GetLastSegment<U> extends `${number}`
 			? GetLastSegment<Input> extends `${number}`
 				? Input
-				: ErrorNodeNeedToBeNumberButFoundString<U>
+				: ErrorLastSegmentNeedNumber<U>
 			: GetLastSegment<Input> extends `${number}`
-			? ErrorNodeNeedToBeStringButFoundNumber<U>
+			? ErrorLastSegmentNeedString<U>
 			: Input
 		: Input
 	: Input

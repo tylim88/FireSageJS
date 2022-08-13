@@ -24,9 +24,9 @@ export type ErrorNoSuchChild<
 	T extends string,
 	U extends string | undefined
 > = `Error: ${T} is not a direct child of ${U extends string ? U : 'root'}`
-export type ErrorNodeNeedToBeStringButFoundNumber<T extends string> =
-	`Error: The name of ${T} node has to be a non-numeric string. If you need to name the node with numeric string, change the parent type to Record<number, T>`
-export type ErrorNodeNeedToBeNumberButFoundString<T extends string> =
-	`Error: The name of ${T} node has to be a numeric string. If you need to name the node with non-numeric string, change the parent type to Record<string, T>`
+export type ErrorLastSegmentNeedString<T extends string> =
+	`Error: The last segment of name ${T} node name has to be a non-numeric string. If you need to name the node with numeric string, change the parent type to Record<number, T>`
+export type ErrorLastSegmentNeedNumber<T extends string> =
+	`Error: The last segment of name ${T} node name has to be a numeric string. If you need to name the node with non-numeric string, change the parent type to Record<string, T>`
 export type ErrorObjectTypeUnion =
 	`Error: This type is replaced with error message because object literal(or map type) / PushAble<T> / PushAbleOnly<T> / PseudoArray<T> cannot union with other type (except Removable). Please check your MetaType.`
