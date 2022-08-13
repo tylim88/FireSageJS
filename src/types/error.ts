@@ -26,9 +26,11 @@ export type ErrorNoSuchChild<
 	T extends string,
 	U extends string | undefined
 > = `Error: ${T} is not a direct child of ${U extends string ? U : 'root'}`
-export type ErrorLastSegmentNeedString<T extends string> =
-	`Error: The last segment of ${T} node path has to be a non-numeric string. If you need it to be numeric string, change the type of ${RemoveLastSegment<T> extends never
-		? 'root'
-		: RemoveLastSegment<T>} node to Record<number, T>`
+export type ErrorNeedString =
+	`Error: Incorrect type path, you are trying to use non-numeric string key on numeric string key. Example: the path type is a/${string} but you supply a/123`
 export type ErrorObjectTypeUnion =
 	`Error: This type is replaced with error message because object literal(or map type) / PushAble<T> / PushAbleOnly<T> / PseudoArray<T> cannot union with other type (except Removable). Please check your MetaType.`
+export type ErrorInvalidPathTypeOrNeedNumber =
+	`Error: Incorrect type path, possible cause: incorrect key or you are trying to use numeric string key on non-numeric string key. Example: the path type is a/${number} but you supply a/xyz`
+export type ErrorInvalidPathType =
+	`Error: Incorrect type path, possible cause: incorrect key OR you are trying to use numeric string key on non-numeric string key. Example: the path type is a/${number} but you supply a/xyz`

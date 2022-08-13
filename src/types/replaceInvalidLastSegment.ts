@@ -1,20 +1,26 @@
 import { MetaType } from './metaType'
-import { GetLastSegment } from './stringManipulation'
-import { ErrorLastSegmentNeedString } from './error'
+import { ErrorNeedString, ErrorInvalidPathTypeOrNeedNumber } from './error'
 import { FindMetaPathType } from './findTypeAndKey'
 
-// string does not extends `${number}` so we can handle this case by simply return V
+// string does not extends `${number}`
 // `${number}` extends string so we need to handle this case
 export type ReplaceInvalidLastSegment<
 	T extends MetaType,
 	U extends keyof T['flatten_write'] & string,
-	V extends string
-> = FindMetaPathType<T, U> extends never
-	? V // return V if trying to assign string to `${number}`
-	: FindMetaPathType<T, U> extends infer Z extends string
-	? GetLastSegment<Z> extends `${string}`
-		? GetLastSegment<U> extends `${number}`
-			? ErrorLastSegmentNeedString<Z>
-			: U
+	L extends string = FindMetaPathType<T, U> & string,
+	H extends string = U
+> = L[] extends never[]
+	? ErrorInvalidPathTypeOrNeedNumber // return generic error for string does not extends `${number}` case
+	: L extends `${infer M}/${infer N}`
+	? H extends `${infer I}/${infer J}`
+		? I extends `${number}`
+			? string extends M
+				? ErrorNeedString
+				: ReplaceInvalidLastSegment<T, U, N, J>
+			: ReplaceInvalidLastSegment<T, U, N, J>
+		: never // impossible route
+	: H extends `${number}`
+	? string extends L
+		? ErrorNeedString
 		: U
 	: U

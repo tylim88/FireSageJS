@@ -1,9 +1,15 @@
 import { ref } from 'firebase/database'
-import { MetaType, Database, DatabaseReference } from '../types'
+import {
+	MetaType,
+	Database,
+	DatabaseReference,
+	ReplaceInvalidLastSegment,
+} from '../types'
 import { isDatabase, isString } from '../utils'
 
 export const refCreator =
 	<T extends MetaType>(database: Database): Ref<T> =>
+	// @ts-expect-error
 	(db?: Database, path?: string) => {
 		const db_ = isDatabase(db) ? db : database
 		const path_ = isString(db) ? db : path
@@ -12,10 +18,14 @@ export const refCreator =
 
 type Ref<T extends MetaType> = {
 	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
-		path?: U
+		path?: U extends keyof T['flatten_write'] & string
+			? ReplaceInvalidLastSegment<T, U>
+			: U
 	): DatabaseReference<T, U>
 	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
 		db?: Database,
-		path?: U
+		path?: U extends keyof T['flatten_write'] & string
+			? ReplaceInvalidLastSegment<T, U>
+			: U
 	): DatabaseReference<T, U>
 }

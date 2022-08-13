@@ -47,4 +47,19 @@ describe('test ref', () => {
 		IsTrue<IsEqual<D_parent, DatabaseReference<Users, 'b/d/f'>>>()
 		IsTrue<IsEqual<E_parent, DatabaseReference<Users, 'b'>>>()
 	})
+	it('test path type', () => {
+		;() => {
+			ref()
+			ref('a')
+			ref('b')
+			ref('b/d/f/j')
+			ref('b/h')
+			ref('b/h/abc')
+			// @ts-expect-error
+			ref('b/h/123')
+			ref('b/h/abc/s/123')
+			// @ts-expect-error
+			ref('b/h/abc/s/efg')
+		}
+	})
 })
