@@ -1,3 +1,5 @@
+import { RemoveLastSegment } from './stringManipulation'
+
 export type ErrorHasNoChild<T extends string | undefined> =
 	`Error: The '${T extends string ? T : 'root'}' node has no child`
 export type ErrorInvalidDataType =
@@ -25,8 +27,8 @@ export type ErrorNoSuchChild<
 	U extends string | undefined
 > = `Error: ${T} is not a direct child of ${U extends string ? U : 'root'}`
 export type ErrorLastSegmentNeedString<T extends string> =
-	`Error: The last segment of name ${T} node name has to be a non-numeric string. If you need to name the node with numeric string, change the parent type to Record<number, T>`
-export type ErrorLastSegmentNeedNumber<T extends string> =
-	`Error: The last segment of name ${T} node name has to be a numeric string. If you need to name the node with non-numeric string, change the parent type to Record<string, T>`
+	`Error: The last segment of ${T} node path has to be a non-numeric string. If you need it to be numeric string, change the type of ${RemoveLastSegment<T> extends never
+		? 'root'
+		: RemoveLastSegment<T>} node to Record<number, T>`
 export type ErrorObjectTypeUnion =
 	`Error: This type is replaced with error message because object literal(or map type) / PushAble<T> / PushAbleOnly<T> / PseudoArray<T> cannot union with other type (except Removable). Please check your MetaType.`

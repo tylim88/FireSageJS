@@ -1,28 +1,29 @@
 import { ReplaceInvalidLastSegment } from './replaceInvalidLastSegment'
 import { Users } from '../utilForTests'
 import { IsSame, IsTrue } from './utils'
-import { ErrorLastSegmentNeedString, ErrorLastSegmentNeedNumber } from './error'
+import { ErrorLastSegmentNeedString } from './error'
 
 describe('test ReplaceInvalidLastSegment', () => {
 	it('positive test', () => {
-		type A = ReplaceInvalidLastSegment<Users, 'a', 'a/b'>
-		type B = ReplaceInvalidLastSegment<Users, `b/h/${string}`, `b/h/${number}`>
+		type A = ReplaceInvalidLastSegment<
+			Users,
+			// @ts-expect-error
+			'a/b',
+			never
+		>
+		type B = ReplaceInvalidLastSegment<Users, `b/h/${number}`, never>
 		type C = ReplaceInvalidLastSegment<
 			Users,
-			`b/h/${string}/s/${number}`,
-			`b/h/${string}/s/${string}`
+			`b/h/${string}/s/${string}`,
+			never
 		>
-		type D = ReplaceInvalidLastSegment<Users, `b/h/${string}`, `b/h/1`>
-		type E = ReplaceInvalidLastSegment<
-			Users,
-			`b/h/${string}/s/${number}`,
-			`b/h/${string}/s/abc`
-		>
+		type D = ReplaceInvalidLastSegment<Users, `b/h/1`, never>
+		type E = ReplaceInvalidLastSegment<Users, `b/h/${string}/s/abc`, never>
 
-		IsTrue<IsSame<A, 'a/b'>>()
+		IsTrue<IsSame<A, never>>()
 		IsTrue<IsSame<B, ErrorLastSegmentNeedString<`b/h/${string}`>>>()
-		IsTrue<IsSame<C, ErrorLastSegmentNeedNumber<`b/h/${string}/s/${number}`>>>()
+		IsTrue<IsSame<C, never>>()
 		IsTrue<IsSame<D, ErrorLastSegmentNeedString<`b/h/${string}`>>>()
-		IsTrue<IsSame<E, ErrorLastSegmentNeedNumber<`b/h/${string}/s/${number}`>>>()
+		IsTrue<IsSame<E, never>>()
 	})
 })

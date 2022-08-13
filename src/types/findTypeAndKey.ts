@@ -91,6 +91,7 @@ export type FindNestedReadTypeFromFullPath<
 	? ACC[U]
 	: never // impossible route
 
+// use with ReplaceInvalidLastSegment
 export type FindMetaPathType<
 	T extends MetaType,
 	U extends keyof T['flatten_write'] & string

@@ -334,7 +334,7 @@ describe('test', () => {
 
 		IsTrue<IsSame<A, 'a'>>()
 		IsTrue<IsSame<B, `b/h/${string}`>>()
-		IsTrue<IsSame<C, `b/h/${string}`>>() // special case, because `${number}` extends string
+		IsTrue<IsSame<C, `b/h/${string}`>>() // special case, because `${number}` extends string, ReplaceInvalidLastSegment will handle it
 		IsTrue<IsSame<D, never>>()
 		IsTrue<IsSame<E, `b/h/${string}/s`>>()
 		IsTrue<IsSame<F, `b/h/${string}/s/${number}`>>()
