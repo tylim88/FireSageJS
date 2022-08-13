@@ -23,8 +23,11 @@ export interface Increment extends FieldValue<IncrementSymbol> {}
 
 export interface Removable extends FieldValue<RemoveSymbol> {}
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface PushAble<T> extends FieldValue<PushAbleSymbol> {}
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface PushAbleOnly<T> extends FieldValue<PushAbleOnlySymbol> {}
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface PseudoArray<T> extends FieldValue<PseudoArraySymbol> {}

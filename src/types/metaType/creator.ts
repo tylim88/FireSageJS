@@ -5,6 +5,7 @@ import {
 	ReplaceInvalidDataTypeWrite,
 	ReplaceRemove,
 	ReplaceRemoveWithUndefined,
+	ReplaceInvalidUnion,
 } from './replaceInvalidDataType'
 import {
 	ReadTypeConverter,
@@ -27,14 +28,20 @@ export type MetaTypeCreator<
 	Settings extends { AllNodesPossiblyReadAsUndefined?: boolean } = {
 		AllNodesPossiblyReadAsUndefined: false
 	},
-	Write = WriteTypeConverter<ReplaceInvalidDataTypeWrite<ReplaceRemove<Base>>>,
+	Write = WriteTypeConverter<
+		ReplaceRemove<ReplaceInvalidDataTypeWrite<ReplaceInvalidUnion<Base>>>
+	>,
 	Read = ReadTypeConverter<
-		ReplaceInvalidDataTypeRead<ReplaceRemoveWithUndefined<Base>>
+		ReplaceRemoveWithUndefined<
+			ReplaceInvalidDataTypeRead<ReplaceInvalidUnion<Base>>
+		>
 	>,
 	Compare = ReplaceInvalidDataTypeRead<ReadTypeConverter<ReplaceRemove<Base>>>
 > = {
-	base: ReplaceInvalidDataTypeBase<Base>
-	flatten_base: ObjectFlatten<ReplaceInvalidDataTypeBase<Base>>
+	base: ReplaceInvalidDataTypeBase<ReplaceInvalidUnion<Base>>
+	flatten_base: ObjectFlatten<
+		ReplaceInvalidDataTypeBase<ReplaceInvalidUnion<Base>>
+	>
 	write: Write
 	flatten_write: ObjectFlatten<Write>
 	read: Settings['AllNodesPossiblyReadAsUndefined'] extends true

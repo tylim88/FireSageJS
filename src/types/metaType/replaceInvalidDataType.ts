@@ -1,8 +1,4 @@
-import {
-	ErrorInvalidDataTypeRead,
-	ErrorInvalidDataTypeBase,
-	ErrorInvalidDataTypeWrite,
-} from '../error'
+import { ErrorInvalidDataType, ErrorObjectTypeUnion } from '../error'
 import {
 	ServerTimestamp,
 	PushAble,
@@ -10,6 +6,7 @@ import {
 	PushAbleOnly,
 	PseudoArray,
 } from '../fieldValue'
+import { IsUnion } from '../utils'
 
 export type ReplaceInvalidDataTypeBase<T> = T extends
 	| boolean
@@ -27,13 +24,12 @@ export type ReplaceInvalidDataTypeBase<T> = T extends
 	? PushAbleOnly<ReplaceInvalidDataTypeBase<X>>
 	: T extends PseudoArray<infer X>
 	? PseudoArray<ReplaceInvalidDataTypeBase<X>>
-	: ErrorInvalidDataTypeBase
+	: ErrorInvalidDataType
 
 export type ReplaceInvalidDataTypeRead<T> = T extends
 	| boolean
 	| string
 	| number
-	| undefined
 	| ServerTimestamp
 	| Removable
 	| null
@@ -46,7 +42,7 @@ export type ReplaceInvalidDataTypeRead<T> = T extends
 	? PushAbleOnly<ReplaceInvalidDataTypeRead<X>>
 	: T extends PseudoArray<infer X>
 	? PseudoArray<ReplaceInvalidDataTypeRead<X>>
-	: ErrorInvalidDataTypeRead
+	: ErrorInvalidDataType
 
 export type ReplaceInvalidDataTypeWrite<T> = T extends
 	| boolean
@@ -64,7 +60,7 @@ export type ReplaceInvalidDataTypeWrite<T> = T extends
 	? PushAbleOnly<ReplaceInvalidDataTypeWrite<X>>
 	: T extends PseudoArray<infer X>
 	? PseudoArray<ReplaceInvalidDataTypeWrite<X>>
-	: ErrorInvalidDataTypeWrite
+	: ErrorInvalidDataType
 
 export type ReplaceRemove<T> = T extends Removable
 	? never
@@ -88,4 +84,24 @@ export type ReplaceRemoveWithUndefined<T> = T extends Removable
 	? PushAbleOnly<ReplaceRemoveWithUndefined<X>>
 	: T extends PseudoArray<infer X>
 	? PseudoArray<ReplaceRemoveWithUndefined<X>>
+	: T
+
+export type ReplaceInvalidUnion<T> = Exclude<T, Removable> extends infer R
+	? IsUnion<R> extends true
+		? Extract<
+				R,
+				| Record<string, unknown>
+				| PushAble<unknown>
+				| PushAbleOnly<unknown>
+				| PseudoArray<unknown>
+		  > extends never
+			? T
+			: ErrorObjectTypeUnion
+		: R extends Record<string, unknown>
+		?
+				| {
+						[K in keyof R]: ReplaceInvalidUnion<R[K]>
+				  }
+				| Extract<T, Removable>
+		: T
 	: T

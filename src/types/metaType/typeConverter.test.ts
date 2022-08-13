@@ -2,8 +2,8 @@ import { Users } from '../../utilForTests'
 import { MetaTypeCreator } from './creator'
 import { IsTrue, IsSame } from '../utils'
 
-describe('test read all node as undefined', () => {
-	it('test', () => {
+describe('test type converter', () => {
+	it('test read all node as undefined', () => {
 		type A = MetaTypeCreator<
 			Users['base'],
 			{ AllNodesPossiblyReadAsUndefined: true }

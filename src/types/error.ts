@@ -1,11 +1,7 @@
 export type ErrorHasNoChild<T extends string | undefined> =
 	`Error: The '${T extends string ? T : 'root'}' node has no child`
-export type ErrorInvalidDataTypeRead =
-	`Error: This node has invalid data type and is replaced with this error message. Valid data type is boolean, number, string, object literal(or map type)`
-export type ErrorInvalidDataTypeWrite =
-	`Error: This node has invalid data type and is replaced with this error message. Valid data type is boolean, number, string, object literal(or map type), Increment, and ServerTimestamp`
-export type ErrorInvalidDataTypeBase =
-	`Error: This node has invalid data type and is replaced with this error message. Valid data type is boolean, number, string, object literal(or map type), Increment, ServerTimestamp and Push`
+export type ErrorInvalidDataType =
+	`Error: This node has invalid data type and is replaced with this error message. Valid data type is null, boolean, number, string, object literal(or map type), Removable, ServerTimestamp, PushAble<T>, PushAbleOnly<T> and PseudoArray<T>.`
 export type ErrorUnknownProperty<T extends string> =
 	`Error: Unknown properties: '${T}'`
 export type ErrorNotPushAble<T extends string | undefined> =
@@ -32,3 +28,5 @@ export type ErrorNodeNeedToBeStringButFoundNumber<T extends string> =
 	`Error: The name of ${T} node has to be a non-numeric string. If you need to name the node with numeric string, change the parent type to Record<number, T>`
 export type ErrorNodeNeedToBeNumberButFoundString<T extends string> =
 	`Error: The name of ${T} node has to be a numeric string. If you need to name the node with non-numeric string, change the parent type to Record<string, T>`
+export type ErrorObjectTypeUnion =
+	`Error: This type is replaced with error message because object literal(or map type) / PushAble<T> / PushAbleOnly<T> / PseudoArray<T> cannot union with other type (except Removable). Please check your MetaType.`
