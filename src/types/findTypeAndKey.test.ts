@@ -5,6 +5,7 @@ import {
 	FindNestedReadTypeFromFullPath,
 	FindAllTopLevelChildKeys,
 	FindNestedWriteTypeFromFullPath,
+	FindMetaPathType,
 } from './findTypeAndKey'
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
@@ -321,5 +322,22 @@ describe('test', () => {
 			>
 		>()
 		IsTrue<IsSame<Q, number | undefined>>()
+	})
+	it('test Find Nested Read Type', () => {
+		type A = FindMetaPathType<Users, 'a'>
+		type B = FindMetaPathType<Users, 'b/h/abc'>
+		type C = FindMetaPathType<Users, 'b/h/1'>
+		type D = FindMetaPathType<Users, 'b/h/abc/efg'>
+		type E = FindMetaPathType<Users, 'b/h/abc/s'>
+		type F = FindMetaPathType<Users, 'b/h/abc/s/123'>
+		type G = FindMetaPathType<Users, 'b/h/abc/s/efg'>
+
+		IsTrue<IsSame<A, 'a'>>()
+		IsTrue<IsSame<B, `b/h/${string}`>>()
+		IsTrue<IsSame<C, `b/h/${string}`>>() // special case, because `${number}` extends string
+		IsTrue<IsSame<D, never>>()
+		IsTrue<IsSame<E, `b/h/${string}/s`>>()
+		IsTrue<IsSame<F, `b/h/${string}/s/${number}`>>()
+		IsTrue<IsSame<G, never>>()
 	})
 })

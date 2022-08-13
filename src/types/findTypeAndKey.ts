@@ -1,5 +1,5 @@
 import { MetaType } from './metaType'
-import { RemoveLastSegment } from './stringManipulation'
+import { RemoveLastSegment, GetNumberOfSlash } from './stringManipulation'
 
 export type FindParentKey<
 	T extends MetaType,
@@ -91,11 +91,15 @@ export type FindNestedReadTypeFromFullPath<
 	? ACC[U]
 	: never // impossible route
 
-export type FindOriginalPathType<
+export type FindMetaPathType<
 	T extends MetaType,
-	U extends string
+	U extends keyof T['flatten_write'] & string
 > = keyof T['flatten_write'] extends infer S // make distributive
 	? S extends S
-		? 1
-		: never
+		? U extends S
+			? GetNumberOfSlash<U> extends GetNumberOfSlash<S & string>
+				? S
+				: never
+			: never
+		: never // impossible route
 	: never // impossible route
