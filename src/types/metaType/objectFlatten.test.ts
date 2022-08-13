@@ -22,21 +22,21 @@ describe('test object flatten type', () => {
 		IsTrue<
 			IsSame<
 				A,
-				| 'a'
-				| 'b'
-				| 'b/c'
-				| 'b/d'
-				| 'b/d/e'
-				| 'b/d/f'
-				| `b/d/f/${string}`
-				| 'b/d/g'
-				| `b/d/g/${string}`
-				| `b/d/g/${string}/${number}`
-				| `b/d/g/${string}/${number}/i`
-				| `b/d/h`
-				| `b/d/h/${number}`
-				| `b/d/h/${number}/${string}`
-				| `b/d/h/${number}/${string}/j`
+				| 'a/'
+				| 'b/'
+				| 'b/c/'
+				| 'b/d/'
+				| 'b/d/e/'
+				| 'b/d/f/'
+				| `b/d/h/`
+				| `b/d/h/${number}/`
+				| `b/d/h/${number}/${string}/`
+				| `b/d/h/${number}/${string}/j/`
+				| `b/d/f/${string}/`
+				| 'b/d/g/'
+				| `b/d/g/${string}/`
+				| `b/d/g/${string}/${number}/`
+				| `b/d/g/${string}/${number}/i/`
 			>
 		>
 	})

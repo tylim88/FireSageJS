@@ -13,35 +13,35 @@ type DeepKey_<T, K extends keyof T, Mode extends 'read' | 'write'> = K extends
 		: never // impossible route
 	: never // impossible route
 
-export type DeepKey<T, Mode extends 'read' | 'write'> = RemoveLastSlash<
-	DeepKey_<T, keyof T, Mode>
+export type DeepKey<T, Mode extends 'read' | 'write'> = DeepKey_<
+	T,
+	keyof T,
+	Mode
 >
 
 type DeepValue<
 	T,
-	P extends DeepKey<T, Mode>,
+	P extends string,
 	Mode extends 'read' | 'write'
 	// ! P extends `${infer K extends keyof T}/${infer Rest extends DeepKey<T[K],Mode>}` causes error
 > = P extends `${infer K}/${infer Rest}`
-	? K extends `${keyof T & (string | number)}`
-		? T[K & keyof T] extends infer S
-			? S extends unknown[]
-				? never
-				: Rest extends DeepKey<S, Mode>
+	? T[K & keyof T] extends infer S
+		? S extends unknown[]
+			? never
+			: DeepKey<S, Mode> extends infer W // ! need distribution because RemoveLastSlash<DeepKey<S, Mode>> may result in string | `${string}/something` which will collapse into string
+			? Rest extends RemoveLastSlash<W & string>
 				? DeepValue<S, Rest, Mode>
 				: never // impossible route
 			: never // impossible route
 		: never // impossible route
-	: P extends `${keyof T & (string | number)}`
-	? T[P & keyof T]
-	: never // impossible route
+	: T[P & keyof T]
 
 export type ObjectFlatten<Data> = Data extends string | unknown[]
 	? Data
 	: Data extends Record<string, unknown>
 	? {
-			[K in DeepKey<Data, 'write'>]-?: ObjectFlatten<
-				DeepValue<Data, K, 'write'>
+			[K in DeepKey<Data, 'write'> as RemoveLastSlash<K>]-?: ObjectFlatten<
+				DeepValue<Data, RemoveLastSlash<K>, 'write'>
 			>
 	  }
 	: Data

@@ -15,105 +15,15 @@ describe('test generated meta type', () => {
 
 		IsTrue<
 			IsSame<
-				| {
-						[x: `${number}`]: string
-				  }
-				| string[],
-				| string[]
-				| {
-						[x: `${number}`]: string
-				  }
-			>
-		>()
-
-		IsTrue<
-			IsSame<
 				A,
 				{
+					a: 1 | 2 | 3
 					o: { [x: string]: number | Increment }
 					q: { [x: string]: 4 | 5 | 6 }
 					u: { [x: `${number}`]: string } | string[]
 					[x: `o/${string}`]: number | Increment
 					[x: `q/${string}`]: 4 | 5 | 6
 					[x: `u/${number}`]: string
-					a: 1 | 2 | 3
-					b: {
-						c: true
-						d: {
-							e: 'abc' | 'xyz' | 'efg'
-							f: {
-								j: number | Increment
-							}
-							'f/j': number | Increment
-							k: string
-						}
-						h: {
-							[x: string]: {
-								i: boolean
-								l: ServerTimestamp
-								m: { [x: string]: { n: '7' | '8' | '9' } }
-								[x: `m/${string}`]: { n: '7' | '8' | '9' }
-								[x: `m/${string}/n`]: '7' | '8' | '9'
-								p: { [x: string]: { r: ServerTimestamp } }
-								[x: `p/${string}`]: { r: ServerTimestamp }
-								[x: `p/${string}/r`]: ServerTimestamp
-								s:
-									| {
-											[x: `${number}`]: {
-												t: number | Increment
-											}
-											[x: `${number}/t`]: number | Increment
-									  }
-									| { t: number | Increment }[]
-								[x: `s/${number}`]: { t: number | Increment }
-								[x: `s/${number}/t`]: number | Increment
-							}
-						}
-						[x: `h/${string}`]: {
-							i: boolean
-							l: ServerTimestamp
-							m: {
-								[x: string]: { n: '7' | '8' | '9' }
-							}
-							[x: `m/${string}`]: { n: '7' | '8' | '9' }
-							[x: `m/${string}/n`]: '7' | '8' | '9'
-							p: { [x: string]: { r: ServerTimestamp } }
-							[x: `p/${string}`]: { r: ServerTimestamp }
-							[x: `p/${string}/r`]: ServerTimestamp
-							s:
-								| {
-										[x: `${number}`]: { t: number | Increment }
-										[x: `${number}/t`]: number | Increment
-								  }
-								| { t: number | Increment }[]
-							[x: `s/${number}`]: { t: number | Increment }
-							[x: `s/${number}/t`]: number | Increment
-						}
-						[x: `h/${string}/i`]: boolean
-						[x: `h/${string}/l`]: ServerTimestamp
-						[x: `h/${string}/m`]: {
-							[x: string]: { n: '7' | '8' | '9' }
-						}
-						[x: `h/${string}/m/${string}`]: { n: '7' | '8' | '9' }
-						[x: `h/${string}/m/${string}/n`]: '7' | '8' | '9'
-						[x: `h/${string}/p`]: { [x: string]: { r: ServerTimestamp } }
-						[x: `h/${string}/p/${string}`]: { r: ServerTimestamp }
-						[x: `h/${string}/p/${string}/r`]: ServerTimestamp
-						[x: `h/${string}/s`]:
-							| {
-									[x: `${number}`]: { t: number | Increment }
-									[x: `${number}/t`]: number | Increment
-							  }
-							| { t: number | Increment }[]
-						[x: `h/${string}/s/${number}`]: { t: number | Increment }
-						[x: `h/${string}/s/${number}/t`]: number | Increment
-						'd/e': 'abc' | 'xyz' | 'efg'
-						'd/f': {
-							j: number | Increment
-						}
-						'd/f/j': number | Increment
-						'd/k': string
-					}
 					'b/c': true
 					'b/d': {
 						e: 'abc' | 'xyz' | 'efg'
@@ -129,14 +39,85 @@ describe('test generated meta type', () => {
 					}
 					'b/d/f/j': number | Increment
 					'b/d/k': string
-					'b/h': {
-						[x: string]: {
+					b: {
+						c: true
+						d: {
+							e: 'abc' | 'xyz' | 'efg'
+							f: {
+								j: number | Increment
+							}
+							'f/j': number | Increment
+							k: string
+						}
+						'd/e': 'abc' | 'xyz' | 'efg'
+						'd/f': {
+							j: number | Increment
+						}
+						'd/f/j': number | Increment
+						'd/k': string
+						h: {
+							[x: string]: {
+								i: boolean
+								l: ServerTimestamp
+								m: {
+									[x: string]: { n: '7' | '8' | '9' }
+									[x: `${string}/n`]: '7' | '8' | '9'
+								}
+								[x: `m/${string}`]: { n: '7' | '8' | '9' }
+								[x: `m/${string}/n`]: '7' | '8' | '9'
+								p: {
+									[x: string]: { r: ServerTimestamp }
+									[x: `${string}/r`]: ServerTimestamp
+								}
+								[x: `p/${string}`]: { r: ServerTimestamp }
+								[x: `p/${string}/r`]: ServerTimestamp
+								s:
+									| {
+											[x: `${number}`]: {
+												t: number | Increment
+											}
+											[x: `${number}/t`]: number | Increment
+									  }
+									| { t: number | Increment }[]
+								[x: `s/${number}`]: { t: number | Increment }
+								[x: `s/${number}/t`]: number | Increment
+							}
+							[x: `${string}/i`]: boolean
+							[x: `${string}/l`]: ServerTimestamp
+							[x: `${string}/m`]: {
+								[x: string]: { n: '7' | '8' | '9' }
+								[x: `${string}/n`]: '7' | '8' | '9'
+							}
+							[x: `${string}/m/${string}`]: { n: '7' | '8' | '9' }
+							[x: `${string}/m/${string}/n`]: '7' | '8' | '9'
+							[x: `${string}/p`]: {
+								[x: string]: { r: ServerTimestamp }
+								[x: `${string}/r`]: ServerTimestamp
+							}
+							[x: `${string}/p/${string}`]: { r: ServerTimestamp }
+							[x: `${string}/p/${string}/r`]: ServerTimestamp
+							[x: `${string}/s`]:
+								| {
+										[x: `${number}`]: { t: number | Increment }
+										[x: `${number}/t`]: number | Increment
+								  }
+								| { t: number | Increment }[]
+							[x: `${string}/s/${number}`]: { t: number | Increment }
+							[x: `${string}/s/${number}/t`]: number | Increment
+						}
+						[x: `h/${string}`]: {
 							i: boolean
 							l: ServerTimestamp
-							m: { [x: string]: { n: '7' | '8' | '9' } }
+							m: {
+								[x: string]: { n: '7' | '8' | '9' }
+								[x: `${string}/n`]: '7' | '8' | '9'
+							}
 							[x: `m/${string}`]: { n: '7' | '8' | '9' }
 							[x: `m/${string}/n`]: '7' | '8' | '9'
-							p: { [x: string]: { r: ServerTimestamp } }
+							p: {
+								[x: string]: { r: ServerTimestamp }
+								[x: `${string}/r`]: ServerTimestamp
+							}
 							[x: `p/${string}`]: { r: ServerTimestamp }
 							[x: `p/${string}/r`]: ServerTimestamp
 							s:
@@ -148,14 +129,90 @@ describe('test generated meta type', () => {
 							[x: `s/${number}`]: { t: number | Increment }
 							[x: `s/${number}/t`]: number | Increment
 						}
+						[x: `h/${string}/i`]: boolean
+						[x: `h/${string}/l`]: ServerTimestamp
+						[x: `h/${string}/m`]: {
+							[x: string]: { n: '7' | '8' | '9' }
+							[x: `${string}/n`]: '7' | '8' | '9'
+						}
+						[x: `h/${string}/m/${string}`]: { n: '7' | '8' | '9' }
+						[x: `h/${string}/m/${string}/n`]: '7' | '8' | '9'
+						[x: `h/${string}/p`]: {
+							[x: string]: { r: ServerTimestamp }
+							[x: `${string}/r`]: ServerTimestamp
+						}
+						[x: `h/${string}/p/${string}`]: { r: ServerTimestamp }
+						[x: `h/${string}/p/${string}/r`]: ServerTimestamp
+						[x: `h/${string}/s`]:
+							| {
+									[x: `${number}`]: { t: number | Increment }
+									[x: `${number}/t`]: number | Increment
+							  }
+							| { t: number | Increment }[]
+						[x: `h/${string}/s/${number}`]: { t: number | Increment }
+						[x: `h/${string}/s/${number}/t`]: number | Increment
+					}
+					'b/h': {
+						[x: string]: {
+							i: boolean
+							l: ServerTimestamp
+							m: {
+								[x: string]: { n: '7' | '8' | '9' }
+								[x: `${string}/n`]: '7' | '8' | '9'
+							}
+							[x: `m/${string}`]: { n: '7' | '8' | '9' }
+							[x: `m/${string}/n`]: '7' | '8' | '9'
+							p: {
+								[x: string]: { r: ServerTimestamp }
+								[x: `${string}/r`]: ServerTimestamp
+							}
+							[x: `p/${string}`]: { r: ServerTimestamp }
+							[x: `p/${string}/r`]: ServerTimestamp
+							s:
+								| {
+										[x: `${number}`]: { t: number | Increment }
+										[x: `${number}/t`]: number | Increment
+								  }
+								| { t: number | Increment }[]
+							[x: `s/${number}`]: { t: number | Increment }
+							[x: `s/${number}/t`]: number | Increment
+						}
+						[x: `${string}/i`]: boolean
+						[x: `${string}/l`]: ServerTimestamp
+						[x: `${string}/m`]: {
+							[x: string]: { n: '7' | '8' | '9' }
+							[x: `${string}/n`]: '7' | '8' | '9'
+						}
+						[x: `${string}/m/${string}`]: { n: '7' | '8' | '9' }
+						[x: `${string}/m/${string}/n`]: '7' | '8' | '9'
+						[x: `${string}/p`]: {
+							[x: string]: { r: ServerTimestamp }
+							[x: `${string}/r`]: ServerTimestamp
+						}
+						[x: `${string}/p/${string}`]: { r: ServerTimestamp }
+						[x: `${string}/p/${string}/r`]: ServerTimestamp
+						[x: `${string}/s`]:
+							| {
+									[x: `${number}`]: { t: number | Increment }
+									[x: `${number}/t`]: number | Increment
+							  }
+							| { t: number | Increment }[]
+						[x: `${string}/s/${number}`]: { t: number | Increment }
+						[x: `${string}/s/${number}/t`]: number | Increment
 					}
 					[x: `b/h/${string}`]: {
 						i: boolean
 						l: ServerTimestamp
-						m: { [x: string]: { n: '7' | '8' | '9' } }
+						m: {
+							[x: string]: { n: '7' | '8' | '9' }
+							[x: `${string}/n`]: '7' | '8' | '9'
+						}
 						[x: `m/${string}`]: { n: '7' | '8' | '9' }
 						[x: `m/${string}/n`]: '7' | '8' | '9'
-						p: { [x: string]: { r: ServerTimestamp } }
+						p: {
+							[x: string]: { r: ServerTimestamp }
+							[x: `${string}/r`]: ServerTimestamp
+						}
 						[x: `p/${string}`]: { r: ServerTimestamp }
 						[x: `p/${string}/r`]: ServerTimestamp
 						s:
@@ -171,10 +228,14 @@ describe('test generated meta type', () => {
 					[x: `b/h/${string}/l`]: ServerTimestamp
 					[x: `b/h/${string}/m`]: {
 						[x: string]: { n: '7' | '8' | '9' }
+						[x: `${string}/n`]: '7' | '8' | '9'
 					}
 					[x: `b/h/${string}/m/${string}`]: { n: '7' | '8' | '9' }
 					[x: `b/h/${string}/m/${string}/n`]: '7' | '8' | '9'
-					[x: `b/h/${string}/p`]: { [x: string]: { r: ServerTimestamp } }
+					[x: `b/h/${string}/p`]: {
+						[x: string]: { r: ServerTimestamp }
+						[x: `${string}/r`]: ServerTimestamp
+					}
 					[x: `b/h/${string}/p/${string}`]: { r: ServerTimestamp }
 					[x: `b/h/${string}/p/${string}/r`]: ServerTimestamp
 					[x: `b/h/${string}/s`]:
