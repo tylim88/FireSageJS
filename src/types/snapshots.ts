@@ -1,10 +1,7 @@
 import { MetaType } from './metaType'
 import { DatabaseReference } from './refs'
-import {
-	FindAllChildKeys,
-	GetFullPath,
-	FindAllTopLevelChildKeys,
-} from './findTypeAndKey'
+import { FindAllChildKeys, FindAllTopLevelChildKeys } from './findTypeAndKey'
+import { GetFullPath } from './getPath'
 import { ErrorHasNoChild } from './error'
 import { GetLastSegment } from './stringManipulation'
 

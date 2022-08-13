@@ -1,8 +1,5 @@
 import { MetaType } from './metaType'
 import { RemoveLastSegment } from './stringManipulation'
-import { PushAble, Removable, PushAbleOnly, PseudoArray } from './fieldValue'
-
-export type Mode = 'read' | 'write' | 'base' | 'compare'
 
 export type FindParentKey<
 	T extends MetaType,
@@ -41,11 +38,11 @@ export type FindAllChildKeys<
 	U extends (keyof T['flatten_write'] & string) | undefined
 > = U extends undefined
 	? keyof T['flatten_write'] & string
-	: keyof T['flatten_write'] & string extends infer R
+	: keyof T['flatten_write'] & string extends infer R // make distributive
 	? R extends `${U}/${infer S}`
 		? S
 		: never
-	: never
+	: never // impossible route
 
 export type FindAllTopLevelChildKeys<
 	T extends MetaType,
@@ -54,20 +51,7 @@ export type FindAllTopLevelChildKeys<
 	? R extends `${string}/${string}`
 		? never
 		: R & string
-	: never
-
-export type GetFullPath<
-	T extends MetaType,
-	ParentFullPath extends (keyof T['flatten_write'] & string) | undefined,
-	ChildRelativePath extends string
-> = `${ParentFullPath}/${ChildRelativePath}` extends keyof T['flatten_write'] &
-	string
-	? `${ParentFullPath}/${ChildRelativePath}`
-	: ParentFullPath extends undefined
-	? ChildRelativePath extends keyof T['flatten_write'] & string
-		? ChildRelativePath
-		: never
-	: never
+	: never // impossible route
 
 export type FindNestedWriteTypeFromFullPath<
 	T extends MetaType,
@@ -77,15 +61,15 @@ export type FindNestedWriteTypeFromFullPath<
 	? T['write']
 	: U extends `${infer R}/${infer S}`
 	? R extends keyof ACC
-		? ACC[R] extends infer P
-			? P extends P // make distributive
+		? ACC[R] extends infer P // make distributive
+			? P extends P
 				? FindNestedWriteTypeFromFullPath<T, S, P>
-				: never
-			: never
-		: never
+				: never // impossible route
+			: never // impossible route
+		: never // impossible route
 	: U extends keyof ACC
 	? ACC[U]
-	: never
+	: never // impossible route
 
 export type FindNestedReadTypeFromFullPath<
 	T extends MetaType,
@@ -97,78 +81,21 @@ export type FindNestedReadTypeFromFullPath<
 	? never
 	: U extends `${infer R}/${infer S}`
 	? R extends keyof ACC
-		? ACC[R] extends infer P
+		? ACC[R] extends infer P // make distributive
 			? P extends (infer Q)[]
 				? FindNestedReadTypeFromFullPath<T, S, Record<`${number}`, Q>>
 				: FindNestedReadTypeFromFullPath<T, S, P>
-			: never
-		: never
+			: never // impossible route
+		: never // impossible route
 	: U extends keyof ACC
 	? ACC[U]
-	: never
+	: never // impossible route
 
-export type GetAllVPath<
-	T,
-	V,
-	Key extends string | undefined = undefined
-> = T extends V
-	?
-			| Key
-			| (T extends PushAble<infer X>
-					? GetAllVPath<
-							X,
-							V,
-							Key extends undefined ? string : `${Key}/${string}`
-					  >
-					: never)
-			| (T extends PushAbleOnly<infer X>
-					? GetAllVPath<
-							X,
-							V,
-							Key extends undefined ? string : `${Key}/${string}`
-					  >
-					: never)
-			| (T extends PseudoArray<infer X>
-					? GetAllVPath<
-							X,
-							V,
-							Key extends undefined ? string : `${Key}/${number}`
-					  >
-					: never)
-	: T extends Record<string, unknown>
-	? keyof T extends infer K
-		? K extends K // make it distributive
-			? GetAllVPath<
-					T[K & keyof T],
-					V,
-					Key extends undefined ? K & string : `${Key}/${K & string}`
-			  >
-			: never
+export type FindOriginalPathType<
+	T extends MetaType,
+	U extends string
+> = keyof T['flatten_write'] extends infer S // make distributive
+	? S extends S
+		? 1
 		: never
-	: T extends PushAble<infer X>
-	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${string}`>
-	: T extends PushAbleOnly<infer X>
-	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${string}`>
-	: T extends PseudoArray<infer X>
-	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${number}`>
-	: never
-
-export type GetAllRemovablePaths<T extends MetaType> = GetAllVPath<
-	T['base'],
-	Removable
->
-
-export type GetAllPushAblePaths<T extends MetaType> = GetAllVPath<
-	T['base'],
-	PushAble<unknown>
->
-
-export type GetAllPushAbleOnlyPaths<T extends MetaType> = GetAllVPath<
-	T['base'],
-	PushAbleOnly<unknown>
->
-
-export type GetAllPseudoArrayPaths<T extends MetaType> = GetAllVPath<
-	T['base'],
-	PseudoArray<unknown>
->
+	: never // impossible route

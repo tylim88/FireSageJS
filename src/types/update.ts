@@ -1,9 +1,6 @@
 import { MetaType } from './metaType'
-import {
-	FindNestedWriteTypeFromFullPath,
-	GetFullPath,
-	GetAllPushAbleOnlyPaths,
-} from './findTypeAndKey'
+import { FindNestedWriteTypeFromFullPath } from './findTypeAndKey'
+import { GetFullPath, GetAllPushAbleOnlyPaths } from './getPath'
 import {
 	ErrorIsPushOnlyAbleType,
 	ErrorNeedTupleNotArray,
