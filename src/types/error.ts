@@ -1,7 +1,7 @@
-import { RemoveLastSegment } from './stringManipulation'
-
 export type ErrorHasNoChild<T extends string | undefined> =
-	`Error: The '${T extends string ? T : 'root'}' node has no child`
+	`Error: The '${T extends string
+		? T
+		: 'root'}' node has no child OR 2) you are trying to use numeric string key on non-numeric string key. Example: the path type is abc/${number} but you supply abc/xyz`
 export type ErrorInvalidDataType =
 	`Error: This node has invalid data type and is replaced with this error message. Valid data type is null, boolean, number, string, object literal(or map type), Removable, ServerTimestamp, PushAble<T>, PushAbleOnly<T> and PseudoArray<T>.`
 export type ErrorUnknownProperty<T extends string> =
@@ -31,4 +31,4 @@ export type ErrorInvalidPathTypeNeedString =
 export type ErrorObjectTypeUnion =
 	`Error: This type is replaced with error message because object literal(or map type) / PushAble<T> / PushAbleOnly<T> / PseudoArray<T> cannot union with other type (except Removable). Please check your MetaType.`
 export type ErrorInvalidPathTypeOrNeedNumber =
-	`Error: Incorrect type path, possible cause: incorrect key or you are trying to use numeric string key on non-numeric string key. Example: the path type is abc/${number} but you supply abc/xyz`
+	`Error: Incorrect type path, possible cause: 1) incorrect key OR 2) you are trying to use numeric string key on non-numeric string key. Example: the path type is abc/${number} but you supply abc/xyz`

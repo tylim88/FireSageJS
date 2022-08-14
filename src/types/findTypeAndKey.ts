@@ -39,7 +39,7 @@ export type FindAllChildKeys<
 > = U extends undefined
 	? keyof T['flatten_write'] & string
 	: keyof T['flatten_write'] & string extends infer R // make distributive
-	? R extends `${U}/${infer S}`
+	? R extends `${FindMetaPathType<T, U & string> & string}/${infer S}`
 		? S
 		: never
 	: never // impossible route
@@ -91,7 +91,7 @@ export type FindNestedReadTypeFromFullPath<
 	? ACC[U]
 	: never // impossible route
 
-// use with ReplaceInvalidLastSegment
+// use with ReplaceInvalidSegment
 export type FindMetaPathType<
 	T extends MetaType,
 	U extends keyof T['flatten_write'] & string

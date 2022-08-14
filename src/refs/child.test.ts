@@ -13,31 +13,40 @@ initializeApp()
 const users = usersCreator()
 
 describe('test ref', () => {
-	it('test return type', () => {
+	it('test path type validation and return type', () => {
 		expect(() => {
 			const a = child(users.ref(), 'b/c')
 
 			const b = child(
 				users.ref(),
 				// @ts-expect-error
-				undefined
+				undefined // this will throw
 			)
+
 			const c = child(
 				users.ref('b/c'),
 				// @ts-expect-error
 				''
 			)
+
 			const d = child(
 				users.ref('b/d/f/j'),
 				// @ts-expect-error
 				''
 			)
+
 			const e = child(users.ref('b/h'), 'anything')
 			const f = child(users.ref('b'), 'c')
 			const g = child(
 				users.ref('b/h'),
 				// @ts-expect-error
 				'123'
+			)
+			const h = child(users.ref(`b/h/abc/s`), '123')
+			const i = child(
+				users.ref(`b/h/abc/s`),
+				// @ts-expect-error
+				'abc'
 			)
 
 			type A = typeof a
@@ -47,6 +56,8 @@ describe('test ref', () => {
 			type E = typeof e
 			type F = typeof f
 			type G = typeof g
+			type H = typeof h
+			type I = typeof i
 
 			IsTrue<IsEqual<A, DatabaseReference<Users, 'b/c'>>>()
 			IsTrue<IsEqual<B, DatabaseReference<Users, never>>>()
@@ -55,6 +66,8 @@ describe('test ref', () => {
 			IsTrue<IsEqual<E, DatabaseReference<Users, 'b/h/anything'>>>()
 			IsTrue<IsEqual<F, DatabaseReference<Users, 'b/c'>>>()
 			IsTrue<IsEqual<G, DatabaseReference<Users, 'b/h/123'>>>()
+			IsTrue<IsEqual<H, DatabaseReference<Users, `b/h/abc/s/123`>>>()
+			IsTrue<IsEqual<I, DatabaseReference<Users, `b/h/abc/s/abc`>>>()
 		}).toThrow()
 	})
 })

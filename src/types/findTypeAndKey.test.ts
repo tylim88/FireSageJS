@@ -55,19 +55,19 @@ describe('test', () => {
 		type B = FindAllChildKeys<Users, 'a'>
 		type C = FindAllChildKeys<Users, 'b/d'>
 		type D = FindAllChildKeys<Users, 'b/d/f/j'>
-		type E = FindAllChildKeys<Users, `b/h/${string}`>
+		type E = FindAllChildKeys<Users, `b/h/abc`>
 		type F = FindAllChildKeys<Users, `b/h/${string}/i`>
 		type G = FindAllChildKeys<Users, `b/h`>
 		type H = FindAllChildKeys<Users, `b/h/${string}/l`>
 		type I = FindAllChildKeys<Users, `b/h/${string}/m`>
 		type J = FindAllChildKeys<Users, `b/h/${string}/m/${string}`>
-		type K = FindAllChildKeys<Users, `b/h/${string}/m/${string}/n`>
+		type K = FindAllChildKeys<Users, `b/h/${string}/m/abc/n`>
 		type L = FindAllChildKeys<Users, `b/h/${string}/p`>
 		type M = FindAllChildKeys<Users, `b/h/${string}/p/${string}`>
-		type N = FindAllChildKeys<Users, `b/h/${string}/p/${string}/r`>
+		type N = FindAllChildKeys<Users, `b/h/abc/p/${string}/r`>
 		type O = FindAllChildKeys<Users, `b/h/${string}/s`>
 		type P = FindAllChildKeys<Users, `b/h/${string}/s/${string}`>
-		type Q = FindAllChildKeys<Users, `b/h/${string}/s/${string}/t`>
+		type Q = FindAllChildKeys<Users, `b/h/${string}/s/abc/t`>
 
 		IsTrue<IsSame<A, keyof Users['flatten_write']>>()
 		IsTrue<IsSame<B, never>>()
@@ -99,7 +99,7 @@ describe('test', () => {
 		IsTrue<IsSame<M, 'r'>>()
 		IsTrue<IsSame<N, never>>()
 		IsTrue<IsSame<O, `${number}` | `${number}/t`>>()
-		IsTrue<IsSame<P, 't'>>()
+		IsTrue<IsSame<P, never>>() // special case
 		IsTrue<IsSame<Q, never>>()
 	})
 
@@ -119,7 +119,7 @@ describe('test', () => {
 		type M = FindAllTopLevelChildKeys<Users, `b/h/${string}/p/${string}`>
 		type N = FindAllTopLevelChildKeys<Users, `b/h/${string}/p/${string}/r`>
 		type O = FindAllTopLevelChildKeys<Users, `b/h/${string}/s`>
-		type P = FindAllTopLevelChildKeys<Users, `b/h/${string}/s/${string}`>
+		type P = FindAllTopLevelChildKeys<Users, `b/h/${string}/s/${number}`>
 		type Q = FindAllTopLevelChildKeys<Users, `b/h/${string}/s/${string}/t`>
 		IsTrue<IsSame<A, 'a' | 'b' | 'o' | 'q' | 'u'>>()
 		IsTrue<IsSame<B, never>>()
@@ -136,7 +136,7 @@ describe('test', () => {
 		IsTrue<IsSame<M, 'r'>>()
 		IsTrue<IsSame<N, never>>()
 		IsTrue<IsSame<O, `${number}`>>()
-		IsTrue<IsSame<P, 't'>>()
+		IsTrue<IsSame<P, 't'>>() // special case
 		IsTrue<IsSame<Q, never>>()
 	})
 
