@@ -6,10 +6,7 @@ import {
 	ErrorNeedTupleNotArray,
 	ErrorElementNeedConstAssertion,
 } from './error'
-import {
-	DetectAndIntersectNumericRecordWithRecordStringNever,
-	DetectNumericRecordType,
-} from './detectInvalidSegment'
+import { DetectAndIntersectNumericRecordWithRecordStringNever } from './detectInvalidSegment'
 import { ValidateChildPath } from './child'
 
 type ValidateChildPathAndCheckIsNotPushAbleOnly<
@@ -66,13 +63,10 @@ export type GetNodeTypes<
 				Y,
 				[
 					...ACC,
-					DetectNumericRecordType<X> extends infer G // distribute
-						? G extends true
-							? FindNestedWriteTypeFromFullPath<T, GetFullPath<T, U, P>>
-							: DetectAndIntersectNumericRecordWithRecordStringNever<
-									FindNestedWriteTypeFromFullPath<T, GetFullPath<T, U, P>>
-							  >
-						: never
+					DetectAndIntersectNumericRecordWithRecordStringNever<
+						X,
+						FindNestedWriteTypeFromFullPath<T, GetFullPath<T, U, P>>
+					>
 				]
 		  >
 		: GetNodeTypes<

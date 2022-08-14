@@ -29,14 +29,16 @@ export type DetectInvalidSegment<
 	: V
 
 // because {a:1,b:2,c:3} extends {[x:number]:unknown} but not {[x:number]:unknown} & {[x:string]:never}
-export type DetectAndIntersectNumericRecordWithRecordStringNever<T> =
-	T extends Record<infer X, unknown>
-		? `${number}` extends `${X & (string | number)}`
-			? `${X & (string | number)}` extends `${number}`
-				? T & Record<string, never>
-				: T
+export type IntersectNumericRecordWithRecordStringNever<T> = T extends Record<
+	infer X,
+	unknown
+>
+	? `${number}` extends `${X & (string | number)}`
+		? `${X & (string | number)}` extends `${number}`
+			? T & Record<string, never>
 			: T
 		: T
+	: T
 
 export type DetectNumericRecordType<T> = T extends Record<infer X, unknown>
 	? `${number}` extends `${X & (string | number)}`
@@ -45,3 +47,12 @@ export type DetectNumericRecordType<T> = T extends Record<infer X, unknown>
 			: false
 		: false
 	: false
+
+export type DetectAndIntersectNumericRecordWithRecordStringNever<X, Y> =
+	DetectNumericRecordType<X> extends infer G // distribute
+		? G extends true
+			? Y // don't intersect if type is Record<number,T>
+			: Y extends Record<string, unknown> // intersect if type is Record<number,T>
+			? IntersectNumericRecordWithRecordStringNever<Y>
+			: Y
+		: never

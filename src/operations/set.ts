@@ -5,6 +5,7 @@ import {
 	FindNestedWriteTypeFromFullPath,
 	GetAllPushAbleOnlyPaths,
 	ErrorIsPushOnlyAbleType,
+	DetectAndIntersectNumericRecordWithRecordStringNever,
 } from '../types'
 /**
 Writes data to this Database location.
@@ -25,12 +26,18 @@ A single set() will generate a single "value" event at the location where the se
  */
 export const set = <
 	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
+	U extends (keyof T['flatten_write'] & string) | undefined,
+	V
 >(
 	ref: DatabaseReference<T, U>,
-	value: U extends GetAllPushAbleOnlyPaths<T>
+	value: V extends never
+		? V
+		: U extends GetAllPushAbleOnlyPaths<T>
 		? ErrorIsPushOnlyAbleType<U>
-		: FindNestedWriteTypeFromFullPath<T, U>
+		: DetectAndIntersectNumericRecordWithRecordStringNever<
+				V,
+				FindNestedWriteTypeFromFullPath<T, U>
+		  >
 ) => {
 	return set_(ref as any, value)
 }

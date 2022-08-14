@@ -1,6 +1,6 @@
 import {
 	DetectInvalidSegment,
-	DetectAndIntersectNumericRecordWithRecordStringNever,
+	IntersectNumericRecordWithRecordStringNever,
 	DetectNumericRecordType,
 } from './detectInvalidSegment'
 import { Users } from '../utilForTests'
@@ -44,16 +44,16 @@ describe('test ReplaceInvalidLastSegment', () => {
 	})
 
 	it('test DetectAndIntersectNumericRecordType', () => {
-		type A = DetectAndIntersectNumericRecordWithRecordStringNever<number>
-		type B = DetectAndIntersectNumericRecordWithRecordStringNever<{ a: 1 }>
-		type C = DetectAndIntersectNumericRecordWithRecordStringNever<{ 100: 1 }>
-		type D = DetectAndIntersectNumericRecordWithRecordStringNever<
+		type A = IntersectNumericRecordWithRecordStringNever<number>
+		type B = IntersectNumericRecordWithRecordStringNever<{ a: 1 }>
+		type C = IntersectNumericRecordWithRecordStringNever<{ 100: 1 }>
+		type D = IntersectNumericRecordWithRecordStringNever<
 			Record<string, { a: 1 }>
 		>
-		type E = DetectAndIntersectNumericRecordWithRecordStringNever<
+		type E = IntersectNumericRecordWithRecordStringNever<
 			Record<number, { a: 1 }>
 		>
-		type F = DetectAndIntersectNumericRecordWithRecordStringNever<
+		type F = IntersectNumericRecordWithRecordStringNever<
 			Record<`${number}`, { a: 1 }> | number[]
 		>
 
