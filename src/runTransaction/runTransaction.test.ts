@@ -40,10 +40,33 @@ describe('test run transaction', () => {
 		expect(typeof result.snapshot.val()).toBe('number')
 	})
 
-	it('test b/h/string/m path', async () => {
+	it('test b/h/string/m/string/n path', async () => {
 		const result = await runTransaction(users.ref('b/h/OPQ/m/ABC/n'), () => {
 			return '8' as const
 		})
 		expect(result.snapshot.val()).toBe('8')
+	})
+
+	it('test b/h/string/s', async () => {
+		const result = await runTransaction(users.ref('b/h/OPQ/s'), () => {
+			return { 100: { t: 88 } }
+		})
+		expect(result.snapshot.val()).toEqual({ 100: { t: 88 } })
+
+		const result2 = await runTransaction(users.ref('b/h/OPQ/s'), () => {
+			return [{ t: 500 }]
+		})
+		expect(result2.snapshot.val()).toEqual([{ t: 500 }])
+	})
+
+	it('test b/h/string/s return type', async () => {
+		;() =>
+			runTransaction(
+				users.ref('b/h/OPQ/s'),
+				// @ts-expect-error
+				() => {
+					return { a: 1 }
+				}
+			)
 	})
 })

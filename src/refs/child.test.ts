@@ -822,7 +822,18 @@ describe('test child runtime', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const ref = child(users.ref(`b`), `h/${randStringHKey}/s`)
-		await set(ref, data['b']['h'][randStringHKey]!['s'])
+		await set(
+			ref,
+			data['b']['h'][randStringHKey]!['s'] as
+				| {
+						[x: `${number}`]: {
+							t: number
+						}
+				  }
+				| {
+						t: number
+				  }[]
+		)
 		await readAndExpectSet(ref, `b/h/${randStringHKey}/s`, data)
 		;() => {
 			set(

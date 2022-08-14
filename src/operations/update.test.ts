@@ -987,7 +987,21 @@ describe('test update and get', () => {
 		const data = rand.data
 		const childPath = 's'
 		const ref = users.ref(`b/h/${randStringHKey}`)
-		await update(ref, [childPath], [data['b']['h'][randStringHKey]!['s']])
+		await update(
+			ref,
+			[childPath],
+			[
+				data['b']['h'][randStringHKey]!['s'] as
+					| {
+							[x: `${number}`]: {
+								t: number
+							}
+					  }
+					| {
+							t: number
+					  }[],
+			]
+		)
 		await readAndExpectUpdate(
 			ref,
 			childPath,

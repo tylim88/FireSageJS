@@ -6,6 +6,7 @@ import {
 	FindNestedWriteTypeFromFullPath,
 	TransactionOptions,
 	TransactionResult,
+	DetectAndIntersectNumericRecordWithRecordStringNever,
 } from '../types'
 /**
  * 
@@ -33,12 +34,21 @@ A Promise that can optionally be used instead of the onComplete callback to hand
  */
 export const runTransaction = <
 	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
+	U extends (keyof T['flatten_write'] & string) | undefined,
+	V
 >(
 	ref: DatabaseReference<T, U>,
 	transactionUpdate: (
 		currentData: FindNestedReadTypeFromFullPath<T, U> | null
-	) => FindNestedWriteTypeFromFullPath<T, U> | null | undefined,
+	) => V extends never
+		? V
+		:
+				| DetectAndIntersectNumericRecordWithRecordStringNever<
+						V,
+						FindNestedWriteTypeFromFullPath<T, U>
+				  >
+				| null
+				| undefined,
 	options?: TransactionOptions
 ) => {
 	return runTransaction_(

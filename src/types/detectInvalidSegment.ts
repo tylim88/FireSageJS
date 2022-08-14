@@ -40,19 +40,32 @@ export type IntersectNumericRecordWithRecordStringNever<T> = T extends Record<
 		: T
 	: T
 
-export type DetectNumericRecordType<T> = T extends Record<infer X, unknown>
-	? `${number}` extends `${X & (string | number)}`
-		? `${X & (string | number)}` extends `${number}`
+export type DetectNumericRecordType<T> = T extends Record<string, unknown>
+	? T extends Record<infer X, unknown>
+		? X extends number
 			? true
+			: `${number}` extends `${X & (string | number)}`
+			? `${X & (string | number)}` extends `${number}`
+				? true
+				: false
 			: false
 		: false
 	: false
 
+// not in use
+export type DetectStringRecordType<T> = T extends Record<string, unknown>
+	? T extends Record<infer X, unknown>
+		? `${X & (string | number)}` extends `${number}`
+			? false
+			: true
+		: false
+	: false
+
 export type DetectAndIntersectNumericRecordWithRecordStringNever<X, Y> =
-	DetectNumericRecordType<X> extends infer G // distribute
+	DetectNumericRecordType<X> extends infer G
 		? G extends true
 			? Y // don't intersect if type is Record<number,T>
-			: Y extends Record<string, unknown> // intersect if type is Record<number,T>
+			: Y extends Record<string, unknown> // intersect if type is Record<string,T>
 			? IntersectNumericRecordWithRecordStringNever<Y>
 			: Y
 		: never

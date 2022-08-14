@@ -2,6 +2,7 @@ import {
 	DetectInvalidSegment,
 	IntersectNumericRecordWithRecordStringNever,
 	DetectNumericRecordType,
+	DetectStringRecordType,
 } from './detectInvalidSegment'
 import { Users } from '../utilForTests'
 import { IsSame, IsTrue } from './utils'
@@ -70,18 +71,41 @@ describe('test ReplaceInvalidLastSegment', () => {
 		>()
 	})
 	it('test DetectNumericRecordType', () => {
-		type A = DetectNumericRecordType<number>
+		type A = DetectNumericRecordType<
+			number | string | boolean | null | undefined
+		>
 		type B = DetectNumericRecordType<{ a: 1 }>
 		type C = DetectNumericRecordType<{ 100: 1 }>
 		type D = DetectNumericRecordType<Record<string, { a: 1 }>>
 		type E = DetectNumericRecordType<Record<number, { a: 1 }>>
 		type F = DetectNumericRecordType<Record<`${number}`, { a: 1 }> | number[]>
+		type G = DetectStringRecordType<Record<number, { a: 1 }> | { a: 1 }>
 
 		IsTrue<IsSame<A, false>>()
 		IsTrue<IsSame<B, false>>()
-		IsTrue<IsSame<C, false>>()
+		IsTrue<IsSame<C, true>>()
 		IsTrue<IsSame<D, false>>()
 		IsTrue<IsSame<E, true>>()
 		IsTrue<IsSame<F, boolean>>()
+		IsTrue<IsSame<G, boolean>>()
+	})
+	it('test DetectStringRecordType', () => {
+		type A = DetectStringRecordType<
+			number | string | boolean | null | undefined
+		>
+		type B = DetectStringRecordType<{ a: 1 }>
+		type C = DetectStringRecordType<{ 100: 1 }>
+		type D = DetectStringRecordType<Record<string, { a: 1 }>>
+		type E = DetectStringRecordType<Record<number, { a: 1 }>>
+		type F = DetectStringRecordType<Record<`${number}`, { a: 1 }> | number[]>
+		type G = DetectStringRecordType<Record<number, { a: 1 }> | { a: 1 }>
+
+		IsTrue<IsSame<A, false>>()
+		IsTrue<IsSame<B, true>>()
+		IsTrue<IsSame<C, false>>()
+		IsTrue<IsSame<D, true>>()
+		IsTrue<IsSame<E, false>>()
+		IsTrue<IsSame<F, false>>()
+		IsTrue<IsSame<G, boolean>>()
 	})
 })
