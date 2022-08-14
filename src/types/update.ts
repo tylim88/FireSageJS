@@ -8,7 +8,7 @@ import {
 	ErrorNoSuchChild,
 } from './error'
 
-export type VerifyNodeNames<
+export type ValidateNodeNames<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	V extends readonly string[],
@@ -18,7 +18,7 @@ export type VerifyNodeNames<
 	: V extends []
 	? Readonly<ACC>
 	: V extends readonly [infer P extends string, ...infer S extends string[]]
-	? VerifyNodeNames<
+	? ValidateNodeNames<
 			T,
 			U,
 			S,

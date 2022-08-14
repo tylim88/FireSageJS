@@ -1,11 +1,5 @@
 import { child as child_ } from 'firebase/database'
-import {
-	MetaType,
-	DatabaseReference,
-	FindAllChildKeys,
-	ErrorHasNoChild,
-	GetFullPath,
-} from '../types'
+import { DatabaseReference, GetFullPath, ValidateChildPath } from '../types'
 
 /**
 Gets a Reference for the location at the specified relative path.
@@ -20,16 +14,15 @@ A relative path from this location to the desired child location.
 @returns — The specified child location.
  */
 export const child = <
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V extends FindAllChildKeys<T, U> extends never
-		? ErrorHasNoChild<U>
-		: FindAllChildKeys<T, U>
+	S extends DatabaseReference<any, any>,
+	T extends S extends DatabaseReference<infer X, any> ? X : never,
+	U extends S extends DatabaseReference<any, infer X> ? X : never,
+	V extends string
 >(
-	parent: DatabaseReference<T, U>,
-	path: V
+	parent: S,
+	path: V extends never ? V : ValidateChildPath<T, U, V>
 ) => {
-	return child_(parent as any, path) as DatabaseReference<
+	return child_(parent as any, path as string) as DatabaseReference<
 		T,
 		GetFullPath<T, U, V>
 	>

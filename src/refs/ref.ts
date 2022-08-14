@@ -3,7 +3,7 @@ import {
 	MetaType,
 	Database,
 	DatabaseReference,
-	ReplaceInvalidLastSegment,
+	DetectInvalidSegment,
 } from '../types'
 import { isDatabase, isString } from '../utils'
 
@@ -19,13 +19,13 @@ export const refCreator =
 type Ref<T extends MetaType> = {
 	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
 		path?: U extends keyof T['flatten_write'] & string
-			? ReplaceInvalidLastSegment<T, U>
+			? DetectInvalidSegment<T, U>
 			: U
 	): DatabaseReference<T, U>
 	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
 		db?: Database,
 		path?: U extends keyof T['flatten_write'] & string
-			? ReplaceInvalidLastSegment<T, U>
+			? DetectInvalidSegment<T, U>
 			: U
 	): DatabaseReference<T, U>
 }

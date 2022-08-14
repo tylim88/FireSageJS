@@ -2,7 +2,7 @@ import { update as update_ } from 'firebase/database'
 import {
 	DatabaseReference,
 	MetaType,
-	VerifyNodeNames,
+	ValidateNodeNames,
 	GetNodeTypes,
 } from '../types'
 
@@ -13,7 +13,7 @@ export const update = <
 	N extends readonly string[]
 >(
 	ref: DatabaseReference<T, U>,
-	nodeNames: N extends never ? N : VerifyNodeNames<T, U, N>,
+	nodeNames: N extends never ? N : ValidateNodeNames<T, U, N>,
 	nodeTypes: GetNodeTypes<T, U, N>
 ) => {
 	const obj: Record<string, unknown> = {}

@@ -16,6 +16,7 @@ describe('test ref', () => {
 	it('test return type', () => {
 		expect(() => {
 			const a = child(users.ref(), 'b/c')
+
 			const b = child(
 				users.ref(),
 				// @ts-expect-error
@@ -33,6 +34,11 @@ describe('test ref', () => {
 			)
 			const e = child(users.ref('b/h'), 'anything')
 			const f = child(users.ref('b'), 'c')
+			const g = child(
+				users.ref('b/h'),
+				// @ts-expect-error
+				'123'
+			)
 
 			type A = typeof a
 			type B = typeof b
@@ -40,15 +46,15 @@ describe('test ref', () => {
 			type D = typeof d
 			type E = typeof e
 			type F = typeof f
+			type G = typeof g
 
 			IsTrue<IsEqual<A, DatabaseReference<Users, 'b/c'>>>()
-			IsTrue<
-				IsEqual<B, DatabaseReference<Users, keyof Users['flatten_write']>>
-			>()
+			IsTrue<IsEqual<B, DatabaseReference<Users, never>>>()
 			IsTrue<IsEqual<C, DatabaseReference<Users, never>>>()
 			IsTrue<IsEqual<D, DatabaseReference<Users, never>>>()
 			IsTrue<IsEqual<E, DatabaseReference<Users, 'b/h/anything'>>>()
 			IsTrue<IsEqual<F, DatabaseReference<Users, 'b/c'>>>()
+			IsTrue<IsEqual<G, DatabaseReference<Users, 'b/h/123'>>>()
 		}).toThrow()
 	})
 })
