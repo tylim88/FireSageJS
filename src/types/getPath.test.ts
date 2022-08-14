@@ -3,11 +3,29 @@ import {
 	GetAllPushAblePaths,
 	GetAllPushAbleOnlyPaths,
 	GetAllPseudoArrayPaths,
+	GetFullPath,
 } from './getPath'
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
 
 describe('test', () => {
+	it('test get full path', () => {
+		type A = GetFullPath<Users, 'b', string>
+		type B = GetFullPath<Users, 'b/h', `${string}`>
+		type C = GetFullPath<Users, 'b/h', `${number}`>
+		type D = GetFullPath<Users, `b/h/${string}/m`, `${string}`>
+		type E = GetFullPath<Users, `b/h/${string}/m`, `${number}`>
+		type F = GetFullPath<Users, `b/h/${string}/s`, `${number}`>
+		type G = GetFullPath<Users, `b/h/${string}/s`, `${string}`>
+
+		IsTrue<IsSame<A, never>>()
+		IsTrue<IsSame<B, `b/h/${string}`>>()
+		IsTrue<IsSame<C, never>>()
+		IsTrue<IsSame<D, `b/h/${string}/m/${string}`>>()
+		IsTrue<IsSame<E, never>>()
+		IsTrue<IsSame<F, `b/h/${string}/s/${number}`>>()
+		IsTrue<IsSame<G, never>>()
+	})
 	it('test Get All Removable Path', () => {
 		type A = GetAllRemovablePaths<Users>
 		IsTrue<
