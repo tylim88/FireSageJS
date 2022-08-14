@@ -153,15 +153,15 @@ describe('test child runtime', () => {
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s']
+				data['b']['h']['string']!['s'] as { t: number }[]
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!['t']
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']
 			)
 		}
 	})
@@ -222,15 +222,15 @@ describe('test child runtime', () => {
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s']
+				data['b']['h']['string']!['s'] as { t: number }[]
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!['t']
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']
 			)
 		}
 	})
@@ -291,15 +291,15 @@ describe('test child runtime', () => {
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s']
+				data['b']['h']['string']!['s'] as { t: number }[]
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!['t']
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']
 			)
 		}
 	})
@@ -310,7 +310,7 @@ describe('test child runtime', () => {
 		await set(ref, data['b']['d']['f']['j'])
 		await readAndExpectSet(ref, 'b/d/f/j', data)
 		;() => {
-			set(ref, data['a']) // no error because 'a' is numeric literal and 'j' is number
+			set(ref, data['a']) // 'j' is number
 			set(
 				ref, // @ts-expect-error
 				data['b']['c']
@@ -357,15 +357,15 @@ describe('test child runtime', () => {
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s']
+				data['b']['h']['string']!['s'] as { t: number }[]
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(
-				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!['t']
+				ref,
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t'] // 'j' is number
 			)
 		}
 	})
@@ -425,15 +425,15 @@ describe('test child runtime', () => {
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s']
+				data['b']['h']['string']!['s'] as { t: number }[]
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!['t']
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']
 			)
 		}
 	})
@@ -493,15 +493,15 @@ describe('test child runtime', () => {
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s']
+				data['b']['h']['string']!['s'] as { t: number }[]
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!['t']
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']
 			)
 		}
 	})
@@ -566,15 +566,15 @@ describe('test child runtime', () => {
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s']
+				data['b']['h']['string']!['s'] as { t: number }[]
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!['t']
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']
 			)
 		}
 	})
@@ -642,15 +642,15 @@ describe('test child runtime', () => {
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s']
+				data['b']['h']['string']!['s'] as { t: number }[]
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!['t']
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']
 			)
 		}
 	})
@@ -728,15 +728,15 @@ describe('test child runtime', () => {
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s']
+				data['b']['h']['string']!['s'] as { t: number }[]
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!['t']
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']
 			)
 		}
 	})
@@ -804,15 +804,15 @@ describe('test child runtime', () => {
 			set(ref, data['b']['h']['string']!['p']['string']!['r'])
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s']
+				data['b']['h']['string']!['s'] as { t: number }[]
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!['t']
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']
 			)
 		}
 	})
@@ -876,11 +876,11 @@ describe('test child runtime', () => {
 			set(ref, data['b']['h']['string']!['s'])
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!['t']
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']
 			)
 		}
 	})
@@ -946,12 +946,12 @@ describe('test child runtime', () => {
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s']
+				data['b']['h']['string']!['s'] as { t: number }[]
 			)
 			set(ref, (data['b']['h']['string']!['s'] as { t: number }[])[0]!)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!['t']
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']
 			)
 		}
 	})
@@ -1011,11 +1011,11 @@ describe('test child runtime', () => {
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s']
+				data['b']['h']['string']!['s'] as { t: number }[]
 			)
 			set(
 				ref, // @ts-expect-error
-				data['b']['h']['string']!['s'][0]!
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(ref, (data['b']['h']['string']!['s'] as { t: number }[])[0]!['t'])
 		}

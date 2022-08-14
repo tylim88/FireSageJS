@@ -79,17 +79,17 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
 			)
 		}
 	})
@@ -160,17 +160,17 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
 			)
 		}
 	})
@@ -240,17 +240,17 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
 			)
 		}
 	})
@@ -261,7 +261,7 @@ describe('test update and get', () => {
 		await update(ref, [childPath], [data['b']['d']['f']['j']])
 		await readAndExpectUpdate(ref, childPath, data['b']['d']['f']['j'])
 		;() => {
-			update(ref, [childPath], [data['a']]) // no error, because 'a' is also a number
+			update(ref, [childPath], [data['a']]) // 'j' is number
 			update(
 				ref,
 				[childPath], // @ts-expect-error
@@ -316,17 +316,17 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
 			)
 			update(
 				ref,
-				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[childPath],
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']] // 'j' is number
 			)
 		}
 	})
@@ -408,17 +408,17 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
 			)
 		}
 	})
@@ -490,17 +490,17 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
 			)
 		}
 	})
@@ -577,17 +577,17 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
 			)
 		}
 	})
@@ -670,17 +670,17 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
 			)
 		}
 	})
@@ -762,17 +762,17 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
 			)
 		}
 	})
@@ -871,17 +871,17 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
 			)
 		}
 	})
@@ -966,17 +966,17 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
 			)
 		}
 	})
@@ -1054,16 +1054,20 @@ describe('test update and get', () => {
 				[childPath], // @ts-expect-error
 				[data['b']['h']['string']!['p']['string']!['r']]
 			)
-			update(ref, [childPath], [data['b']['h']['string']!['s']])
 			update(
 				ref,
-				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[childPath],
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
+			)
+			update(
+				ref,
+				[childPath], // @ts-expect-error
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
 			)
 		}
 	})
@@ -1149,7 +1153,7 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
@@ -1159,7 +1163,7 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!['t']]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
 			)
 		}
 	})
@@ -1239,12 +1243,12 @@ describe('test update and get', () => {
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s']]
+				[data['b']['h']['string']!['s'] as { t: number }[]]
 			)
 			update(
 				ref,
 				[childPath], // @ts-expect-error
-				[data['b']['h']['string']!['s'][0]!]
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
 			)
 			update(
 				ref,

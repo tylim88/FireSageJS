@@ -1,3 +1,6 @@
 1.  set(ref(db, "users////////abc"), something) is equivalent to set(ref(db, "users/abc"), something)
-2. Root type key cannot be string, because 'someString/' | `${string}/` = `${string}/`
-3. update failed: values argument contains a path /b that is ancestor of another path /b/h
+
+improvements:
+1.. update failed: values argument contains a path /b that is ancestor of another path /b/h
+2. transaction need more test
+3. invalidate Record<number,unknown> when creating meta type

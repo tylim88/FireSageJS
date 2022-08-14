@@ -4,6 +4,8 @@ import {
 	Database,
 	DatabaseReference,
 	DetectInvalidSegment,
+	ErrorInvalidPathTypeOrNeedNumber,
+	ErrorInvalidPathTypeNeedString,
 } from '../types'
 import { isDatabase, isString } from '../utils'
 
@@ -21,11 +23,29 @@ type Ref<T extends MetaType> = {
 		path?: U extends keyof T['flatten_write'] & string
 			? DetectInvalidSegment<T, U>
 			: U
-	): DatabaseReference<T, U>
+	): DatabaseReference<
+		T,
+		U extends string
+			? DetectInvalidSegment<T, U> extends
+					| ErrorInvalidPathTypeOrNeedNumber
+					| ErrorInvalidPathTypeNeedString
+				? never
+				: U
+			: undefined
+	>
 	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
 		db?: Database,
 		path?: U extends keyof T['flatten_write'] & string
 			? DetectInvalidSegment<T, U>
 			: U
-	): DatabaseReference<T, U>
+	): DatabaseReference<
+		T,
+		U extends string
+			? DetectInvalidSegment<T, U> extends
+					| ErrorInvalidPathTypeOrNeedNumber
+					| ErrorInvalidPathTypeNeedString
+				? never
+				: U
+			: undefined
+	>
 }
