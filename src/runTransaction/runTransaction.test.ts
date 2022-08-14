@@ -47,7 +47,7 @@ describe('test run transaction', () => {
 		expect(result.snapshot.val()).toBe('8')
 	})
 
-	it('test b/h/string/s', async () => {
+	it('test b/h/string/s numeric/string return type positive case', async () => {
 		const result = await runTransaction(users.ref('b/h/OPQ/s'), () => {
 			return { 100: { t: 88 } }
 		})
@@ -59,7 +59,7 @@ describe('test run transaction', () => {
 		expect(result2.snapshot.val()).toEqual([{ t: 500 }])
 	})
 
-	it('test b/h/string/s return type', async () => {
+	it('test b/h/string/s return type numeric/string return type negative case', async () => {
 		;() =>
 			runTransaction(
 				users.ref('b/h/OPQ/s'),

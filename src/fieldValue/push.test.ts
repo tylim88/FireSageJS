@@ -25,8 +25,14 @@ describe('test push]', () => {
 				users.ref('b/h/ushd/hdsghj'),
 				1
 			)
+			push(
+				// @ts-expect-error
+				users.ref('b/h/abc/s'),
+				1
+			)
 		}
 	})
+
 	it('test incorrect data type', async () => {
 		;() => {
 			push(
@@ -73,6 +79,7 @@ describe('test push]', () => {
 		const data2 = (await get(ref2)).val()
 		expect(data2).not.toBe(null)
 	})
+
 	it('test functionality push able only', async () => {
 		const ref1 = users.ref('b/h/abc/p')
 		await set(

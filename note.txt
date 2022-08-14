@@ -1,6 +1,5 @@
 1.  set(ref(db, "users////////abc"), something) is equivalent to set(ref(db, "users/abc"), something)
 
 improvements:
-1.. update failed: values argument contains a path /b that is ancestor of another path /b/h
-2. transaction need more test
-3. invalidate Record<number,unknown> when creating meta type
+1. update path should not be child of another update path
+2. invalidate Record<number,unknown> when creating meta type
