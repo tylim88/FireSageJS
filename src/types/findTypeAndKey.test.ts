@@ -99,7 +99,7 @@ describe('test', () => {
 		IsTrue<IsSame<M, 'r'>>()
 		IsTrue<IsSame<N, never>>()
 		IsTrue<IsSame<O, `${number}` | `${number}/t`>>()
-		IsTrue<IsSame<P, never>>() // special case
+		IsTrue<IsSame<P, never>>()
 		IsTrue<IsSame<Q, never>>()
 	})
 
@@ -136,7 +136,7 @@ describe('test', () => {
 		IsTrue<IsSame<M, 'r'>>()
 		IsTrue<IsSame<N, never>>()
 		IsTrue<IsSame<O, `${number}`>>()
-		IsTrue<IsSame<P, 't'>>() // special case
+		IsTrue<IsSame<P, 't'>>()
 		IsTrue<IsSame<Q, never>>()
 	})
 
