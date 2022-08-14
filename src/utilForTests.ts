@@ -84,7 +84,7 @@ export const generateRandomData = (): {
 						l: 'fake ServerTimestamp' as unknown as ServerTimestamp,
 						m: { [randStringMKey]: { n: pick(['7', '8', '9'] as const)[0]! } },
 						p: {
-							[randStringMKey]: {
+							[randStringPKey]: {
 								// no point testing server timestamp
 								r: 'fake ServerTimestamp' as unknown as ServerTimestamp,
 							},

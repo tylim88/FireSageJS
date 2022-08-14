@@ -6,7 +6,10 @@ import {
 	ErrorNeedTupleNotArray,
 	ErrorElementNeedConstAssertion,
 } from './error'
-
+import {
+	DetectAndIntersectNumericRecordWithRecordStringNever,
+	DetectNumericRecordType,
+} from './detectInvalidSegment'
 import { ValidateChildPath } from './child'
 
 type ValidateChildPathAndCheckIsNotPushAbleOnly<
@@ -28,6 +31,8 @@ export type ValidateNodeNames<
 	? [ErrorNeedTupleNotArray]
 	: V extends []
 	? Readonly<ACC>
+	: string[] extends V
+	? [ErrorElementNeedConstAssertion]
 	: V extends readonly [infer P extends string, ...infer S extends string[]]
 	? ValidateNodeNames<
 			T,
@@ -47,15 +52,34 @@ export type ValidateNodeNames<
 export type GetNodeTypes<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
-	V extends readonly string[],
+	N extends readonly string[],
+	V extends readonly unknown[],
 	ACC extends unknown[] = []
-> = V extends []
+> = N extends []
 	? ACC
-	: V extends readonly [infer P extends string, ...infer S extends string[]]
-	? GetNodeTypes<
-			T,
-			U,
-			S,
-			[...ACC, FindNestedWriteTypeFromFullPath<T, GetFullPath<T, U, P>>]
-	  >
+	: N extends readonly [infer P extends string, ...infer S extends string[]]
+	? V extends readonly [infer X, ...infer Y extends unknown[]]
+		? GetNodeTypes<
+				T,
+				U,
+				S,
+				Y,
+				[
+					...ACC,
+					DetectNumericRecordType<X> extends infer G // distribute
+						? G extends true
+							? FindNestedWriteTypeFromFullPath<T, GetFullPath<T, U, P>>
+							: DetectAndIntersectNumericRecordWithRecordStringNever<
+									FindNestedWriteTypeFromFullPath<T, GetFullPath<T, U, P>>
+							  >
+						: never
+				]
+		  >
+		: GetNodeTypes<
+				T,
+				U,
+				S,
+				[],
+				[...ACC, FindNestedWriteTypeFromFullPath<T, GetFullPath<T, U, P>>]
+		  >
 	: never

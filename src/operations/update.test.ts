@@ -1,9 +1,11 @@
 import { update } from './update'
+import { set } from './set'
 import {
 	readAndExpectUpdate,
 	generateRandomData,
 	initializeApp,
 	usersCreator,
+	readAndExpectSet,
 } from '../utilForTests'
 
 initializeApp()
@@ -85,6 +87,24 @@ describe('test update and get', () => {
 				// @ts-expect-error
 				[data['b']['h']['string']!['p']['string']!['r']]
 			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
+			)
 		}
 	})
 
@@ -162,6 +182,24 @@ describe('test update and get', () => {
 				// @ts-expect-error
 				[data['b']['h']['string']!['p']['string']!['r']]
 			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
+			)
 		}
 	})
 	it('test "b/d" node', async () => {
@@ -238,6 +276,24 @@ describe('test update and get', () => {
 				// @ts-expect-error
 				[data['b']['h']['string']!['p']['string']!['r']]
 			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
+			)
 		}
 	})
 	it('test "b/d/f/j" node', async () => {
@@ -308,6 +364,24 @@ describe('test update and get', () => {
 				[childPath],
 				// @ts-expect-error
 				[data['b']['h']['string']!['p']['string']!['r']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
 			)
 		}
 	})
@@ -395,6 +469,24 @@ describe('test update and get', () => {
 				// @ts-expect-error
 				[data['b']['h']['string']!['p']['string']!['r']]
 			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
+			)
 		}
 	})
 	it('test "b/h/string/i" node', async () => {
@@ -471,6 +563,24 @@ describe('test update and get', () => {
 				[childPath],
 				// @ts-expect-error
 				[data['b']['h']['string']!['p']['string']!['r']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
 			)
 		}
 	})
@@ -554,6 +664,24 @@ describe('test update and get', () => {
 				[childPath],
 				// @ts-expect-error
 				[data['b']['h']['string']!['p']['string']!['r']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
 			)
 		}
 	})
@@ -644,6 +772,24 @@ describe('test update and get', () => {
 				// @ts-expect-error
 				[data['b']['h']['string']!['p']['string']!['r']]
 			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
+			)
 		}
 	})
 
@@ -732,26 +878,60 @@ describe('test update and get', () => {
 				// @ts-expect-error
 				[data['b']['h']['string']!['p']['string']!['r']]
 			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
+			)
 		}
+	})
+
+	it('test "b/h/string/p" node, is push able only', async () => {
+		const rand = generateRandomData()
+		const randStringHKey = rand.randStringHKey
+		const data = rand.data
+		const childPath = `p`
+		const ref = users.ref(`b/h/${randStringHKey}`)
+		await update(
+			ref,
+			[
+				// @ts-expect-error
+				childPath,
+			],
+			[data['b']['h'][randStringHKey]!['p']]
+		)
 	})
 
 	it('test "b/h/string/p/string" node', async () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
-		const randStringMKey = rand.randStringMKey
+		const randStringPKey = rand.randStringPKey
 		const data = rand.data
-		const childPath = `p/${randStringMKey}` as const
+		const childPath = `p/${randStringPKey}` as const
 		const ref = users.ref(`b/h/${randStringHKey}`)
 
 		await update(
 			ref,
 			[childPath],
-			[data['b']['h'][randStringHKey]!['p'][randStringMKey]!]
+			[data['b']['h'][randStringHKey]!['p'][randStringPKey]!]
 		)
 		await readAndExpectUpdate(
 			ref,
 			childPath,
-			data['b']['h'][randStringHKey]!['p'][randStringMKey]!
+			data['b']['h'][randStringHKey]!['p'][randStringPKey]!
 		)
 		;() => {
 			update(
@@ -821,25 +1001,43 @@ describe('test update and get', () => {
 				// @ts-expect-error
 				[data['b']['h']['string']!['p']['string']!['r']]
 			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
+			)
 		}
 	})
 
 	it('test "b/h/string/p/string/r" node', async () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
-		const randStringMKey = rand.randStringMKey
+		const randStringPKey = rand.randStringPKey
 		const data = rand.data
-		const childPath = `p/${randStringMKey}/r` as const
+		const childPath = `p/${randStringPKey}/r` as const
 		const ref = users.ref(`b/h/${randStringHKey}`)
 		await update(
 			ref,
 			[childPath],
-			[data['b']['h'][randStringHKey]!['p'][randStringMKey]!['r']]
+			[data['b']['h'][randStringHKey]!['p'][randStringPKey]!['r']]
 		)
 		await readAndExpectUpdate(
 			ref,
 			childPath,
-			data['b']['h'][randStringHKey]!['p'][randStringMKey]!['r']
+			data['b']['h'][randStringHKey]!['p'][randStringPKey]!['r']
 		)
 		;() => {
 			update(
@@ -911,52 +1109,480 @@ describe('test update and get', () => {
 				[data['b']['h']['string']!['p']['string']!]
 			)
 			update(ref, [childPath], [data['b']['h']['string']!['p']['string']!['r']])
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
+			)
 		}
 	})
 
-	it('test "b/h/string/p" node, is push able only', async () => {
+	it('test "b/h/string/s" node', async () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const childPath = `p`
+		const childPath = 's'
+		const ref = users.ref(`b/h/${randStringHKey}`)
+		await update(ref, [childPath], [data['b']['h'][randStringHKey]!['s']])
+		await readAndExpectUpdate(
+			ref,
+			childPath,
+			data['b']['h'][randStringHKey]!['s']
+		)
+		;() => {
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['a']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['c']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['d']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['d']['f']['j']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['i']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['m']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['m']['string']!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['m']['string']!['n']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['p']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['p']['string']!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['p']['string']!['r']]
+			)
+			update(ref, [childPath], [data['b']['h']['string']!['s']])
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
+			)
+		}
+	})
+
+	it('test "b/h/string/s/string" node', async () => {
+		const rand = generateRandomData()
+		const randStringHKey = rand.randStringHKey
+		const data = rand.data
+		const childPath = `s/0` as const
+		const ref = users.ref(`b/h/${randStringHKey}`)
+
+		await update(
+			ref,
+			[childPath],
+			[(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!]
+		)
+		await readAndExpectUpdate(
+			ref,
+			childPath,
+			(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!
+		)
+		;() => {
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['a']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['c']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['d']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['d']['f']['j']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['i']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['m']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['m']['string']!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['m']['string']!['n']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['p']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['p']['string']!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['p']['string']!['r']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!['t']]
+			)
+		}
+	})
+
+	it('test "b/h/string/s/string/t" node', async () => {
+		const rand = generateRandomData()
+		const randStringHKey = rand.randStringHKey
+		const data = rand.data
+		const childPath = `s/0/t` as const
 		const ref = users.ref(`b/h/${randStringHKey}`)
 		await update(
 			ref,
-			[
-				// @ts-expect-error
-				childPath,
-			],
-			[data['b']['h'][randStringHKey]!['p']]
+			[childPath],
+			[(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!['t']]
 		)
+		await readAndExpectUpdate(
+			ref,
+			childPath,
+			(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!['t']
+		)
+		;() => {
+			update(ref, [childPath], [data['a']]) // b/h/string/s/string/t is number
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['c']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['d']]
+			)
+			update(ref, [childPath], [data['b']['d']['f']['j']]) // b/h/string/s/string/t is number
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['i']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['m']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['m']['string']!]
+			)
+			update(
+				ref,
+				[childPath],
+				[
+					// @ts-expect-error
+					data['b']['h']['string']!['m']['string']!['n'],
+				]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['p']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['p']['string']!]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['p']['string']!['r']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s']]
+			)
+			update(
+				ref,
+				[childPath],
+				// @ts-expect-error
+				[data['b']['h']['string']!['s'][0]!]
+			)
+			update(
+				ref,
+				[childPath],
+				[(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']]
+			)
+		}
+	})
+
+	it('test update multiple data type', async () => {
+		// const ref = users.ref()
+		// const OriData = generateRandomData().data
+		// await set(ref, OriData)
+		// const rand = generateRandomData()
+		// const data = rand.data
+		// const randStringHKey = rand.randStringHKey
+		// const randStringMKey = rand.randStringMKey
+		// await update(
+		// 	ref,
+		// 	[
+		// 		'a',
+		// 		// 'b',
+		// 		'b/h',
+		// 		`b/h/${randStringHKey}`,
+		// 		`b/h/${randStringHKey}/m/${randStringMKey}`,
+		// 		`b/h/abc/s/0`,
+		// 	],
+		// 	[
+		// 		data['a'],
+		// 		// data['b'],
+		// 		data['b']['h'],
+		// 		data['b']['h'][randStringHKey]!,
+		// 		data['b']['h'][randStringHKey]!['m'][randStringMKey]!,
+		// 		(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!,
+		// 	]
+		// )
+		// OriData['a'] = data['a']
+		// OriData['b'] = data['b']
+		// OriData['b']['h'] = data['b']['h']
+		// OriData['b']['h'][randStringHKey]! = data['b']['h'][randStringHKey]!
+		// OriData['b']['h'][randStringHKey]!['m'][randStringMKey]! =
+		// 	data['b']['h'][randStringHKey]!['m'][randStringMKey]!
+		// ;(OriData['b']['h'][randStringHKey]!['s'] as { t: number }[])[0] !=
+		// 	(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!
+		// await readAndExpectSet(ref, undefined, OriData)
 	})
 
 	it('test "q" node is push able only', async () => {
-		const rand = generateRandomData()
-		const data = rand.data
 		const childPath = `q`
 		const ref = users.ref()
-		await update(
-			ref,
-			[
-				// @ts-expect-error
-				childPath,
-			],
-			[data['q']]
-		)
+		;() =>
+			update(
+				ref,
+				[
+					// @ts-expect-error
+					childPath,
+				],
+				[] // will error if above path errors are cleared
+			)
 	})
 
 	it('test path type', async () => {
-		const rand = generateRandomData()
-		const data = rand.data
-		const childPath = `q`
 		const ref = users.ref()
-		await update(
-			ref,
-			[
+		const abc = 'abc' as string
+		const _123 = 123 as number
+		;() =>
+			update(
+				ref,
+				[
+					'a',
+					'b',
+					// @ts-expect-error
+					'c',
+					'b/h',
+					'b/h/abc',
+					`b/h/${abc}`,
+					// @ts-expect-error
+					'b/h/123',
+					// @ts-expect-error
+					`b/h/${_123}`,
+					'b/h/abc/m/xyz',
+					`b/h/abc/m/${abc}`,
+					// @ts-expect-error
+					`b/h/abc/m/123`,
+					// @ts-expect-error
+					`b/h/abc/m/${_123}`,
+					// @ts-expect-error
+					'b/h/abc/s/xyz',
+					// @ts-expect-error
+					`b/h/abc/s/${abc}`,
+					`b/h/abc/s/123`,
+					`b/h/abc/s/${_123}`,
+				],
+				[] // will error if above path errors are cleared
+			)
+	})
+
+	it('test arr = string[] trigger error', async () => {
+		const ref = users.ref()
+		const abc = 'abc' as string
+		const _123 = 123 as number
+		const arr = [
+			'a',
+			'b',
+			'b/h',
+			'b/h/abc',
+			`b/h/${abc}`,
+			'b/h/abc/m/xyz',
+			`b/h/abc/m/${abc}`,
+			`b/h/abc/s/123`,
+			`b/h/abc/s/${_123}`,
+		]
+		;() => {
+			update(
+				ref,
 				// @ts-expect-error
-				childPath,
-			],
-			[data['q']]
-		)
+				arr,
+				[] // will error if above path errors are cleared
+			)
+		}
+	})
+
+	it('test not enough data type', async () => {
+		const ref = users.ref()
+		const abc = 'abc' as string
+		const _123 = 123 as number
+		const arr = [
+			'a',
+			'b',
+			'b/h',
+			'b/h/abc',
+			`b/h/${abc}`,
+			'b/h/abc/m/xyz',
+			`b/h/abc/m/${abc}`,
+			`b/h/abc/s/123`,
+			`b/h/abc/s/${_123}`,
+		] as const
+		;() => {
+			update(
+				ref,
+				arr,
+				// @ts-expect-error
+				[data['a']]
+			)
+			update(
+				ref,
+				arr,
+				// @ts-expect-error
+				[]
+			)
+		}
 	})
 })

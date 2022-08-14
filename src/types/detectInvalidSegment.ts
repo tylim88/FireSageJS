@@ -27,3 +27,21 @@ export type DetectInvalidSegment<
 		? ErrorInvalidPathTypeNeedString
 		: V
 	: V
+
+// because {a:1,b:2,c:3} extends {[x:number]:unknown} but not {[x:number]:unknown} & {[x:string]:never}
+export type DetectAndIntersectNumericRecordWithRecordStringNever<T> =
+	T extends Record<infer X, unknown>
+		? `${number}` extends `${X & (string | number)}`
+			? `${X & (string | number)}` extends `${number}`
+				? T & Record<string, never>
+				: T
+			: T
+		: T
+
+export type DetectNumericRecordType<T> = T extends Record<infer X, unknown>
+	? `${number}` extends `${X & (string | number)}`
+		? `${X & (string | number)}` extends `${number}`
+			? true
+			: false
+		: false
+	: false

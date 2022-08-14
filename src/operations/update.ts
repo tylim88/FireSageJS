@@ -10,11 +10,12 @@ import {
 export const update = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
-	N extends readonly string[]
+	N extends readonly string[],
+	V extends readonly unknown[]
 >(
 	ref: DatabaseReference<T, U>,
 	nodeNames: N extends never ? N : ValidateNodeNames<T, U, N>,
-	nodeTypes: GetNodeTypes<T, U, N>
+	nodeTypes: V extends never ? V : GetNodeTypes<T, U, N, V>
 ) => {
 	const obj: Record<string, unknown> = {}
 

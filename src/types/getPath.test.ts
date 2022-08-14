@@ -8,7 +8,7 @@ import {
 import { IsTrue, IsSame } from './utils'
 import { Users } from '../utilForTests'
 
-describe('test', () => {
+describe('test get path', () => {
 	it('test get full path', () => {
 		type A = GetFullPath<Users, 'b', string>
 		type B = GetFullPath<Users, 'b/h', `${string}`>
