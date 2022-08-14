@@ -5,8 +5,19 @@ import {
 	ErrorIsPushOnlyAbleType,
 	ErrorNeedTupleNotArray,
 	ErrorElementNeedConstAssertion,
-	ErrorNoSuchChild,
 } from './error'
+
+import { ValidateChildPath } from './child'
+
+type ValidateChildPathAndCheckIsNotPushAbleOnly<
+	T extends MetaType,
+	U extends (keyof T['flatten_write'] & string) | undefined,
+	P extends string
+> = ValidateChildPath<T, U, P> extends P
+	? GetFullPath<T, U, P> extends GetAllPushAbleOnlyPaths<T>
+		? ErrorIsPushOnlyAbleType<`child ${P}`>
+		: P
+	: ValidateChildPath<T, U, P>
 
 export type ValidateNodeNames<
 	T extends MetaType,
@@ -24,13 +35,11 @@ export type ValidateNodeNames<
 			S,
 			[
 				...ACC,
-				string extends GetFullPath<T, U, P>
-					? ErrorElementNeedConstAssertion
-					: GetFullPath<T, U, P> extends never
-					? ErrorNoSuchChild<P, U>
-					: GetFullPath<T, U, P> extends GetAllPushAbleOnlyPaths<T>
-					? ErrorIsPushOnlyAbleType<`child ${P}`>
-					: P
+				string extends P
+					? GetFullPath<T, U, P> extends never
+						? ErrorElementNeedConstAssertion
+						: ValidateChildPathAndCheckIsNotPushAbleOnly<T, U, P>
+					: ValidateChildPathAndCheckIsNotPushAbleOnly<T, U, P>
 			]
 	  >
 	: never

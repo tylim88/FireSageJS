@@ -14,7 +14,7 @@ describe('test update and get', () => {
 	it('test a node', async () => {
 		const ref = users.ref()
 		const data = generateRandomData().data
-		const childPath = 'a' as const
+		const childPath = 'a'
 		await update(ref, [childPath], [data['a']])
 		await readAndExpectUpdate(ref, childPath, data['a'])
 		;() => {
@@ -91,7 +91,7 @@ describe('test update and get', () => {
 	it('test "b/c" node', async () => {
 		const ref = users.ref('b')
 		const data = generateRandomData().data
-		const childPath = 'c' as const
+		const childPath = 'c'
 		await update(ref, [childPath], [data['b']['c']])
 		await readAndExpectUpdate(ref, childPath, data['b']['c'])
 		;() => {
@@ -167,7 +167,7 @@ describe('test update and get', () => {
 	it('test "b/d" node', async () => {
 		const ref = users.ref()
 		const data = generateRandomData().data
-		const childPath = 'b/d' as const
+		const childPath = 'b/d'
 		await update(ref, [childPath], [data['b']['d']])
 		await readAndExpectUpdate(ref, childPath, data['b']['d'])
 		;() => {
@@ -243,7 +243,7 @@ describe('test update and get', () => {
 	it('test "b/d/f/j" node', async () => {
 		const ref = users.ref('b/d')
 		const data = generateRandomData().data
-		const childPath = 'f/j' as const
+		const childPath = 'f/j'
 		await update(ref, [childPath], [data['b']['d']['f']['j']])
 		await readAndExpectUpdate(ref, childPath, data['b']['d']['f']['j'])
 		;() => {
@@ -401,7 +401,7 @@ describe('test update and get', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const childPath = 'i' as const
+		const childPath = 'i'
 		const ref = users.ref(`b/h/${randStringHKey}`)
 		await update(ref, [childPath], [data['b']['h'][randStringHKey]!['i']])
 		await readAndExpectUpdate(
@@ -479,7 +479,7 @@ describe('test update and get', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const childPath = 'm' as const
+		const childPath = 'm'
 		const ref = users.ref(`b/h/${randStringHKey}`)
 		await update(ref, [childPath], [data['b']['h'][randStringHKey]!['m']])
 		await readAndExpectUpdate(
@@ -735,22 +735,6 @@ describe('test update and get', () => {
 		}
 	})
 
-	it('test "b/h/string/p" node', async () => {
-		const rand = generateRandomData()
-		const randStringHKey = rand.randStringHKey
-		const data = rand.data
-		const childPath = `p` as const
-		const ref = users.ref(`b/h/${randStringHKey}`)
-		await update(
-			ref,
-			[
-				// @ts-expect-error
-				childPath,
-			],
-			[data['b']['h'][randStringHKey]!['p']]
-		)
-	})
-
 	it('test "b/h/string/p/string" node', async () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
@@ -930,10 +914,41 @@ describe('test update and get', () => {
 		}
 	})
 
-	it('test "q" node', async () => {
+	it('test "b/h/string/p" node, is push able only', async () => {
+		const rand = generateRandomData()
+		const randStringHKey = rand.randStringHKey
+		const data = rand.data
+		const childPath = `p`
+		const ref = users.ref(`b/h/${randStringHKey}`)
+		await update(
+			ref,
+			[
+				// @ts-expect-error
+				childPath,
+			],
+			[data['b']['h'][randStringHKey]!['p']]
+		)
+	})
+
+	it('test "q" node is push able only', async () => {
 		const rand = generateRandomData()
 		const data = rand.data
-		const childPath = `q` as const
+		const childPath = `q`
+		const ref = users.ref()
+		await update(
+			ref,
+			[
+				// @ts-expect-error
+				childPath,
+			],
+			[data['q']]
+		)
+	})
+
+	it('test path type', async () => {
+		const rand = generateRandomData()
+		const data = rand.data
+		const childPath = `q`
 		const ref = users.ref()
 		await update(
 			ref,
