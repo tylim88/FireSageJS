@@ -259,7 +259,7 @@ describe('test set and get', () => {
 	it('test "b/h/string/m/string" node', async () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
-		const randStringMKey = rand.randStringMKey
+		const randStringMKey = rand.randStringSKey
 		const data = rand.data
 		const ref = users.ref(`b/h/${randStringHKey}/m/${randStringMKey}`)
 		await set(ref, data['b']['h'][randStringHKey]!['m'][randStringMKey]!)
@@ -297,7 +297,7 @@ describe('test set and get', () => {
 	it('test "b/h/string/m/string/n" node', async () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
-		const randStringMKey = rand.randStringMKey
+		const randStringMKey = rand.randStringSKey
 		const data = rand.data
 		const ref = users.ref(`b/h/${randStringHKey}/m/${randStringMKey}/n`)
 		await set(ref, data['b']['h'][randStringHKey]!['m'][randStringMKey]!['n'])

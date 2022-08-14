@@ -57,9 +57,9 @@ export const generateRandomData = (): {
 	k: string
 	u: string
 	randStringHKey: string
-	randStringMKey: string
 	randStringOKey: string
 	randStringPKey: string
+	randStringMKey: string
 } => {
 	const randStringHKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 	const randStringMKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
@@ -101,10 +101,10 @@ export const generateRandomData = (): {
 			q: { [randStringOKey]: pick([4, 5, 6] as const)[0]! },
 			u: [u],
 		},
-		randStringMKey,
 		randStringHKey,
 		randStringOKey,
 		randStringPKey,
+		randStringMKey,
 		k,
 		u,
 	}
