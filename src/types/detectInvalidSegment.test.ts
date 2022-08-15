@@ -1,6 +1,5 @@
 import {
 	DetectInvalidSegment,
-	IntersectNumericRecordWithRecordStringNever,
 	DetectNumericRecordType,
 	DetectStringRecordType,
 } from './detectInvalidSegment'
@@ -44,32 +43,6 @@ describe('test ReplaceInvalidLastSegment', () => {
 		IsTrue<IsSame<E, ErrorInvalidPathTypeOrNeedNumber>>()
 	})
 
-	it('test DetectAndIntersectNumericRecordType', () => {
-		type A = IntersectNumericRecordWithRecordStringNever<number>
-		type B = IntersectNumericRecordWithRecordStringNever<{ a: 1 }>
-		type C = IntersectNumericRecordWithRecordStringNever<{ 100: 1 }>
-		type D = IntersectNumericRecordWithRecordStringNever<
-			Record<string, { a: 1 }>
-		>
-		type E = IntersectNumericRecordWithRecordStringNever<
-			Record<number, { a: 1 }>
-		>
-		type F = IntersectNumericRecordWithRecordStringNever<
-			Record<`${number}`, { a: 1 }> | number[]
-		>
-
-		IsTrue<IsSame<A, number>>()
-		IsTrue<IsSame<B, { a: 1 }>>()
-		IsTrue<IsSame<C, { 100: 1 }>>()
-		IsTrue<IsSame<D, Record<string, { a: 1 }>>>()
-		IsTrue<IsSame<E, Record<number, { a: 1 }> & Record<string, never>>>()
-		IsTrue<
-			IsSame<
-				F,
-				(Record<`${number}`, { a: 1 }> & Record<string, never>) | number[]
-			>
-		>()
-	})
 	it('test DetectNumericRecordType', () => {
 		type A = DetectNumericRecordType<
 			number | string | boolean | null | undefined

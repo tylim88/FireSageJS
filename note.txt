@@ -1,3 +1,4 @@
+info 
 1.  set(ref(db, "users////////abc"), something) is equivalent to set(ref(db, "users/abc"), something)
 
 improvements:

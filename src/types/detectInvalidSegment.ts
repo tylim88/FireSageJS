@@ -28,18 +28,6 @@ export type DetectInvalidSegment<
 		: V
 	: V
 
-// because {a:1,b:2,c:3} extends {[x:number]:unknown} but not {[x:number]:unknown} & {[x:string]:never}
-export type IntersectNumericRecordWithRecordStringNever<T> = T extends Record<
-	infer X,
-	unknown
->
-	? `${number}` extends `${X & (string | number)}`
-		? `${X & (string | number)}` extends `${number}`
-			? T & Record<string, never>
-			: T
-		: T
-	: T
-
 export type DetectNumericRecordType<T> = T extends Record<string, unknown>
 	? T extends Record<infer X, unknown>
 		? X extends number
@@ -61,11 +49,15 @@ export type DetectStringRecordType<T> = T extends Record<string, unknown>
 		: false
 	: false
 
+// keep in mind Record<string, T> and Record<number, T> extends each other, which is why the code is written in such way
+// Record<string, T> does not extends Record<number,T> & Record<string,T>
 export type DetectAndIntersectNumericRecordWithRecordStringNever<I, T> =
 	DetectNumericRecordType<I> extends infer G
 		? G extends true
-			? T // don't intersect if type is Record<number,T>
-			: T extends Record<string, unknown> // intersect if type is Record<string,T>
-			? IntersectNumericRecordWithRecordStringNever<T>
+			? T // don't intersect if input type is Record<number,T>
+			: T extends Record<number, unknown> // intersect if input type is Record<string,T> and path type is Record<number,T>
+			? DetectNumericRecordType<T> extends true
+				? T & Record<string, never>
+				: T
 			: T
 		: never
