@@ -7,9 +7,9 @@ import {
 	FindNestedWriteTypeFromFullPath,
 	FindMetaPathType,
 } from './findTypeAndKey'
-import { IsTrue, IsSame } from './utils'
-import { Users } from '../utilForTests'
-import { Increment } from './fieldValue'
+import { IsTrue, IsSame } from './isCommon'
+import { Users } from '../../utilForTests'
+import { Increment } from '../fieldValue'
 
 describe('test', () => {
 	it('test Find Parent Key', () => {

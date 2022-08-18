@@ -1,5 +1,5 @@
-import { MetaType } from './metaType'
-import { RemoveLastSegment, GetNumberOfSlash } from './stringManipulation'
+import { MetaType } from '../metaType'
+import { RemoveLastSegment, GetNumberOfSlash } from './stringCommon'
 
 export type FindParentKey<
 	T extends MetaType,

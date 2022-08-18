@@ -1,11 +1,9 @@
-import { FindAllChildKeys } from './findTypeAndKey'
-import { DetectInvalidSegment } from './detectInvalidSegment'
+import { FindAllChildKeys, GetFullPath, ReplaceInvalidSegment } from './utils'
 import { MetaType } from './metaType'
-import { GetFullPath } from './getPath'
 import {
 	ErrorHasNoChild,
-	ErrorInvalidPathTypeNeedString,
-	ErrorInvalidPathTypeOrNeedNumber,
+	ErrorNeedStringSegment,
+	ErrorInvalidOrNeedNumericSegment,
 } from './error'
 
 export type ValidateChildPath<
@@ -14,14 +12,14 @@ export type ValidateChildPath<
 	V extends string
 > = FindAllChildKeys<T, U> extends never
 	? ErrorHasNoChild<U>
-	: DetectInvalidSegment<
+	: ReplaceInvalidSegment<
 			T,
 			GetFullPath<T, U, V>
-	  > extends ErrorInvalidPathTypeNeedString
-	? ErrorInvalidPathTypeNeedString
-	: DetectInvalidSegment<
+	  > extends ErrorNeedStringSegment
+	? ErrorNeedStringSegment
+	: ReplaceInvalidSegment<
 			T,
 			GetFullPath<T, U, V>
-	  > extends ErrorInvalidPathTypeOrNeedNumber
-	? ErrorInvalidPathTypeOrNeedNumber
+	  > extends ErrorInvalidOrNeedNumericSegment
+	? ErrorInvalidOrNeedNumericSegment
 	: V

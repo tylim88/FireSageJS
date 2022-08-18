@@ -5,7 +5,7 @@ import {
 	FindNestedWriteTypeFromFullPath,
 	GetAllPushAbleOnlyPaths,
 	ErrorIsPushOnlyAbleType,
-	DetectAndIntersectNumericRecordWithRecordStringNever,
+	ReplaceNumericRecordIfInputIsRecordString,
 } from '../types'
 /**
 Writes data to this Database location.
@@ -34,7 +34,7 @@ export const set = <
 		? V
 		: U extends GetAllPushAbleOnlyPaths<T>
 		? ErrorIsPushOnlyAbleType<U>
-		: DetectAndIntersectNumericRecordWithRecordStringNever<
+		: ReplaceNumericRecordIfInputIsRecordString<
 				V,
 				FindNestedWriteTypeFromFullPath<T, U>
 		  >

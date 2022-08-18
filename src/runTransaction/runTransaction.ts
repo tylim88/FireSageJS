@@ -6,7 +6,7 @@ import {
 	FindNestedWriteTypeFromFullPath,
 	TransactionOptions,
 	TransactionResult,
-	DetectAndIntersectNumericRecordWithRecordStringNever,
+	ReplaceNumericRecordIfInputIsRecordString,
 } from '../types'
 /**
  * 
@@ -43,7 +43,7 @@ export const runTransaction = <
 	) => V extends never
 		? V
 		:
-				| DetectAndIntersectNumericRecordWithRecordStringNever<
+				| ReplaceNumericRecordIfInputIsRecordString<
 						V,
 						FindNestedWriteTypeFromFullPath<T, U>
 				  >

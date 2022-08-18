@@ -1,4 +1,4 @@
-import { RemoveLastSlash } from '../stringManipulation'
+import { RemoveLastSlash } from '../utils'
 
 type DeepKey_<T, K extends keyof T, Mode extends 'read' | 'write'> = K extends
 	| string

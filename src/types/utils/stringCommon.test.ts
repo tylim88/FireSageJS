@@ -2,8 +2,8 @@ import {
 	GetLastTwoSegment,
 	GetLastSegment,
 	RemoveLastSegment,
-} from './stringManipulation'
-import { IsTrue, IsSame } from './utils'
+} from './stringCommon'
+import { IsTrue, IsSame } from './isCommon'
 
 describe('test', () => {
 	it('test last 2 segments', () => {

@@ -1,12 +1,15 @@
 import { MetaType } from './metaType'
-import { FindNestedWriteTypeFromFullPath } from './findTypeAndKey'
-import { GetFullPath, GetAllPushAbleOnlyPaths } from './getPath'
+import {
+	FindNestedWriteTypeFromFullPath,
+	ReplaceNumericRecordIfInputIsRecordString,
+	GetFullPath,
+	GetAllPushAbleOnlyPaths,
+} from './utils'
 import {
 	ErrorIsPushOnlyAbleType,
 	ErrorNeedTupleNotArray,
 	ErrorElementNeedConstAssertion,
 } from './error'
-import { DetectAndIntersectNumericRecordWithRecordStringNever } from './detectInvalidSegment'
 import { ValidateChildPath } from './child'
 
 type ValidateChildPathAndCheckIsNotPushAbleOnly<
@@ -63,7 +66,7 @@ export type GetNodeTypes<
 				Y,
 				[
 					...ACC,
-					DetectAndIntersectNumericRecordWithRecordStringNever<
+					ReplaceNumericRecordIfInputIsRecordString<
 						X,
 						FindNestedWriteTypeFromFullPath<T, GetFullPath<T, U, P>>
 					>

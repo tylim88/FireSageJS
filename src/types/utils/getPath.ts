@@ -1,6 +1,6 @@
-import { MetaType } from './metaType'
-import { PushAble, Removable, PushAbleOnly, PseudoArray } from './fieldValue'
-import { DetectInvalidSegment } from './detectInvalidSegment'
+import { MetaType } from '../metaType'
+import { PushAble, Removable, PushAbleOnly, PseudoArray } from '../fieldValue'
+import { ReplaceInvalidSegment } from './replacePathAndType'
 
 export type GetFullPath<
 	T extends MetaType,
@@ -8,7 +8,7 @@ export type GetFullPath<
 	ChildRelativePath extends string
 > = `${ParentFullPath}/${ChildRelativePath}` extends keyof T['flatten_write'] &
 	string
-	? DetectInvalidSegment<
+	? ReplaceInvalidSegment<
 			T,
 			`${ParentFullPath}/${ChildRelativePath}`
 	  > extends keyof T['flatten_write'] & string

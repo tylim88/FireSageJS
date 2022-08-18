@@ -1,6 +1,23 @@
-export type StrictOmit<T, Key extends keyof T> = Omit<T, Key>
+export type IsNumericRecordType<T> = T extends Record<string, unknown>
+	? T extends Record<infer X, unknown>
+		? X extends number
+			? true
+			: `${number}` extends `${X & (string | number)}`
+			? `${X & (string | number)}` extends `${number}`
+				? true
+				: false
+			: false
+		: false
+	: false
 
-export type StrictExclude<T, U extends T> = Exclude<T, U>
+// not in use
+export type IsStringRecordType<T> = T extends Record<string, unknown>
+	? T extends Record<infer X, unknown>
+		? `${X & (string | number)}` extends `${number}`
+			? false
+			: true
+		: false
+	: false
 
 // https://stackoverflow.com/questions/53953814/typescript-check-if-a-type-is-a-union
 type UnionToIntersection<U> = (
@@ -28,21 +45,3 @@ export type IsEqual<T, U> = T[] extends U[]
 		? true
 		: false
 	: false
-
-export type OddNumber<
-	X extends number,
-	Y extends unknown[] = [1],
-	Z extends number = never
-> = Y['length'] extends X
-	? Z | Y['length']
-	: OddNumber<X, [1, 1, ...Y], Z | Y['length']>
-
-export type EvenNumber<
-	X extends number,
-	Y extends unknown[] = [],
-	Z extends number = never
-> = Y['length'] extends X
-	? Z | Y['length']
-	: OddNumber<X, [1, 1, ...Y], Z | Y['length']>
-
-export type DoNotDistribute<T> = T

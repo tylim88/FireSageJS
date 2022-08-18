@@ -26,9 +26,11 @@ export type ErrorNoSuchChild<
 	T extends string,
 	U extends string | undefined
 > = `Error: ${T} is not a direct child of ${U extends string ? U : 'root'}`
-export type ErrorInvalidPathTypeNeedString =
-	`Error: Incorrect type path, you are trying to use numeric string key on non-numeric string key. Example: the path type is abc/${string} but you supply abc/${number}`
+export type ErrorNeedStringSegment =
+	`Error: Incorrect type path, you are trying to use numeric string key on non-numeric string key. Example: the path type is abc/${string} but your input is abc/${number}`
 export type ErrorObjectTypeUnion =
 	`Error: This type is replaced with error message because object literal(or map type) / PushAble<T> / PushAbleOnly<T> / PseudoArray<T> cannot union with other type (except Removable). Please check your MetaType.`
-export type ErrorInvalidPathTypeOrNeedNumber =
-	`Error: Incorrect type path, possible cause: 1) incorrect key OR 2) you are trying to use non-numeric string key on numeric string key. Example: the path type is abc/${number} but you supply abc/${string}`
+export type ErrorInvalidOrNeedNumericSegment =
+	`Error: Incorrect type path, possible cause: 1) incorrect path OR 2) you are trying to use non-numeric string key on numeric string key. Example: the path type is abc/${number} but your input is abc/${string}`
+export type ErrorNeedNumericKey =
+	'Error: Key must be numeric. Example: the node type is { 1: boolean} but your input is { a:boolean }'

@@ -3,9 +3,9 @@ import {
 	MetaType,
 	Database,
 	DatabaseReference,
-	DetectInvalidSegment,
-	ErrorInvalidPathTypeOrNeedNumber,
-	ErrorInvalidPathTypeNeedString,
+	ReplaceInvalidSegment,
+	ErrorInvalidOrNeedNumericSegment,
+	ErrorNeedStringSegment,
 } from '../types'
 import { isDatabase, isString } from '../utils'
 
@@ -21,14 +21,14 @@ export const refCreator =
 type Ref<T extends MetaType> = {
 	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
 		path?: U extends keyof T['flatten_write'] & string
-			? DetectInvalidSegment<T, U>
+			? ReplaceInvalidSegment<T, U>
 			: U
 	): DatabaseReference<
 		T,
 		U extends string
-			? DetectInvalidSegment<T, U> extends
-					| ErrorInvalidPathTypeOrNeedNumber
-					| ErrorInvalidPathTypeNeedString
+			? ReplaceInvalidSegment<T, U> extends
+					| ErrorInvalidOrNeedNumericSegment
+					| ErrorNeedStringSegment
 				? never
 				: U
 			: undefined
@@ -36,14 +36,14 @@ type Ref<T extends MetaType> = {
 	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
 		db?: Database,
 		path?: U extends keyof T['flatten_write'] & string
-			? DetectInvalidSegment<T, U>
+			? ReplaceInvalidSegment<T, U>
 			: U
 	): DatabaseReference<
 		T,
 		U extends string
-			? DetectInvalidSegment<T, U> extends
-					| ErrorInvalidPathTypeOrNeedNumber
-					| ErrorInvalidPathTypeNeedString
+			? ReplaceInvalidSegment<T, U> extends
+					| ErrorInvalidOrNeedNumericSegment
+					| ErrorNeedStringSegment
 				? never
 				: U
 			: undefined

@@ -1,9 +1,12 @@
 import { MetaType } from './metaType'
 import { DatabaseReference } from './refs'
-import { FindAllChildKeys, FindAllTopLevelChildKeys } from './findTypeAndKey'
-import { GetFullPath } from './getPath'
+import {
+	FindAllChildKeys,
+	FindAllTopLevelChildKeys,
+	GetFullPath,
+	GetLastSegment,
+} from './utils'
 import { ErrorHasNoChild } from './error'
-import { GetLastSegment } from './stringManipulation'
 
 export declare class DataSnapshot<
 	T extends MetaType,
