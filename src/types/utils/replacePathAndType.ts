@@ -5,7 +5,7 @@ import {
 	ErrorNeedNumericKey,
 } from '../error'
 import { FindMetaPathType } from './findTypeAndKey'
-import { IsNumericRecordType } from './isCommon'
+import { IsNumericRecordType } from './common'
 
 // string does not extends `${number}`
 // `${number}` extends string

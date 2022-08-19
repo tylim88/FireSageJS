@@ -1,9 +1,4 @@
-import {
-	IsNumericRecordType,
-	IsStringRecordType,
-	IsSame,
-	IsTrue,
-} from './isCommon'
+import { IsNumericRecordType, IsStringRecordType, IsSame, IsTrue } from './is'
 
 describe('test is common', () => {
 	it('test isNumericRecordType', () => {

@@ -3,8 +3,8 @@ import {
 	GetLastSegment,
 	RemoveLastSegment,
 	IsSameOrSubStringOfEither,
-} from './stringCommon'
-import { IsTrue, IsSame } from './isCommon'
+} from './string'
+import { IsTrue, IsSame } from './is'
 
 describe('test', () => {
 	it('test last 2 segments', () => {

@@ -5,7 +5,7 @@ import {
 	GetAllPseudoArrayPaths,
 	GetFullPath,
 } from './getPath'
-import { IsTrue, IsSame } from './isCommon'
+import { IsTrue, IsSame } from './common'
 import { Users } from '../../utilForTests'
 
 describe('test get path', () => {

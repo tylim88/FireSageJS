@@ -1,6 +1,6 @@
 import { ReplaceInvalidSegment } from './replacePathAndType'
 import { Users } from '../../utilForTests'
-import { IsSame, IsTrue } from './isCommon'
+import { IsSame, IsTrue } from './common'
 import {
 	ErrorNeedStringSegment,
 	ErrorInvalidOrNeedNumericSegment,

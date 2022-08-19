@@ -7,7 +7,7 @@ import {
 	FindNestedWriteTypeFromFullPath,
 	FindMetaPathType,
 } from './findTypeAndKey'
-import { IsTrue, IsSame } from './isCommon'
+import { IsTrue, IsSame } from './common'
 import { Users } from '../../utilForTests'
 import { Increment } from '../fieldValue'
 
