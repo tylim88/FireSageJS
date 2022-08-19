@@ -5,7 +5,9 @@ import {
 	GetFullPath,
 	GetAllPushAbleOnlyPaths,
 	GetNumberOfSlash,
-	IsSameOrSubString,
+	IsSameOrSubStringOfEither,
+	IsAGreaterThanB,
+	CreateArrayWithLengthX,
 } from './utils'
 import {
 	ErrorIsPushOnlyAbleType,
@@ -28,8 +30,13 @@ type ReplaceIfAncestorExist<
 					...Ancestors,
 					...(GetNumberOfSlash<H> extends GetNumberOfSlash<U>
 						? []
-						: IsSameOrSubString<H, U> extends true
-						? [H]
+						: IsSameOrSubStringOfEither<H, U> extends true
+						? IsAGreaterThanB<
+								CreateArrayWithLengthX<GetNumberOfSlash<H>>,
+								CreateArrayWithLengthX<GetNumberOfSlash<U>>
+						  > extends 'lesser'
+							? [H]
+							: []
 						: [])
 				]
 		  >
@@ -50,7 +57,8 @@ export type ValidateNodeNames<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	V extends readonly string[],
-	ACC extends readonly string[] = []
+	ACC extends readonly string[] = [],
+	O extends readonly string[] = V
 > = number extends V[number]
 	? [ErrorNeedTupleNotArray]
 	: V extends []
@@ -68,14 +76,15 @@ export type ValidateNodeNames<
 					? GetFullPath<T, U, P> extends never
 						? ErrorElementNeedConstAssertion
 						: ReplaceIfAncestorExist<
-								V,
+								O,
 								ValidateChildPathAndCheckIsNotPushAbleOnly<T, U, P>
 						  >
 					: ReplaceIfAncestorExist<
-							V,
+							O,
 							ValidateChildPathAndCheckIsNotPushAbleOnly<T, U, P>
 					  >
-			]
+			],
+			O
 	  >
 	: never
 

@@ -58,6 +58,7 @@ describe('test', () => {
 		type O = IsSameOrSubStringOfEither<`${string}/b`, `a/b/${string}`>
 		type P = IsSameOrSubStringOfEither<`a/b/${string}`, `a/${string}/c`>
 		type Q = IsSameOrSubStringOfEither<`a/${string}/c`, `a/b/${string}`>
+		type R = IsSameOrSubStringOfEither<`b/h/abc/m/xyz`, `b/h/abc`>
 		IsTrue<IsSame<A, true>>()
 		IsTrue<IsSame<B, true>>()
 		IsTrue<IsSame<C, true>>()
@@ -75,6 +76,7 @@ describe('test', () => {
 		IsTrue<IsSame<O, true>>()
 		IsTrue<IsSame<P, true>>()
 		IsTrue<IsSame<Q, true>>()
+		IsTrue<IsSame<R, true>>()
 	})
 
 	it('test is sub string of, negative case', () => {
