@@ -1,11 +1,9 @@
 import { update } from './update'
-import { set } from './set'
 import {
 	readAndExpectUpdate,
 	generateRandomData,
 	initializeApp,
 	usersCreator,
-	readAndExpectSet,
 } from '../utilForTests'
 
 initializeApp()

@@ -5,8 +5,8 @@ import {
 	IsTrue,
 } from './isCommon'
 
-describe('test ReplaceInvalidLastSegment', () => {
-	it('test DetectNumericRecordType', () => {
+describe('test is common', () => {
+	it('test isNumericRecordType', () => {
 		type A = IsNumericRecordType<number | string | boolean | null | undefined>
 		type B = IsNumericRecordType<{ a: 1 }>
 		type C = IsNumericRecordType<{ 100: 1 }>
@@ -23,7 +23,7 @@ describe('test ReplaceInvalidLastSegment', () => {
 		IsTrue<IsSame<F, boolean>>()
 		IsTrue<IsSame<G, boolean>>()
 	})
-	it('test DetectStringRecordType', () => {
+	it('test isStringRecordType', () => {
 		type A = IsStringRecordType<number | string | boolean | null | undefined>
 		type B = IsStringRecordType<{ a: 1 }>
 		type C = IsStringRecordType<{ 100: 1 }>
