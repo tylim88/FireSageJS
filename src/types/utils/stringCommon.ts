@@ -33,12 +33,15 @@ export type RemoveLastSegment<
 	? RemoveLastSegment<R, ACC[] extends never[] ? `${S}/` : `${ACC}${S}/`>
 	: never
 
-export type IsSubString<A, B> = A extends `${infer T}/${infer U}`
+export type IsSameOrSubString<
+	A extends string,
+	B extends string
+> = A extends `${infer T}/${infer U}`
 	? B extends `${infer C}/${infer D}`
 		? C extends T
-			? IsSubString<U, D>
+			? IsSameOrSubString<U, D>
 			: T extends C
-			? IsSubString<U, D>
+			? IsSameOrSubString<U, D>
 			: false
 		: T extends B
 		? true
@@ -49,11 +52,11 @@ export type IsSubString<A, B> = A extends `${infer T}/${infer U}`
 	? true
 	: false
 
-export type IsSubStringOfEither<
+export type IsSameOrSubStringOfEither<
 	A extends string,
 	B extends string
-> = IsSubString<A, B> extends true
+> = IsSameOrSubString<A, B> extends true
 	? true
-	: IsSubString<B, A> extends true
+	: IsSameOrSubString<B, A> extends true
 	? true
 	: false

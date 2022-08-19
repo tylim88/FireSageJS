@@ -34,3 +34,9 @@ export type ErrorInvalidOrNeedNumericSegment =
 	`Error: Incorrect type path, possible cause: 1) incorrect path OR 2) you are trying to use non-numeric string key on numeric string key. Example: the path type is abc/${number} but your input is abc/${string}`
 export type ErrorNeedNumericKey =
 	'Error: Key must be numeric. Example: the node type is { 1: boolean} but your input is { a:boolean }'
+export type ErrorPathHasAncestor<
+	Descendent extends string,
+	Ancestor extends undefined | string
+> = `Error: values argument contains a path ${Ancestor} that is ancestor of another path ${Descendent extends string
+	? Descendent
+	: 'root'}`

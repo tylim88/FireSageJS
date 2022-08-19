@@ -1,9 +1,11 @@
 import { update } from './update'
+import { set } from './set'
 import {
 	readAndExpectUpdate,
 	generateRandomData,
 	initializeApp,
 	usersCreator,
+	readAndExpectSet,
 } from '../utilForTests'
 
 initializeApp()
@@ -1271,41 +1273,41 @@ describe('test update and get', () => {
 	})
 
 	it('test update multiple data type', async () => {
-		// const ref = users.ref()
-		// const OriData = generateRandomData().data
-		// await set(ref, OriData)
-		// const rand = generateRandomData()
-		// const data = rand.data
-		// const randStringHKey = rand.randStringHKey
-		// const randStringMKey = rand.randStringMKey
-		// await update(
-		// 	ref,
-		// 	[
-		// 		'a',
-		// 		// 'b',
-		// 		'b/h',
-		// 		`b/h/${randStringHKey}`,
-		// 		`b/h/${randStringHKey}/m/${randStringMKey}`,
-		// 		`b/h/abc/s/0`,
-		// 	],
-		// 	[
-		// 		data['a'],
-		// 		// data['b'],
-		// 		data['b']['h'],
-		// 		data['b']['h'][randStringHKey]!,
-		// 		data['b']['h'][randStringHKey]!['m'][randStringMKey]!,
-		// 		(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!,
-		// 	]
-		// )
-		// OriData['a'] = data['a']
-		// OriData['b'] = data['b']
-		// OriData['b']['h'] = data['b']['h']
-		// OriData['b']['h'][randStringHKey]! = data['b']['h'][randStringHKey]!
-		// OriData['b']['h'][randStringHKey]!['m'][randStringMKey]! =
-		// 	data['b']['h'][randStringHKey]!['m'][randStringMKey]!
-		// ;(OriData['b']['h'][randStringHKey]!['s'] as { t: number }[])[0] !=
-		// 	(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!
-		// await readAndExpectSet(ref, undefined, OriData)
+		const ref = users.ref()
+		const OriData = generateRandomData().data
+		await set(ref, OriData)
+		const rand = generateRandomData()
+		const data = rand.data
+		const randStringHKey = rand.randStringHKey
+		const randStringMKey = rand.randStringMKey
+		await update(
+			ref,
+			[
+				'a',
+				// 'b',
+				// 'b/h',
+				// `b/h/${randStringHKey}`,
+				// `b/h/${randStringHKey}/m/${randStringMKey}`,
+				// `b/h/abc/s/0`,
+			],
+			[
+				data['a'],
+				// data['b'],
+				// data['b']['h'],
+				// data['b']['h'][randStringHKey]!,
+				// data['b']['h'][randStringHKey]!['m'][randStringMKey]!,
+				// (data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!,
+			]
+		)
+		OriData['a'] = data['a']
+		OriData['b'] = data['b']
+		OriData['b']['h'] = data['b']['h']
+		OriData['b']['h'][randStringHKey]! = data['b']['h'][randStringHKey]!
+		OriData['b']['h'][randStringHKey]!['m'][randStringMKey]! =
+			data['b']['h'][randStringHKey]!['m'][randStringMKey]!
+		;(OriData['b']['h'][randStringHKey]!['s'] as { t: number }[])[0] !=
+			(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!
+		await readAndExpectSet(ref, undefined, OriData)
 	})
 
 	it('test "q" node is push able only', async () => {
@@ -1322,41 +1324,41 @@ describe('test update and get', () => {
 			)
 	})
 
-	it('test path type', async () => {
-		const ref = users.ref()
-		const abc = 'abc' as string
-		const _123 = 123 as number
-		;() =>
-			update(
-				ref,
-				[
-					'a',
-					'b',
-					// @ts-expect-error
-					'c',
-					'b/h',
-					'b/h/abc',
-					`b/h/${abc}`,
-					// @ts-expect-error
-					'b/h/123',
-					// @ts-expect-error
-					`b/h/${_123}`,
-					'b/h/abc/m/xyz',
-					`b/h/abc/m/${abc}`,
-					// @ts-expect-error
-					`b/h/abc/m/123`,
-					// @ts-expect-error
-					`b/h/abc/m/${_123}`,
-					// @ts-expect-error
-					'b/h/abc/s/xyz',
-					// @ts-expect-error
-					`b/h/abc/s/${abc}`,
-					`b/h/abc/s/123`,
-					`b/h/abc/s/${_123}`,
-				],
-				[] // will error if above path errors are cleared
-			)
-	})
+	// it('test path type', async () => {
+	// 	const ref = users.ref()
+	// 	const abc = 'abc' as string
+	// 	const _123 = 123 as number
+	// 	;() =>
+	// 		update(
+	// 			ref,
+	// 			[
+	// 				'a',
+	// 				'b',
+	// 				// @ts-expect-error
+	// 				'c',
+	// 				'b/h',
+	// 				'b/h/abc',
+	// 				`b/h/${abc}`,
+	// 				// @ts-expect-error
+	// 				'b/h/123',
+	// 				// @ts-expect-error
+	// 				`b/h/${_123}`,
+	// 				'b/h/abc/m/xyz',
+	// 				`b/h/abc/m/${abc}`,
+	// 				// @ts-expect-error
+	// 				`b/h/abc/m/123`,
+	// 				// @ts-expect-error
+	// 				`b/h/abc/m/${_123}`,
+	// 				// @ts-expect-error
+	// 				'b/h/abc/s/xyz',
+	// 				// @ts-expect-error
+	// 				`b/h/abc/s/${abc}`,
+	// 				`b/h/abc/s/123`,
+	// 				`b/h/abc/s/${_123}`,
+	// 			],
+	// 			[] // will error if above path errors are cleared
+	// 		)
+	// })
 
 	it('test arr = string[] trigger error', async () => {
 		const ref = users.ref()
@@ -1382,33 +1384,33 @@ describe('test update and get', () => {
 		}
 	})
 
-	it('test not enough data type', async () => {
-		const ref = users.ref()
-		const abc = 'abc' as string
-		const _123 = 123 as number
-		const arr = [
-			'a',
-			'b',
-			'b/h',
-			'b/h/abc',
-			`b/h/${abc}`,
-			'b/h/abc/m/xyz',
-			`b/h/abc/m/${abc}`,
-			`b/h/abc/s/123`,
-			`b/h/abc/s/${_123}`,
-		] as const
-		;() => {
-			update(
-				ref,
-				arr, // @ts-expect-error
-				[data['a']]
-			)
-			update(
-				ref,
-				arr,
-				// @ts-expect-error
-				[]
-			)
-		}
-	})
+	// it('test not enough data type', async () => {
+	// 	const ref = users.ref()
+	// 	const abc = 'abc' as string
+	// 	const _123 = 123 as number
+	// 	const arr = [
+	// 		'a',
+	// 		'b',
+	// 		'b/h',
+	// 		'b/h/abc',
+	// 		`b/h/${abc}`,
+	// 		'b/h/abc/m/xyz',
+	// 		`b/h/abc/m/${abc}`,
+	// 		`b/h/abc/s/123`,
+	// 		`b/h/abc/s/${_123}`,
+	// 	] as const
+	// 	;() => {
+	// 		update(
+	// 			ref,
+	// 			arr, // @ts-expect-error
+	// 			[data['a']]
+	// 		)
+	// 		update(
+	// 			ref,
+	// 			arr,
+	// 			// @ts-expect-error
+	// 			[]
+	// 		)
+	// 	}
+	// })
 })

@@ -4,13 +4,37 @@ import {
 	ReplaceNumericRecordIfInputIsRecordString,
 	GetFullPath,
 	GetAllPushAbleOnlyPaths,
+	GetNumberOfSlash,
+	IsSameOrSubString,
 } from './utils'
 import {
 	ErrorIsPushOnlyAbleType,
 	ErrorNeedTupleNotArray,
 	ErrorElementNeedConstAssertion,
+	ErrorPathHasAncestor,
 } from './error'
 import { ValidateChildPath } from './child'
+
+type ReplaceIfAncestorExist<
+	T extends readonly string[],
+	U extends string,
+	Ancestors extends string[] = []
+> = Ancestors['length'] extends 0
+	? T extends readonly [infer H extends string, ...infer R extends string[]]
+		? ReplaceIfAncestorExist<
+				R,
+				U,
+				[
+					...Ancestors,
+					...(GetNumberOfSlash<H> extends GetNumberOfSlash<U>
+						? []
+						: IsSameOrSubString<H, U> extends true
+						? [H]
+						: [])
+				]
+		  >
+		: U
+	: ErrorPathHasAncestor<U, Ancestors[0]>
 
 type ValidateChildPathAndCheckIsNotPushAbleOnly<
 	T extends MetaType,
@@ -43,8 +67,14 @@ export type ValidateNodeNames<
 				string extends P
 					? GetFullPath<T, U, P> extends never
 						? ErrorElementNeedConstAssertion
-						: ValidateChildPathAndCheckIsNotPushAbleOnly<T, U, P>
-					: ValidateChildPathAndCheckIsNotPushAbleOnly<T, U, P>
+						: ReplaceIfAncestorExist<
+								V,
+								ValidateChildPathAndCheckIsNotPushAbleOnly<T, U, P>
+						  >
+					: ReplaceIfAncestorExist<
+							V,
+							ValidateChildPathAndCheckIsNotPushAbleOnly<T, U, P>
+					  >
 			]
 	  >
 	: never
