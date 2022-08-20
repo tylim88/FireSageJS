@@ -39,5 +39,5 @@ export const set = <
 				FindNestedWriteTypeFromFullPath<T, U>
 		  >
 ) => {
-	return set_(ref as any, value)
+	return set_(ref, value)
 }

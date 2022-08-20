@@ -23,5 +23,5 @@ export const update = <
 		obj[item] = nodeTypes[index]
 	})
 
-	return update_(ref as any, obj)
+	return update_(ref, obj)
 }

@@ -1,4 +1,5 @@
-import { onValue, isOptions } from './onValue'
+import { onValue } from './onValue'
+import { isOptions } from '../utils'
 import {
 	generateRandomData,
 	initializeApp,

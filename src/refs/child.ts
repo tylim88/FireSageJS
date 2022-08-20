@@ -22,7 +22,7 @@ export const child = <
 	parent: S,
 	path: V extends never ? V : ValidateChildPath<T, U, V>
 ) => {
-	return child_(parent as any, path as string) as DatabaseReference<
+	return child_(parent as any, path) as DatabaseReference<
 		T,
 		GetFullPath<T, U, V>
 	>

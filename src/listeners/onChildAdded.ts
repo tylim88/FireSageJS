@@ -1,8 +1,8 @@
-import { onValue as onValue_ } from 'firebase/database'
+import { onChildAdded as onChildAdded_ } from 'firebase/database'
 import { ListenOptions, OnChildAdded } from '../types'
 import { isOptions } from '../utils'
 
-export const onValue: OnChildAdded = (
+export const onChildAdded: OnChildAdded = (
 	ref,
 	callback,
 	cancelCallback?: ((error: Error) => unknown) | ListenOptions,
@@ -13,15 +13,15 @@ export const onValue: OnChildAdded = (
 		options || (isOptions(cancelCallback) ? cancelCallback : undefined)
 	if (cancelCallback_ && options_) {
 		// @ts-expect-error
-		return onValue_(ref, callback, cancelCallback_, options_)
+		return onChildAdded_(ref, callback, cancelCallback_, options_)
 	} else if (cancelCallback_ && !options_) {
 		// @ts-expect-error
-		return onValue_(ref, callback, cancelCallback_)
+		return onChildAdded_(ref, callback, cancelCallback_)
 	} else if (!cancelCallback_ && options_) {
 		// @ts-expect-error
-		return onValue_(ref, callback, options_)
+		return onChildAdded_(ref, callback, options_)
 	} else {
 		// @ts-expect-error
-		return onValue_(ref, callback)
+		return onChildAdded_(ref, callback)
 	}
 }
