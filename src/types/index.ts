@@ -1,6 +1,6 @@
 export * from './metaType'
 export * from './alias'
-export * from './refs'
+export * from './query'
 export * from './utils'
 export * from './error'
 export * from './snapshots'

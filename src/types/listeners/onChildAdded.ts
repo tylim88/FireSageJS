@@ -1,5 +1,5 @@
 import { MetaType } from '../metaType'
-import { DatabaseReference } from '../refs'
+import { DatabaseReference } from '../query'
 import { DataSnapshot } from '../snapshots'
 import { Unsubscribe, ListenOptions } from '../alias'
 

@@ -29,7 +29,7 @@ export const push = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
 >(
-	ref: DatabaseReference<T, U> extends never
+	ref: string extends never
 		? DatabaseReference<T, U>
 		: U extends GetAllPushAblePaths<T> | GetAllPushAbleOnlyPaths<T>
 		? DatabaseReference<T, U>

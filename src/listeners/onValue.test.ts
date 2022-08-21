@@ -1,11 +1,10 @@
 import { onValue } from './onValue'
-import { isOptions } from '../utils'
 import {
 	generateRandomData,
 	initializeApp,
 	usersCreator,
 	Users,
-	readAndExpectSet,
+	compareOnValue,
 } from '../utilForTests'
 import { set } from '../operations'
 import { IsSame, IsTrue, DataSnapshot } from '../types'
@@ -14,14 +13,10 @@ initializeApp()
 const users = usersCreator()
 
 describe('test onValue', () => {
-	it('test isOption', () => {
-		expect(isOptions({})).toBe(false)
-		expect(isOptions({ onlyOnce: false })).toBe(true)
-		expect(isOptions({ onlyOnce: true })).toBe(true)
-	})
 	it('test with options', done => {
+		const rand = generateRandomData()
+		const data = rand.data
 		const ref = users.ref()
-		const data = generateRandomData().data
 		expect.hasAssertions()
 		set(ref, data).then(() => {
 			const unsub = onValue(
@@ -30,11 +25,11 @@ describe('test onValue', () => {
 					type A = typeof dataSnapshot
 					type B = DataSnapshot<Users, undefined>
 					IsTrue<IsSame<B, A>>()
-					await readAndExpectSet(ref, undefined, data)
+					compareOnValue(undefined, dataSnapshot, data)
 					unsub()
 					done()
 				},
-				{ onlyOnce: false }
+				{ onlyOnce: true }
 			)
 		})
 	})
@@ -42,7 +37,8 @@ describe('test onValue', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}`)
+		const path = `b/h/${randStringHKey}` as const
+		const ref = users.ref(path)
 		expect.hasAssertions()
 		set(ref, data['b']['h'][randStringHKey]!).then(() => {
 			const unsub = onValue(
@@ -51,7 +47,7 @@ describe('test onValue', () => {
 					type A = typeof dataSnapshot
 					type B = DataSnapshot<Users, `b/h/${string}`>
 					IsTrue<IsSame<B, A>>()
-					await readAndExpectSet(ref, `b/h/${randStringHKey}`, data)
+					compareOnValue(path, dataSnapshot, data)
 					unsub()
 					done()
 				},
@@ -65,7 +61,8 @@ describe('test onValue', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/i`)
+		const path = `b/h/${randStringHKey}/i` as const
+		const ref = users.ref(path)
 		expect.hasAssertions()
 		set(ref, data['b']['h'][randStringHKey]!['i']).then(() => {
 			const unsub = onValue(
@@ -74,7 +71,7 @@ describe('test onValue', () => {
 					type A = typeof dataSnapshot
 					type B = DataSnapshot<Users, `b/h/${string}/i`>
 					IsTrue<IsSame<B, A>>()
-					await readAndExpectSet(ref, `b/h/${randStringHKey}/i`, data)
+					compareOnValue(path, dataSnapshot, data)
 					unsub()
 					done()
 				},
@@ -85,21 +82,48 @@ describe('test onValue', () => {
 			)
 		})
 	})
-	it('test with push-able and remove-able', done => {
+	it('test with push-able and remove-able data type', done => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/m`)
+		const path = `b/h/${randStringHKey}/m` as const
+		const ref = users.ref(path)
 		expect.hasAssertions()
 		set(ref, data['b']['h'][randStringHKey]!['m']).then(() => {
 			const unsub = onValue(ref, async dataSnapshot => {
 				type A = typeof dataSnapshot
 				type B = DataSnapshot<Users, `b/h/${string}/m`>
 				IsTrue<IsSame<B, A>>()
-				await readAndExpectSet(ref, `b/h/${randStringHKey}/m`, data)
+				compareOnValue(path, dataSnapshot, data)
 				unsub()
 				done()
 			})
 		})
 	})
 })
+// it('test with options', done => {
+// 	const rand = generateRandomData()
+// 	const data = rand.data
+// 	const ref = users.ref()
+// 	expect.hasAssertions()
+// 	const unsub = onValue(
+// 		ref,
+// 		async dataSnapshot => {
+// 			type A = typeof dataSnapshot
+// 			type B = DataSnapshot<Users, undefined>
+// 			IsTrue<IsSame<B, A>>()
+// 			await compareSnapshotAndValueWithPath(ref, undefined, data)
+// 		}
+// { onlyOnce: true }
+// 	)
+// 	// weird async operation sequence
+// 	// does not write into database if written like this, probably because jest worker ended
+// 	// not a correct way to test but will keep this as reference for future
+// 	set(ref, data) // ! see explanation below
+// 	unsub()
+// 	done()
+// 	// if we haven't listened to root node
+// 	// the listener callback will not run immediately after we setup the listener
+// 	// if we haven listened to root node
+// 	// the listener callback will run immediately after we setup the listener
+// })

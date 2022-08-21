@@ -11,6 +11,7 @@ import {
 	Removable,
 	PushAbleOnly,
 	PseudoArray,
+	DataSnapshot,
 } from './types'
 import { getFiresage } from '.'
 import { initializeApp as initializeApp_ } from 'firebase/app'
@@ -52,6 +53,8 @@ export type Users = MetaTypeCreator<{
 
 export const usersCreator = getFiresage<Users>()
 
+const getRandomCapitalAlphabet = () => pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
+
 export const generateRandomData = (): {
 	data: Users['write']
 	k: string
@@ -60,11 +63,13 @@ export const generateRandomData = (): {
 	randStringOKey: string
 	randStringPKey: string
 	randStringMKey: string
+	randStringQKey: string
 } => {
-	const randStringHKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
-	const randStringMKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
-	const randStringOKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
-	const randStringPKey = pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
+	const randStringHKey = getRandomCapitalAlphabet()
+	const randStringMKey = getRandomCapitalAlphabet()
+	const randStringOKey = getRandomCapitalAlphabet()
+	const randStringPKey = getRandomCapitalAlphabet()
+	const randStringQKey = getRandomCapitalAlphabet()
 	const k = v4()
 	const u = v4()
 	return {
@@ -98,13 +103,14 @@ export const generateRandomData = (): {
 				},
 			},
 			o: { [randStringOKey]: Math.random() },
-			q: { [randStringOKey]: pick([4, 5, 6] as const)[0]! },
+			q: { [randStringQKey]: pick([4, 5, 6] as const)[0]! },
 			u: [u],
 		},
 		randStringHKey,
 		randStringOKey,
 		randStringPKey,
 		randStringMKey,
+		randStringQKey,
 		k,
 		u,
 	}
@@ -131,14 +137,39 @@ export const readAndExpectSet = async <
 	return snapshot
 }
 
-export const readAndExpectUpdate = async <
+const getNarrowedDataFromPath = (
+	path: string | undefined,
+	fullData: unknown
+) => {
+	const arr = path?.split('/') || []
+	arr[arr.length - 1] === '' && arr.splice(-1, 1)
+	return arr.reduce((acc, item) => {
+		// @ts-expect-error
+		return acc[item]
+	}, fullData)
+}
+
+export const compareOnValue = <
 	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
+	U extends (keyof T['flatten_write'] & string) | undefined
+>(
+	path: U,
+	snapshot: DataSnapshot<T, U>,
+	inputData: FindNestedWriteTypeFromFullPath<T, undefined>
+) => {
+	const outputData = snapshot.val()
+	expect(getNarrowedDataFromPath(path, inputData)).toEqual(outputData)
+}
+
+export const readAndExpectUpdate = async <
+	S extends DatabaseReference<any, any>,
+	T extends S extends DatabaseReference<infer X, any> ? X : never,
+	U extends S extends DatabaseReference<any, infer X> ? X : never,
 	V extends FindAllChildKeys<T, U> extends never
 		? ErrorHasNoChild<U>
 		: FindAllChildKeys<T, U>
 >(
-	ref: DatabaseReference<T, U>,
+	ref: S,
 	path: V extends never
 		? V
 		: string extends FindAllChildKeys<T, U>
@@ -151,13 +182,7 @@ export const readAndExpectUpdate = async <
 ) => {
 	const snapshot = await get(ref)
 	const outputData = snapshot.val()
-	const arr = path?.split('/') || []
-	arr[arr.length - 1] === '' && arr.splice(-1, 1)
-	const narrowedOutputData = arr.reduce((acc, item) => {
-		// @ts-expect-error
-		return acc[item]
-	}, outputData)
-	expect(narrowedOutputData).toEqual(inputData)
+	expect(getNarrowedDataFromPath(path, outputData)).toEqual(inputData)
 
 	return snapshot
 }

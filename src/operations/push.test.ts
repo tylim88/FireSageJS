@@ -1,7 +1,7 @@
 import { set, get } from '../operations'
 import { initializeApp, usersCreator } from '../utilForTests'
 import { push } from './push'
-import { serverTimestamp } from './serverTimestamp'
+import { serverTimestamp } from '../fieldValue'
 
 initializeApp()
 const users = usersCreator()

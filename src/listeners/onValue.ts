@@ -1,8 +1,8 @@
 import { onValue as onValue_ } from 'firebase/database'
-import { ListenOptions, OnChildAdded } from '../types'
+import { ListenOptions, OnValue } from '../types'
 import { isOptions } from '../utils'
 
-export const onValue: OnChildAdded = (
+export const onValue: OnValue = (
 	ref,
 	callback,
 	cancelCallback?: ((error: Error) => unknown) | ListenOptions,

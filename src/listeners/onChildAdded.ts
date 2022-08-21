@@ -2,9 +2,10 @@ import { onChildAdded as onChildAdded_ } from 'firebase/database'
 import { ListenOptions, OnChildAdded } from '../types'
 import { isOptions } from '../utils'
 
+// @ts-expect-error
 export const onChildAdded: OnChildAdded = (
-	ref,
-	callback,
+	ref: unknown,
+	callback: unknown,
 	cancelCallback?: ((error: Error) => unknown) | ListenOptions,
 	options?: ListenOptions
 ) => {
