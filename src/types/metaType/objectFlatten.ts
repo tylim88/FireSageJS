@@ -1,23 +1,18 @@
 import { RemoveLastSlash } from '../utils'
 
-type DeepKey_<T, K extends keyof T, Mode extends 'read' | 'write'> = K extends
-	| string
-	| number
-	| `${number}`
+export type DeepKey<
+	T,
+	Mode extends 'read' | 'write',
+	K extends keyof T = keyof T
+> = K extends string | number | `${number}`
 	? T[K] extends infer R
 		? R extends Record<string, unknown>
 			?
 					| (`${K}/` & (Mode extends 'write' ? unknown : never))
-					| `${K}/${DeepKey_<R, keyof R, Mode>}`
+					| `${K}/${DeepKey<R, Mode>}`
 			: `${K}/`
 		: never // impossible route
 	: never // impossible route
-
-export type DeepKey<T, Mode extends 'read' | 'write'> = DeepKey_<
-	T,
-	keyof T,
-	Mode
->
 
 type DeepValue<
 	T,

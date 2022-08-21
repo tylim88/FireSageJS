@@ -1,6 +1,11 @@
 import { MetaType, MetaTypeCreator } from './metaType'
 import { FindParentKey, GetLastSegment } from './utils'
 
+export declare interface ThenableReference<
+	T extends MetaType,
+	U extends (keyof T['flatten_write'] & string) | undefined
+> extends DatabaseReference<T, U> {}
+
 export declare interface DatabaseReference<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined

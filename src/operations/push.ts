@@ -6,6 +6,8 @@ import {
 	GetAllPushAbleOnlyPaths,
 	ErrorNotPushAble,
 	FindNestedWriteTypeFromFullPath,
+	FindAllTopLevelChildKeys,
+	GetFullPath,
 } from '../types'
 /**
 Generates a new child location using a unique key and returns its Reference.
@@ -36,5 +38,7 @@ export const push = <
 		: ErrorNotPushAble<U>,
 	value: FindNestedWriteTypeFromFullPath<T, `${U}/string`>
 ) => {
-	return push_(ref as any, value)
+	return push_(ref as any, value) as unknown as Promise<
+		DatabaseReference<T, GetFullPath<T, U, FindAllTopLevelChildKeys<T, U>>>
+	>
 }

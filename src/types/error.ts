@@ -23,7 +23,7 @@ export type ErrorIsPushOnlyAbleType<T extends string | undefined> =
 export type ErrorNeedTupleNotArray =
 	`Error: The type of argument is an array but require tuple, it seem like you forgot to assert it as const, eg: '[1, 2, 3] as const'.`
 export type ErrorElementNeedConstAssertion =
-	`Error: This element type is string, you may forgot to assert it as const, eg: 'abc' as const`
+	`Error: Two causes, either or both: 1.)This element type is string, you may forgot to assert it as const, eg: 'abc' as const; 2) You are using number, please use string numeric instead, eg: instead of 1, use '1'.`
 export type ErrorNoSuchChild<
 	T extends string,
 	U extends string | undefined
