@@ -4,6 +4,8 @@ export type ErrorHasNoChild<T extends string | undefined> =
 		: 'root'}' node has no child OR 2) you are trying to use numeric string key on non-numeric string key. Example: the path type is 'abc/${number}' but you supply 'abc/xyz'`
 export type ErrorInvalidDataType =
 	`Error: This node has invalid data type and is replaced with this error message. Valid data type is null, boolean, number, string, object literal(or map type), Removable, ServerTimestamp, PushAble<T>, PushAbleOnly<T> and PseudoArray<T>.`
+export type ErrorUsePseudoArrayInstead =
+	`Error: This node has invalid data type and is replaced with this error message. Record<number, T> is not a valid data type, use PseudoArray<T> type instead.`
 export type ErrorUnknownProperty<T extends string> =
 	`Error: Unknown properties: '${T}'`
 export type ErrorNotPushAble<T extends string | undefined> =

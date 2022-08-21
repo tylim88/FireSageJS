@@ -1,5 +1,9 @@
-import { ReplaceInvalidUnion } from './replaceInvalidDataType'
-import { ErrorObjectTypeUnion } from '../error'
+import {
+	ReplaceInvalidUnion,
+	ReplaceRecordNumber,
+	ReplaceInvalidDataTypeBase,
+} from './replaceInvalidDataType'
+import { ErrorObjectTypeUnion, ErrorUsePseudoArrayInstead } from '../error'
 import {
 	ServerTimestamp,
 	PushAble,
@@ -54,7 +58,7 @@ describe('test replace invalid data type', () => {
 		IsTrue<IsSame<J['a']['d']['e'], ErrorObjectTypeUnion>>()
 		IsTrue<IsSame<K['a']['d']['e'], ErrorObjectTypeUnion>>()
 	})
-	it('test ReplaceUnionWithObjectWithErrorMessage, negative test', () => {
+	it('test ReplaceUnionWithObjectWithErrorMessage, positive test', () => {
 		type Z = {
 			a:
 				| { b: 1; d: { e: { f: 2 | Removable } | Removable } | Removable }
@@ -62,5 +66,24 @@ describe('test replace invalid data type', () => {
 		}
 		type A = ReplaceInvalidUnion<Z>
 		IsTrue<IsSame<A, Z>>()
+	})
+	it('test replace record number', () => {
+		type A = ReplaceInvalidDataTypeBase<{
+			a: {
+				b: Record<number, unknown>
+				d: { e: { f: Record<number, unknown> }; g: boolean }
+			}
+		}>
+		IsTrue<
+			IsSame<
+				A,
+				{
+					a: {
+						b: ErrorUsePseudoArrayInstead
+						d: { e: { f: ErrorUsePseudoArrayInstead }; g: boolean }
+					}
+				}
+			>
+		>()
 	})
 })

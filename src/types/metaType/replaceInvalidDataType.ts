@@ -1,4 +1,8 @@
-import { ErrorInvalidDataType, ErrorObjectTypeUnion } from '../error'
+import {
+	ErrorInvalidDataType,
+	ErrorObjectTypeUnion,
+	ErrorUsePseudoArrayInstead,
+} from '../error'
 import {
 	ServerTimestamp,
 	PushAble,
@@ -7,6 +11,12 @@ import {
 	PseudoArray,
 } from '../fieldValue'
 import { IsUnion } from '../utils'
+
+export type ReplaceRecordNumber<T, U> = T extends Record<infer X, unknown>
+	? X extends number | `${number}`
+		? ErrorUsePseudoArrayInstead
+		: U
+	: never
 
 export type ReplaceInvalidDataTypeBase<T> = T extends
 	| boolean
@@ -17,7 +27,7 @@ export type ReplaceInvalidDataTypeBase<T> = T extends
 	| null
 	? T
 	: T extends Record<string, unknown>
-	? { [K in keyof T]: ReplaceInvalidDataTypeBase<T[K]> }
+	? ReplaceRecordNumber<T, { [K in keyof T]: ReplaceInvalidDataTypeBase<T[K]> }>
 	: T extends PushAble<infer X>
 	? PushAble<ReplaceInvalidDataTypeBase<X>>
 	: T extends PushAbleOnly<infer X>
@@ -35,7 +45,7 @@ export type ReplaceInvalidDataTypeRead<T> = T extends
 	| null
 	? T
 	: T extends Record<string, unknown>
-	? { [K in keyof T]: ReplaceInvalidDataTypeRead<T[K]> }
+	? ReplaceRecordNumber<T, { [K in keyof T]: ReplaceInvalidDataTypeRead<T[K]> }>
 	: T extends PushAble<infer X>
 	? PushAble<ReplaceInvalidDataTypeRead<X>>
 	: T extends PushAbleOnly<infer X>
@@ -53,7 +63,10 @@ export type ReplaceInvalidDataTypeWrite<T> = T extends
 	| null
 	? T
 	: T extends Record<string, unknown>
-	? { [K in keyof T]: ReplaceInvalidDataTypeWrite<T[K]> }
+	? ReplaceRecordNumber<
+			T,
+			{ [K in keyof T]: ReplaceInvalidDataTypeWrite<T[K]> }
+	  >
 	: T extends PushAble<infer X>
 	? PushAble<ReplaceInvalidDataTypeWrite<X>>
 	: T extends PushAbleOnly<infer X>
