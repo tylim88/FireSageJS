@@ -19,7 +19,7 @@ export type ErrorNotRemoveAble<T extends string | undefined> =
 export type ErrorIsPushOnlyAbleType<T extends string | undefined> =
 	`Error: The '${T extends string
 		? T
-		: 'Root'}' node type is PushAbleOnly<T>, you cannot set or update PushAbleOnly<T> node, to add new node use 'push' instead of 'set'. You can still set or update the child nodes as long as they are not PushAbleOnly<T>. If you intend to update or set PushAbleOnly<T> node, change its type to PushAble<T>.`
+		: 'Root'}' data type is PushAbleOnly<T>, you cannot set or update PushAbleOnly<T> node, to add new node use 'push' instead of 'set'. You can still set or update the child nodes as long as they are not PushAbleOnly<T>. If you intend to update or set PushAbleOnly<T> node, change its type to PushAble<T>.`
 export type ErrorNeedTupleNotArray =
 	`Error: The type of argument is an array but require tuple, it seem like you forgot to assert it as const, eg: '[1, 2, 3] as const'.`
 export type ErrorElementNeedConstAssertion =
@@ -35,7 +35,7 @@ export type ErrorObjectTypeUnion =
 export type ErrorInvalidOrNeedNumericSegment =
 	`Error: Incorrect type path, possible cause: 1) incorrect path OR 2) you are trying to use non-numeric string key on numeric string key. Example: the path type is 'abc/${number}' but your input is 'abc/${string}'`
 export type ErrorNeedNumericKey =
-	'Error: Key must be numeric. Example: the node type is { 1: boolean} but your input is { a:boolean }'
+	'Error: Key must be numeric. Example: the data type is { 1: boolean} but your input is { a:boolean }'
 export type ErrorPathHasAncestor<
 	Descendent extends string,
 	Ancestor extends string

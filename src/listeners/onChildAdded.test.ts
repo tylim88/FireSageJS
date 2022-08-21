@@ -4,7 +4,7 @@ import {
 	initializeApp,
 	usersCreator,
 	Users,
-	readAndExpectSet,
+	compareOnValue,
 } from '../utilForTests'
 import { set, push } from '../operations'
 import { IsSame, IsTrue, DataSnapshot } from '../types'
@@ -16,18 +16,19 @@ describe('test onChildAdded', () => {
 	it('test with options', done => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
+		const randStringMKey = rand.randStringMKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/m`)
+		const path = `b/h/${randStringHKey}/m` as const
+		const ref = users.ref(path)
 		expect.hasAssertions()
 		set(ref, data['b']['h'][randStringHKey]!['m']).then(() => {
 			const unsub = onChildAdded(
 				ref,
 				async dataSnapshot => {
 					type A = typeof dataSnapshot
-					console.log(dataSnapshot.val())
-					type B = DataSnapshot<Users, `b/h/${string}/m`>
+					type B = DataSnapshot<Users, `b/h/${string}/m/${string}`>
 					IsTrue<IsSame<B, A>>()
-					await readAndExpectSet(ref, `b/h/${randStringHKey}/m`, data)
+					compareOnValue(`${path}/${randStringMKey}`, dataSnapshot, data)
 					unsub()
 					done()
 				},
@@ -40,7 +41,8 @@ describe('test onChildAdded', () => {
 		const randStringHKey = rand.randStringHKey
 		const randStringPKey = rand.randStringPKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/p`)
+		const path = `b/h/${randStringHKey}/p` as const
+		const ref = users.ref(path)
 		expect.hasAssertions()
 		push(ref, data['b']['h'][randStringHKey]!['p'][randStringPKey]!).then(
 			() => {
@@ -48,10 +50,9 @@ describe('test onChildAdded', () => {
 					ref,
 					async dataSnapshot => {
 						type A = typeof dataSnapshot
-						console.log(dataSnapshot.val())
-						type B = DataSnapshot<Users, `b/h/${string}/p`>
+						type B = DataSnapshot<Users, `b/h/${string}/p/${string}`>
 						IsTrue<IsSame<B, A>>()
-						await readAndExpectSet(ref, `b/h/${randStringHKey}/p`, data)
+						compareOnValue(`${path}/${randStringPKey}`, dataSnapshot, data)
 						unsub()
 						done()
 					},
@@ -66,17 +67,17 @@ describe('test onChildAdded', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/s`)
+		const path = `b/h/${randStringHKey}/s` as const
+		const ref = users.ref(path)
 		expect.hasAssertions()
 		set(ref, data['b']['h'][randStringHKey]!['s']).then(() => {
 			const unsub = onChildAdded(
 				ref,
 				async dataSnapshot => {
 					type A = typeof dataSnapshot
-					console.log(dataSnapshot.val())
-					type B = DataSnapshot<Users, `b/h/${string}/s`>
+					type B = DataSnapshot<Users, `b/h/${string}/s/${number}`>
 					IsTrue<IsSame<B, A>>()
-					await readAndExpectSet(ref, `b/h/${randStringHKey}/s`, data)
+					compareOnValue(`${path}/0`, dataSnapshot, data)
 					unsub()
 					done()
 				},
@@ -86,5 +87,40 @@ describe('test onChildAdded', () => {
 				{ onlyOnce: true }
 			)
 		})
+	})
+	it('test with negative path', () => {
+		;() => {
+			onChildAdded(
+				// @ts-expect-error
+				users.ref('a'),
+				() => {
+					//
+				}
+			)
+
+			onChildAdded(
+				// @ts-expect-error
+				users.ref('b/c'),
+				() => {
+					//
+				}
+			)
+
+			onChildAdded(
+				// @ts-expect-error
+				users.ref('b/d/e'),
+				() => {
+					//
+				}
+			)
+
+			onChildAdded(
+				// @ts-expect-error
+				users.ref('b/d/k'),
+				() => {
+					//
+				}
+			)
+		}
 	})
 })
