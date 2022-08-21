@@ -2,7 +2,7 @@ import {
 	MetaType,
 	MetaTypeCreator,
 	DatabaseReference,
-	FindAllChildKeys,
+	FindAllLevelChildKeys,
 	ErrorHasNoChild,
 	FindNestedWriteTypeFromFullPath,
 	RemoveLastSlash,
@@ -165,14 +165,14 @@ export const readAndExpectUpdate = async <
 	S extends DatabaseReference<any, any>,
 	T extends S extends DatabaseReference<infer X, any> ? X : never,
 	U extends S extends DatabaseReference<any, infer X> ? X : never,
-	V extends FindAllChildKeys<T, U> extends never
+	V extends FindAllLevelChildKeys<T, U> extends never
 		? ErrorHasNoChild<U>
-		: FindAllChildKeys<T, U>
+		: FindAllLevelChildKeys<T, U>
 >(
 	ref: S,
 	path: V extends never
 		? V
-		: string extends FindAllChildKeys<T, U>
+		: string extends FindAllLevelChildKeys<T, U>
 		? `${string}/` // some child key type is string and require differentiation
 		: V,
 	inputData: FindNestedWriteTypeFromFullPath<

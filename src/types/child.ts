@@ -1,4 +1,8 @@
-import { FindAllChildKeys, GetFullPath, ReplaceInvalidSegment } from './utils'
+import {
+	FindAllLevelChildKeys,
+	GetFullPath,
+	ReplaceInvalidSegment,
+} from './utils'
 import { MetaType } from './metaType'
 import {
 	ErrorHasNoChild,
@@ -10,7 +14,7 @@ export type ValidateChildPath<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	V extends string
-> = FindAllChildKeys<T, U> extends never
+> = FindAllLevelChildKeys<T, U> extends never
 	? ErrorHasNoChild<U>
 	: ReplaceInvalidSegment<
 			T,

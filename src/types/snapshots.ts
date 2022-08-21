@@ -1,7 +1,7 @@
 import { MetaType } from './metaType'
 import { DatabaseReference } from './query'
 import {
-	FindAllChildKeys,
+	FindAllLevelChildKeys,
 	FindAllTopLevelChildKeys,
 	GetFullPath,
 	GetLastSegment,
@@ -52,9 +52,9 @@ export declare class DataSnapshot<
 	 */
 	child<
 		T extends MetaType,
-		V extends FindAllChildKeys<T, U> extends never
+		V extends FindAllLevelChildKeys<T, U> extends never
 			? ErrorHasNoChild<U>
-			: FindAllChildKeys<T, U>
+			: FindAllLevelChildKeys<T, U>
 	>(path: V): DataSnapshot<T, GetFullPath<T, U, V>>
 	/**
 	 * Returns true if this `DataSnapshot` contains any data. It is slightly more
@@ -116,7 +116,7 @@ export declare class DataSnapshot<
 	 * @returns `true` if data exists at the specified child path; else
 	 *  `false`.
 	 */
-	hasChild(path: FindAllChildKeys<T, U>): boolean
+	hasChild(path: FindAllLevelChildKeys<T, U>): boolean
 	/**
 	 * Returns whether or not the `DataSnapshot` has any non-`null` child
 	 * properties.

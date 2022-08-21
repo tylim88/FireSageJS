@@ -33,23 +33,27 @@ export type FindParentNestedWriteTypeFromFullPath<
 		: never
 	: never
 
-export type FindAllChildKeys<
+export type FindAllLevelChildKeys<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
 > = U extends undefined
 	? keyof T['flatten_write'] & string
 	: keyof T['flatten_write'] & string extends infer R // make distributive
 	? R extends `${FindMetaPathType<T, U & string> & string}/${infer S}`
-		? S
+		? string extends S
+			? `${string}/`
+			: S
 		: never
 	: never // impossible route
 
 export type FindAllTopLevelChildKeys<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
-> = FindAllChildKeys<T, U> extends infer R
+> = FindAllLevelChildKeys<T, U> extends infer R
 	? R extends `${string}/${string}`
-		? never
+		? R extends `${string}/`
+			? string
+			: never
 		: R & string
 	: never // impossible route
 

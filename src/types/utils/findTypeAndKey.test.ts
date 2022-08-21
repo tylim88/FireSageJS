@@ -1,7 +1,7 @@
 import {
 	FindParentKey,
 	FindParentNestedWriteTypeFromFullPath,
-	FindAllChildKeys,
+	FindAllLevelChildKeys,
 	FindNestedReadTypeFromFullPath,
 	FindAllTopLevelChildKeys,
 	FindNestedWriteTypeFromFullPath,
@@ -51,23 +51,23 @@ describe('test', () => {
 	})
 
 	it('test Find All Child Keys', () => {
-		type A = FindAllChildKeys<Users, undefined>
-		type B = FindAllChildKeys<Users, 'a'>
-		type C = FindAllChildKeys<Users, 'b/d'>
-		type D = FindAllChildKeys<Users, 'b/d/f/j'>
-		type E = FindAllChildKeys<Users, `b/h/abc`>
-		type F = FindAllChildKeys<Users, `b/h/${string}/i`>
-		type G = FindAllChildKeys<Users, `b/h`>
-		type H = FindAllChildKeys<Users, `b/h/${string}/l`>
-		type I = FindAllChildKeys<Users, `b/h/${string}/m`>
-		type J = FindAllChildKeys<Users, `b/h/${string}/m/${string}`>
-		type K = FindAllChildKeys<Users, `b/h/${string}/m/abc/n`>
-		type L = FindAllChildKeys<Users, `b/h/${string}/p`>
-		type M = FindAllChildKeys<Users, `b/h/${string}/p/${string}`>
-		type N = FindAllChildKeys<Users, `b/h/abc/p/${string}/r`>
-		type O = FindAllChildKeys<Users, `b/h/${string}/s`>
-		type P = FindAllChildKeys<Users, `b/h/${string}/s/${string}`>
-		type Q = FindAllChildKeys<Users, `b/h/${string}/s/abc/t`>
+		type A = FindAllLevelChildKeys<Users, undefined>
+		type B = FindAllLevelChildKeys<Users, 'a'>
+		type C = FindAllLevelChildKeys<Users, 'b/d'>
+		type D = FindAllLevelChildKeys<Users, 'b/d/f/j'>
+		type E = FindAllLevelChildKeys<Users, `b/h/abc`>
+		type F = FindAllLevelChildKeys<Users, `b/h/${string}/i`>
+		type G = FindAllLevelChildKeys<Users, `b/h`>
+		type H = FindAllLevelChildKeys<Users, `b/h/${string}/l`>
+		type I = FindAllLevelChildKeys<Users, `b/h/${string}/m`>
+		type J = FindAllLevelChildKeys<Users, `b/h/${string}/m/${string}`>
+		type K = FindAllLevelChildKeys<Users, `b/h/${string}/m/abc/n`>
+		type L = FindAllLevelChildKeys<Users, `b/h/${string}/p`>
+		type M = FindAllLevelChildKeys<Users, `b/h/${string}/p/${string}`>
+		type N = FindAllLevelChildKeys<Users, `b/h/abc/p/${string}/r`>
+		type O = FindAllLevelChildKeys<Users, `b/h/${string}/s`>
+		type P = FindAllLevelChildKeys<Users, `b/h/${string}/s/${string}`>
+		type Q = FindAllLevelChildKeys<Users, `b/h/${string}/s/abc/t`>
 
 		IsTrue<IsSame<A, keyof Users['flatten_write']>>()
 		IsTrue<IsSame<B, never>>()
@@ -90,12 +90,28 @@ describe('test', () => {
 			>
 		>()
 		IsTrue<IsSame<F, never>>()
-		IsTrue<IsSame<G, string>>()
+		IsTrue<
+			IsSame<
+				G,
+				| `${string}/`
+				| `${string}/m`
+				| `${string}/i`
+				| `${string}/l`
+				| `${string}/p`
+				| `${string}/s`
+				| `${string}/m/${string}`
+				| `${string}/m/${string}/n`
+				| `${string}/p/${string}`
+				| `${string}/p/${string}/r`
+				| `${string}/s/${number}`
+				| `${string}/s/${number}/t`
+			>
+		>()
 		IsTrue<IsSame<H, never>>()
-		IsTrue<IsSame<I, string>>()
+		IsTrue<IsSame<I, `${string}/` | `${string}/n`>>()
 		IsTrue<IsSame<J, 'n'>>()
 		IsTrue<IsSame<K, never>>()
-		IsTrue<IsSame<L, string>>()
+		IsTrue<IsSame<L, `${string}/` | `${string}/r`>>()
 		IsTrue<IsSame<M, 'r'>>()
 		IsTrue<IsSame<N, never>>()
 		IsTrue<IsSame<O, `${number}` | `${number}/t`>>()
