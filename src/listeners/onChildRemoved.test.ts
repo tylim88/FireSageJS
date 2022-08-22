@@ -53,16 +53,16 @@ describe('test onChildRemoved', () => {
 				type B = DataSnapshot<Users, `b/h/${string}/p/${string}`>
 				IsTrue<IsSame<B, A>>()
 				compareOnValue(`${path}/${randStringPKey}`, dataSnapshot, data)
-				unsub()
-				done()
 			},
 			() => {
 				//
 			}
 		)
 		push(ref, data['b']['h'][randStringHKey]!['p'][randStringPKey]!).then(
-			thenRef => {
-				remove(users.ref(`${path}/${thenRef.key}`))
+			async thenRef => {
+				await remove(users.ref(`${path}/${thenRef.key}`))
+				unsub()
+				done()
 			}
 		)
 	})
@@ -80,16 +80,16 @@ describe('test onChildRemoved', () => {
 				type B = DataSnapshot<Users, `b/h/${string}/s/${number}`>
 				IsTrue<IsSame<B, A>>()
 				compareOnValue(`${path}/0`, dataSnapshot, data)
-				unsub()
-				done()
 			},
 			() => {
 				//
 			},
 			{ onlyOnce: true }
 		)
-		set(ref, data['b']['h'][randStringHKey]!['s']).then(() => {
-			remove(users.ref(`${path}/0`))
+		set(ref, data['b']['h'][randStringHKey]!['s']).then(async () => {
+			await remove(users.ref(`${path}/0`))
+			unsub()
+			done()
 		})
 	})
 	it('test with negative path', () => {

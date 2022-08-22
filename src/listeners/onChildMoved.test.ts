@@ -20,7 +20,6 @@ describe('test onChildMoved', () => {
 		const data = rand.data
 		const path = `b/h/${randStringHKey}/m` as const
 		const ref = users.ref(path)
-
 		expect.hasAssertions()
 		const unsub = onChildMoved(
 			ref,
@@ -29,13 +28,13 @@ describe('test onChildMoved', () => {
 				type B = DataSnapshot<Users, `b/h/${string}/m/${string}`>
 				IsTrue<IsSame<B, A>>()
 				compareOnValue(`${path}/${randStringMKey}`, dataSnapshot, data)
-				unsub()
-				done()
 			},
 			{ onlyOnce: false }
 		)
-		set(ref, data['b']['h'][randStringHKey]!['m']).then(() => {
-			setPriority(users.ref(`${path}/${randStringMKey}`), 1000)
+		set(ref, data['b']['h'][randStringHKey]!['m']).then(async () => {
+			await setPriority(users.ref(`${path}/${randStringMKey}`), 1000)
+			unsub()
+			done()
 		})
 	})
 	it('test with cancel callback', done => {
@@ -53,16 +52,16 @@ describe('test onChildMoved', () => {
 				type B = DataSnapshot<Users, `b/h/${string}/p/${string}`>
 				IsTrue<IsSame<B, A>>()
 				compareOnValue(`${path}/${randStringPKey}`, dataSnapshot, data)
-				unsub()
-				done()
 			},
 			() => {
 				//
 			}
 		)
 		push(ref, data['b']['h'][randStringHKey]!['p'][randStringPKey]!).then(
-			thenRef => {
-				setPriority(users.ref(`${path}/${thenRef.key}`), 1000)
+			async thenRef => {
+				await setPriority(users.ref(`${path}/${thenRef.key}`), 1000)
+				unsub()
+				done()
 			}
 		)
 	})
@@ -80,16 +79,16 @@ describe('test onChildMoved', () => {
 				type B = DataSnapshot<Users, `b/h/${string}/s/${number}`>
 				IsTrue<IsSame<B, A>>()
 				compareOnValue(`${path}/0`, dataSnapshot, data)
-				unsub()
-				done()
 			},
 			() => {
 				//
 			},
 			{ onlyOnce: true }
 		)
-		set(ref, data['b']['h'][randStringHKey]!['s']).then(() => {
-			setPriority(users.ref(`${path}/0`), 1000)
+		set(ref, data['b']['h'][randStringHKey]!['s']).then(async () => {
+			await setPriority(users.ref(`${path}/0`), 1000)
+			unsub()
+			done()
 		})
 	})
 	it('test with negative path', () => {

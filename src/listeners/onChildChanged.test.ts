@@ -33,13 +33,13 @@ describe('test onChildChanged', () => {
 				IsTrue<IsSame<B, A>>()
 				data['b']['h'][randStringHKey]!['m'][randStringMKey]!['n'] = newData
 				compareOnValue(`${path}/${randStringMKey}`, dataSnapshot, data)
-				unsub()
-				done()
 			},
 			{ onlyOnce: false }
 		)
-		set(ref, data['b']['h'][randStringHKey]!['m']).then(() => {
-			update(ref, [randStringMKey], [{ n: newData }])
+		set(ref, data['b']['h'][randStringHKey]!['m']).then(async () => {
+			await update(ref, [randStringMKey], [{ n: newData }])
+			unsub()
+			done()
 		})
 	})
 	it('test with cancel callback', done => {
@@ -68,8 +68,8 @@ describe('test onChildChanged', () => {
 			}
 		)
 		push(ref, data['b']['h'][randStringHKey]!['p'][randStringPKey]!).then(
-			thenRef => {
-				update(
+			async thenRef => {
+				await update(
 					ref,
 					[thenRef.key],
 					[
@@ -79,6 +79,8 @@ describe('test onChildChanged', () => {
 						},
 					]
 				)
+				unsub()
+				done()
 			}
 		)
 	})
@@ -102,16 +104,16 @@ describe('test onChildChanged', () => {
 					},
 				]
 				compareOnValue(`${path}/0`, dataSnapshot, data)
-				unsub()
-				done()
 			},
 			() => {
 				//
 			},
 			{ onlyOnce: true }
 		)
-		set(ref, data['b']['h'][randStringHKey]!['s']).then(() => {
-			update(ref, ['0'], [{ t: newData }])
+		set(ref, data['b']['h'][randStringHKey]!['s']).then(async () => {
+			await update(ref, ['0'], [{ t: newData }])
+			unsub()
+			done()
 		})
 	})
 	it('test with negative path', () => {

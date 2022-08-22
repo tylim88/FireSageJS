@@ -18,19 +18,19 @@ describe('test onValue', () => {
 		const data = rand.data
 		const ref = users.ref()
 		expect.hasAssertions()
+		const unsub = onValue(
+			ref,
+			async dataSnapshot => {
+				type A = typeof dataSnapshot
+				type B = DataSnapshot<Users, undefined>
+				IsTrue<IsSame<B, A>>()
+				compareOnValue(undefined, dataSnapshot, data)
+			},
+			{ onlyOnce: true }
+		)
 		set(ref, data).then(() => {
-			const unsub = onValue(
-				ref,
-				async dataSnapshot => {
-					type A = typeof dataSnapshot
-					type B = DataSnapshot<Users, undefined>
-					IsTrue<IsSame<B, A>>()
-					compareOnValue(undefined, dataSnapshot, data)
-					unsub()
-					done()
-				},
-				{ onlyOnce: true }
-			)
+			unsub()
+			done()
 		})
 	})
 	it('test with cancel callback', done => {
@@ -40,21 +40,21 @@ describe('test onValue', () => {
 		const path = `b/h/${randStringHKey}` as const
 		const ref = users.ref(path)
 		expect.hasAssertions()
+		const unsub = onValue(
+			ref,
+			async dataSnapshot => {
+				type A = typeof dataSnapshot
+				type B = DataSnapshot<Users, `b/h/${string}`>
+				IsTrue<IsSame<B, A>>()
+				compareOnValue(path, dataSnapshot, data)
+			},
+			() => {
+				//
+			}
+		)
 		set(ref, data['b']['h'][randStringHKey]!).then(() => {
-			const unsub = onValue(
-				ref,
-				async dataSnapshot => {
-					type A = typeof dataSnapshot
-					type B = DataSnapshot<Users, `b/h/${string}`>
-					IsTrue<IsSame<B, A>>()
-					compareOnValue(path, dataSnapshot, data)
-					unsub()
-					done()
-				},
-				() => {
-					//
-				}
-			)
+			unsub()
+			done()
 		})
 	})
 	it('test with options and cancel callback', done => {
@@ -64,22 +64,22 @@ describe('test onValue', () => {
 		const path = `b/h/${randStringHKey}/i` as const
 		const ref = users.ref(path)
 		expect.hasAssertions()
+		const unsub = onValue(
+			ref,
+			async dataSnapshot => {
+				type A = typeof dataSnapshot
+				type B = DataSnapshot<Users, `b/h/${string}/i`>
+				IsTrue<IsSame<B, A>>()
+				compareOnValue(path, dataSnapshot, data)
+			},
+			() => {
+				//
+			},
+			{ onlyOnce: true }
+		)
 		set(ref, data['b']['h'][randStringHKey]!['i']).then(() => {
-			const unsub = onValue(
-				ref,
-				async dataSnapshot => {
-					type A = typeof dataSnapshot
-					type B = DataSnapshot<Users, `b/h/${string}/i`>
-					IsTrue<IsSame<B, A>>()
-					compareOnValue(path, dataSnapshot, data)
-					unsub()
-					done()
-				},
-				() => {
-					//
-				},
-				{ onlyOnce: true }
-			)
+			unsub()
+			done()
 		})
 	})
 	it('test with push-able and remove-able data type', done => {
@@ -89,15 +89,15 @@ describe('test onValue', () => {
 		const path = `b/h/${randStringHKey}/m` as const
 		const ref = users.ref(path)
 		expect.hasAssertions()
+		const unsub = onValue(ref, async dataSnapshot => {
+			type A = typeof dataSnapshot
+			type B = DataSnapshot<Users, `b/h/${string}/m`>
+			IsTrue<IsSame<B, A>>()
+			compareOnValue(path, dataSnapshot, data)
+		})
 		set(ref, data['b']['h'][randStringHKey]!['m']).then(() => {
-			const unsub = onValue(ref, async dataSnapshot => {
-				type A = typeof dataSnapshot
-				type B = DataSnapshot<Users, `b/h/${string}/m`>
-				IsTrue<IsSame<B, A>>()
-				compareOnValue(path, dataSnapshot, data)
-				unsub()
-				done()
-			})
+			unsub()
+			done()
 		})
 	})
 })

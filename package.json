@@ -21,7 +21,7 @@
 		"build": "rm -rf dist && tsc",
 		"link": "npm unlink firesagejs && npm link && npm link firesagejs",
 		"babel": "babel-node -x .ts -- src/fieldPath/documentId.ts",
-		"jest": "jest src/listeners/onChildMoved.test.ts",
+		"jest": "jest src/listeners/onChildAdded.test.ts",
 		"commit": "git commit --no-verify",
 		"dev": "---------------------dev------------------------",
 		"d-link": "npm run build && npm run link",
