@@ -35,11 +35,16 @@ describe('test get path', () => {
 				| 'b/d/k'
 				| `b/h/${string}/l`
 				| `b/h/${string}/m`
-				| `b/h/${string}/m/${string}/n`
 				| `b/h/${string}/p`
-				| `b/h/${string}/p/${string}/r`
 				| `b/h/${string}/s`
+				| `b/h/${string}/m/${string}`
+				| `b/h/${string}/m/${string}/n`
+				| `b/h/${string}/p/${string}`
+				| `b/h/${string}/p/${string}/r`
+				| `b/h/${string}/s/${number}`
 				| `b/h/${string}/s/${number}/t`
+				| `o/${string}`
+				| `u/${number}`
 			>
 		>
 	})
@@ -53,6 +58,6 @@ describe('test get path', () => {
 	})
 
 	it('test Get All Pseudo Array Path', () => {
-		IsTrue<IsSame<GetAllPseudoArrayPaths<Users>, `b/h/${string}/s` | 'u'>>
+		IsTrue<IsSame<GetAllPseudoArrayPaths<Users>, `b/h/${string}/s` | 'u' | 'w'>>
 	})
 })

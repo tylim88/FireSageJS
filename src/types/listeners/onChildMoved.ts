@@ -2,6 +2,7 @@ import { MetaType } from '../metaType'
 import { DatabaseReference } from '../query'
 import { Unsubscribe, ListenOptions } from '../alias'
 import { IsValidOnChildRef, GetOnChildSnapshot } from './utils'
+import { GetAllRemovablePaths } from '../utils'
 
 export type OnChildMoved = {
 	/**

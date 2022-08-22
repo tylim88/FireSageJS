@@ -10,8 +10,16 @@ export type IsAGreaterThanB<
 	B extends number[]
 > = A['length'] extends B['length']
 	? 'equal'
-	: A extends [infer C, ...infer D extends number[]]
-	? B extends [infer M, ...infer N extends number[]]
+	: A extends [
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			infer C,
+			...infer D extends number[]
+	  ]
+	? B extends [
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			infer M,
+			...infer N extends number[]
+	  ]
 		? IsAGreaterThanB<D, N>
 		: 'greater'
 	: B['length'] extends 0

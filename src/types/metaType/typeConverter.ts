@@ -37,14 +37,6 @@ export type AllNodesPossiblyReadAsUndefined<T> = T extends Record<
 	?
 			| { [K in keyof T]: AllNodesPossiblyReadAsUndefined<T[K]> | undefined }
 			| undefined
-	: T extends PushAble<infer X>
-	?
-			| { [x in string]: AllNodesPossiblyReadAsUndefined<X> | undefined }
-			| undefined
-	: T extends PushAbleOnly<infer X>
-	?
-			| { [x in string]: AllNodesPossiblyReadAsUndefined<X> | undefined }
-			| undefined
-	: T extends PseudoArray<infer X>
-	? AllNodesPossiblyReadAsUndefined<X>[] | undefined
+	: T extends (infer X)[]
+	? (AllNodesPossiblyReadAsUndefined<X> | undefined)[] | undefined
 	: T | undefined

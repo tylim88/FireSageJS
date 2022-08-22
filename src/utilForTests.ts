@@ -40,15 +40,18 @@ export type Users = MetaTypeCreator<{
 			{
 				i: boolean
 				l: ServerTimestamp | Removable
-				m: PushAble<{ n: '7' | '8' | '9' | Removable }> | Removable
-				p: PushAbleOnly<{ r: ServerTimestamp | Removable }> | Removable
-				s: PseudoArray<{ t: number | Removable }> | Removable
+				m: PushAble<{ n: '7' | '8' | '9' | Removable } | Removable> | Removable
+				p:
+					| PushAbleOnly<{ r: ServerTimestamp | Removable } | Removable>
+					| Removable
+				s: PseudoArray<{ t: number | Removable } | Removable> | Removable
 			}
 		>
 	}
-	o: PushAble<number>
+	o: PushAble<number | Removable>
 	q: PushAbleOnly<4 | 5 | 6>
-	u: PseudoArray<string>
+	u: PseudoArray<string | Removable>
+	w: PseudoArray<boolean>
 }>
 
 export const usersCreator = getFiresage<Users>()
@@ -105,6 +108,7 @@ export const generateRandomData = (): {
 			o: { [randStringOKey]: Math.random() },
 			q: { [randStringQKey]: pick([4, 5, 6] as const)[0]! },
 			u: [u],
+			w: [pick([true, false])[0]!],
 		},
 		randStringHKey,
 		randStringOKey,

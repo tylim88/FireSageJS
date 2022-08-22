@@ -137,7 +137,7 @@ describe('test', () => {
 		type O = FindAllTopLevelChildKeys<Users, `b/h/${string}/s`>
 		type P = FindAllTopLevelChildKeys<Users, `b/h/${string}/s/${number}`>
 		type Q = FindAllTopLevelChildKeys<Users, `b/h/${string}/s/${string}/t`>
-		IsTrue<IsSame<A, 'a' | 'b' | 'o' | 'q' | 'u'>>()
+		IsTrue<IsSame<A, 'a' | 'b' | 'o' | 'q' | 'u' | 'w'>>()
 		IsTrue<IsSame<B, never>>()
 		IsTrue<IsSame<C, 'e' | 'f' | 'k'>>()
 		IsTrue<IsSame<D, never>>()
@@ -312,9 +312,10 @@ describe('test', () => {
 		IsTrue<
 			IsSame<
 				J,
-				{
-					n: '7' | '8' | '9' | undefined
-				}
+				| {
+						n: '7' | '8' | '9' | undefined
+				  }
+				| undefined
 			>
 		>()
 		IsTrue<IsSame<K, '7' | '8' | '9' | undefined>>()
@@ -322,9 +323,10 @@ describe('test', () => {
 		IsTrue<
 			IsSame<
 				M,
-				{
-					r: number | undefined
-				}
+				| {
+						r: number | undefined
+				  }
+				| undefined
 			>
 		>()
 		IsTrue<IsSame<N, number | undefined>>()
@@ -332,9 +334,10 @@ describe('test', () => {
 		IsTrue<
 			IsSame<
 				P,
-				{
-					t: number | undefined
-				}
+				| {
+						t: number | undefined
+				  }
+				| undefined
 			>
 		>()
 		IsTrue<IsSame<Q, number | undefined>>()

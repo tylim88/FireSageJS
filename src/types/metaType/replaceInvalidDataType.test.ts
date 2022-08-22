@@ -1,6 +1,5 @@
 import {
 	ReplaceInvalidUnion,
-	ReplaceRecordNumber,
 	ReplaceInvalidDataTypeBase,
 } from './replaceInvalidDataType'
 import { ErrorObjectTypeUnion, ErrorUsePseudoArrayInstead } from '../error'

@@ -21,9 +21,11 @@ describe('test generated meta type', () => {
 					o: { [x: string]: number | Increment }
 					q: { [x: string]: 4 | 5 | 6 }
 					u: { [x: `${number}`]: string } | string[]
+					w: { [x: `${number}`]: boolean } | boolean[]
 					[x: `o/${string}`]: number | Increment
 					[x: `q/${string}`]: 4 | 5 | 6
 					[x: `u/${number}`]: string
+					[x: `w/${number}`]: boolean
 					'b/c': true
 					'b/d': {
 						e: 'abc' | 'xyz' | 'efg'
@@ -285,6 +287,7 @@ describe('test generated meta type', () => {
 					o: Record<string, number | Increment>
 					q: Record<string, 4 | 5 | 6>
 					u: Record<`${number}`, string> | string[]
+					w: Record<`${number}`, boolean> | boolean[]
 				}
 			>
 		>
@@ -313,16 +316,22 @@ describe('test generated meta type', () => {
 								i: boolean
 								l: number | undefined
 								m:
-									| Record<string, { n: '7' | '8' | '9' | undefined }>
+									| Record<
+											string,
+											{ n: '7' | '8' | '9' | undefined } | undefined
+									  >
 									| undefined
-								p: Record<string, { r: number | undefined }> | undefined
-								s: { t: number | undefined }[] | undefined
+								p:
+									| Record<string, { r: number | undefined } | undefined>
+									| undefined
+								s: ({ t: number | undefined } | undefined)[] | undefined
 							}
 						>
 					}
-					o: Record<string, number>
+					o: Record<string, number | undefined>
 					q: Record<string, 4 | 5 | 6>
-					u: string[]
+					u: (string | undefined)[]
+					w: boolean[]
 				}
 			>
 		>
@@ -394,6 +403,7 @@ describe('test generated meta type', () => {
 					o: PushAble<number>
 					q: PushAbleOnly<4 | 5 | 6>
 					u: PseudoArray<string>
+					w: PseudoArray<boolean>
 				}
 			>
 		>
