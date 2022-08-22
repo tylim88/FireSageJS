@@ -6,6 +6,7 @@ import {
 	GetAllPushAbleOnlyPaths,
 	ErrorIsPushOnlyAbleType,
 	ReplaceNumericRecordIfInputIsRecordString,
+	IsValidSetDataType,
 } from '../types'
 /**
 Writes data to this Database location.
@@ -30,14 +31,7 @@ export const set = <
 	V
 >(
 	ref: DatabaseReference<T, U>,
-	value: V extends never
-		? V
-		: U extends GetAllPushAbleOnlyPaths<T>
-		? ErrorIsPushOnlyAbleType<U>
-		: ReplaceNumericRecordIfInputIsRecordString<
-				V,
-				FindNestedWriteTypeFromFullPath<T, U>
-		  >
+	value: V extends never ? V : IsValidSetDataType<T, U, V>
 ) => {
 	return set_(ref, value)
 }

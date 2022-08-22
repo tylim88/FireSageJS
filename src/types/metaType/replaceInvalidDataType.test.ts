@@ -2,7 +2,7 @@ import {
 	ReplaceInvalidUnion,
 	ReplaceInvalidDataTypeBase,
 } from './replaceInvalidDataType'
-import { ErrorObjectTypeUnion, ErrorUsePseudoArrayInstead } from '../error'
+import { ErrorObjectTypeUnion, ErrorUsePseudoArrayInstead } from './error'
 import {
 	ServerTimestamp,
 	PushAble,

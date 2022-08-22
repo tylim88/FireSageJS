@@ -1,4 +1,4 @@
-import { MetaType } from './metaType'
+import { MetaType } from '../metaType'
 import {
 	FindNestedWriteTypeFromFullPath,
 	ReplaceNumericRecordIfInputIsRecordString,
@@ -8,14 +8,14 @@ import {
 	IsSameOrSubStringOfEither,
 	IsAGreaterThanB,
 	CreateArrayWithLengthX,
-} from './utils'
+} from '../utils'
 import {
 	ErrorIsPushOnlyAbleType,
 	ErrorNeedTupleNotArray,
 	ErrorElementNeedConstAssertion,
 	ErrorPathHasAncestor,
 } from './error'
-import { ValidateChildPath } from './child'
+import { ValidateChildPath } from '../refs'
 
 type ReplaceIfAncestorExist<
 	T extends readonly string[],

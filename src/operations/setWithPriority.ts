@@ -2,11 +2,8 @@ import { setWithPriority as setWithPriority_ } from 'firebase/database'
 import {
 	DatabaseReference,
 	MetaType,
-	FindNestedWriteTypeFromFullPath,
-	GetAllPushAbleOnlyPaths,
-	ErrorIsPushOnlyAbleType,
-	ReplaceNumericRecordIfInputIsRecordString,
 	IsValidSetPriorityRef,
+	IsValidSetDataType,
 } from '../types'
 /**
 Writes data the Database location. Like set() but also specifies the priority for that data.
@@ -30,14 +27,7 @@ export const setWithPriority = <
 	ref: string extends never
 		? DatabaseReference<T, U>
 		: IsValidSetPriorityRef<T, U>,
-	value: V extends never
-		? V
-		: U extends GetAllPushAbleOnlyPaths<T>
-		? ErrorIsPushOnlyAbleType<U>
-		: ReplaceNumericRecordIfInputIsRecordString<
-				V,
-				FindNestedWriteTypeFromFullPath<T, U>
-		  >,
+	value: V extends never ? V : IsValidSetDataType<T, U, V>,
 	priority: string | number | null
 ) => {
 	return setWithPriority_(

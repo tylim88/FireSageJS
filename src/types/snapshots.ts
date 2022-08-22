@@ -1,5 +1,5 @@
 import { MetaType } from './metaType'
-import { DatabaseReference } from './query'
+import { DatabaseReference } from './refs'
 import {
 	FindAllLevelChildKeys,
 	FindAllTopLevelChildKeys,

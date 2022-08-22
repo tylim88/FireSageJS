@@ -1,5 +1,5 @@
-import { MetaType, MetaTypeCreator } from './metaType'
-import { FindParentKey, GetLastSegment } from './utils'
+import { MetaType, MetaTypeCreator } from '../metaType'
+import { FindParentKey, GetLastSegment } from '../utils'
 
 export declare interface ThenableReference<
 	T extends MetaType,

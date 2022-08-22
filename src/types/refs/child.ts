@@ -2,13 +2,13 @@ import {
 	FindAllLevelChildKeys,
 	GetFullPath,
 	ReplaceInvalidSegment,
-} from './utils'
-import { MetaType } from './metaType'
+} from '../utils'
+import { MetaType } from '../metaType'
 import {
 	ErrorHasNoChild,
 	ErrorNeedStringSegment,
 	ErrorInvalidOrNeedNumericSegment,
-} from './error'
+} from '../error'
 
 export type ValidateChildPath<
 	T extends MetaType,

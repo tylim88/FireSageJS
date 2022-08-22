@@ -2,7 +2,7 @@ import {
 	ErrorInvalidDataType,
 	ErrorObjectTypeUnion,
 	ErrorUsePseudoArrayInstead,
-} from '../error'
+} from './error'
 import {
 	ServerTimestamp,
 	PushAble,
