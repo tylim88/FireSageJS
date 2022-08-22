@@ -1,5 +1,5 @@
 import { MetaType } from '../metaType'
-import { PushAble, Removable, PushAbleOnly, PseudoArray } from '../fieldValue'
+import { PushAble, Removable, PushAbleOnly, PseudoArray } from '../fieldType'
 import { ReplaceInvalidSegment } from './replacePathAndType'
 
 export type GetFullPath<

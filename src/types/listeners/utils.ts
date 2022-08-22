@@ -4,13 +4,13 @@ import { ErrorInvalidOnChildType } from './error'
 import {
 	FindAllTopLevelChildKeys,
 	GetFullPath,
-	IsChildObjectOrArray,
+	IsRecordOrArray,
 } from '../utils'
 
 export type IsValidOnChildRef<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
-> = IsChildObjectOrArray<T, U, ErrorInvalidOnChildType<U>>
+> = IsRecordOrArray<T, U, ErrorInvalidOnChildType<U>>
 
 export type GetOnChildSnapshot<
 	T extends MetaType,

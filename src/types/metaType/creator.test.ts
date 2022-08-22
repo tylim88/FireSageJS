@@ -5,7 +5,7 @@ import {
 	PushAble,
 	PushAbleOnly,
 	PseudoArray,
-} from '../fieldValue'
+} from '../fieldType'
 import { IsTrue, IsSame } from '../utils'
 import { Users } from '../../utilForTests'
 

@@ -12,22 +12,22 @@ type PushAbleOnlySymbol = typeof pushAbleOnlySymbol
 type RemoveSymbol = typeof removeSymbol
 type PseudoArraySymbol = typeof pseudoArray
 
-declare class FieldValue<T extends symbol> {
+declare class FieldType<T extends symbol> {
 	protected constructor()
 	protected 'FireSage.FieldValue': T
 }
 
-export interface ServerTimestamp extends FieldValue<ServerTimestampSymbol> {}
+export interface ServerTimestamp extends FieldType<ServerTimestampSymbol> {}
 
-export interface Increment extends FieldValue<IncrementSymbol> {}
+export interface Increment extends FieldType<IncrementSymbol> {}
 
-export interface Removable extends FieldValue<RemoveSymbol> {}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface PushAble<T> extends FieldValue<PushAbleSymbol> {}
+export interface Removable extends FieldType<RemoveSymbol> {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface PushAbleOnly<T> extends FieldValue<PushAbleOnlySymbol> {}
+export interface PushAble<T> extends FieldType<PushAbleSymbol> {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface PseudoArray<T> extends FieldValue<PseudoArraySymbol> {}
+export interface PushAbleOnly<T> extends FieldType<PushAbleOnlySymbol> {}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export interface PseudoArray<T> extends FieldType<PseudoArraySymbol> {}

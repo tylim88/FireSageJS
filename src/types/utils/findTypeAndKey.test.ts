@@ -9,7 +9,7 @@ import {
 } from './findTypeAndKey'
 import { IsTrue, IsSame } from './common'
 import { Users } from '../../utilForTests'
-import { Increment } from '../fieldValue'
+import { Increment } from '../fieldType'
 
 describe('test', () => {
 	it('test Find Parent Key', () => {

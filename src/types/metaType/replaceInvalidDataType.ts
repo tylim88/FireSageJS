@@ -9,7 +9,7 @@ import {
 	Removable,
 	PushAbleOnly,
 	PseudoArray,
-} from '../fieldValue'
+} from '../fieldType'
 import { IsUnion } from '../utils'
 
 export type ReplaceRecordNumber<T, U> = T extends Record<infer X, unknown>

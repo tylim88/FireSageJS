@@ -109,6 +109,14 @@ describe('test onChildAdded', () => {
 
 			onChildAdded(
 				// @ts-expect-error
+				users.ref('b/d'),
+				() => {
+					//
+				}
+			)
+
+			onChildAdded(
+				// @ts-expect-error
 				users.ref('b/d/e'),
 				() => {
 					//

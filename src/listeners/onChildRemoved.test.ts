@@ -112,6 +112,14 @@ describe('test onChildRemoved', () => {
 
 			onChildRemoved(
 				// @ts-expect-error
+				users.ref('b/d'),
+				() => {
+					//
+				}
+			)
+
+			onChildRemoved(
+				// @ts-expect-error
 				users.ref('b/d/e'),
 				() => {
 					//

@@ -4,13 +4,13 @@ import {
 	GetAllPushAbleOnlyPaths,
 	ReplaceNumericRecordIfInputIsRecordString,
 	FindNestedWriteTypeFromFullPath,
-	IsChildObjectOrArray,
+	IsParentRecordOrArray,
 } from '../utils'
 
 export type IsValidSetPriorityRef<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
-> = IsChildObjectOrArray<T, U, ErrorInvalidSetPriorityRef<U>>
+> = IsParentRecordOrArray<T, U, ErrorInvalidSetPriorityRef<U>>
 
 export type IsValidSetDataType<
 	T extends MetaType,

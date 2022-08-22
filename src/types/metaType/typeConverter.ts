@@ -4,7 +4,7 @@ import {
 	PushAble,
 	PushAbleOnly,
 	PseudoArray,
-} from '../fieldValue'
+} from '../fieldType'
 
 export type ReadTypeConverter<T> = T extends Record<string, unknown>
 	? { [K in keyof T]: ReadTypeConverter<T[K]> }

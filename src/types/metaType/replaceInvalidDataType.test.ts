@@ -9,7 +9,7 @@ import {
 	Removable,
 	PushAbleOnly,
 	PseudoArray,
-} from '../fieldValue'
+} from '../fieldType'
 import { IsTrue, IsSame } from '../utils'
 describe('test replace invalid data type', () => {
 	it('test ReplaceUnionWithObjectWithErrorMessage, negative test', () => {

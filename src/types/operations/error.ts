@@ -3,9 +3,9 @@ export type ErrorPathHasAncestor<
 	Ancestor extends string
 > = `Error: values argument contains a path '${Ancestor}' that is ancestor of another path '${Descendent}'`
 export type ErrorInvalidSetPriorityRef<T extends string | undefined> =
-	`Error: You can only set or set with priority if the data type object literal(or map type) / PushAble<T> / PushAbleOnly<T> / PseudoArray<T> and the data type of ${T extends string
+	`Error: You can only set or set with priority if the parent data type is Record<string, T>, PushAble<T>, PushAbleOnly<T>, OR PseudoArray<T>. But the data type of path ${T extends string
 		? T
-		: 'root'} is neither of those.`
+		: 'root'} is neither of those`
 export type ErrorNeedTupleNotArray =
 	`Error: The type of argument is an array but require tuple, it seem like you forgot to assert it as const, eg: '[1, 2, 3] as const'.`
 export type ErrorIsPushOnlyAbleType<T extends string | undefined> =

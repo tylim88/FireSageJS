@@ -21,7 +21,6 @@ type TypeDiving<
 	? T[U]
 	: never
 
-// not in use
 export type FindParentNestedWriteTypeFromFullPath<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
