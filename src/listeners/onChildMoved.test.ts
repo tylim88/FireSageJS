@@ -6,7 +6,7 @@ import {
 	Users,
 	compareOnValue,
 } from '../utilForTests'
-import { set, push, setPriority } from '../operations'
+import { set, push, setPriority, setWithPriority } from '../operations'
 import { IsSame, IsTrue, DataSnapshot } from '../types'
 
 initializeApp()
@@ -86,7 +86,11 @@ describe('test onChildMoved', () => {
 			{ onlyOnce: true }
 		)
 		set(ref, data['b']['h'][randStringHKey]!['s']).then(async () => {
-			await setPriority(users.ref(`${path}/0`), 1000)
+			await setWithPriority(
+				users.ref(`${path}/0`),
+				(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!,
+				1000
+			)
 			unsub()
 			done()
 		})
