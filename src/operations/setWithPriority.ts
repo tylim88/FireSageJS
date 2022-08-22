@@ -6,6 +6,7 @@ import {
 	GetAllPushAbleOnlyPaths,
 	ErrorIsPushOnlyAbleType,
 	ReplaceNumericRecordIfInputIsRecordString,
+	IsValidSetPriorityRef,
 } from '../types'
 /**
 Writes data the Database location. Like set() but also specifies the priority for that data.
@@ -26,7 +27,9 @@ export const setWithPriority = <
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	V
 >(
-	ref: DatabaseReference<T, U>,
+	ref: string extends never
+		? DatabaseReference<T, U>
+		: IsValidSetPriorityRef<T, U>,
 	value: V extends never
 		? V
 		: U extends GetAllPushAbleOnlyPaths<T>
@@ -37,5 +40,10 @@ export const setWithPriority = <
 		  >,
 	priority: string | number | null
 ) => {
-	return setWithPriority_(ref, value, priority)
+	return setWithPriority_(
+		// @ts-expect-error
+		ref,
+		value,
+		priority
+	)
 }

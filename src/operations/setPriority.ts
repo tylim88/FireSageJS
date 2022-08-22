@@ -1,5 +1,5 @@
 import { setPriority as setPriority_ } from 'firebase/database'
-import { DatabaseReference, MetaType } from '../types'
+import { DatabaseReference, MetaType, IsValidSetPriorityRef } from '../types'
 /**
 Sets a priority for the data at this Database location.
 
@@ -15,8 +15,14 @@ export const setPriority = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
 >(
-	ref: DatabaseReference<T, U>,
+	ref: string extends never
+		? DatabaseReference<T, U>
+		: IsValidSetPriorityRef<T, U>,
 	priority: string | number | null
 ) => {
-	return setPriority_(ref, priority)
+	return setPriority_(
+		// @ts-expect-error
+		ref,
+		priority
+	)
 }

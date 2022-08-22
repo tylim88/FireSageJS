@@ -40,3 +40,7 @@ export type ErrorPathHasAncestor<
 	Descendent extends string,
 	Ancestor extends string
 > = `Error: values argument contains a path '${Ancestor}' that is ancestor of another path '${Descendent}'`
+export type ErrorInvalidSetPriorityRef<T extends string | undefined> =
+	`Error: You can only set or set with priority if the data type object literal(or map type) / PushAble<T> / PushAbleOnly<T> / PseudoArray<T> and the data type of ${T extends string
+		? T
+		: 'root'} is neither of those.`
