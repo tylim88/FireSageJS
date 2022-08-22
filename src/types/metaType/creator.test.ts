@@ -12,6 +12,7 @@ import { Users } from '../../utilForTests'
 describe('test generated meta type', () => {
 	it('test flatten_write', () => {
 		type A = Users['flatten_write']
+		type u = A['w']
 
 		IsTrue<
 			IsSame<
@@ -21,11 +22,14 @@ describe('test generated meta type', () => {
 					o: { [x: string]: number | Increment }
 					q: { [x: string]: 4 | 5 | 6 }
 					u: { [x: `${number}`]: string } | string[]
-					w: { [x: `${number}`]: boolean } | boolean[]
+					w:
+						| { v: boolean }[]
+						| { [x: `${number}`]: { v: boolean }; [x: `${number}/v`]: boolean }
 					[x: `o/${string}`]: number | Increment
 					[x: `q/${string}`]: 4 | 5 | 6
 					[x: `u/${number}`]: string
-					[x: `w/${number}`]: boolean
+					[x: `w/${number}`]: { v: boolean }
+					[x: `w/${number}/v`]: boolean
 					'b/c': true
 					'b/d': {
 						e: 'abc' | 'xyz' | 'efg'
@@ -287,7 +291,7 @@ describe('test generated meta type', () => {
 					o: Record<string, number | Increment>
 					q: Record<string, 4 | 5 | 6>
 					u: Record<`${number}`, string> | string[]
-					w: Record<`${number}`, boolean> | boolean[]
+					w: Record<`${number}`, { v: boolean }> | { v: boolean }[]
 				}
 			>
 		>
@@ -331,7 +335,7 @@ describe('test generated meta type', () => {
 					o: Record<string, number | undefined>
 					q: Record<string, 4 | 5 | 6>
 					u: (string | undefined)[]
-					w: boolean[]
+					w: { v: boolean }[]
 				}
 			>
 		>

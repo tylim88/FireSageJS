@@ -51,7 +51,7 @@ export type Users = MetaTypeCreator<{
 	o: PushAble<number | Removable>
 	q: PushAbleOnly<4 | 5 | 6>
 	u: PseudoArray<string | Removable>
-	w: PseudoArray<boolean>
+	w: PseudoArray<{ v: boolean }>
 }>
 
 export const usersCreator = getFiresage<Users>()
@@ -108,7 +108,7 @@ export const generateRandomData = (): {
 			o: { [randStringOKey]: Math.random() },
 			q: { [randStringQKey]: pick([4, 5, 6] as const)[0]! },
 			u: [u],
-			w: [pick([true, false])[0]!],
+			w: [{ v: pick([true, false])[0]! }],
 		},
 		randStringHKey,
 		randStringOKey,
