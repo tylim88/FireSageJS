@@ -45,3 +45,7 @@ export type IsEqual<T, U> = T[] extends U[]
 		? true
 		: false
 	: false
+
+export type IsTuple<T extends unknown[]> = number extends T['length']
+	? false
+	: true

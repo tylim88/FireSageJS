@@ -1,5 +1,5 @@
 import { get as get_ } from 'firebase/database'
-import { DatabaseReference, MetaType, DataSnapshot } from '../types'
+import { DatabaseReference, MetaType, DataSnapshot, Query } from '../types'
 
 // get runtime is tested together with set and update
 /**
@@ -14,7 +14,7 @@ export const get = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
 >(
-	ref: DatabaseReference<T, U>
+	ref: DatabaseReference<T, U> | Query<T, U>
 ) => {
 	return get_(ref) as unknown as Promise<DataSnapshot<T, U>>
 }

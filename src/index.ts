@@ -25,7 +25,7 @@ export {
 export * from './fieldValue'
 export * from './listeners'
 export * from './operations'
-export * from './query'
+export * from './queryConstraints'
 export * from './refs'
 export * from './runTransaction'
 export type {

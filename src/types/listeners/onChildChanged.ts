@@ -7,7 +7,7 @@ export type OnChildChanged = {
 	/**
 Listens for data changes at a particular location.
 
-This is the primary way to read data from a Database. Your callback will be triggered for the initial data and again whenever the data changes. Invoke the returned unsubscribe callback to stop receiving updates. [See | Retrieve Data on the Web](@link https://firebase.google.com/docs/database/web/read-and-write) for more details.
+This is the primary way to read data from a Database. Your callback will be triggered for the initial data and again whenever the data changes. Invoke the returned unsubscribe callback to stop receiving updates. [See Retrieve Data on the Web](https://firebase.google.com/docs/database/web/read-and-write) for more details.
 
 An onChildChanged event will be triggered when the data stored in a child (or any of its descendants) changes. Note that a single child_changed event may represent multiple changes to the child. The DataSnapshot passed to the callback will contain the new child contents. For ordering purposes, the callback is also passed a second argument which is a string containing the key of the previous sibling child by sort order, or null if it is the first child.
 
@@ -33,7 +33,7 @@ A callback that fires when the specified event occurs. The callback will be pass
 	/**
 Listens for data changes at a particular location.
 
-This is the primary way to read data from a Database. Your callback will be triggered for the initial data and again whenever the data changes. Invoke the returned unsubscribe callback to stop receiving updates. [See | Retrieve Data on the Web](@link https://firebase.google.com/docs/database/web/read-and-write) for more details.
+This is the primary way to read data from a Database. Your callback will be triggered for the initial data and again whenever the data changes. Invoke the returned unsubscribe callback to stop receiving updates. [See Retrieve Data on the Web](https://firebase.google.com/docs/database/web/read-and-write) for more details.
 
 An onChildChanged event will be triggered when the data stored in a child (or any of its descendants) changes. Note that a single child_changed event may represent multiple changes to the child. The DataSnapshot passed to the callback will contain the new child contents. For ordering purposes, the callback is also passed a second argument which is a string containing the key of the previous sibling child by sort order, or null if it is the first child.
 

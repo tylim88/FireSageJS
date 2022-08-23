@@ -7,7 +7,7 @@ export type OnChildMoved = {
 	/**
 Listens for data changes at a particular location.
 
-This is the primary way to read data from a Database. Your callback will be triggered for the initial data and again whenever the data changes. Invoke the returned unsubscribe callback to stop receiving updates. [See | Retrieve Data on the Web](@link https://firebase.google.com/docs/database/web/read-and-write) for more details.
+This is the primary way to read data from a Database. Your callback will be triggered for the initial data and again whenever the data changes. Invoke the returned unsubscribe callback to stop receiving updates. [See Retrieve Data on the Web](https://firebase.google.com/docs/database/web/read-and-write) for more details.
 
 An onChildMoved event will be triggered when a child's sort order changes such that its position relative to its siblings changes. The DataSnapshot passed to the callback will be for the data of the child that has moved. It is also passed a second argument which is a string containing the key of the previous sibling child by sort order, or null if it is the first child.
 
@@ -33,7 +33,7 @@ A callback that fires when the specified event occurs. The callback will be pass
 	/**
 Listens for data changes at a particular location.
 
-This is the primary way to read data from a Database. Your callback will be triggered for the initial data and again whenever the data changes. Invoke the returned unsubscribe callback to stop receiving updates. [See | Retrieve Data on the Web](@link https://firebase.google.com/docs/database/web/read-and-write) for more details.
+This is the primary way to read data from a Database. Your callback will be triggered for the initial data and again whenever the data changes. Invoke the returned unsubscribe callback to stop receiving updates. [See Retrieve Data on the Web](https://firebase.google.com/docs/database/web/read-and-write) for more details.
 
 An onChildMoved event will be triggered when a child's sort order changes such that its position relative to its siblings changes. The DataSnapshot passed to the callback will be for the data of the child that has moved. It is also passed a second argument which is a string containing the key of the previous sibling child by sort order, or null if it is the first child.
 

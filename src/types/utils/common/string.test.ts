@@ -3,6 +3,8 @@ import {
 	GetLastSegment,
 	RemoveLastSegment,
 	IsSameOrSubStringOfEither,
+	GetFirstSegment,
+	RemoveFirstSegment,
 } from './string'
 import { IsTrue, IsSame } from './is'
 
@@ -106,5 +108,29 @@ describe('test', () => {
 		IsTrue<IsSame<K, false>>()
 		IsTrue<IsSame<L, false>>()
 		IsTrue<IsSame<M, false>>()
+	})
+
+	it('test Get First Segment', () => {
+		type A = GetFirstSegment<'a'>
+		type B = GetFirstSegment<`a/${string}`>
+		type C = GetFirstSegment<`${string}/b/c`>
+		type D = GetFirstSegment<undefined>
+		IsTrue<IsSame<A, 'a'>>()
+		IsTrue<IsSame<B, 'a'>>()
+		IsTrue<IsSame<C, string>>()
+		IsTrue<IsSame<D, undefined>>()
+	})
+
+	it('test Remove First Segment', () => {
+		type A = RemoveFirstSegment<'a'>
+		type B = RemoveFirstSegment<'a/b'>
+		type C = RemoveFirstSegment<`a/${string}/c`>
+		type D = RemoveFirstSegment<undefined>
+		type E = RemoveFirstSegment<`${string}/c`>
+		IsTrue<IsSame<A, never>>()
+		IsTrue<IsSame<B, 'b'>>()
+		IsTrue<IsSame<C, `${string}/c`>>()
+		IsTrue<IsSame<D, never>>()
+		IsTrue<IsSame<E, 'c'>>()
 	})
 })
