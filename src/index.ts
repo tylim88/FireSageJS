@@ -25,6 +25,7 @@ export {
 export * from './fieldValue'
 export * from './listeners'
 export * from './operations'
+export * from './query'
 export * from './refs'
 export * from './runTransaction'
 export type {
@@ -32,6 +33,7 @@ export type {
 	PushAble,
 	PushAbleOnly,
 	PseudoArray,
+	Removable,
 	Increment,
 	MetaTypeCreator,
 	DataSnapshot,

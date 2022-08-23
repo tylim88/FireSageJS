@@ -3,6 +3,7 @@ export type {
 	ListenOptions,
 	Unsubscribe,
 	TransactionOptions,
+	QueryConstraintType,
 } from 'firebase/database'
 import { RulesTestContext } from '@firebase/rules-unit-testing'
 

@@ -13,8 +13,8 @@ type RemoveSymbol = typeof removeSymbol
 type PseudoArraySymbol = typeof pseudoArray
 
 declare class FieldType<T extends symbol> {
-	protected constructor()
-	protected 'FireSage.FieldValue': T
+	private constructor()
+	private symbol: T
 }
 
 export interface ServerTimestamp extends FieldType<ServerTimestampSymbol> {}

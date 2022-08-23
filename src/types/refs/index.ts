@@ -1,2 +1,2 @@
 export * from './child'
-export * from './query'
+export * from './databaseReference'
