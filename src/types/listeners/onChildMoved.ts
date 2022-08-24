@@ -1,5 +1,5 @@
 import { MetaType } from '../metaType'
-import { DatabaseReference } from '../refs'
+import { Query } from '../refs'
 import { Unsubscribe, ListenOptions } from '../alias'
 import { IsValidOnChildRef, GetOnChildSnapshot } from './utils'
 
@@ -11,7 +11,7 @@ This is the primary way to read data from a Database. Your callback will be trig
 
 An onChildMoved event will be triggered when a child's sort order changes such that its position relative to its siblings changes. The DataSnapshot passed to the callback will be for the data of the child that has moved. It is also passed a second argument which is a string containing the key of the previous sibling child by sort order, or null if it is the first child.
 
-@param ref — The location to read from.
+@param query — The location to read from.
 
 @param callback
 A callback that fires when the specified event occurs. The callback will be passed a DataSnapshot.
@@ -24,9 +24,7 @@ A callback that fires when the specified event occurs. The callback will be pass
 		T extends MetaType,
 		U extends (keyof T['flatten_write'] & string) | undefined
 	>(
-		ref: string extends never
-			? DatabaseReference<T, U>
-			: IsValidOnChildRef<T, U>,
+		query: string extends never ? Query<T, U> : IsValidOnChildRef<T, U>,
 		callback: (snapshot: GetOnChildSnapshot<T, U>) => unknown,
 		options?: ListenOptions
 	): Unsubscribe
@@ -37,7 +35,7 @@ This is the primary way to read data from a Database. Your callback will be trig
 
 An onChildMoved event will be triggered when a child's sort order changes such that its position relative to its siblings changes. The DataSnapshot passed to the callback will be for the data of the child that has moved. It is also passed a second argument which is a string containing the key of the previous sibling child by sort order, or null if it is the first child.
 
-@param ref — The location to read from.
+@param query — The location to read from.
 
 @param callback
 A callback that fires when the specified event occurs. The callback will be passed a DataSnapshot.
@@ -53,9 +51,7 @@ An optional callback that will be notified if your event subscription is ever ca
 		T extends MetaType,
 		U extends (keyof T['flatten_write'] & string) | undefined
 	>(
-		ref: string extends never
-			? DatabaseReference<T, U>
-			: IsValidOnChildRef<T, U>,
+		query: string extends never ? Query<T, U> : IsValidOnChildRef<T, U>,
 		callback: (snapshot: GetOnChildSnapshot<T, U>) => unknown,
 		cancelCallback?: (error: Error) => unknown,
 		options?: ListenOptions

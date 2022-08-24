@@ -7,7 +7,7 @@ import {
 	compareOnValue,
 } from '../utilForTests'
 import { set, push, remove } from '../operations'
-import { IsSame, IsTrue, DataSnapshot } from '../types'
+import { IsSame, IsTrue, DataSnapshot, Query } from '../types'
 
 initializeApp()
 const users = usersCreator()

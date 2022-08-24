@@ -1,5 +1,5 @@
 import { MetaType } from '../metaType'
-import { DatabaseReference } from '../refs'
+import { Query } from '../refs'
 import { Unsubscribe, ListenOptions } from '../alias'
 import { IsValidOnChildRef, GetOnChildSnapshot } from './utils'
 
@@ -16,7 +16,7 @@ An onChildRemoved event will be triggered once every time a child is removed. Th
 - that child has all of its children removed
 - there is a query in effect which now filters out the child (because it's sort order changed or the max limit was hit)
 
-@param ref — The location to read from.
+@param query — The location to read from.
 
 @param callback
 A callback that fires when the specified event occurs. The callback will be passed a DataSnapshot.
@@ -29,9 +29,7 @@ A callback that fires when the specified event occurs. The callback will be pass
 		T extends MetaType,
 		U extends (keyof T['flatten_write'] & string) | undefined
 	>(
-		ref: string extends never
-			? DatabaseReference<T, U>
-			: IsValidOnChildRef<T, U>,
+		query: string extends never ? Query<T, U> : IsValidOnChildRef<T, U>,
 		callback: (snapshot: GetOnChildSnapshot<T, U>) => unknown,
 		options?: ListenOptions
 	): Unsubscribe
@@ -47,7 +45,7 @@ An onChildRemoved event will be triggered once every time a child is removed. Th
 - that child has all of its children removed
 - there is a query in effect which now filters out the child (because it's sort order changed or the max limit was hit)
 
-@param ref — The location to read from.
+@param query — The location to read from.
 
 @param callback
 A callback that fires when the specified event occurs. The callback will be passed a DataSnapshot.
@@ -63,9 +61,7 @@ An optional callback that will be notified if your event subscription is ever ca
 		T extends MetaType,
 		U extends (keyof T['flatten_write'] & string) | undefined
 	>(
-		ref: string extends never
-			? DatabaseReference<T, U>
-			: IsValidOnChildRef<T, U>,
+		query: string extends never ? Query<T, U> : IsValidOnChildRef<T, U>,
 		callback: (snapshot: GetOnChildSnapshot<T, U>) => unknown,
 		cancelCallback?: (error: Error) => unknown,
 		options?: ListenOptions

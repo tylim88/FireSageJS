@@ -3,7 +3,7 @@ import { ListenOptions, OnChildChanged } from '../types'
 import { isOptions } from '../utils'
 
 export const onChildChanged: OnChildChanged = (
-	ref,
+	query,
 	callback,
 	cancelCallback?: ((error: Error) => unknown) | ListenOptions,
 	options?: ListenOptions
@@ -13,15 +13,15 @@ export const onChildChanged: OnChildChanged = (
 		options || (isOptions(cancelCallback) ? cancelCallback : undefined)
 	if (cancelCallback_ && options_) {
 		// @ts-expect-error
-		return onChildChanged_(ref, callback, cancelCallback_, options_)
+		return onChildChanged_(query, callback, cancelCallback_, options_)
 	} else if (cancelCallback_ && !options_) {
 		// @ts-expect-error
-		return onChildChanged_(ref, callback, cancelCallback_)
+		return onChildChanged_(query, callback, cancelCallback_)
 	} else if (!cancelCallback_ && options_) {
 		// @ts-expect-error
-		return onChildChanged_(ref, callback, options_)
+		return onChildChanged_(query, callback, options_)
 	} else {
 		// @ts-expect-error
-		return onChildChanged_(ref, callback)
+		return onChildChanged_(query, callback)
 	}
 }

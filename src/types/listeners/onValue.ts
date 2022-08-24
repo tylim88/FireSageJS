@@ -1,5 +1,5 @@
 import { MetaType } from '../metaType'
-import { DatabaseReference } from '../refs'
+import { Query, DatabaseReference } from '../refs'
 import { DataSnapshot } from '../snapshots'
 import { Unsubscribe, ListenOptions } from '../alias'
 
@@ -11,7 +11,7 @@ This is the primary way to read data from a Database. Your callback will be trig
 
 An onValue event will trigger once with the initial data stored at this location, and then trigger again each time the data changes. The DataSnapshot passed to the callback will be for the location at which on() was called. It won't trigger until the entire contents has been synchronized. If the location has no data, it will be triggered with an empty DataSnapshot (val() will return null).
 
-@param ref — The location to read from.
+@param query — The location to read from.
 
 @param callback
 A callback that fires when the specified event occurs. The callback will be passed a DataSnapshot.
@@ -24,7 +24,7 @@ A callback that fires when the specified event occurs. The callback will be pass
 		T extends MetaType,
 		U extends (keyof T['flatten_write'] & string) | undefined
 	>(
-		ref: DatabaseReference<T, U>,
+		query: Query<T, U> | DatabaseReference<T, U>,
 		callback: (snapshot: DataSnapshot<T, U>) => unknown,
 		options?: ListenOptions
 	): Unsubscribe
@@ -35,7 +35,7 @@ This is the primary way to read data from a Database. Your callback will be trig
 
 An onValue event will trigger once with the initial data stored at this location, and then trigger again each time the data changes. The DataSnapshot passed to the callback will be for the location at which on() was called. It won't trigger until the entire contents has been synchronized. If the location has no data, it will be triggered with an empty DataSnapshot (val() will return null).
 
-@param ref — The location to read from.
+@param query — The location to read from.
 
 @param callback
 A callback that fires when the specified event occurs. The callback will be passed a DataSnapshot.
@@ -51,7 +51,7 @@ An optional callback that will be notified if your event subscription is ever ca
 		T extends MetaType,
 		U extends (keyof T['flatten_write'] & string) | undefined
 	>(
-		ref: DatabaseReference<T, U>,
+		query: Query<T, U> | DatabaseReference<T, U>,
 		callback: (snapshot: DataSnapshot<T, U>) => unknown,
 		cancelCallback?: (error: Error) => unknown,
 		options?: ListenOptions

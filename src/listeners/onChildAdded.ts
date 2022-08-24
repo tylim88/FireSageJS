@@ -3,7 +3,7 @@ import { ListenOptions, OnChildAdded } from '../types'
 import { isOptions } from '../utils'
 
 export const onChildAdded: OnChildAdded = (
-	ref: unknown,
+	query: unknown,
 	callback: unknown,
 	cancelCallback?: ((error: Error) => unknown) | ListenOptions,
 	options?: ListenOptions
@@ -13,15 +13,15 @@ export const onChildAdded: OnChildAdded = (
 		options || (isOptions(cancelCallback) ? cancelCallback : undefined)
 	if (cancelCallback_ && options_) {
 		// @ts-expect-error
-		return onChildAdded_(ref, callback, cancelCallback_, options_)
+		return onChildAdded_(query, callback, cancelCallback_, options_)
 	} else if (cancelCallback_ && !options_) {
 		// @ts-expect-error
-		return onChildAdded_(ref, callback, cancelCallback_)
+		return onChildAdded_(query, callback, cancelCallback_)
 	} else if (!cancelCallback_ && options_) {
 		// @ts-expect-error
-		return onChildAdded_(ref, callback, options_)
+		return onChildAdded_(query, callback, options_)
 	} else {
 		// @ts-expect-error
-		return onChildAdded_(ref, callback)
+		return onChildAdded_(query, callback)
 	}
 }
