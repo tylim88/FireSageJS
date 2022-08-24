@@ -1,4 +1,3 @@
-import { MetaType } from '../metaType'
 import { QueryConstraintType, OriQueryConstraint } from '../alias'
 import { StrictExtract } from '../utils'
 
@@ -26,21 +25,12 @@ type EndAtSymbol = typeof endAtSymbol
 type EndBeforeSymbol = typeof endBeforeSymbol
 type EqualToSymbol = typeof equalToSymbol
 
-declare class QC<
-	T extends MetaType,
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V extends symbol
-> {
+declare class QC<V extends symbol> {
 	private constructor()
 	private symbol: V
 }
 
-export interface OrderByChild<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V extends string
-> extends QC<T, U, OrderByChildSymbol> {
+export interface OrderByChild<V extends string> extends QC<OrderByChildSymbol> {
 	type: StrictExtract<
 		QueryConstraintType,
 		StrictExtract<QueryConstraintType, 'orderByChild'>
@@ -49,123 +39,90 @@ export interface OrderByChild<
 	ref: OriQueryConstraint
 }
 
-export interface OrderByKey<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
-> extends QC<T, U, OrderByKeySymbol> {
+export interface OrderByKey extends QC<OrderByKeySymbol> {
 	type: StrictExtract<QueryConstraintType, 'orderByKey'>
 	ref: OriQueryConstraint
 }
 
-export interface OrderByValue<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
-> extends QC<T, U, OrderByValueSymbol> {
+export interface OrderByValue extends QC<OrderByValueSymbol> {
 	type: StrictExtract<QueryConstraintType, 'orderByValue'>
 	ref: OriQueryConstraint
 }
 
-export interface OrderByPriority<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
-> extends QC<T, U, OrderByPrioritySymbol> {
+export interface OrderByPriority extends QC<OrderByPrioritySymbol> {
 	type: StrictExtract<QueryConstraintType, 'orderByPriority'>
 	ref: OriQueryConstraint
 }
 
-export interface LimitToFirst<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
-> extends QC<T, U, LimitToFirstSymbol> {
+export interface LimitToFirst extends QC<LimitToFirstSymbol> {
 	type: StrictExtract<QueryConstraintType, 'limitToFirst'>
 	ref: OriQueryConstraint
 }
 
-export interface LimitToLast<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
-> extends QC<T, U, LimitToLastSymbol> {
+export interface LimitToLast extends QC<LimitToLastSymbol> {
 	type: StrictExtract<QueryConstraintType, 'limitToLast'>
 	ref: OriQueryConstraint
 }
 
-export interface StartAt<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V
-> extends QC<T, U, StartAtSymbol> {
+export interface StartAt<V, K extends string> extends QC<StartAtSymbol> {
 	type: StrictExtract<
 		QueryConstraintType,
 		StrictExtract<QueryConstraintType, 'startAt'>
 	>
 	value: V
+	key: K
 	ref: OriQueryConstraint
 }
 
-export interface StartAfter<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V
-> extends QC<T, U, StartAfterSymbol> {
+export interface StartAfter<V, K extends string> extends QC<StartAfterSymbol> {
 	type: StrictExtract<
 		QueryConstraintType,
 		StrictExtract<QueryConstraintType, 'startAfter'>
 	>
 	value: V
+	key: K
 	ref: OriQueryConstraint
 }
 
-export interface EndAt<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V
-> extends QC<T, U, EndAtSymbol> {
+export interface EndAt<V, K extends string> extends QC<EndAtSymbol> {
 	type: StrictExtract<
 		QueryConstraintType,
 		StrictExtract<QueryConstraintType, 'endAt'>
 	>
 	value: V
+	key: K
 	ref: OriQueryConstraint
 }
 
-export interface EndBefore<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V
-> extends QC<T, U, EndBeforeSymbol> {
+export interface EndBefore<V, K extends string> extends QC<EndBeforeSymbol> {
 	type: StrictExtract<
 		QueryConstraintType,
 		StrictExtract<QueryConstraintType, 'endBefore'>
 	>
 	value: V
+	key: K
 	ref: OriQueryConstraint
 }
 
-export interface EqualTo<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V
-> extends QC<T, U, EqualToSymbol> {
+export interface EqualTo<V, K extends string> extends QC<EqualToSymbol> {
 	type: StrictExtract<
 		QueryConstraintType,
 		StrictExtract<QueryConstraintType, 'equalTo'>
 	>
 	value: V
+	key: K
 	ref: OriQueryConstraint
 }
 
-export type QueryConstraint<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
-> =
-	| OrderByChild<T, U, string>
-	| OrderByKey<T, U>
-	| OrderByPriority<T, U>
-	| OrderByValue<T, U>
-	| LimitToFirst<T, U>
-	| LimitToLast<T, U>
-	| StartAt<T, U, unknown>
-	| StartAfter<T, U, unknown>
-	| EndAt<T, U, unknown>
-	| EndBefore<T, U, unknown>
-	| EqualTo<T, U, unknown>
+export type QueryConstraint =
+	| OrderByChild<string>
+	| OrderByKey
+	| OrderByPriority
+	| OrderByValue
+	| LimitToFirst
+	| LimitToLast
+	| StartAt<unknown, string>
+	| StartAfter<unknown, string>
+	| EndAt<unknown, string>
+	| EndBefore<unknown, string>
+	| EqualTo<unknown, string>

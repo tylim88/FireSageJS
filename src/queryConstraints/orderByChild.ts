@@ -1,9 +1,4 @@
-import {
-	MetaType,
-	OrderByChild,
-	FindAllLevelChildKeys,
-	RemoveFirstSegment,
-} from '../types'
+import { OrderByChild } from '../types'
 import { orderByChild as orderByChild_ } from 'firebase/database'
 
 /**
@@ -17,16 +12,10 @@ You can read more about orderByChild() in [Sort data](https://firebase.google.co
 
 @param path — The path to order by.
  */
-export const orderByChild = <
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V extends RemoveFirstSegment<FindAllLevelChildKeys<T, U>>
->(
-	path: V
-) => {
+export const orderByChild = <V extends string>(path: V) => {
 	return {
 		type: 'orderByChild',
 		value: path,
 		ref: orderByChild_(path),
-	} as OrderByChild<T, U, V>
+	} as OrderByChild<V>
 }

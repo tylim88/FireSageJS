@@ -1,4 +1,4 @@
-import { MetaType, OrderByKey } from '../types'
+import { OrderByKey } from '../types'
 import { orderByKey as orderByKey_ } from 'firebase/database'
 
 /**
@@ -10,9 +10,6 @@ You can read more about orderByKey() in [Sort data](https://firebase.google.com/
 
 @param path — The path to order by.
  */
-export const orderByKey = <
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
->() => {
-	return { type: 'orderByKey', ref: orderByKey_() } as OrderByKey<T, U>
+export const orderByKey = () => {
+	return { type: 'orderByKey', ref: orderByKey_() } as OrderByKey
 }

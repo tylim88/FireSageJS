@@ -1,4 +1,4 @@
-import { LimitToLast, ErrorLimitInvalidNumber, MetaType } from '../types'
+import { LimitToLast, ErrorLimitInvalidNumber } from '../types'
 import { limitToLast as limitToLast_ } from 'firebase/database'
 /**
 Creates a new QueryConstraint that if limited to the first specific number of children.
@@ -9,11 +9,7 @@ You can read more about limitToLast() in [Filtering data.](https://firebase.goog
 
 @param limit — The maximum number of nodes to include in this query.
  */
-export const limitToLast = <
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V extends number
->(
+export const limitToLast = <V extends number>(
 	limit: V extends 0
 		? ErrorLimitInvalidNumber
 		: number extends V
@@ -27,5 +23,5 @@ export const limitToLast = <
 	return {
 		type: 'limitToLast',
 		ref: limitToLast_(limit),
-	} as LimitToLast<T, U>
+	} as LimitToLast
 }

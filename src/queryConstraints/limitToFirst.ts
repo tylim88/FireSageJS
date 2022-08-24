@@ -1,4 +1,4 @@
-import { LimitToFirst, ErrorLimitInvalidNumber, MetaType } from '../types'
+import { LimitToFirst, ErrorLimitInvalidNumber } from '../types'
 import { limitToFirst as limitToFirst_ } from 'firebase/database'
 /**
 Creates a new QueryConstraint that if limited to the first specific number of children.
@@ -9,11 +9,7 @@ You can read more about limitToFirst() in [Filtering data.](https://firebase.goo
 
 @param limit — The maximum number of nodes to include in this query.
  */
-export const limitToFirst = <
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V extends number
->(
+export const limitToFirst = <V extends number>(
 	limit: V extends 0
 		? ErrorLimitInvalidNumber
 		: number extends V
@@ -27,5 +23,5 @@ export const limitToFirst = <
 	return {
 		type: 'limitToFirst',
 		ref: limitToFirst_(limit),
-	} as LimitToFirst<T, U>
+	} as LimitToFirst
 }

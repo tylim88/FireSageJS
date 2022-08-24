@@ -12,5 +12,5 @@ export const orderByValue = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
 >() => {
-	return { type: 'orderByValue', ref: orderByValue_() } as OrderByValue<T, U>
+	return { type: 'orderByValue', ref: orderByValue_() } as OrderByValue
 }

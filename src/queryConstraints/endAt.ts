@@ -1,12 +1,12 @@
 import { endAt as endAt_ } from 'firebase/database'
-import { MetaType, EndAt } from '../types'
+import { EndAt } from '../types'
 
 export const endAt = <
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined,
-	V
+	V extends string | boolean | number | null,
+	K extends string = never
 >(
-	value: V
+	value: V,
+	key?: K
 ) => {
-	return { type: 'endAt', ref: endAt_(value as any) } as EndAt<T, U, V>
+	return { type: 'endAt', ref: endAt_(value, key) } as EndAt<V, K>
 }
