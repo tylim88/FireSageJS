@@ -1,6 +1,9 @@
 info 
 1.  set(ref(db, "users////////abc"), something) is equivalent to set(ref(db, "users/abc"), something)
+2. Index not defined, add ".indexOn": ".value", for path "/a", to the rules <--orderBy Value
 
-improvements:
-1. update path should not be child of another update path
-2. invalidate Record<number,unknown> when creating meta type
+query rules:
+1. Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo().
+2. cursor does nothing without orderBy, ban cursor without orderBy
+3. orderBy first or cursor first doesnt matter
+4. You can't combine multiple orderBy calls.

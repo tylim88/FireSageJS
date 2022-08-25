@@ -1,4 +1,4 @@
-import { OrderByChild } from '../types'
+import { OrderBy } from '../types'
 import { orderByChild as orderByChild_ } from 'firebase/database'
 
 /**
@@ -17,5 +17,5 @@ export const orderByChild = <V extends string>(path: V) => {
 		type: 'orderByChild',
 		value: path,
 		ref: orderByChild_(path),
-	} as OrderByChild<V>
+	} as OrderBy<'orderByChild', V>
 }

@@ -1,5 +1,5 @@
 import { startAt as startAt_ } from 'firebase/database'
-import { StartAt } from '../types'
+import { Cursor } from '../types'
 
 export const startAt = <
 	V extends string | boolean | number | null,
@@ -8,5 +8,5 @@ export const startAt = <
 	value: V,
 	key?: K
 ) => {
-	return { type: 'startAt', ref: startAt_(value, key) } as StartAt<V, K>
+	return { ref: startAt_(value, key) } as Cursor<V, K>
 }

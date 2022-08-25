@@ -1,5 +1,5 @@
 import { equalTo as equalTo_ } from 'firebase/database'
-import { EqualTo } from '../types'
+import { Cursor } from '../types'
 
 export const equalTo = <
 	V extends string | boolean | number | null,
@@ -8,5 +8,5 @@ export const equalTo = <
 	value: V,
 	key?: K
 ) => {
-	return { type: 'equalTo', ref: equalTo_(value, key) } as EqualTo<V, K>
+	return { ref: equalTo_(value, key) } as Cursor<V, K>
 }

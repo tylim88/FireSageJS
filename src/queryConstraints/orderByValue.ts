@@ -1,4 +1,4 @@
-import { MetaType, OrderByValue } from '../types'
+import { MetaType, OrderBy } from '../types'
 import { orderByValue as orderByValue_ } from 'firebase/database'
 
 /**
@@ -12,5 +12,9 @@ export const orderByValue = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
 >() => {
-	return { type: 'orderByValue', ref: orderByValue_() } as OrderByValue
+	return {
+		type: 'orderByValue',
+		ref: orderByValue_(),
+		value: undefined,
+	} as OrderBy<'orderByValue', undefined>
 }

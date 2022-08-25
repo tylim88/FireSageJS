@@ -2,8 +2,6 @@ export type ErrorHasNoChild<T extends string | undefined> =
 	`Error: The '${T extends string
 		? T
 		: 'root'}' node has no child OR 2) you are trying to use numeric string key on non-numeric string key. Example: the path type is 'abc/${number}' but you supply 'abc/xyz'`
-export type ErrorUnknownProperty<T extends string> =
-	`Error: Unknown properties: '${T}'`
 export type ErrorNotPushAble<T extends string | undefined> =
 	`Error: The '${T extends string
 		? T
@@ -12,10 +10,6 @@ export type ErrorNotRemoveAble<T extends string | undefined> =
 	`Error: The '${T extends string
 		? T
 		: 'Root'}' node is not removable, only Removable type can be removed. Please check the MetaType and union Removable type to '${T}' node`
-export type ErrorNoSuchChild<
-	T extends string,
-	U extends string | undefined
-> = `Error: ${T} is not a direct child of ${U extends string ? U : 'root'}`
 export type ErrorNeedStringSegment =
 	`Error: Incorrect type path, you are trying to use numeric string key on non-numeric string key. Example: the path type is 'abc/${string}' but your input is 'abc/${number}'`
 export type ErrorInvalidOrNeedNumericSegment =

@@ -1,4 +1,4 @@
-import { LimitToFirst, ErrorLimitInvalidNumber } from '../types'
+import { Limit, ErrorLimitInvalidNumber } from '../types'
 import { limitToFirst as limitToFirst_ } from 'firebase/database'
 /**
 Creates a new QueryConstraint that if limited to the first specific number of children.
@@ -21,7 +21,6 @@ export const limitToFirst = <V extends number>(
 		: never // impossible route
 ) => {
 	return {
-		type: 'limitToFirst',
 		ref: limitToFirst_(limit),
-	} as LimitToFirst
+	} as Limit
 }

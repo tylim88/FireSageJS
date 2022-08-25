@@ -61,7 +61,6 @@ export type IsSameOrSubStringOfEither<
 	? true
 	: false
 
-// not in use
 export type GetFirstSegment<U extends string | undefined> =
 	U extends `${infer Y}/${string}` ? Y : U
 

@@ -7,7 +7,7 @@ export type ErrorInvalidSetPriorityRef<T extends string | undefined> =
 		? T
 		: 'root'} is neither of those`
 export type ErrorNeedTupleNotArray =
-	`Error: The type of argument is an array but require tuple, it seem like you forgot to assert it as const, eg: '[1, 2, 3] as const'.`
+	`Error: The type of argument is an array but requires tuple, it seem like you forgot to assert it as const, eg: '[1, 2, 3] as const'.`
 export type ErrorIsPushOnlyAbleType<T extends string | undefined> =
 	`Error: The '${T extends string
 		? T
