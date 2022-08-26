@@ -27,7 +27,6 @@ export const initializeApp = () => {
 	}
 	return initializeApp_(config)
 }
-
 export type Users = MetaTypeCreator<{
 	a: 1 | 2 | 3
 	b: {

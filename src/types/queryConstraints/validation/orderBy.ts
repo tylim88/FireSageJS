@@ -4,8 +4,12 @@ import {
 	RemoveFirstSegment,
 	FindAllLevelChildKeys,
 	ReplaceInvalidSegment,
+	GetFirstSegment,
 } from '../../utils'
-import { ErrorInvalidOrderByChild, ErrorMultipleOrderBy } from './error'
+import {
+	ErrorOrderByChildMustStartAtGrandChildPath,
+	ErrorMultipleOrderBy,
+} from './error'
 
 export type GetAllOrderByType<
 	QC extends QueryConstraint[],
@@ -22,11 +26,16 @@ export type ValidateOrderByChildren<
 	// Error: You can't combine multiple orderBy calls.
 > = O['length'] extends 0 | 1
 	? H extends OrderBy<'orderByChild', infer X>
-		? X extends RemoveFirstSegment<FindAllLevelChildKeys<T, U>>
+		? FindAllLevelChildKeys<T, U> extends infer A extends string
 			? OrderBy<
 					'orderByChild',
-					ReplaceInvalidSegment<T, X & keyof T['flatten_write'] & string>
+					X extends RemoveFirstSegment<A>
+						? ReplaceInvalidSegment<
+								T,
+								`${GetFirstSegment<A>}/${X}` & keyof T['flatten_write'] & string
+						  >
+						: ErrorOrderByChildMustStartAtGrandChildPath<X, U>
 			  >
-			: OrderBy<'orderByChild', ErrorInvalidOrderByChild<X, U>>
+			: never // impossible route
 		: H
 	: ErrorMultipleOrderBy

@@ -1,5 +1,6 @@
 import { MetaType } from '../metaType'
 import { RemoveLastSegment, GetNumberOfSlash } from './common'
+import { AllFieldTypes } from '../fieldType'
 
 export type FindParentKey<
 	T extends MetaType,
@@ -107,3 +108,11 @@ export type FindMetaPathType<
 			: never
 		: never // impossible route
 	: never // impossible route
+
+export type FindKeyOfWriteType<
+	T extends MetaType,
+	U extends (keyof T['flatten_write'] & string) | undefined
+> = keyof Exclude<
+	FindNestedWriteTypeFromFullPath<T, U>,
+	AllFieldTypes | unknown[]
+>

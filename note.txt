@@ -3,7 +3,11 @@ info
 2. Index not defined, add ".indexOn": ".value", for path "/a", to the rules <--orderBy Value
 
 query rules:
-1. Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo().
-2. cursor does nothing without orderBy, ban cursor without orderBy
-3. orderBy first or cursor first doesnt matter
-4. You can't combine multiple orderBy calls.
+1. Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo(). // actually include startAfter and endBefore
+2. When ordering by key, the argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string.
+3. cursor does nothing without orderBy, ban cursor without orderBy
+4. orderBy first or cursor first doesnt matter
+5. You can't combine multiple orderBy calls.
+
+key naming rule:
+key argument was an invalid key = "1".  Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]").

@@ -6,6 +6,7 @@ import {
 	FindAllTopLevelChildKeys,
 	FindNestedWriteTypeFromFullPath,
 	FindMetaPathType,
+	FindKeyOfWriteType,
 } from './findTypeAndKey'
 import { IsTrue, IsSame } from './common'
 import { Users } from '../../utilForTests'
@@ -358,5 +359,43 @@ describe('test', () => {
 		IsTrue<IsSame<E, `b/h/${string}/s`>>()
 		IsTrue<IsSame<F, `b/h/${string}/s/${number}`>>()
 		IsTrue<IsSame<G, never>>()
+	})
+
+	it('test Find Key of WriteType', () => {
+		type A = FindKeyOfWriteType<Users, undefined>
+		type B = FindKeyOfWriteType<Users, 'a'>
+		type C = FindKeyOfWriteType<Users, 'b/d'>
+		type D = FindKeyOfWriteType<Users, 'b/d/f/j'>
+		type E = FindKeyOfWriteType<Users, `b/h/${string}`>
+		type F = FindKeyOfWriteType<Users, `b/h/${string}/i`>
+		type G = FindKeyOfWriteType<Users, `b/h`>
+		type H = FindKeyOfWriteType<Users, `b/h/${string}/l`>
+		type I = FindKeyOfWriteType<Users, `b/h/${string}/m`>
+		type J = FindKeyOfWriteType<Users, `b/h/${string}/m/${string}`>
+		type K = FindKeyOfWriteType<Users, `b/h/${string}/m/${string}/n`>
+		type L = FindKeyOfWriteType<Users, `b/h/${string}/p`>
+		type M = FindKeyOfWriteType<Users, `b/h/${string}/p/${string}`>
+		type N = FindKeyOfWriteType<Users, `b/h/${string}/p/${string}/r`>
+		type O = FindKeyOfWriteType<Users, `b/h/${string}/s`>
+		type P = FindKeyOfWriteType<Users, `b/h/${string}/s/${number}`>
+		type Q = FindKeyOfWriteType<Users, `b/h/${string}/s/${number}/t`>
+
+		IsTrue<IsSame<A, 'a' | 'b' | 'o' | 'q' | 'u' | 'w'>>()
+		IsTrue<IsSame<B, keyof number>>()
+		IsTrue<IsSame<C, 'e' | 'f' | 'k'>>()
+		IsTrue<IsSame<D, keyof number>>()
+		IsTrue<IsSame<E, 'i' | 'l' | 'm' | 'p' | 's'>>()
+		IsTrue<IsSame<F, 'valueOf'>>()
+		IsTrue<IsSame<G, string>>()
+		IsTrue<IsSame<H, keyof never>>()
+		IsTrue<IsSame<I, string>>()
+		IsTrue<IsSame<J, 'n'>>()
+		IsTrue<IsSame<K, keyof '1'>>()
+		IsTrue<IsSame<L, string>>()
+		IsTrue<IsSame<M, 'r'>>()
+		IsTrue<IsSame<N, keyof never>>()
+		IsTrue<IsSame<O, `${number}`>>()
+		IsTrue<IsSame<P, 't'>>()
+		IsTrue<IsSame<Q, keyof number>>()
 	})
 })

@@ -31,3 +31,11 @@ export interface PushAbleOnly<T> extends FieldType<PushAbleOnlySymbol> {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface PseudoArray<T> extends FieldType<PseudoArraySymbol> {}
+
+export type AllFieldTypes =
+	| ServerTimestamp
+	| Increment
+	| Removable
+	| PushAble<unknown>
+	| PushAbleOnly<unknown>
+	| PseudoArray<unknown>
