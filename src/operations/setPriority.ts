@@ -3,7 +3,7 @@ import { DatabaseReference, MetaType, IsValidSetPriorityRef } from '../types'
 /**
 Sets a priority for the data at this Database location.
 
-Applications need not use priority but can order collections by ordinary properties (see | Sorting and filtering data ).
+Applications need not use priority but can order collections by ordinary properties see [Sorting and filtering data](https://firebase.google.com/docs/database/web/lists-of-data#sorting_and_filtering_data).
 
 @param ref — The location to write to.
 

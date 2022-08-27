@@ -8,7 +8,7 @@ import {
 /**
 Writes data the Database location. Like set() but also specifies the priority for that data.
 
-Applications need not use priority but can order collections by ordinary properties (see | Sorting and filtering data ).
+Applications need not use priority but can order collections by ordinary properties see [Sorting and filtering data](https://firebase.google.com/docs/database/web/lists-of-data#sorting_and_filtering_data).
 
 @param ref — The location to write to.
 
