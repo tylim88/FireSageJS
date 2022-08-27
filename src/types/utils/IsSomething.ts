@@ -39,3 +39,19 @@ export type IsParentRecordOrArray<
 	  > extends never
 	? E
 	: DatabaseReference<T, U>
+
+type InvalidKey = '.' | '#' | '$' | '/' | '[' | ']'
+
+export type IsValidKey<
+	T extends string,
+	E extends InvalidKey = never,
+	ACC extends string = T
+> = T extends ''
+	? false
+	: ACC extends `${infer H}${infer R}`
+	? H extends Exclude<InvalidKey, E>
+		? false
+		: IsValidKey<T, E, R>
+	: ACC extends ''
+	? true
+	: false

@@ -8,3 +8,5 @@ export type ErrorInvalidCursorType =
 	`Error: Invalid cursor data type, types must be one of string, number, boolean or null. `
 export type ErrorQueryConstraintsMustBeTuple =
 	`Error: Query Constraints must be a tuple and cannot be array.`
+export type ErrorInvalidFirebaseKey =
+	`Error: Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]"`
