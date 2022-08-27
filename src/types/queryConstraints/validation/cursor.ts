@@ -4,10 +4,11 @@ import {
 	CommonOrderBy,
 	CommonCursor,
 } from '../queryConstraint'
+import { CursorValue } from '../cursorConstraint'
 import {
 	GetFirstSegment,
 	FindKeyOfWriteType,
-	FindNestedReadTypeFromFullPath,
+	FindNestedCompareTypeFromFullPath,
 	FindAllLevelChildKeys,
 } from '../../utils'
 import { MetaType } from '../../metaType'
@@ -19,6 +20,7 @@ import {
 	ErrorKeyMustBeString,
 	ErrorOrderingByKeyMustBeString,
 } from './error'
+import { ErrorInvalidCursorValue } from '../error'
 
 type IsValidStringKey<
 	T extends MetaType,
@@ -44,44 +46,47 @@ export type ValidateCursor<
 	  ErrorCursorMustHasOrderBy
 	: O['length'] extends 1
 	? O[0] extends infer R
-		? C extends Cursor<
-				infer A extends string | boolean | number | null,
-				infer B extends string
-		  >
-			? IsValidStringKey<T, U, B> extends infer K extends string
-				? R extends OrderBy<'orderByKey', undefined>
-					? Cursor<
-							A extends string
-								? IsValidStringKey<T, U, A>
-								: ErrorOrderingByKeyMustBeString,
-							B[] extends never[] ? B : ErrorOrderingByKeyOnlyOneArgument
-					  >
-					: R extends OrderBy<'orderByValue', undefined>
-					? Cursor<
-							FindNestedReadTypeFromFullPath<T, U> extends Record<
-								string,
-								infer X
-							>
-								? X
-								: never, // impossible route
-							K
-					  >
-					: R extends OrderBy<'orderByPriority', undefined>
-					? Cursor<A, K>
-					: R extends OrderBy<'orderByChild', infer X>
-					? Cursor<
-							FindNestedReadTypeFromFullPath<
-								T,
-								`${U extends string ? `${U}/` : ''}${GetFirstSegment<
-									FindAllLevelChildKeys<T, U>
-								>}/${X}`
-							>,
-							K
-					  >
-					: never // impossible route
-				: never // impossible route
-			: never // never // impossible route
+		? C extends Cursor<infer A, infer B>
+			? B[] extends string[]
+				? A[] extends CursorValue[]
+					? IsValidStringKey<T, U, B> extends infer K extends string
+						? R extends OrderBy<'orderByKey', undefined>
+							? Cursor<
+									A extends string
+										? IsValidStringKey<T, U, A>
+										: ErrorOrderingByKeyMustBeString,
+									B[] extends never[] ? B : ErrorOrderingByKeyOnlyOneArgument
+							  >
+							: R extends OrderBy<'orderByValue', undefined>
+							? Cursor<
+									FindNestedCompareTypeFromFullPath<T, U> extends Record<
+										string,
+										infer X
+									>
+										? X
+										: '3', // never, // impossible route
+									K
+							  >
+							: R extends OrderBy<'orderByPriority', undefined>
+							? Cursor<A, K>
+							: R extends OrderBy<'orderByChild', infer X>
+							? Cursor<
+									FindNestedCompareTypeFromFullPath<
+										T,
+										`${U extends string ? `${U}/` : ''}${GetFirstSegment<
+											FindAllLevelChildKeys<T, U>
+										>}/${X}`
+									> extends infer S
+										? Exclude<S, CursorValue> extends never
+											? S
+											: ErrorInvalidCursorValue
+										: never, // impossible route,
+									K
+							  >
+							: never // impossible route
+						: never // impossible route
+					: Cursor<ErrorInvalidCursorValue, B>
+				: Cursor<A, string>
+			: never // impossible route
 		: never // impossible route
 	: ErrorMultipleOrderByCursor
-
-export type a = 1

@@ -7,7 +7,20 @@ initializeApp()
 const ref = usersCreator().ref
 
 describe('test orderByChild', () => {
-	it('test type, pass', () => {
-		// query(ref('b/h'), orderByChild('p'), startAt(123))
+	it('test type, fail', () => {
+		;() => {
+			query(
+				ref('b/h'),
+				orderByChild('p'),
+				// @ts-expect-error
+				startAt({ 1: { r: 1 } })
+			)
+			query(
+				ref('b/h'),
+				orderByChild('p'),
+				// @ts-expect-error
+				startAt(123)
+			)
+		}
 	})
 })

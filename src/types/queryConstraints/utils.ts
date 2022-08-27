@@ -1,5 +1,5 @@
 import { MetaType } from '../metaType'
-import { ErrorInvalidQueryType, ErrorInvalidCursorType } from './error'
+import { ErrorInvalidQueryType, ErrorInvalidCursorValue } from './error'
 import { IsRecordOrArray, FindNestedWriteTypeFromFullPath } from '../utils'
 
 export type IsValidQueryRef<
@@ -16,4 +16,4 @@ export type IsValidCursorType<
 	| boolean
 	| null
 	? FindNestedWriteTypeFromFullPath<T, U>
-	: ErrorInvalidCursorType
+	: ErrorInvalidCursorValue
