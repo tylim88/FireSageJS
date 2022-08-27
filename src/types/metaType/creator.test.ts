@@ -293,9 +293,8 @@ describe('test generated meta type', () => {
 					w: Record<`${number}`, { v: boolean }> | { v: boolean }[]
 				}
 			>
-		>
+		>()
 	})
-
 	it('test read', () => {
 		type A = Users['read']
 
@@ -337,43 +336,46 @@ describe('test generated meta type', () => {
 					w: { v: boolean }[]
 				}
 			>
-		>
+		>()
 	})
 
-	// it('test compare', () => {
-	// 	type A = Users['compare']
+	it('test compare', () => {
+		type A = Users['compare']
+		type o = A['w']
+		IsTrue<
+			IsSame<
+				A,
+				{
+					a: 1 | 2 | 3
+					b: {
+						c: true
+						d: {
+							e: 'abc' | 'xyz' | 'efg'
+							f: { j: number }
+							k: string
+						}
 
-	// 	IsTrue<
-	// 		IsSame<
-	// 			A,
-	// 			{
-	// 				a: 1 | 2 | 3
-	// 				b: {
-	// 					c: true
-	// 					d: {
-	// 						e: 'abc' | 'xyz' | 'efg'
-	// 						f: { j: number }
-	// 						k: string
-	// 					}
+						h: Record<
+							string,
+							{
+								i: boolean
+								l: number
+								m: Record<string, { n: '7' | '8' | '9' }>
 
-	// 					h: Record<
-	// 						string,
-	// 						{
-	// 							i: boolean
-	// 							l: number
-	// 							m: Record<string, { n: '7' | '8' | '9' }>
-	// 							p: Record<string, { r: number }>
-	// 							s: { t: number }[]
-	// 						}
-	// 					>
-	// 				}
-	// 				o: Record<string, number>
-	// 				q: Record<string, 4 | 5 | 6>
-	// 				u: string[]
-	// 			}
-	// 		>
-	// 	>
-	// })
+								p: Record<string, { r: number }>
+
+								s: Record<`${number}`, { t: number }>
+							}
+						>
+					}
+					o: Record<string, number>
+					q: Record<string, 4 | 5 | 6>
+					u: Record<`${number}`, string>
+					w: Record<`${number}`, { v: boolean }>
+				}
+			>
+		>()
+	})
 
 	it('test base', () => {
 		type A = Users['base']
@@ -409,6 +411,6 @@ describe('test generated meta type', () => {
 					w: PseudoArray<boolean>
 				}
 			>
-		>
+		>()
 	})
 })

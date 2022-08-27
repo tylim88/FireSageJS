@@ -7,6 +7,7 @@ import {
 	FindNestedWriteTypeFromFullPath,
 	FindMetaPathType,
 	FindKeyOfWriteType,
+	FindNestedCompareTypeFromFullPath,
 } from './findTypeAndKey'
 import { IsTrue, IsSame } from './common'
 import { Users } from '../../utilForTests'
@@ -343,6 +344,70 @@ describe('test', () => {
 		>()
 		IsTrue<IsSame<Q, number | undefined>>()
 	})
+
+	it('test Find Nested Compare Type', () => {
+		type A = FindNestedCompareTypeFromFullPath<Users, undefined>
+		type B = FindNestedCompareTypeFromFullPath<Users, 'a'>
+		type C = FindNestedCompareTypeFromFullPath<Users, 'b/d'>
+		type D = FindNestedCompareTypeFromFullPath<Users, 'b/d/f/j'>
+		type E = FindNestedCompareTypeFromFullPath<Users, `b/h/${string}`>
+		type F = FindNestedCompareTypeFromFullPath<Users, `b/h/${string}/i`>
+		type G = FindNestedCompareTypeFromFullPath<Users, `b/h`>
+		type H = FindNestedCompareTypeFromFullPath<Users, `b/h/${string}/l`>
+		type I = FindNestedCompareTypeFromFullPath<Users, `b/h/${string}/m`>
+		type J = FindNestedCompareTypeFromFullPath<
+			Users,
+			`b/h/${string}/m/${string}`
+		>
+		type K = FindNestedCompareTypeFromFullPath<
+			Users,
+			`b/h/${string}/m/${string}/n`
+		>
+		type L = FindNestedCompareTypeFromFullPath<Users, `b/h/${string}/p`>
+		type M = FindNestedCompareTypeFromFullPath<
+			Users,
+			`b/h/${string}/p/${string}`
+		>
+		type N = FindNestedCompareTypeFromFullPath<
+			Users,
+			`b/h/${string}/p/${string}/r`
+		>
+		type O = FindNestedCompareTypeFromFullPath<Users, `b/h/${string}/s`>
+		type P = FindNestedCompareTypeFromFullPath<
+			Users,
+			`b/h/${string}/s/${number}`
+		>
+		type Q = FindNestedCompareTypeFromFullPath<
+			Users,
+			`b/h/${string}/s/${number}/t`
+		>
+
+		IsTrue<IsSame<A, Users['compare']>>()
+		IsTrue<IsSame<B, Users['compare']['a']>>()
+		IsTrue<IsSame<C, Users['compare']['b']['d']>>()
+		IsTrue<IsSame<D, Users['compare']['b']['d']['f']['j']>>()
+		IsTrue<IsSame<E, Users['compare']['b']['h'][string]>>()
+		IsTrue<IsSame<F, Users['compare']['b']['h'][string]['i']>>()
+		IsTrue<IsSame<G, Users['compare']['b']['h']>>()
+		IsTrue<IsSame<H, Users['compare']['b']['h'][string]['l']>>()
+		IsTrue<IsSame<I, Users['compare']['b']['h'][string]['m']>>()
+		IsTrue<IsSame<J, Users['compare']['b']['h'][string]['m'][string]>>()
+		IsTrue<IsSame<K, Users['compare']['b']['h'][string]['m'][string]['n']>>()
+		IsTrue<IsSame<L, Users['compare']['b']['h'][string]['p']>>()
+		IsTrue<IsSame<M, Users['compare']['b']['h'][string]['p'][string]>>()
+		IsTrue<IsSame<N, Users['compare']['b']['h'][string]['p'][string]['r']>>()
+		IsTrue<IsSame<O, Users['compare']['b']['h'][string]['s']>>()
+		IsTrue<
+			IsSame<
+				P,
+				{
+					t: number
+				}
+			>
+		>()
+		IsTrue<IsSame<Q, number>>()
+	})
+
 	it('test Find Nested Read Type', () => {
 		type A = FindMetaPathType<Users, 'a'>
 		type B = FindMetaPathType<Users, 'b/h/abc'>

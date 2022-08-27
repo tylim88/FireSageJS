@@ -75,6 +75,24 @@ export type FindNestedWriteTypeFromFullPath<
 	? ACC[U]
 	: never // impossible route
 
+export type FindNestedCompareTypeFromFullPath<
+	T extends MetaType,
+	U extends string | undefined,
+	ACC extends T['compare'] = T['compare']
+> = U extends undefined
+	? T['compare']
+	: U extends `${infer R}/${infer S}`
+	? R extends keyof ACC
+		? ACC[R] extends infer P // make distributive
+			? P extends P
+				? FindNestedCompareTypeFromFullPath<T, S, P>
+				: never // impossible route
+			: never // impossible route
+		: never // impossible route
+	: U extends keyof ACC
+	? ACC[U]
+	: never // impossible route
+
 export type FindNestedReadTypeFromFullPath<
 	T extends MetaType,
 	U extends string | undefined,

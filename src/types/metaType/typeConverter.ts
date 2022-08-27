@@ -18,6 +18,18 @@ export type ReadTypeConverter<T> = T extends Record<string, unknown>
 	? number
 	: T
 
+export type CompareTypeConverter<T> = T extends Record<string, unknown>
+	? { [K in keyof T]: CompareTypeConverter<T[K]> }
+	: T extends PushAble<infer X>
+	? { [x in string]: CompareTypeConverter<X> }
+	: T extends PushAbleOnly<infer X>
+	? { [x in string]: CompareTypeConverter<X> }
+	: T extends PseudoArray<infer X>
+	? { [x in `${number}`]: CompareTypeConverter<X> }
+	: T extends ServerTimestamp
+	? number
+	: T
+
 export type WriteTypeConverter<T> = T extends Record<string, unknown>
 	? { [K in keyof T]: WriteTypeConverter<T[K]> }
 	: T extends PushAble<infer X>

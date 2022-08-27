@@ -11,6 +11,7 @@ import {
 	ReadTypeConverter,
 	WriteTypeConverter,
 	AllNodesPossiblyReadAsUndefined,
+	CompareTypeConverter,
 } from './typeConverter'
 
 export type MetaType = {
@@ -36,7 +37,9 @@ export type MetaTypeCreator<
 			ReplaceInvalidDataTypeRead<ReplaceInvalidUnion<Base>>
 		>
 	>,
-	Compare = ReplaceInvalidDataTypeRead<ReadTypeConverter<ReplaceRemove<Base>>>
+	Compare = CompareTypeConverter<
+		ReplaceRemove<ReplaceInvalidDataTypeRead<ReplaceInvalidUnion<Base>>>
+	>
 > = {
 	base: ReplaceInvalidDataTypeBase<ReplaceInvalidUnion<Base>>
 	flatten_base: ObjectFlatten<
