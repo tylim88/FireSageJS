@@ -8,6 +8,7 @@ import {
 } from '../utilForTests'
 import { set } from '../operations'
 import { IsSame, IsTrue, DataSnapshot } from '../types'
+import { query } from '../refs'
 
 initializeApp()
 const users = usersCreator()
@@ -89,7 +90,7 @@ describe('test onValue', () => {
 		const path = `b/h/${randStringHKey}/m` as const
 		const ref = users.ref(path)
 		expect.hasAssertions()
-		const unsub = onValue(ref, async dataSnapshot => {
+		const unsub = onValue(query(ref), async dataSnapshot => {
 			type A = typeof dataSnapshot
 			type B = DataSnapshot<Users, `b/h/${string}/m`>
 			IsTrue<IsSame<B, A>>()

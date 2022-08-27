@@ -8,6 +8,7 @@ import {
 } from '../utilForTests'
 import { set, push } from '../operations'
 import { IsSame, IsTrue, DataSnapshot } from '../types'
+import { query } from '../refs'
 
 initializeApp()
 const users = usersCreator()
@@ -22,7 +23,7 @@ describe('test onChildAdded', () => {
 		const ref = users.ref(path)
 		expect.hasAssertions()
 		const unsub = onChildAdded(
-			ref,
+			query(ref),
 			async dataSnapshot => {
 				type A = typeof dataSnapshot
 				type B = DataSnapshot<Users, `b/h/${string}/m/${string}`>

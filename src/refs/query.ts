@@ -5,6 +5,7 @@ import {
 	QueryConstraint,
 	IsValidQueryRef,
 	ValidateQueryConstraints,
+	Query,
 } from '../types'
 
 /**
@@ -33,5 +34,5 @@ export const query = <
 				// @ts-expect-error
 				item.ref
 		)
-	)
+	) as Query<T, U>
 }
