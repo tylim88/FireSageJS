@@ -1,4 +1,4 @@
-import { OrderBy } from '../types'
+import { OrderBy, IsValidKey, ErrorInvalidFirebaseKey } from '../types'
 import { orderByChild as orderByChild_ } from 'firebase/database'
 
 /**
@@ -12,7 +12,10 @@ You can read more about orderByChild() in [Sort data](https://firebase.google.co
 
 @param path — The path to order by.
  */
-export const orderByChild = <V extends string>(path: V) => {
+export const orderByChild = <V extends string>(
+	path: V extends never ? V : IsValidKey<V, V, ErrorInvalidFirebaseKey, '/'>
+) => {
+	// @ts-expect-error
 	return {
 		type: 'orderByChild',
 		value: path,

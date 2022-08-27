@@ -3,14 +3,15 @@ import { IsTrue, IsSame } from './common'
 
 describe('test IsSomething', () => {
 	it('test IsValidKey', () => {
-		type A = IsValidKey<'abc'>
-		type B = IsValidKey<'123'>
-		type C = IsValidKey<'a/'>
-		type D = IsValidKey<'a[h'>
-		type E = IsValidKey<']l'>
-		type F = IsValidKey<'7.l#p'>
-		type G = IsValidKey<'$', '$'>
-		type H = IsValidKey<''>
+		type A = IsValidKey<'abc', true, false>
+		type B = IsValidKey<'123', true, false>
+		type C = IsValidKey<'a/', true, false>
+		type D = IsValidKey<'a[h', true, false>
+		type E = IsValidKey<']l', true, false>
+		type F = IsValidKey<'7.l#p', true, false>
+		type G = IsValidKey<'$', true, false, '$'>
+		type H = IsValidKey<'', true, false>
+		type I = IsValidKey<string, true, false>
 
 		IsTrue<IsSame<A, true>>()
 		IsTrue<IsSame<B, true>>()
@@ -20,5 +21,6 @@ describe('test IsSomething', () => {
 		IsTrue<IsSame<F, false>>()
 		IsTrue<IsSame<G, true>>()
 		IsTrue<IsSame<H, false>>()
+		IsTrue<IsSame<I, true>>()
 	})
 })

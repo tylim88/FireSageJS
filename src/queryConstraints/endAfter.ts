@@ -1,12 +1,7 @@
 import { endBefore as endBefore_ } from 'firebase/database'
-import { Cursor } from '../types'
+import { CursorConstraint } from '../types'
 
-export const endBefore = <
-	V extends string | boolean | number | null,
-	K extends string = never
->(
-	value: V,
-	key?: K
-) => {
-	return { ref: endBefore_(value, key) } as Cursor<V, K>
+// @ts-expect-error
+export const endBefore: CursorConstraint = (value, key) => {
+	return { ref: endBefore_(value, key) }
 }

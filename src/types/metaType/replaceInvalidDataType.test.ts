@@ -2,7 +2,11 @@ import {
 	ReplaceInvalidUnion,
 	ReplaceInvalidDataTypeBase,
 } from './replaceInvalidDataType'
-import { ErrorObjectTypeUnion, ErrorUsePseudoArrayInstead } from './error'
+import {
+	ErrorObjectTypeUnion,
+	ErrorUsePseudoArrayInstead,
+	ErrorInvalidKey,
+} from './error'
 import {
 	ServerTimestamp,
 	PushAble,
@@ -80,6 +84,27 @@ describe('test replace invalid data type', () => {
 					a: {
 						b: ErrorUsePseudoArrayInstead
 						d: { e: { f: ErrorUsePseudoArrayInstead }; g: boolean }
+					}
+				}
+			>
+		>()
+	})
+	it('test invalid key', () => {
+		type A = ReplaceInvalidDataTypeBase<{
+			a: {
+				b: string
+				d: { 'e.l': { f: number }; 'g[o': boolean }
+				e: Record<string, number>
+			}
+		}>
+		IsTrue<
+			IsSame<
+				A,
+				{
+					a: {
+						b: string
+						d: { 'e.l': ErrorInvalidKey<'e.l'>; 'g[o': ErrorInvalidKey<'g[o'> }
+						e: Record<string, number>
 					}
 				}
 			>

@@ -2,6 +2,7 @@ import {
 	ErrorInvalidDataType,
 	ErrorObjectTypeUnion,
 	ErrorUsePseudoArrayInstead,
+	ErrorInvalidKey,
 } from './error'
 import {
 	ServerTimestamp,
@@ -10,9 +11,15 @@ import {
 	PushAbleOnly,
 	PseudoArray,
 } from '../fieldType'
-import { IsUnion } from '../utils'
+import { IsUnion, IsValidKey } from '../utils'
 
-export type ReplaceRecordNumber<T, U> = T extends Record<infer X, unknown>
+type IsValidFirebaseKey<K extends string, P> = IsValidKey<
+	K,
+	P,
+	ErrorInvalidKey<K>
+>
+
+type ReplaceRecordNumber<T, U> = T extends Record<infer X, unknown>
 	? X extends number | `${number}`
 		? ErrorUsePseudoArrayInstead
 		: U
@@ -27,7 +34,15 @@ export type ReplaceInvalidDataTypeBase<T> = T extends
 	| null
 	? T
 	: T extends Record<string, unknown>
-	? ReplaceRecordNumber<T, { [K in keyof T]: ReplaceInvalidDataTypeBase<T[K]> }>
+	? ReplaceRecordNumber<
+			T,
+			{
+				[K in keyof T]: IsValidFirebaseKey<
+					K & string,
+					ReplaceInvalidDataTypeBase<T[K]>
+				>
+			}
+	  >
 	: T extends PushAble<infer X>
 	? PushAble<ReplaceInvalidDataTypeBase<X>>
 	: T extends PushAbleOnly<infer X>
@@ -45,7 +60,15 @@ export type ReplaceInvalidDataTypeRead<T> = T extends
 	| null
 	? T
 	: T extends Record<string, unknown>
-	? ReplaceRecordNumber<T, { [K in keyof T]: ReplaceInvalidDataTypeRead<T[K]> }>
+	? ReplaceRecordNumber<
+			T,
+			{
+				[K in keyof T]: IsValidFirebaseKey<
+					K & string,
+					ReplaceInvalidDataTypeRead<T[K]>
+				>
+			}
+	  >
 	: T extends PushAble<infer X>
 	? PushAble<ReplaceInvalidDataTypeRead<X>>
 	: T extends PushAbleOnly<infer X>
@@ -65,7 +88,12 @@ export type ReplaceInvalidDataTypeWrite<T> = T extends
 	: T extends Record<string, unknown>
 	? ReplaceRecordNumber<
 			T,
-			{ [K in keyof T]: ReplaceInvalidDataTypeWrite<T[K]> }
+			{
+				[K in keyof T]: IsValidFirebaseKey<
+					K & string,
+					ReplaceInvalidDataTypeWrite<T[K]>
+				>
+			}
 	  >
 	: T extends PushAble<infer X>
 	? PushAble<ReplaceInvalidDataTypeWrite<X>>

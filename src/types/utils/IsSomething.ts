@@ -44,14 +44,18 @@ type InvalidKey = '.' | '#' | '$' | '/' | '[' | ']'
 
 export type IsValidKey<
 	T extends string,
+	PASS,
+	FAIL,
 	E extends InvalidKey = never,
 	ACC extends string = T
-> = T extends ''
-	? false
+> = string extends T
+	? PASS
+	: T extends ''
+	? FAIL
 	: ACC extends `${infer H}${infer R}`
 	? H extends Exclude<InvalidKey, E>
-		? false
-		: IsValidKey<T, E, R>
+		? FAIL
+		: IsValidKey<T, PASS, FAIL, E, R>
 	: ACC extends ''
-	? true
-	: false
+	? PASS
+	: FAIL

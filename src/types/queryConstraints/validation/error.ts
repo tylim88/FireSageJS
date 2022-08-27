@@ -15,4 +15,4 @@ export type ErrorOrderingByKeyOnlyOneArgument =
 export type ErrorOrderByNeedNonNumericStringKey =
 	`Error: Invalid key, the type of key is non numeric string but got numeric string`
 export type ErrorKeyMustBeString =
-	`Error: The key argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string. `
+	`Error: The key argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string.`

@@ -6,7 +6,6 @@ import {
 } from '../queryConstraint'
 import {
 	GetFirstSegment,
-	RemoveFirstSegment,
 	FindKeyOfWriteType,
 	FindNestedReadTypeFromFullPath,
 	FindAllLevelChildKeys,
@@ -69,7 +68,7 @@ export type ValidateCursor<
 								T,
 								`${U extends string ? `${U}/` : ''}${GetFirstSegment<
 									FindAllLevelChildKeys<T, U>
-								>}/${R['value']}`
+								>}/${X}`
 							>,
 							K
 					  >
