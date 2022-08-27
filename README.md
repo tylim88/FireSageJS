@@ -99,3 +99,7 @@
 <br/> -->
 
 Coming soon
+
+## Trivial
+
+1. The name FireSage is a reference to [Fire Sages of Avatar](https://avatar.fandom.com/wiki/Fire_Sages).

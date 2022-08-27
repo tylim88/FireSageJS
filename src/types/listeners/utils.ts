@@ -20,7 +20,7 @@ export type GetOnChildSnapshot<
 	U,
 	FindAllTopLevelChildKeys<T, U>
 > extends infer C extends keyof T['flatten_write'] & string
-	? C extends C
+	? C extends C // make distributive
 		? DataSnapshot<T, C>
 		: never
 	: never
