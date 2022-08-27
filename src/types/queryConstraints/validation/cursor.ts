@@ -17,7 +17,6 @@ import {
 	ErrorMultipleOrderByCursor,
 	ErrorOrderingByKeyOnlyOneArgument,
 	ErrorNeedNonNumericStringKey,
-	ErrorKeyMustBeString,
 	ErrorOrderingByKeyMustBeString,
 } from './error'
 import { ErrorInvalidCursorValue } from '../error'
@@ -27,13 +26,11 @@ type IsValidStringKey<
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	A extends string
 > = FindKeyOfWriteType<T, U> extends infer W
-	? A extends string
-		? string extends W
-			? A extends `${number}`
-				? ErrorNeedNonNumericStringKey
-				: A
-			: `${number}`
-		: ErrorKeyMustBeString
+	? string extends W
+		? A extends `${number}`
+			? ErrorNeedNonNumericStringKey
+			: A
+		: `${number}`
 	: never // impossible route
 
 export type ValidateCursor<
@@ -47,9 +44,12 @@ export type ValidateCursor<
 	: O['length'] extends 1
 	? O[0] extends infer R
 		? C extends Cursor<infer A, infer B>
-			? B[] extends string[]
-				? A[] extends CursorValue[]
-					? IsValidStringKey<T, U, B> extends infer K extends string
+			? // The 2nd argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string or optional.
+			  B[] extends string[]
+				? // First argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() cannot be an object.
+				  A[] extends CursorValue[]
+					? // Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]"
+					  IsValidStringKey<T, U, B> extends infer K extends string
 						? R extends OrderBy<'orderByKey', undefined>
 							? Cursor<
 									A extends string

@@ -11,4 +11,4 @@ export type ErrorQueryConstraintsMustBeTuple =
 export type ErrorInvalidFirebaseKey =
 	`Error: Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]"`
 export type ErrorInvalidCursorValue =
-	`Reminder startAt(), startAfter(), endAt(), endBefore(), or equalTo() only accept string, boolean, number or null.`
+	`Error: The 1st argument of startAt(), startAfter(), endAt(), endBefore(), or equalTo() can only be string, boolean, number or null.`

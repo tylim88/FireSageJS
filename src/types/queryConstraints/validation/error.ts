@@ -3,7 +3,7 @@ export type ErrorMultipleOrderBy =
 export type ErrorMultipleOrderByCursor =
 	`Error: You can't combine multiple orderBy calls. Remove extra orderBy(s) before proceed`
 export type ErrorQueryConstraintsIsNotTuple =
-	`Error: The query constraints type must be tuple. Note: array type is not tuple type but you can convert it to tuple by assert it as const, eg: "[1,2,3] as const`
+	`Error: The query constraints type must be a tuple. Note: array type is not tuple type but you can convert it to tuple by assert it as const, eg: "[1,2,3] as const`
 export type ErrorCursorMustHasOrderBy =
 	`Error: missing orderBy clause, startAt, startAfter, endAt, endBefore or equalTo need orderBy to work`
 export type ErrorOrderByChildMustStartAtGrandChildPath<
@@ -16,5 +16,3 @@ export type ErrorOrderingByKeyMustBeString =
 	`When ordering by key, the argument passed to startAt(), startAfter(), endAt(), endBefore() or equalTo() must be a string.`
 export type ErrorNeedNonNumericStringKey =
 	`Error: Invalid key, the type of key is non numeric string but got numeric string`
-export type ErrorKeyMustBeString =
-	`Error: The key argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string.`
