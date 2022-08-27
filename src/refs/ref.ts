@@ -4,8 +4,6 @@ import {
 	Database,
 	DatabaseReference,
 	ReplaceInvalidSegment,
-	ErrorInvalidOrNeedNumericSegment,
-	ErrorNeedStringSegment,
 } from '../types'
 import { isDatabase, isString } from '../utils'
 
@@ -25,13 +23,7 @@ type Ref<T extends MetaType> = {
 			: U
 	): DatabaseReference<
 		T,
-		U extends string
-			? ReplaceInvalidSegment<T, U> extends
-					| ErrorInvalidOrNeedNumericSegment
-					| ErrorNeedStringSegment
-				? never
-				: U
-			: undefined
+		U extends string ? ReplaceInvalidSegment<T, U, U, never, never> : undefined
 	>
 	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
 		db?: Database,
@@ -40,12 +32,6 @@ type Ref<T extends MetaType> = {
 			: U
 	): DatabaseReference<
 		T,
-		U extends string
-			? ReplaceInvalidSegment<T, U> extends
-					| ErrorInvalidOrNeedNumericSegment
-					| ErrorNeedStringSegment
-				? never
-				: U
-			: undefined
+		U extends string ? ReplaceInvalidSegment<T, U, U, never, never> : undefined
 	>
 }

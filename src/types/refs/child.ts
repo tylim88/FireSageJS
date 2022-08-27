@@ -16,10 +16,8 @@ export type ValidateChildPath<
 	V extends string
 > = FindAllLevelChildKeys<T, U> extends never
 	? ErrorHasNoChild<U>
-	: ReplaceInvalidSegment<
-			T,
-			GetFullPath<T, U, V>
-	  > extends ErrorNeedStringSegment
+	: // ! something wrong here, it distributes
+	ReplaceInvalidSegment<T, GetFullPath<T, U, V>> extends ErrorNeedStringSegment
 	? ErrorNeedStringSegment
 	: ReplaceInvalidSegment<
 			T,

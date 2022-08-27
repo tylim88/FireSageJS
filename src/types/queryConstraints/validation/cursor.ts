@@ -15,19 +15,20 @@ import {
 	ErrorCursorMustHasOrderBy,
 	ErrorMultipleOrderByCursor,
 	ErrorOrderingByKeyOnlyOneArgument,
-	ErrorOrderByNeedNonNumericStringKey,
+	ErrorNeedNonNumericStringKey,
 	ErrorKeyMustBeString,
+	ErrorOrderingByKeyMustBeString,
 } from './error'
 
 type IsValidStringKey<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
-	A
+	A extends string
 > = FindKeyOfWriteType<T, U> extends infer W
 	? A extends string
 		? string extends W
 			? A extends `${number}`
-				? ErrorOrderByNeedNonNumericStringKey
+				? ErrorNeedNonNumericStringKey
 				: A
 			: `${number}`
 		: ErrorKeyMustBeString
@@ -43,11 +44,16 @@ export type ValidateCursor<
 	  ErrorCursorMustHasOrderBy
 	: O['length'] extends 1
 	? O[0] extends infer R
-		? C extends Cursor<infer A, infer B>
-			? IsValidStringKey<T, U, A> extends infer K extends string
+		? C extends Cursor<
+				infer A extends string | boolean | number | null,
+				infer B extends string
+		  >
+			? IsValidStringKey<T, U, B> extends infer K extends string
 				? R extends OrderBy<'orderByKey', undefined>
 					? Cursor<
-							K,
+							A extends string
+								? IsValidStringKey<T, U, A>
+								: ErrorOrderingByKeyMustBeString,
 							B[] extends never[] ? B : ErrorOrderingByKeyOnlyOneArgument
 					  >
 					: R extends OrderBy<'orderByValue', undefined>
@@ -74,7 +80,7 @@ export type ValidateCursor<
 					  >
 					: never // impossible route
 				: never // impossible route
-			: never // impossible route
+			: never // never // impossible route
 		: never // impossible route
 	: ErrorMultipleOrderByCursor
 

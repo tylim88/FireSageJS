@@ -8,18 +8,19 @@ import {
 export type IsRecordOrArray<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
-	E extends string
+	E extends string,
+	Pass = DatabaseReference<T, U>
 > = FindNestedWriteTypeFromFullPath<T, U> extends Record<string, unknown>
 	? FindNestedWriteTypeFromFullPath<T, U> extends Record<infer X, unknown>
 		? string extends X
-			? DatabaseReference<T, U>
+			? Pass
 			: `${number}` extends X
-			? DatabaseReference<T, U>
+			? Pass
 			: E
 		: never
 	: Extract<FindNestedWriteTypeFromFullPath<T, U>, unknown[]> extends never
 	? E
-	: DatabaseReference<T, U>
+	: Pass
 
 export type IsParentRecordOrArray<
 	T extends MetaType,

@@ -13,10 +13,11 @@ export type ValidateQueryConstraints<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	QC extends QueryConstraint[],
-	ACC extends unknown[] = []
-> = IsTuple<QC> extends false
-	? ErrorQueryConstraintsIsNotTuple
-	: GetAllOrderByType<QC> extends infer O extends CommonOrderBy[]
+	ACC extends unknown[] = [],
+	OriQC extends QueryConstraint[] = QC
+> = IsTuple<OriQC> extends false
+	? [ErrorQueryConstraintsIsNotTuple]
+	: GetAllOrderByType<OriQC> extends infer O extends CommonOrderBy[]
 	? QC extends [infer H, ...infer R extends QueryConstraint[]]
 		? ValidateQueryConstraints<
 				T,
@@ -29,7 +30,8 @@ export type ValidateQueryConstraints<
 						: H extends CommonCursor
 						? ValidateCursor<T, U, O, H>
 						: H
-				]
+				],
+				OriQC
 		  >
 		: ACC
 	: never // impossible route

@@ -9,6 +9,7 @@ import {
 import {
 	ErrorOrderByChildMustStartAtGrandChildPath,
 	ErrorMultipleOrderBy,
+	ErrorNeedNonNumericStringKey,
 } from './error'
 
 export type GetAllOrderByType<
@@ -30,10 +31,18 @@ export type ValidateOrderByChildren<
 			? OrderBy<
 					'orderByChild',
 					X extends RemoveFirstSegment<A>
-						? ReplaceInvalidSegment<
-								T,
-								`${GetFirstSegment<A>}/${X}` & keyof T['flatten_write'] & string
-						  >
+						? `${U extends string
+								? `${U}/`
+								: ''}${GetFirstSegment<A>}/${X}` extends infer Z extends keyof T['flatten_write'] &
+								string
+							? ReplaceInvalidSegment<
+									T,
+									Z,
+									X,
+									`${number}`,
+									ErrorNeedNonNumericStringKey
+							  >
+							: RemoveFirstSegment<A>
 						: ErrorOrderByChildMustStartAtGrandChildPath<X, U>
 			  >
 			: never // impossible route

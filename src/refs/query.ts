@@ -4,8 +4,7 @@ import {
 	MetaType,
 	QueryConstraint,
 	IsValidQueryRef,
-	ErrorQueryConstraintsMustBeTuple,
-	IsTuple,
+	ValidateQueryConstraints,
 } from '../types'
 
 /**
@@ -24,11 +23,7 @@ export const query = <
 	Q extends QueryConstraint[]
 >(
 	query: string extends never ? DatabaseReference<T, U> : IsValidQueryRef<T, U>,
-	...queryConstraint: Q extends never
-		? Q
-		: IsTuple<Q> extends true
-		? Q
-		: [ErrorQueryConstraintsMustBeTuple]
+	...queryConstraint: Q extends never ? Q : ValidateQueryConstraints<T, U, Q>
 ) => {
 	return query_(
 		// @ts-expect-error

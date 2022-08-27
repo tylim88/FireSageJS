@@ -10,10 +10,11 @@ export type GetFullPath<
 	string
 	? ReplaceInvalidSegment<
 			T,
-			`${ParentFullPath}/${ChildRelativePath}`
-	  > extends keyof T['flatten_write'] & string
-		? `${ParentFullPath}/${ChildRelativePath}`
-		: never
+			`${ParentFullPath}/${ChildRelativePath}`,
+			`${ParentFullPath}/${ChildRelativePath}`,
+			never,
+			never
+	  >
 	: ParentFullPath extends undefined
 	? ChildRelativePath extends keyof T['flatten_write'] & string
 		? ChildRelativePath

@@ -1,13 +1,5 @@
 import { set as set_ } from 'firebase/database'
-import {
-	DatabaseReference,
-	MetaType,
-	FindNestedWriteTypeFromFullPath,
-	GetAllPushAbleOnlyPaths,
-	ErrorIsPushOnlyAbleType,
-	ReplaceNumericRecordIfInputIsRecordString,
-	IsValidSetDataType,
-} from '../types'
+import { DatabaseReference, MetaType, IsValidSetDataType } from '../types'
 /**
 Writes data to this Database location.
 

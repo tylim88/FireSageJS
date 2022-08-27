@@ -14,23 +14,42 @@ import { IsNumericRecordType } from './common'
 export type ReplaceInvalidSegment<
 	T extends MetaType,
 	V extends keyof T['flatten_write'] & string,
+	Pass = V,
+	ErrorNeedNumericString = ErrorInvalidOrNeedNumericSegment,
+	ErrorNeedNonNumericString = ErrorNeedStringSegment,
 	L extends string = FindMetaPathType<T, V> & string,
 	H extends string = V
 > = L[] extends never[]
-	? ErrorInvalidOrNeedNumericSegment // return less specific error for string does not extends `${number}` case
+	? ErrorNeedNumericString // return less specific error for string does not extends `${number}` case
 	: L extends `${infer M}/${infer N}`
 	? H extends `${infer I}/${infer J}`
 		? I extends `${number}`
 			? string extends M
-				? ErrorNeedStringSegment
-				: ReplaceInvalidSegment<T, V, N, J>
-			: ReplaceInvalidSegment<T, V, N, J>
+				? ErrorNeedNonNumericString
+				: ReplaceInvalidSegment<
+						T,
+						V,
+						Pass,
+						ErrorNeedNumericString,
+						ErrorNeedNonNumericString,
+						N,
+						J
+				  >
+			: ReplaceInvalidSegment<
+					T,
+					V,
+					Pass,
+					ErrorNeedNumericString,
+					ErrorNeedNonNumericString,
+					N,
+					J
+			  >
 		: never // impossible route
 	: H extends `${number}`
 	? string extends L
-		? ErrorNeedStringSegment
-		: V
-	: V
+		? ErrorNeedNonNumericString
+		: Pass
+	: Pass
 
 // Record<string, any> and Record<number, any> extends each other
 // Record<string, any> does not extends Record<number, any> & Record<string, never>

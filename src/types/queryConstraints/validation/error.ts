@@ -11,8 +11,10 @@ export type ErrorOrderByChildMustStartAtGrandChildPath<
 	U extends string | undefined
 > = `Error: ${T} is not a valid orderByChild path of ${U}. The path must start at grandchild path. Eg the valid orderByChild path of node 'a/b/c/d' is 'c' or 'c/d'`
 export type ErrorOrderingByKeyOnlyOneArgument =
-	`When ordering by key, you may only pass one argument to startAt(), startAfter(), endAt(), endBefore() or equalTo().`
-export type ErrorOrderByNeedNonNumericStringKey =
+	`When ordering by key, you may only pass one argument to startAt(), startAfter(), endAt(), endBefore() or equalTo()`
+export type ErrorOrderingByKeyMustBeString =
+	`When ordering by key, the argument passed to startAt(), startAfter(), endAt(), endBefore() or equalTo() must be a string.`
+export type ErrorNeedNonNumericStringKey =
 	`Error: Invalid key, the type of key is non numeric string but got numeric string`
 export type ErrorKeyMustBeString =
 	`Error: The key argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string.`

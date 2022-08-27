@@ -1,4 +1,4 @@
-import { MetaType, OrderBy } from '../types'
+import { OrderBy } from '../types'
 import { orderByValue as orderByValue_ } from 'firebase/database'
 
 /**
@@ -8,10 +8,7 @@ If the children of a query are all scalar values (string, number, or boolean), y
 
 You can read more about orderByValue() in [Sort data](https://firebase.google.com/docs/database/web/lists-of-data#sort_data).
  */
-export const orderByValue = <
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
->() => {
+export const orderByValue = () => {
 	return {
 		type: 'orderByValue',
 		ref: orderByValue_(),
