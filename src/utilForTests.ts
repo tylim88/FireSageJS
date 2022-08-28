@@ -32,14 +32,20 @@ export type Users = MetaTypeCreator<{
 	b: {
 		c: true
 		d:
-			| { e: 'abc' | 'xyz' | 'efg'; f: { j: number }; k: string | Removable }
+			| {
+					e: 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst'
+					f: { j: number }
+					k: string | Removable
+			  }
 			| Removable
 		h: Record<
 			string,
 			{
 				i: boolean
 				l: ServerTimestamp | Removable
-				m: PushAble<{ n: '7' | '8' | '9' | Removable } | Removable> | Removable
+				m:
+					| PushAble<{ n: '1' | '2' | '7' | '8' | '9' | Removable } | Removable>
+					| Removable
 				p:
 					| PushAbleOnly<{ r: ServerTimestamp | Removable } | Removable>
 					| Removable
@@ -48,7 +54,7 @@ export type Users = MetaTypeCreator<{
 		>
 	}
 	o: PushAble<number | Removable>
-	q: PushAbleOnly<4 | 5 | 6>
+	q: PushAbleOnly<0 | 1 | 4 | 5 | 6>
 	u: PseudoArray<string | Removable>
 	w: PseudoArray<{ v: boolean }>
 }>
@@ -80,7 +86,7 @@ export const generateRandomData = (): {
 			b: {
 				c: true,
 				d: {
-					e: pick(['abc', 'xyz', 'efg'] as const)[0]!,
+					e: pick(['abc', 'xyz', 'efg', 'lmn', 'rst'] as const)[0]!,
 					f: { j: Math.random() },
 					k,
 				},
@@ -89,7 +95,11 @@ export const generateRandomData = (): {
 						i: pick([true, false])[0]!,
 						// no point testing server timestamp
 						l: 'fake ServerTimestamp' as unknown as ServerTimestamp,
-						m: { [randStringMKey]: { n: pick(['7', '8', '9'] as const)[0]! } },
+						m: {
+							[randStringMKey]: {
+								n: pick(['1', '2', '7', '8', '9'] as const)[0]!,
+							},
+						},
 						p: {
 							[randStringPKey]: {
 								// no point testing server timestamp
@@ -105,7 +115,7 @@ export const generateRandomData = (): {
 				},
 			},
 			o: { [randStringOKey]: Math.random() },
-			q: { [randStringQKey]: pick([4, 5, 6] as const)[0]! },
+			q: { [randStringQKey]: pick([0, 1, 4, 5, 6] as const)[0]! },
 			u: [u],
 			w: [{ v: pick([true, false])[0]! }],
 		},
@@ -119,7 +129,7 @@ export const generateRandomData = (): {
 	}
 }
 
-export const readAndExpectSet = async <
+export const readAndExpectForSet = async <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
 >(
@@ -152,7 +162,7 @@ const getNarrowedDataFromPath = (
 	}, fullData)
 }
 
-export const compareOnValue = <
+export const compareListeners = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
 >(
@@ -164,7 +174,7 @@ export const compareOnValue = <
 	expect(getNarrowedDataFromPath(path, inputData)).toEqual(outputData)
 }
 
-export const readAndExpectUpdate = async <
+export const readAndExpectForUpdate = async <
 	S extends DatabaseReference<any, any>,
 	T extends S extends DatabaseReference<infer X, any> ? X : never,
 	U extends S extends DatabaseReference<any, infer X> ? X : never,
@@ -188,4 +198,50 @@ export const readAndExpectUpdate = async <
 	expect(getNarrowedDataFromPath(path, outputData)).toEqual(inputData)
 
 	return snapshot
+}
+
+export const dataForQuery = (): Users['read'] => {
+	return {
+		a: pick([1, 2, 3] as const)[0]!,
+		b: {
+			c: true,
+			d: {
+				e: pick(['abc', 'xyz', 'efg'] as const)[0]!,
+				f: { j: Math.random() },
+				k: 'abc',
+			},
+			h: {
+				abc: {
+					i: pick([true, false])[0]!,
+					l: 12345,
+					m: {
+						z: { n: '9' },
+						b: { n: '7' },
+						x: { n: '1' },
+						c: { n: '2' },
+						q: { n: '8' },
+					},
+					p: {
+						g: { r: 3426 },
+						i: { r: 6354 },
+						b: { r: 8938 },
+						v: { r: 9023 },
+						c: { r: 3721 },
+					},
+					s: [{ t: 7327 }, { t: 6364 }, { t: 2649 }, { t: 3297 }, { t: 1390 }],
+				},
+			},
+		},
+		o: { v: 5, w: 4, x: 3, y: 2, z: 1 },
+		q: { d: 5, y: 4, b: 6, m: 0, p: 1 },
+		u: ['a', 'b', 'c', 'd', 'e'],
+		w: [
+			{ v: true },
+			{ v: false },
+			{ v: true },
+			{ v: false },
+			{ v: true },
+			{ v: false },
+		],
+	}
 }

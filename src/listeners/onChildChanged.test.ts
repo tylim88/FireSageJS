@@ -4,7 +4,7 @@ import {
 	initializeApp,
 	usersCreator,
 	Users,
-	compareOnValue,
+	compareListeners,
 } from '../utilForTests'
 import { set, push, update } from '../operations'
 import { IsSame, IsTrue, DataSnapshot } from '../types'
@@ -33,7 +33,7 @@ describe('test onChildChanged', () => {
 				type B = DataSnapshot<Users, `b/h/${string}/m/${string}`>
 				IsTrue<IsSame<B, A>>()
 				data['b']['h'][randStringHKey]!['m'][randStringMKey]!['n'] = newData
-				compareOnValue(`${path}/${randStringMKey}`, dataSnapshot, data)
+				compareListeners(`${path}/${randStringMKey}`, dataSnapshot, data)
 			},
 			{ onlyOnce: false }
 		)
@@ -60,7 +60,7 @@ describe('test onChildChanged', () => {
 				IsTrue<IsSame<B, A>>()
 				// @ts-expect-error
 				data['b']['h'][randStringHKey]!['p'][randStringPKey]!['r'] = newData
-				compareOnValue(`${path}/${randStringPKey}`, dataSnapshot, data)
+				compareListeners(`${path}/${randStringPKey}`, dataSnapshot, data)
 				unsub()
 				done()
 			},
@@ -104,7 +104,7 @@ describe('test onChildChanged', () => {
 						t: newData,
 					},
 				]
-				compareOnValue(`${path}/0`, dataSnapshot, data)
+				compareListeners(`${path}/0`, dataSnapshot, data)
 			},
 			() => {
 				//

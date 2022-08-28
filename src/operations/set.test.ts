@@ -1,6 +1,6 @@
 import { set } from './set'
 import {
-	readAndExpectSet,
+	readAndExpectForSet,
 	generateRandomData,
 	initializeApp,
 	usersCreator,
@@ -15,7 +15,7 @@ describe('test set and get', () => {
 		const ref = users.ref()
 		const data = generateRandomData().data
 		await set(ref, data)
-		await readAndExpectSet(ref, undefined, data)
+		await readAndExpectForSet(ref, undefined, data)
 		;() => {
 			set(
 				ref, // @ts-expect-error
@@ -71,7 +71,7 @@ describe('test set and get', () => {
 		const ref = users.ref('a')
 		const data = generateRandomData().data
 		await set(ref, data['a'])
-		await readAndExpectSet(ref, 'a', data)
+		await readAndExpectForSet(ref, 'a', data)
 		;() => {
 			set(
 				ref, // @ts-expect-error
@@ -127,7 +127,7 @@ describe('test set and get', () => {
 		const ref = users.ref('b/c')
 		const data = generateRandomData().data
 		await set(ref, data['b']['c'])
-		await readAndExpectSet(ref, 'b/c', data)
+		await readAndExpectForSet(ref, 'b/c', data)
 		;() => {
 			set(
 				ref, // @ts-expect-error
@@ -195,7 +195,7 @@ describe('test set and get', () => {
 		const ref = users.ref('b/d')
 		const data = generateRandomData().data
 		await set(ref, data['b']['d'])
-		await readAndExpectSet(ref, 'b/d', data)
+		await readAndExpectForSet(ref, 'b/d', data)
 		;() => {
 			set(
 				ref, // @ts-expect-error
@@ -263,7 +263,7 @@ describe('test set and get', () => {
 		const ref = users.ref('b/d/f/j')
 		const data = generateRandomData().data
 		await set(ref, data['b']['d']['f']['j'])
-		await readAndExpectSet(ref, 'b/d/f/j', data)
+		await readAndExpectForSet(ref, 'b/d/f/j', data)
 		;() => {
 			set(ref, data['a']) // 'j' is number
 			set(
@@ -330,7 +330,7 @@ describe('test set and get', () => {
 		const data = rand.data
 		const ref = users.ref(`b/h/${randStringHKey}`)
 		await set(ref, data['b']['h'][randStringHKey]!)
-		await readAndExpectSet(ref, `b/h/${randStringHKey}`, data)
+		await readAndExpectForSet(ref, `b/h/${randStringHKey}`, data)
 		;() => {
 			set(
 				ref, // @ts-expect-error
@@ -397,7 +397,7 @@ describe('test set and get', () => {
 		const data = rand.data
 		const ref = users.ref(`b/h/${randStringHKey}/i`)
 		await set(ref, data['b']['h'][randStringHKey]!['i'])
-		await readAndExpectSet(ref, `b/h/${randStringHKey}/i`, data)
+		await readAndExpectForSet(ref, `b/h/${randStringHKey}/i`, data)
 		;() => {
 			set(
 				ref, // @ts-expect-error
@@ -462,7 +462,7 @@ describe('test set and get', () => {
 		const data = rand.data
 		const ref = users.ref(`b/h/${randStringHKey}/m`)
 		await set(ref, data['b']['h'][randStringHKey]!['m'])
-		await readAndExpectSet(ref, `b/h/${randStringHKey}/m`, data)
+		await readAndExpectForSet(ref, `b/h/${randStringHKey}/m`, data)
 		;() => {
 			set(
 				ref, // @ts-expect-error
@@ -531,7 +531,7 @@ describe('test set and get', () => {
 		const data = rand.data
 		const ref = users.ref(`b/h/${randStringHKey}/m/${randStringMKey}`)
 		await set(ref, data['b']['h'][randStringHKey]!['m'][randStringMKey]!)
-		await readAndExpectSet(
+		await readAndExpectForSet(
 			ref,
 			`b/h/${randStringHKey}/m/${randStringMKey}`,
 			data
@@ -604,7 +604,7 @@ describe('test set and get', () => {
 		const data = rand.data
 		const ref = users.ref(`b/h/${randStringHKey}/m/${randStringMKey}/n`)
 		await set(ref, data['b']['h'][randStringHKey]!['m'][randStringMKey]!['n'])
-		await readAndExpectSet(
+		await readAndExpectForSet(
 			ref,
 			`b/h/${randStringHKey}/m/${randStringMKey}/n`,
 			data
@@ -690,7 +690,7 @@ describe('test set and get', () => {
 		const data = rand.data
 		const ref = users.ref(`b/h/${randStringHKey}/p/${randStringPKey}`)
 		await set(ref, data['b']['h'][randStringHKey]!['p'][randStringPKey]!)
-		await readAndExpectSet(
+		await readAndExpectForSet(
 			ref,
 			`b/h/${randStringHKey}/p/${randStringPKey}`,
 			data
@@ -763,7 +763,7 @@ describe('test set and get', () => {
 		const data = rand.data
 		const ref = users.ref(`b/h/${randStringHKey}/p/${randStringPKey}/r`)
 		await set(ref, data['b']['h'][randStringHKey]!['p'][randStringPKey]!['r'])
-		await readAndExpectSet(
+		await readAndExpectForSet(
 			ref,
 			`b/h/${randStringHKey}/p/${randStringPKey}/r`,
 			data
@@ -846,7 +846,7 @@ describe('test set and get', () => {
 						t: number
 				  }[]
 		)
-		await readAndExpectSet(ref, `b/h/${randStringHKey}/s`, data)
+		await readAndExpectForSet(ref, `b/h/${randStringHKey}/s`, data)
 		;() => {
 			set(
 				ref, // @ts-expect-error
@@ -917,7 +917,7 @@ describe('test set and get', () => {
 			ref,
 			(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!
 		)
-		await readAndExpectSet(ref, `b/h/${randStringHKey}/s/0`, data)
+		await readAndExpectForSet(ref, `b/h/${randStringHKey}/s/0`, data)
 		;() => {
 			set(
 				ref, // @ts-expect-error
@@ -988,7 +988,7 @@ describe('test set and get', () => {
 			ref,
 			(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!['t']
 		)
-		await readAndExpectSet(ref, `b/h/${randStringHKey}/s/0/t`, data)
+		await readAndExpectForSet(ref, `b/h/${randStringHKey}/s/0/t`, data)
 		;() => {
 			set(ref, data['a']) // t is number
 			set(

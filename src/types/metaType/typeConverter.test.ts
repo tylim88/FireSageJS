@@ -19,7 +19,7 @@ describe('test type converter', () => {
 									c: true | undefined
 									d:
 										| {
-												e: 'abc' | 'xyz' | 'efg' | undefined
+												e: 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst' | undefined
 												f: { j: number | undefined } | undefined
 												k: string | undefined
 										  }
@@ -35,7 +35,7 @@ describe('test type converter', () => {
 															| Record<
 																	string,
 																	| {
-																			n: '7' | '8' | '9' | undefined
+																			n: '1' | '2' | '7' | '8' | '9' | undefined
 																	  }
 																	| undefined
 															  >
@@ -59,7 +59,7 @@ describe('test type converter', () => {
 							  }
 							| undefined
 						o: Record<string, number | undefined> | undefined
-						q: Record<string, 4 | 5 | 6 | undefined> | undefined
+						q: Record<string, 0 | 1 | 4 | 5 | 6 | undefined> | undefined
 						u: (string | undefined)[] | undefined
 						w: ({ v: boolean | undefined } | undefined)[] | undefined
 				  }

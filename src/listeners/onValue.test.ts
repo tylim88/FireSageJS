@@ -4,7 +4,7 @@ import {
 	initializeApp,
 	usersCreator,
 	Users,
-	compareOnValue,
+	compareListeners,
 } from '../utilForTests'
 import { set } from '../operations'
 import { IsSame, IsTrue, DataSnapshot } from '../types'
@@ -25,7 +25,7 @@ describe('test onValue', () => {
 				type A = typeof dataSnapshot
 				type B = DataSnapshot<Users, undefined>
 				IsTrue<IsSame<B, A>>()
-				compareOnValue(undefined, dataSnapshot, data)
+				compareListeners(undefined, dataSnapshot, data)
 			},
 			{ onlyOnce: true }
 		)
@@ -47,7 +47,7 @@ describe('test onValue', () => {
 				type A = typeof dataSnapshot
 				type B = DataSnapshot<Users, `b/h/${string}`>
 				IsTrue<IsSame<B, A>>()
-				compareOnValue(path, dataSnapshot, data)
+				compareListeners(path, dataSnapshot, data)
 			},
 			() => {
 				//
@@ -71,7 +71,7 @@ describe('test onValue', () => {
 				type A = typeof dataSnapshot
 				type B = DataSnapshot<Users, `b/h/${string}/i`>
 				IsTrue<IsSame<B, A>>()
-				compareOnValue(path, dataSnapshot, data)
+				compareListeners(path, dataSnapshot, data)
 			},
 			() => {
 				//
@@ -94,7 +94,7 @@ describe('test onValue', () => {
 			type A = typeof dataSnapshot
 			type B = DataSnapshot<Users, `b/h/${string}/m`>
 			IsTrue<IsSame<B, A>>()
-			compareOnValue(path, dataSnapshot, data)
+			compareListeners(path, dataSnapshot, data)
 		})
 		set(ref, data['b']['h'][randStringHKey]!['m']).then(() => {
 			unsub()

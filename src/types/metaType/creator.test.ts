@@ -19,26 +19,26 @@ describe('test generated meta type', () => {
 				{
 					a: 1 | 2 | 3
 					o: { [x: string]: number | Increment }
-					q: { [x: string]: 4 | 5 | 6 }
+					q: { [x: string]: 0 | 1 | 4 | 5 | 6 }
 					u: { [x: `${number}`]: string } | string[]
 					w:
 						| { v: boolean }[]
 						| { [x: `${number}`]: { v: boolean }; [x: `${number}/v`]: boolean }
 					[x: `o/${string}`]: number | Increment
-					[x: `q/${string}`]: 4 | 5 | 6
+					[x: `q/${string}`]: 0 | 1 | 4 | 5 | 6
 					[x: `u/${number}`]: string
 					[x: `w/${number}`]: { v: boolean }
 					[x: `w/${number}/v`]: boolean
 					'b/c': true
 					'b/d': {
-						e: 'abc' | 'xyz' | 'efg'
+						e: 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst'
 						f: {
 							j: number | Increment
 						}
 						'f/j': number | Increment
 						k: string
 					}
-					'b/d/e': 'abc' | 'xyz' | 'efg'
+					'b/d/e': 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst'
 					'b/d/f': {
 						j: number | Increment
 					}
@@ -47,14 +47,14 @@ describe('test generated meta type', () => {
 					b: {
 						c: true
 						d: {
-							e: 'abc' | 'xyz' | 'efg'
+							e: 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst'
 							f: {
 								j: number | Increment
 							}
 							'f/j': number | Increment
 							k: string
 						}
-						'd/e': 'abc' | 'xyz' | 'efg'
+						'd/e': 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst'
 						'd/f': {
 							j: number | Increment
 						}
@@ -65,11 +65,11 @@ describe('test generated meta type', () => {
 								i: boolean
 								l: ServerTimestamp
 								m: {
-									[x: string]: { n: '7' | '8' | '9' }
-									[x: `${string}/n`]: '7' | '8' | '9'
+									[x: string]: { n: '1' | '2' | '7' | '8' | '9' }
+									[x: `${string}/n`]: '1' | '2' | '7' | '8' | '9'
 								}
-								[x: `m/${string}`]: { n: '7' | '8' | '9' }
-								[x: `m/${string}/n`]: '7' | '8' | '9'
+								[x: `m/${string}`]: { n: '1' | '2' | '7' | '8' | '9' }
+								[x: `m/${string}/n`]: '1' | '2' | '7' | '8' | '9'
 								p: {
 									[x: string]: { r: ServerTimestamp }
 									[x: `${string}/r`]: ServerTimestamp
@@ -90,11 +90,11 @@ describe('test generated meta type', () => {
 							[x: `${string}/i`]: boolean
 							[x: `${string}/l`]: ServerTimestamp
 							[x: `${string}/m`]: {
-								[x: string]: { n: '7' | '8' | '9' }
-								[x: `${string}/n`]: '7' | '8' | '9'
+								[x: string]: { n: '1' | '2' | '7' | '8' | '9' }
+								[x: `${string}/n`]: '1' | '2' | '7' | '8' | '9'
 							}
-							[x: `${string}/m/${string}`]: { n: '7' | '8' | '9' }
-							[x: `${string}/m/${string}/n`]: '7' | '8' | '9'
+							[x: `${string}/m/${string}`]: { n: '1' | '2' | '7' | '8' | '9' }
+							[x: `${string}/m/${string}/n`]: '1' | '2' | '7' | '8' | '9'
 							[x: `${string}/p`]: {
 								[x: string]: { r: ServerTimestamp }
 								[x: `${string}/r`]: ServerTimestamp
@@ -114,11 +114,11 @@ describe('test generated meta type', () => {
 							i: boolean
 							l: ServerTimestamp
 							m: {
-								[x: string]: { n: '7' | '8' | '9' }
-								[x: `${string}/n`]: '7' | '8' | '9'
+								[x: string]: { n: '1' | '2' | '7' | '8' | '9' }
+								[x: `${string}/n`]: '1' | '2' | '7' | '8' | '9'
 							}
-							[x: `m/${string}`]: { n: '7' | '8' | '9' }
-							[x: `m/${string}/n`]: '7' | '8' | '9'
+							[x: `m/${string}`]: { n: '1' | '2' | '7' | '8' | '9' }
+							[x: `m/${string}/n`]: '1' | '2' | '7' | '8' | '9'
 							p: {
 								[x: string]: { r: ServerTimestamp }
 								[x: `${string}/r`]: ServerTimestamp
@@ -137,11 +137,11 @@ describe('test generated meta type', () => {
 						[x: `h/${string}/i`]: boolean
 						[x: `h/${string}/l`]: ServerTimestamp
 						[x: `h/${string}/m`]: {
-							[x: string]: { n: '7' | '8' | '9' }
-							[x: `${string}/n`]: '7' | '8' | '9'
+							[x: string]: { n: '1' | '2' | '7' | '8' | '9' }
+							[x: `${string}/n`]: '1' | '2' | '7' | '8' | '9'
 						}
-						[x: `h/${string}/m/${string}`]: { n: '7' | '8' | '9' }
-						[x: `h/${string}/m/${string}/n`]: '7' | '8' | '9'
+						[x: `h/${string}/m/${string}`]: { n: '1' | '2' | '7' | '8' | '9' }
+						[x: `h/${string}/m/${string}/n`]: '1' | '2' | '7' | '8' | '9'
 						[x: `h/${string}/p`]: {
 							[x: string]: { r: ServerTimestamp }
 							[x: `${string}/r`]: ServerTimestamp
@@ -162,11 +162,11 @@ describe('test generated meta type', () => {
 							i: boolean
 							l: ServerTimestamp
 							m: {
-								[x: string]: { n: '7' | '8' | '9' }
-								[x: `${string}/n`]: '7' | '8' | '9'
+								[x: string]: { n: '1' | '2' | '7' | '8' | '9' }
+								[x: `${string}/n`]: '1' | '2' | '7' | '8' | '9'
 							}
-							[x: `m/${string}`]: { n: '7' | '8' | '9' }
-							[x: `m/${string}/n`]: '7' | '8' | '9'
+							[x: `m/${string}`]: { n: '1' | '2' | '7' | '8' | '9' }
+							[x: `m/${string}/n`]: '1' | '2' | '7' | '8' | '9'
 							p: {
 								[x: string]: { r: ServerTimestamp }
 								[x: `${string}/r`]: ServerTimestamp
@@ -185,11 +185,11 @@ describe('test generated meta type', () => {
 						[x: `${string}/i`]: boolean
 						[x: `${string}/l`]: ServerTimestamp
 						[x: `${string}/m`]: {
-							[x: string]: { n: '7' | '8' | '9' }
-							[x: `${string}/n`]: '7' | '8' | '9'
+							[x: string]: { n: '1' | '2' | '7' | '8' | '9' }
+							[x: `${string}/n`]: '1' | '2' | '7' | '8' | '9'
 						}
-						[x: `${string}/m/${string}`]: { n: '7' | '8' | '9' }
-						[x: `${string}/m/${string}/n`]: '7' | '8' | '9'
+						[x: `${string}/m/${string}`]: { n: '1' | '2' | '7' | '8' | '9' }
+						[x: `${string}/m/${string}/n`]: '1' | '2' | '7' | '8' | '9'
 						[x: `${string}/p`]: {
 							[x: string]: { r: ServerTimestamp }
 							[x: `${string}/r`]: ServerTimestamp
@@ -209,11 +209,11 @@ describe('test generated meta type', () => {
 						i: boolean
 						l: ServerTimestamp
 						m: {
-							[x: string]: { n: '7' | '8' | '9' }
-							[x: `${string}/n`]: '7' | '8' | '9'
+							[x: string]: { n: '1' | '2' | '7' | '8' | '9' }
+							[x: `${string}/n`]: '1' | '2' | '7' | '8' | '9'
 						}
-						[x: `m/${string}`]: { n: '7' | '8' | '9' }
-						[x: `m/${string}/n`]: '7' | '8' | '9'
+						[x: `m/${string}`]: { n: '1' | '2' | '7' | '8' | '9' }
+						[x: `m/${string}/n`]: '1' | '2' | '7' | '8' | '9'
 						p: {
 							[x: string]: { r: ServerTimestamp }
 							[x: `${string}/r`]: ServerTimestamp
@@ -232,11 +232,11 @@ describe('test generated meta type', () => {
 					[x: `b/h/${string}/i`]: boolean
 					[x: `b/h/${string}/l`]: ServerTimestamp
 					[x: `b/h/${string}/m`]: {
-						[x: string]: { n: '7' | '8' | '9' }
-						[x: `${string}/n`]: '7' | '8' | '9'
+						[x: string]: { n: '1' | '2' | '7' | '8' | '9' }
+						[x: `${string}/n`]: '1' | '2' | '7' | '8' | '9'
 					}
-					[x: `b/h/${string}/m/${string}`]: { n: '7' | '8' | '9' }
-					[x: `b/h/${string}/m/${string}/n`]: '7' | '8' | '9'
+					[x: `b/h/${string}/m/${string}`]: { n: '1' | '2' | '7' | '8' | '9' }
+					[x: `b/h/${string}/m/${string}/n`]: '1' | '2' | '7' | '8' | '9'
 					[x: `b/h/${string}/p`]: {
 						[x: string]: { r: ServerTimestamp }
 						[x: `${string}/r`]: ServerTimestamp
@@ -267,7 +267,7 @@ describe('test generated meta type', () => {
 					b: {
 						c: true
 						d: {
-							e: 'abc' | 'xyz' | 'efg'
+							e: 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst'
 							f: { j: number | Increment }
 							k: string
 						}
@@ -277,7 +277,7 @@ describe('test generated meta type', () => {
 							{
 								i: boolean
 								l: ServerTimestamp
-								m: Record<string, { n: '7' | '8' | '9' }>
+								m: Record<string, { n: '1' | '2' | '7' | '8' | '9' }>
 								p: Record<string, { r: ServerTimestamp }>
 								s:
 									| Record<`${number}`, { t: number | Increment }>
@@ -288,7 +288,7 @@ describe('test generated meta type', () => {
 						>
 					}
 					o: Record<string, number | Increment>
-					q: Record<string, 4 | 5 | 6>
+					q: Record<string, 0 | 1 | 4 | 5 | 6>
 					u: Record<`${number}`, string> | string[]
 					w: Record<`${number}`, { v: boolean }> | { v: boolean }[]
 				}
@@ -307,7 +307,7 @@ describe('test generated meta type', () => {
 						c: true
 						d:
 							| {
-									e: 'abc' | 'xyz' | 'efg'
+									e: 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst'
 									f: { j: number }
 									k: string | undefined
 							  }
@@ -320,7 +320,7 @@ describe('test generated meta type', () => {
 								m:
 									| Record<
 											string,
-											{ n: '7' | '8' | '9' | undefined } | undefined
+											{ n: '1' | '2' | '7' | '8' | '9' | undefined } | undefined
 									  >
 									| undefined
 								p:
@@ -331,7 +331,7 @@ describe('test generated meta type', () => {
 						>
 					}
 					o: Record<string, number | undefined>
-					q: Record<string, 4 | 5 | 6>
+					q: Record<string, 0 | 1 | 4 | 5 | 6>
 					u: (string | undefined)[]
 					w: { v: boolean }[]
 				}
@@ -350,7 +350,7 @@ describe('test generated meta type', () => {
 					b: {
 						c: true
 						d: {
-							e: 'abc' | 'xyz' | 'efg'
+							e: 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst'
 							f: { j: number }
 							k: string
 						}
@@ -360,7 +360,7 @@ describe('test generated meta type', () => {
 							{
 								i: boolean
 								l: number
-								m: Record<string, { n: '7' | '8' | '9' }>
+								m: Record<string, { n: '1' | '2' | '7' | '8' | '9' }>
 
 								p: Record<string, { r: number }>
 
@@ -369,7 +369,7 @@ describe('test generated meta type', () => {
 						>
 					}
 					o: Record<string, number>
-					q: Record<string, 4 | 5 | 6>
+					q: Record<string, 0 | 1 | 4 | 5 | 6>
 					u: Record<`${number}`, string>
 					w: Record<`${number}`, { v: boolean }>
 				}
@@ -380,6 +380,8 @@ describe('test generated meta type', () => {
 	it('test base', () => {
 		type A = Users['base']
 
+		type u = A['q']
+
 		IsTrue<
 			IsSame<
 				A,
@@ -389,7 +391,7 @@ describe('test generated meta type', () => {
 						c: true
 						d:
 							| {
-									e: 'abc' | 'xyz' | 'efg'
+									e: 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst'
 									f: { j: number }
 									k: string | Removable
 							  }
@@ -399,14 +401,16 @@ describe('test generated meta type', () => {
 							{
 								i: boolean
 								l: ServerTimestamp | Removable
-								m: PushAble<{ n: '7' | '8' | '9' | Removable }> | Removable
+								m:
+									| PushAble<{ n: '1' | '2' | '7' | '8' | '9' | Removable }>
+									| Removable
 								p: PushAbleOnly<{ r: ServerTimestamp | Removable }> | Removable
 								s: PseudoArray<{ t: number | Removable }> | Removable
 							}
 						>
 					}
 					o: PushAble<number>
-					q: PushAbleOnly<4 | 5 | 6>
+					q: PushAbleOnly<0 | 1 | 4 | 5 | 6> // ! pass still test if type is 4 | 5 | 6
 					u: PseudoArray<string>
 					w: PseudoArray<boolean>
 				}

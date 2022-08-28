@@ -315,12 +315,12 @@ describe('test', () => {
 			IsSame<
 				J,
 				| {
-						n: '7' | '8' | '9' | undefined
+						n: '1' | '2' | '7' | '8' | '9' | undefined
 				  }
 				| undefined
 			>
 		>()
-		IsTrue<IsSame<K, '7' | '8' | '9' | undefined>>()
+		IsTrue<IsSame<K, '1' | '2' | '7' | '8' | '9' | undefined>>()
 		IsTrue<IsSame<L, Users['read']['b']['h'][string]['p']>>()
 		IsTrue<
 			IsSame<
