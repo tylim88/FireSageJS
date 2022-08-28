@@ -15,7 +15,7 @@ export type IsValidOnChildRef<
 	T,
 	U,
 	ErrorInvalidOnChildType<U>,
-	DatabaseReference<T, U> | Query<T, U> // ? why Query<T, U> alone does not work?
+	DatabaseReference<T, U> | Query<T, U> // ! why Query<T, U> alone does not work?
 >
 
 export type GetOnChildSnapshot<
