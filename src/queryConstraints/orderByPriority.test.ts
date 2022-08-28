@@ -8,7 +8,7 @@ initializeApp()
 const ref = usersCreator().ref
 
 describe('test orderByPriority', () => {
-	it('incorrect value test, but also test for correct child path', () => {
+	it('incorrect value test', () => {
 		;() => {
 			query(
 				ref('b/h'),
@@ -56,7 +56,7 @@ describe('test orderByPriority', () => {
 			)
 		}
 	})
-	it('positive value, child path test but negative key path tests by switching numeric string with non numeric string', () => {
+	it('correct value, child path test but incorrect key path tests by switching numeric string with non numeric string', () => {
 		query(
 			ref('b/h/abc/m'),
 			orderByPriority(),
@@ -94,7 +94,7 @@ describe('test orderByPriority', () => {
 			startAt('abc', 'abc')
 		)
 	})
-	it('positive value, child path and key path tests', () => {
+	it('correct value, child path and key path tests', () => {
 		query(ref('b/h/abc/m'), orderByPriority(), startAt('9', 'abc'))
 		query(ref('b/h/abc/p'), orderByPriority(), startAt(123, 'abc'))
 		query(ref('b/h/abc/s'), orderByPriority(), startAt(123, '123'))

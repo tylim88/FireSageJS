@@ -112,7 +112,7 @@ describe('test orderByChild', () => {
 			orderByChild('123')
 		)
 	})
-	it('positive value, child path test but negative key path tests by switching numeric string with non numeric string', () => {
+	it('correct value, child path test but incorrect key path tests by switching numeric string with non numeric string', () => {
 		query(
 			ref('b/h/abc/m'),
 			orderByChild('n'),
@@ -150,7 +150,7 @@ describe('test orderByChild', () => {
 			startAt(false, 'abc')
 		)
 	})
-	it('positive value, child path and key path tests', () => {
+	it('correct value, child path and key path tests', () => {
 		query(ref('b/h/abc/m'), orderByChild('n'), startAt('9', 'abc'))
 		query(ref('b/h/abc/p'), orderByChild('r'), startAt(123, 'abc'))
 		query(ref('b/h/abc/s'), orderByChild('t'), startAt(123, '123'))
