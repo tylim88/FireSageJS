@@ -5,6 +5,7 @@ import {
 	FindAllTopLevelChildKeys,
 	GetFullPath,
 	GetLastSegment,
+	FindNestedReadTypeFromFullPath,
 } from './utils'
 import { ErrorHasNoChild } from './error'
 
@@ -70,11 +71,7 @@ export declare class DataSnapshot<
 	 * @returns The DataSnapshot's contents as a JavaScript value (Object,
 	 *   Array, string, number, boolean, or `null`).
 	 */
-	exportVal():
-		| (U extends keyof T['flatten_write'] & string
-				? T['flatten_write'][U]
-				: T['read'])
-		| null
+	exportVal(): FindNestedReadTypeFromFullPath<T, U> | null
 	/**
 	 * Enumerates the top-level children in the `DataSnapshot`.
 	 *
@@ -145,9 +142,5 @@ export declare class DataSnapshot<
 	 * @returns The DataSnapshot's contents as a JavaScript value (Object,
 	 *   Array, string, number, boolean, or `null`).
 	 */
-	val():
-		| (U extends keyof T['flatten_write'] & string
-				? T['flatten_write'][U]
-				: T['read'])
-		| null
+	val(): FindNestedReadTypeFromFullPath<T, U> | null
 }
