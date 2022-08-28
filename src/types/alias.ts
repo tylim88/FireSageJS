@@ -5,6 +5,7 @@ export type {
 	TransactionOptions,
 	QueryConstraintType,
 	QueryConstraint as OriQueryConstraint,
+	DataSnapshot as OriDataSnapshot,
 } from 'firebase/database'
 import { RulesTestContext } from '@firebase/rules-unit-testing'
 

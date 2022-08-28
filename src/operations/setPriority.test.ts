@@ -3,7 +3,7 @@ import { usersCreator, initializeApp } from '../utilForTests'
 
 initializeApp()
 const ref = usersCreator().ref
-// functionality test is with on child move
+// functionality test is test with onChildMove and setWithPriority
 describe('test set priority type', () => {
 	it('fail type', () => {
 		;() => {
@@ -101,17 +101,5 @@ describe('test set priority type', () => {
 			ref('w'),
 			1
 		)
-	})
-	it('pass type', () => {
-		;() => {
-			setPriority(ref(`b/h/abc`), 1)
-			setPriority(ref(`b/h/abc/m/efg`), 1)
-			setPriority(ref(`b/h/abc/p/efg`), 1)
-			setPriority(ref(`b/h/abc/s/0`), 1)
-			setPriority(ref('o/abc'), 1)
-			setPriority(ref('q/abc'), 1)
-			setPriority(ref('u/123'), 1)
-			setPriority(ref('w/123'), 1)
-		}
 	})
 })

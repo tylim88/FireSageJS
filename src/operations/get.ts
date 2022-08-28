@@ -1,5 +1,6 @@
 import { get as get_ } from 'firebase/database'
 import { DatabaseReference, MetaType, DataSnapshot, Query } from '../types'
+import { dataSnapshotTransformer } from '../utils'
 
 // get runtime is tested together with set and update
 /**
@@ -16,5 +17,7 @@ export const get = <
 >(
 	query: DatabaseReference<T, U> | Query<T, U>
 ) => {
-	return get_(query) as unknown as Promise<DataSnapshot<T, U>>
+	return get_(query).then(dataSnapshot => {
+		return dataSnapshotTransformer(dataSnapshot)
+	}) as unknown as Promise<DataSnapshot<T, U>>
 }

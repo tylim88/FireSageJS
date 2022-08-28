@@ -1,27 +1,25 @@
 import { onValue as onValue_ } from 'firebase/database'
-import { ListenOptions, OnValue } from '../types'
+import { OnValue } from '../types'
 import { isOptions } from '../utils'
+import { callbackTransformer } from './utils'
 
 export const onValue: OnValue = (
 	query,
 	callback,
-	cancelCallback?: ((error: Error) => unknown) | ListenOptions,
-	options?: ListenOptions
+	cancelCallback?,
+	options? // ! why type of options is unknown
 ) => {
 	const cancelCallback_ = isOptions(cancelCallback) ? undefined : cancelCallback
 	const options_ =
 		options || (isOptions(cancelCallback) ? cancelCallback : undefined)
+	const callback_ = callbackTransformer(callback)
 	if (cancelCallback_ && options_) {
-		// @ts-expect-error
-		return onValue_(query, callback, cancelCallback_, options_)
+		return onValue_(query, callback_, cancelCallback_, options_ as any) // ! error: Unused '@ts-expect-error' directive but ts expect error still working, invisible error
 	} else if (cancelCallback_ && !options_) {
-		// @ts-expect-error
-		return onValue_(query, callback, cancelCallback_)
+		return onValue_(query, callback_, cancelCallback_)
 	} else if (!cancelCallback_ && options_) {
-		// @ts-expect-error
-		return onValue_(query, callback, options_)
+		return onValue_(query, callback_, options_ as any) // ! error: Unused '@ts-expect-error' directive but ts expect error still working, invisible error
 	} else {
-		// @ts-expect-error
-		return onValue_(query, callback)
+		return onValue_(query, callback_)
 	}
 }

@@ -101,7 +101,7 @@ export declare class DataSnapshot<
 									((keyof T['flatten_write'] & string) | undefined)
 				  ) extends infer R
 				? R extends (keyof T['flatten_write'] & string) | undefined
-					? DataSnapshot<T, R>
+					? DataSnapshot<T, R> & { key: string }
 					: never
 				: never
 		) => boolean | void

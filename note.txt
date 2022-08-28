@@ -11,4 +11,9 @@ query rules:
 5. When ordering by priority, the first argument passed to startAt(), startAfter() endAt(), endBefore(), or equalTo() must be a valid priority value (null, a number, or a string).
 
 key naming rule:
-key argument was an invalid key = "1".  Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]").
+Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]").
+
+
+todo:
+1. make sure all read key check for validity
+2. make sure all read path check for validity and number of slash 

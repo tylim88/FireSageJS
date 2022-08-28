@@ -2,7 +2,7 @@ import {
 	Database,
 	FirestoreTesting,
 	ListenOptions,
-	DataSnapshot,
+	OriDataSnapshot,
 } from './types'
 
 export const isDatabase = (value: unknown): value is Database => {
@@ -49,23 +49,32 @@ export const convertNumericKeyObjectToArray = (data: unknown): unknown => {
 	return data
 }
 
-export const dataSnapshotTransformer = <T extends DataSnapshot<any, any>>(
-	dataSnapshot: T
-): T => {
-	dataSnapshot.val = () => {
-		return convertNumericKeyObjectToArray(dataSnapshot.val())
-	}
-	dataSnapshot.exportVal = () => {
-		return convertNumericKeyObjectToArray(dataSnapshot.exportVal())
-	}
-	// @ts-expect-error
-	dataSnapshot.child = (path: string) => {
-		return dataSnapshotTransformer(
-			dataSnapshot.child(
-				// @ts-expect-error
-				path
+export const dataSnapshotTransformer = (
+	dataSnapshot: OriDataSnapshot
+): OriDataSnapshot => {
+	return {
+		ref: dataSnapshot.ref,
+		priority: dataSnapshot.priority,
+		key: dataSnapshot.key,
+		size: dataSnapshot.size,
+		child: (path: string) => dataSnapshotTransformer(dataSnapshot.child(path)),
+		exists: () => dataSnapshot.exists(),
+		exportVal: () => convertNumericKeyObjectToArray(dataSnapshot.exportVal()),
+		forEach: (
+			action: (
+				dataSnapshot: OriDataSnapshot & { key: string }
+			) => boolean | void
+		) => {
+			return dataSnapshot.forEach(dataSnapshot =>
+				action(
+					// @ts-expect-error
+					dataSnapshotTransformer(dataSnapshot)
+				)
 			)
-		)
+		},
+		hasChild: (path: string) => dataSnapshot.hasChild(path),
+		hasChildren: () => dataSnapshot.hasChildren(),
+		toJSON: () => dataSnapshot.toJSON(),
+		val: () => convertNumericKeyObjectToArray(dataSnapshot.val()),
 	}
-	return dataSnapshot
 }
