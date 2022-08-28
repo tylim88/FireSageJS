@@ -3,6 +3,7 @@ import {
 	OrderBy,
 	CommonOrderBy,
 	CommonCursor,
+	Priority,
 } from '../queryConstraint'
 import { CursorValue } from '../cursorConstraint'
 import {
@@ -18,8 +19,9 @@ import {
 	ErrorOrderingByKeyOnlyOneArgument,
 	ErrorNeedNonNumericStringKey,
 	ErrorOrderingByKeyMustBeString,
+	ErrorOderByPriority,
 } from './error'
-import { ErrorInvalidCursorValue } from '../error'
+import { ErrorInvalidCursorValue, ErrorInvalidFirebaseKey } from '../error'
 
 type IsValidStringKey<
 	T extends MetaType,
@@ -45,9 +47,9 @@ export type ValidateCursor<
 	? O[0] extends infer R
 		? C extends Cursor<infer A, infer B>
 			? // The 2nd argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string or optional.
-			  B[] extends string[]
+			  B[] extends string[] // redundant check
 				? // First argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() cannot be an object.
-				  A[] extends CursorValue[]
+				  A[] extends CursorValue[] // redundant check
 					? // Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]"
 					  IsValidStringKey<T, U, B> extends infer K extends string
 						? R extends OrderBy<'orderByKey', undefined>
@@ -68,7 +70,7 @@ export type ValidateCursor<
 									K
 							  >
 							: R extends OrderBy<'orderByPriority', undefined>
-							? Cursor<A, K>
+							? Cursor<A extends Priority ? Priority : ErrorOderByPriority, K>
 							: R extends OrderBy<'orderByChild', infer X>
 							? Cursor<
 									FindNestedCompareTypeFromFullPath<
@@ -86,7 +88,7 @@ export type ValidateCursor<
 							: never // impossible route
 						: never // impossible route
 					: Cursor<ErrorInvalidCursorValue, B>
-				: Cursor<A, string>
+				: Cursor<A, ErrorInvalidFirebaseKey>
 			: never // impossible route
 		: never // impossible route
 	: ErrorMultipleOrderByCursor

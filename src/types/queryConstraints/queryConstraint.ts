@@ -48,3 +48,5 @@ export type CommonOrderBy =
 export type CommonCursor = Cursor<unknown, string>
 
 export type QueryConstraint = Limit | CommonCursor | CommonOrderBy
+
+export type Priority = string | number | null

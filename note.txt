@@ -1,13 +1,14 @@
 info 
 1.  set(ref(db, "users////////abc"), something) is equivalent to set(ref(db, "users/abc"), something)
 2. Index not defined, add ".indexOn": ".value", for path "/a", to the rules <--orderBy Value
+3. orderBy first or cursor first doesnt matter
 
 query rules:
 1. Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo(). // actually include startAfter and endBefore
 2. When ordering by key, the argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string.
-3. cursor does nothing without orderBy, ban cursor without orderBy
-4. orderBy first or cursor first doesnt matter
-5. You can't combine multiple orderBy calls.
+3. You can't combine multiple orderBy calls.
+4. cursor does nothing without orderBy, ban cursor without orderBy
+5. When ordering by priority, the first argument passed to startAt(), startAfter() endAt(), endBefore(), or equalTo() must be a valid priority value (null, a number, or a string).
 
 key naming rule:
 key argument was an invalid key = "1".  Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]").
