@@ -16,12 +16,10 @@ import {
 
 export type MetaType = {
 	base: unknown
-	flatten_base: unknown
 	write: unknown
 	flatten_write: unknown
 	read: unknown
 	compare: unknown
-	flatten_compare: unknown
 }
 
 export type MetaTypeCreator<
@@ -42,14 +40,10 @@ export type MetaTypeCreator<
 	>
 > = {
 	base: ReplaceInvalidDataTypeBase<ReplaceInvalidUnion<Base>>
-	flatten_base: ObjectFlatten<
-		ReplaceInvalidDataTypeBase<ReplaceInvalidUnion<Base>>
-	>
 	write: Write
 	flatten_write: ObjectFlatten<Write>
 	read: Settings['AllNodesPossiblyReadAsUndefined'] extends true
 		? AllNodesPossiblyReadAsUndefined<Read>
 		: Read
 	compare: Compare
-	flatten_compare: ObjectFlatten<Compare>
 }
