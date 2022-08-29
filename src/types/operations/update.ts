@@ -53,7 +53,7 @@ type ValidateChildPathAndCheckIsNotPushAbleOnly<
 		: P
 	: ValidateChildPath<T, U, P>
 
-export type ValidateNodeNames<
+export type ValidateChildPaths<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	V extends readonly string[],
@@ -66,7 +66,7 @@ export type ValidateNodeNames<
 	: string[] extends V
 	? [ErrorElementNeedConstAssertion]
 	: V extends readonly [infer P extends string, ...infer S extends string[]]
-	? ValidateNodeNames<
+	? ValidateChildPaths<
 			T,
 			U,
 			S,
@@ -88,7 +88,7 @@ export type ValidateNodeNames<
 	  >
 	: never
 
-export type GetNodeTypes<
+export type GetChildPathsType<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	N extends readonly string[],
@@ -98,7 +98,7 @@ export type GetNodeTypes<
 	? ACC
 	: N extends readonly [infer P extends string, ...infer S extends string[]]
 	? V extends readonly [infer X, ...infer Y extends unknown[]]
-		? GetNodeTypes<
+		? GetChildPathsType<
 				T,
 				U,
 				S,
@@ -111,7 +111,7 @@ export type GetNodeTypes<
 					>
 				]
 		  >
-		: GetNodeTypes<
+		: GetChildPathsType<
 				T,
 				U,
 				S,
