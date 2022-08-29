@@ -1,7 +1,26 @@
-import { OriDataSnapshot, GetOnChildSnapshot, DataSnapshot } from '../types'
+import {
+	OriDataSnapshot,
+	GetOnChildSnapshot,
+	DataSnapshot,
+	ListenOptions,
+	Query,
+	DatabaseReference,
+} from '../types'
 import { dataSnapshotTransformer } from '../utils'
+import {
+	onChildAdded,
+	onChildChanged,
+	onChildMoved,
+	onChildRemoved,
+	onValue,
+} from 'firebase/database'
 
-export const callbackTransformer =
+export const isOptions = (value: unknown): value is ListenOptions => {
+	const v = value as Partial<ListenOptions>
+	return v?.onlyOnce !== undefined // onlyOnce is boolean, so check for undefined
+}
+
+const callbackTransformer =
 	(
 		callback:
 			| ((dataSnapshot: GetOnChildSnapshot<any, any>) => unknown)
@@ -11,3 +30,36 @@ export const callbackTransformer =
 		// @ts-expect-error
 		return callback(dataSnapshotTransformer(dataSnapshot))
 	}
+
+export const listenerCreator = (
+	listener:
+		| typeof onChildAdded
+		| typeof onChildChanged
+		| typeof onChildMoved
+		| typeof onChildRemoved
+		| typeof onValue,
+	query: Query<any, any> | DatabaseReference<any, any>,
+	callback:
+		| ((dataSnapshot: GetOnChildSnapshot<any, any>) => unknown)
+		| ((dataSnapshot: DataSnapshot<any, any>) => unknown),
+	cancelCallback: ListenOptions | ((error: Error) => unknown) | undefined,
+	options: unknown // ! why type of options is unknown
+) => {
+	const cancelCallback_ = isOptions(cancelCallback)
+		? () => {
+				//
+		  }
+		: cancelCallback ||
+		  (() => {
+				//
+		  })
+	const options_ = isOptions(cancelCallback) ? cancelCallback : options || {}
+	const callback_ = callbackTransformer(callback)
+
+	return listener(
+		query as any, // ! error: Unused '@ts-expect-error' directive but ts expect error still working, invisible error
+		callback_,
+		cancelCallback_,
+		options_ as any // ! error: Unused '@ts-expect-error' directive but ts expect error still working, invisible error
+	)
+}

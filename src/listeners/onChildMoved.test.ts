@@ -14,6 +14,28 @@ initializeApp()
 const users = usersCreator()
 
 describe('test onChildMoved', () => {
+	it('test with nothing', done => {
+		const rand = generateRandomData()
+		const data = rand.data
+		const path = `w` as const
+		const ref = users.ref(path)
+		expect.hasAssertions()
+		const unsub = onChildMoved(
+			ref,
+			async dataSnapshot => {
+				type A = typeof dataSnapshot
+				type B = DataSnapshot<Users, `w/${number}`>
+				IsTrue<IsSame<B, A>>()
+				compareListeners(`w/0`, dataSnapshot, data)
+			},
+			{ onlyOnce: false }
+		)
+		set(ref, data['w']).then(async () => {
+			await setPriority(users.ref(`${path}/0`), 1000)
+			unsub()
+			done()
+		})
+	})
 	it('test with options', done => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
@@ -23,7 +45,7 @@ describe('test onChildMoved', () => {
 		const ref = users.ref(path)
 		expect.hasAssertions()
 		const unsub = onChildMoved(
-			ref,
+			query(ref),
 			async dataSnapshot => {
 				type A = typeof dataSnapshot
 				type B = DataSnapshot<Users, `b/h/${string}/m/${string}`>
@@ -96,7 +118,7 @@ describe('test onChildMoved', () => {
 			done()
 		})
 	})
-	it('test with negative path', () => {
+	it('test with incorrect path', () => {
 		;() => {
 			onChildMoved(
 				// @ts-expect-error

@@ -1,23 +1,17 @@
 import {
 	isDatabase,
-	isOptions,
 	convertNumericKeyObjectToArray,
 	convertArrayToObject,
 	startRecurseObjectAndConvertArrayToObject,
 } from './utils'
 
-describe('test isFirestore', () => {
+describe('test utils', () => {
 	it('positive test', () => {
 		expect(isDatabase({})).toBe(false)
 		expect(isDatabase({ type: 'datazbase' })).toBe(false)
 		expect(isDatabase({ type: 'database' })).toBe(true)
 		expect(isDatabase({ useEmulator: {} })).toBe(true)
 		expect(isDatabase({ useEmulator: undefined })).toBe(false)
-	})
-	it('test isOption', () => {
-		expect(isOptions({})).toBe(false)
-		expect(isOptions({ onlyOnce: false })).toBe(true)
-		expect(isOptions({ onlyOnce: true })).toBe(true)
 	})
 	it('test convertNumericKeyObjectToArray', () => {
 		expect(convertNumericKeyObjectToArray(123)).toBe(123)

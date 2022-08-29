@@ -14,6 +14,27 @@ initializeApp()
 const users = usersCreator()
 
 describe('test onChildChanged', () => {
+	it('test with nothing', done => {
+		const rand = generateRandomData()
+		const randStringQKey = rand.randStringQKey
+		const data = rand.data
+		const path = `q` as const
+		const ref = users.ref(path)
+		const newData = data['q'][randStringQKey] === 0 ? 1 : 0
+		expect.hasAssertions()
+		const unsub = onChildChanged(query(ref), async dataSnapshot => {
+			type A = typeof dataSnapshot
+			type B = DataSnapshot<Users, `q/${string}`>
+			IsTrue<IsSame<B, A>>()
+			data['q'][randStringQKey] = newData
+			compareListeners(`${path}/${randStringQKey}`, dataSnapshot, data)
+		})
+		push(ref, data['q'][randStringQKey]!).then(async thenRef => {
+			await update(ref, [thenRef.key], [newData])
+			unsub()
+			done()
+		})
+	})
 	it('test with options', done => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
@@ -117,7 +138,7 @@ describe('test onChildChanged', () => {
 			done()
 		})
 	})
-	it('test with negative path', () => {
+	it('test with incorrect path', () => {
 		;() => {
 			onChildChanged(
 				// @ts-expect-error

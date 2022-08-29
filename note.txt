@@ -15,5 +15,5 @@ Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[
 
 
 todo:
-1. make sure all read key check for validity
-2. make sure all read path check for validity and number of slash 
+1. make sure all key check for validity
+2. make sure all path check for validity and number of slash 

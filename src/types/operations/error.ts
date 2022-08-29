@@ -13,4 +13,4 @@ export type ErrorIsPushOnlyAbleType<T extends string | undefined> =
 		? T
 		: 'Root'}' data type is PushAbleOnly<T>, you cannot set or update PushAbleOnly<T> node, to add new node use 'push' instead of 'set'. You can still set or update the child nodes as long as they are not PushAbleOnly<T>. If you intend to update or set PushAbleOnly<T> node, change its type to PushAble<T>.`
 export type ErrorElementNeedConstAssertion =
-	`Error: Two causes, either or both: 1.)This element type is string, you may forgot to assert it as const, eg: 'abc' as const; 2) You are using number, please use string numeric instead, eg: instead of 1, use '1'.`
+	`Error: Possibly Two causes, either or both: 1.)This element type is string, you may forgot to assert it as const, eg: 'abc' as const; 2) You are using number, please use numeric string instead, eg: instead of 1, use '1'.`

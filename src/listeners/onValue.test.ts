@@ -83,7 +83,7 @@ describe('test onValue', () => {
 			done()
 		})
 	})
-	it('test with push-able and remove-able data type', done => {
+	it('test with push-able and remove-able data type, no option no callback', done => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data

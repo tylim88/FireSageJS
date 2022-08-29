@@ -14,6 +14,28 @@ initializeApp()
 const users = usersCreator()
 
 describe('test onChildAdded', () => {
+	it('test with nothing', done => {
+		const rand = generateRandomData()
+		const randStringOKey = rand.randStringOKey
+		const data = rand.data
+		const path = `o` as const
+		const ref = users.ref(path)
+		expect.hasAssertions()
+		const unsub = onChildAdded(
+			query(ref),
+			async dataSnapshot => {
+				type A = typeof dataSnapshot
+				type B = DataSnapshot<Users, `o/${string}`>
+				IsTrue<IsSame<B, A>>()
+				compareListeners(`${path}/${randStringOKey}`, dataSnapshot, data)
+			},
+			{ onlyOnce: false }
+		)
+		set(ref, data['o']).then(() => {
+			unsub()
+			done()
+		})
+	})
 	it('test with options', done => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
@@ -90,7 +112,7 @@ describe('test onChildAdded', () => {
 			done()
 		})
 	})
-	it('test with negative path', () => {
+	it('test with incorrect path', () => {
 		;() => {
 			onChildAdded(
 				// @ts-expect-error

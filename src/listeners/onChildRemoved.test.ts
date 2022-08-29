@@ -14,6 +14,30 @@ initializeApp()
 const users = usersCreator()
 
 describe('test onChildRemoved', () => {
+	it('test with nothing', done => {
+		const rand = generateRandomData()
+		const data = rand.data
+		const path = `u` as const
+		const ref = users.ref(path)
+		expect.hasAssertions()
+		const unsub = onChildRemoved(
+			ref,
+			async dataSnapshot => {
+				type A = typeof dataSnapshot
+				type B = DataSnapshot<Users, `u/${number}`>
+				IsTrue<IsSame<B, A>>()
+				compareListeners(`${path}/0`, dataSnapshot, data)
+			},
+			() => {
+				//
+			}
+		)
+		set(ref, data['u']).then(async () => {
+			await remove(users.ref(`${path}/0`))
+			unsub()
+			done()
+		})
+	})
 	it('test with options', done => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
@@ -48,7 +72,7 @@ describe('test onChildRemoved', () => {
 		const ref = users.ref(path)
 		expect.hasAssertions()
 		const unsub = onChildRemoved(
-			ref,
+			query(ref),
 			async dataSnapshot => {
 				type A = typeof dataSnapshot
 				type B = DataSnapshot<Users, `b/h/${string}/p/${string}`>
@@ -93,7 +117,7 @@ describe('test onChildRemoved', () => {
 			done()
 		})
 	})
-	it('test with negative path', () => {
+	it('test with incorrect path', () => {
 		;() => {
 			onChildRemoved(
 				// @ts-expect-error
