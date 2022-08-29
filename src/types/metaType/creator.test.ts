@@ -326,14 +326,16 @@ describe('test generated meta type', () => {
 								p:
 									| Record<string, { r: number | undefined } | undefined>
 									| undefined
-								s: ({ t: number | undefined } | undefined)[] | undefined
+								s:
+									| Record<`${number}`, { t: number | undefined } | undefined>
+									| undefined
 							}
 						>
 					}
 					o: Record<string, number | undefined>
 					q: Record<string, 0 | 1 | 4 | 5 | 6>
-					u: (string | undefined)[]
-					w: { v: boolean }[]
+					u: Record<`${number}`, string | undefined>
+					w: Record<`${number}`, { v: boolean }>
 				}
 			>
 		>()
@@ -341,7 +343,7 @@ describe('test generated meta type', () => {
 
 	it('test compare', () => {
 		type A = Users['compare']
-		type o = A['w']
+
 		IsTrue<
 			IsSame<
 				A,
@@ -379,8 +381,6 @@ describe('test generated meta type', () => {
 
 	it('test base', () => {
 		type A = Users['base']
-
-		type u = A['q']
 
 		IsTrue<
 			IsSame<

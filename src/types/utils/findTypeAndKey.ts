@@ -104,7 +104,7 @@ export type FindNestedReadTypeFromFullPath<
 	: U extends `${infer R}/${infer S}`
 	? R extends keyof ACC
 		? ACC[R] extends infer P // make distributive
-			? P extends (infer Q)[]
+			? P extends (infer Q)[] // no longer need to check for array because read type will not produce array type anymore, but keep it in case
 				? FindNestedReadTypeFromFullPath<T, S, Record<`${number}`, Q>>
 				: FindNestedReadTypeFromFullPath<T, S, P>
 			: never // impossible route

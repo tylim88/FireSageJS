@@ -13,7 +13,7 @@ export type ReadTypeConverter<T> = T extends Record<string, unknown>
 	: T extends PushAbleOnly<infer X>
 	? { [x in string]: ReadTypeConverter<X> }
 	: T extends PseudoArray<infer X>
-	? ReadTypeConverter<X>[]
+	? Record<`${number}`, ReadTypeConverter<X>>
 	: T extends ServerTimestamp
 	? number
 	: T

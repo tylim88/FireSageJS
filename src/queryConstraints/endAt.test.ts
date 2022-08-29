@@ -18,7 +18,7 @@ describe('test orderByChild', () => {
 			{ 123: { t: 123 } }
 		)
 	})
-	it('The 2nd argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string. negative test', () => {
+	it('Second argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string. negative test', () => {
 		expect(() =>
 			endAt(
 				123,

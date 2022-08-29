@@ -21,7 +21,7 @@ import {
 	ErrorOrderingByKeyMustBeString,
 	ErrorOderByPriority,
 } from './error'
-import { ErrorInvalidCursorValue, ErrorInvalidFirebaseKey } from '../error'
+import { ErrorInvalidCursorValue } from '../error'
 
 type IsValidStringKey<
 	T extends MetaType,
@@ -46,12 +46,9 @@ export type ValidateCursor<
 	: O['length'] extends 1
 	? O[0] extends infer R
 		? C extends Cursor<infer A, infer B>
-			? // The 2nd argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string or optional.
-			  B[] extends string[] // redundant check
-				? // First argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() cannot be an object.
-				  A[] extends CursorValue[] // redundant check
-					? // Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]"
-					  IsValidStringKey<T, U, B> extends infer K extends string
+			? B[] extends string[]
+				? A[] extends CursorValue[]
+					? IsValidStringKey<T, U, B> extends infer K extends string
 						? R extends OrderBy<'orderByKey', undefined>
 							? Cursor<
 									A extends string
@@ -66,7 +63,7 @@ export type ValidateCursor<
 										infer X
 									>
 										? X
-										: '3', // never, // impossible route
+										: never, // impossible route
 									K
 							  >
 							: R extends OrderBy<'orderByPriority', undefined>
@@ -87,8 +84,8 @@ export type ValidateCursor<
 							  >
 							: never // impossible route
 						: never // impossible route
-					: Cursor<ErrorInvalidCursorValue, B>
-				: Cursor<A, ErrorInvalidFirebaseKey>
+					: never // impossible route
+				: never // impossible route
 			: never // impossible route
 		: never // impossible route
 	: ErrorMultipleOrderByCursor

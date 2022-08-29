@@ -50,7 +50,10 @@ describe('test type converter', () => {
 															  >
 															| undefined
 														s:
-															| ({ t: number | undefined } | undefined)[]
+															| Record<
+																	`${number}`,
+																	{ t: number | undefined } | undefined
+															  >
 															| undefined
 												  }
 												| undefined
@@ -60,8 +63,10 @@ describe('test type converter', () => {
 							| undefined
 						o: Record<string, number | undefined> | undefined
 						q: Record<string, 0 | 1 | 4 | 5 | 6 | undefined> | undefined
-						u: (string | undefined)[] | undefined
-						w: ({ v: boolean | undefined } | undefined)[] | undefined
+						u: Record<`${number}`, string | undefined> | undefined
+						w:
+							| Record<`${number}`, { v: boolean | undefined } | undefined>
+							| undefined
 				  }
 				| undefined
 			>

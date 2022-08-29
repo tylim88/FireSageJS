@@ -23,6 +23,7 @@ export const isOptions = (
 	return v?.onlyOnce !== undefined // onlyOnce is boolean, so check for undefined
 }
 
+// not in use
 export const convertNumericKeyObjectToArray = (data: unknown): unknown => {
 	if (
 		typeof data === 'object' &&
@@ -45,8 +46,50 @@ export const convertNumericKeyObjectToArray = (data: unknown): unknown => {
 		} else {
 			return data
 		}
+	} else {
+		return data
 	}
-	return data
+}
+
+export const convertArrayToObject = (data: unknown): unknown => {
+	if (Array.isArray(data)) {
+		return { ...data }
+	} else {
+		return data
+	}
+}
+
+export const recurseObjectAndConvertArrayToObject = (
+	data: unknown,
+	obj?: Record<string, unknown>,
+	key?: string
+) => {
+	if (
+		typeof data === 'object' &&
+		data !== null &&
+		Object.getPrototypeOf(data) === Object.prototype
+	) {
+		for (const k in data) {
+			const value =
+				// @ts-expect-error
+				data[k]
+			recurseObjectAndConvertArrayToObject(
+				value,
+				// @ts-expect-error
+				data,
+				k
+			)
+		}
+	} else if (key && obj) {
+		const converted = convertArrayToObject(data)
+		recurseObjectAndConvertArrayToObject(converted)
+		obj[key] = converted
+	}
+}
+
+export const startRecurseObjectAndConvertArrayToObject = (data: unknown) => {
+	recurseObjectAndConvertArrayToObject(data)
+	return convertArrayToObject(data)
 }
 
 export const dataSnapshotTransformer = (
@@ -59,7 +102,8 @@ export const dataSnapshotTransformer = (
 		size: dataSnapshot.size,
 		child: (path: string) => dataSnapshotTransformer(dataSnapshot.child(path)),
 		exists: () => dataSnapshot.exists(),
-		exportVal: () => convertNumericKeyObjectToArray(dataSnapshot.exportVal()),
+		exportVal: () =>
+			startRecurseObjectAndConvertArrayToObject(dataSnapshot.exportVal()),
 		forEach: (
 			action: (
 				dataSnapshot: OriDataSnapshot & { key: string }
@@ -74,7 +118,7 @@ export const dataSnapshotTransformer = (
 		},
 		hasChild: (path: string) => dataSnapshot.hasChild(path),
 		hasChildren: () => dataSnapshot.hasChildren(),
-		toJSON: () => dataSnapshot.toJSON(),
-		val: () => convertNumericKeyObjectToArray(dataSnapshot.val()),
+		toJSON: () => dataSnapshotTransformer(dataSnapshot).toJSON(),
+		val: () => startRecurseObjectAndConvertArrayToObject(dataSnapshot.val()),
 	}
 }

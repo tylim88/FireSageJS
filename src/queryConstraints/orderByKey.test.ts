@@ -50,7 +50,9 @@ describe('test orderByKey', () => {
 				ref('u'),
 				orderByKey(),
 				// @ts-expect-error
-				startAt(() => {})
+				startAt(() => {
+					//
+				})
 			)
 			query(
 				ref('w'),
