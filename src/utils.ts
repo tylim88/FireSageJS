@@ -1,43 +1,4 @@
-import { Database, FirestoreTesting, OriDataSnapshot } from './types'
-
-export const isDatabase = (value: unknown): value is Database => {
-	const v = value as Partial<Database>
-	const e = value as Partial<FirestoreTesting>
-	return v?.type === 'database' || !!e?.useEmulator
-}
-
-export const isString = (value: unknown): value is string => {
-	const v = value as Partial<Database>
-	return typeof v === 'string'
-}
-
-// not in use
-export const convertNumericKeyObjectToArray = (data: unknown): unknown => {
-	if (
-		typeof data === 'object' &&
-		data !== null &&
-		Object.getPrototypeOf(data) === Object.prototype
-	) {
-		// ! '.' is invalid firebase key but key eg 5.0 is valid and will be saved as 5
-		// ! still, key like 5.1 is not valid so reading float number key is impossible
-		const allNumericKeys = Object.keys(data).map(key => parseInt(key))
-		const isAllPositiveIntegerKey = !allNumericKeys.some(key => {
-			return !(key >= 0)
-		})
-		if (isAllPositiveIntegerKey) {
-			const arr: unknown[] = []
-			const values = Object.values(data)
-			allNumericKeys.forEach((key, i) => {
-				arr[key] = values[i]
-			})
-			return arr
-		} else {
-			return data
-		}
-	} else {
-		return data
-	}
-}
+import { OriDataSnapshot } from './types'
 
 export const convertArrayToObject = (data: unknown): unknown => {
 	if (Array.isArray(data)) {

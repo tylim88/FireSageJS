@@ -5,7 +5,7 @@ import {
 	DatabaseReference,
 	ReplaceInvalidSegment,
 } from '../types'
-import { isDatabase, isString } from '../utils'
+import { isDatabase, isString } from './utils'
 
 /**
  *
