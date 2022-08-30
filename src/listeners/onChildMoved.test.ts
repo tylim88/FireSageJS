@@ -8,7 +8,6 @@ import {
 } from '../utilForTests'
 import { set, push } from '../operations'
 import { setPriority } from '../operations/setPriority'
-import { setWithPriority } from '../operations/setWithPriority'
 import { IsSame, IsTrue, DataSnapshot } from '../types'
 import { query } from '../refs'
 
@@ -110,11 +109,7 @@ describe('test onChildMoved', () => {
 			{ onlyOnce: true }
 		)
 		set(ref, data['b']['h'][randStringHKey]!['s']).then(async () => {
-			await setWithPriority(
-				usersRef(`${path}/0`),
-				(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!,
-				1000
-			)
+			await setPriority(usersRef(`${path}/0`), 1000)
 			unsub()
 			done()
 		})

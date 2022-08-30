@@ -44,7 +44,6 @@ export const startRecurseObjectAndConvertArrayToObject = (data: unknown) => {
 export const dataSnapshotTransformer = (dataSnapshot: OriDataSnapshot) => {
 	return {
 		ref: dataSnapshot.ref,
-		priority: dataSnapshot.priority,
 		key: dataSnapshot.key,
 		size: dataSnapshot.size,
 		child: (path: string) => dataSnapshotTransformer(dataSnapshot.child(path)),

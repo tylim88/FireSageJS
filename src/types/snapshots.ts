@@ -19,15 +19,6 @@ export declare class DataSnapshot<
 	readonly ref: DatabaseReference<T, U>
 	private constructor()
 	/**
-	 * Gets the priority value of the data in this `DataSnapshot`.
-	 *
-	 * Applications need not use priority but can order collections by
-	 * ordinary properties (see
-	 * {@link https://firebase.google.com/docs/database/web/lists-of-data#sorting_and_filtering_data |Sorting and filtering data}
-	 * ).
-	 */
-	get priority(): string | number | null
-	/**
 	 * The key (last part of the path) of the location of this `DataSnapshot`.
 	 *
 	 * The last token in a Database location is considered its key. For example,
@@ -62,34 +53,6 @@ export declare class DataSnapshot<
 	 * efficient than using `snapshot.val() !== null`.
 	 */
 	exists(): boolean
-	// /**
-	//  * Exports the entire contents of the DataSnapshot as a JavaScript object.
-	//  *
-	//  * The `exportVal()` method is similar to `val()`, except priority information
-	//  * is included (if available), making it suitable for backing up your data.
-	//  *
-	//  * @returns The DataSnapshot's contents as a JavaScript value (Object,
-	//  *   Array, string, number, boolean, or `null`).
-	//  */
-	// exportVal(): FindNestedReadTypeFromFullPath<T, U> | null
-	/**
-	 * Enumerates the top-level children in the `DataSnapshot`.
-	 *
-	 * Because of the way JavaScript objects work, the ordering of data in the
-	 * JavaScript object returned by `val()` is not guaranteed to match the
-	 * ordering on the server nor the ordering of `onChildAdded()` events. That is
-	 * where `forEach()` comes in handy. It guarantees the children of a
-	 * `DataSnapshot` will be iterated in their query order.
-	 *
-	 * If no explicit `orderBy*()` method is used, results are returned
-	 * ordered by key (unless priorities are used, in which case, results are
-	 * returned by priority).
-	 *
-	 * @param action - A function that will be called for each child DataSnapshot.
-	 * The callback can return true to cancel further enumeration.
-	 * @returns true if enumeration was canceled due to your callback returning
-	 * true.
-	 */
 	forEach(
 		action: (
 			child: FindAllTopLevelChildKeys<T, U> extends never
