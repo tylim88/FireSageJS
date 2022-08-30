@@ -1,8 +1,6 @@
 import { equalTo as equalTo_ } from 'firebase/database'
 import { CursorConstraint } from '../types'
 /**
-(alias) equalTo_(value: string | number | boolean | null, key?: string | undefined): QueryConstraint
-import equalTo_
 Creates a QueryConstraint that includes children that match the specified value.
 
 Using startAt(), startAfter(), endBefore(), endAt() and equalTo() allows you to choose arbitrary starting and ending points for your queries.

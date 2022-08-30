@@ -2,8 +2,6 @@ import { startAfter as startAfter_ } from 'firebase/database'
 import { CursorConstraint } from '../types'
 
 /**
-(alias) startAfter_(value: string | number | boolean | null, key?: string | undefined): QueryConstraint
-import startAfter_
 Creates a QueryConstraint with the specified starting point (exclusive).
 
 Using startAt(), startAfter(), endBefore(), endAt() and equalTo() allows you to choose arbitrary starting and ending points for your queries.

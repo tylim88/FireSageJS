@@ -11,6 +11,7 @@ Applications need not use priority but can order collections by ordinary propert
 
 @returns — Resolves when write to server is complete.
  */
+// not in use
 export const setPriority = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined

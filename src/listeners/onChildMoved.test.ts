@@ -6,7 +6,9 @@ import {
 	Users,
 	compareListeners,
 } from '../utilForTests'
-import { set, push, setPriority, setWithPriority } from '../operations'
+import { set, push } from '../operations'
+import { setPriority } from '../operations/setPriority'
+import { setWithPriority } from '../operations/setWithPriority'
 import { IsSame, IsTrue, DataSnapshot } from '../types'
 import { query } from '../refs'
 

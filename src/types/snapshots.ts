@@ -62,16 +62,16 @@ export declare class DataSnapshot<
 	 * efficient than using `snapshot.val() !== null`.
 	 */
 	exists(): boolean
-	/**
-	 * Exports the entire contents of the DataSnapshot as a JavaScript object.
-	 *
-	 * The `exportVal()` method is similar to `val()`, except priority information
-	 * is included (if available), making it suitable for backing up your data.
-	 *
-	 * @returns The DataSnapshot's contents as a JavaScript value (Object,
-	 *   Array, string, number, boolean, or `null`).
-	 */
-	exportVal(): FindNestedReadTypeFromFullPath<T, U> | null
+	// /**
+	//  * Exports the entire contents of the DataSnapshot as a JavaScript object.
+	//  *
+	//  * The `exportVal()` method is similar to `val()`, except priority information
+	//  * is included (if available), making it suitable for backing up your data.
+	//  *
+	//  * @returns The DataSnapshot's contents as a JavaScript value (Object,
+	//  *   Array, string, number, boolean, or `null`).
+	//  */
+	// exportVal(): FindNestedReadTypeFromFullPath<T, U> | null
 	/**
 	 * Enumerates the top-level children in the `DataSnapshot`.
 	 *

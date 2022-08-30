@@ -2,8 +2,6 @@ import { endAt as endAt_ } from 'firebase/database'
 import { CursorConstraint } from '../types'
 
 /**
-(alias) endAt_(value: string | number | boolean | null, key?: string | undefined): QueryConstraint
-import endAt_
 Creates a QueryConstraint with the specified ending point.
 
 Using startAt(), startAfter(), endBefore(), endAt() and equalTo() allows you to choose arbitrary starting and ending points for your queries.

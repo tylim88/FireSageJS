@@ -19,6 +19,7 @@ The value to be written (string, number, boolean, object, array, or null).
 
 @returns — Resolves when write to server is complete.
  */
+// not in use
 export const setWithPriority = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,

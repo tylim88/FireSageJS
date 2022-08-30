@@ -200,20 +200,20 @@ export const readAndExpectForUpdate = async <
 	return snapshot
 }
 
-export const dataForQuery = (): Users['read'] => {
+export const dataForQuery = (): Users['write'] => {
 	return {
 		a: pick([1, 2, 3] as const)[0]!,
 		b: {
 			c: true,
 			d: {
 				e: pick(['abc', 'xyz', 'efg'] as const)[0]!,
-				f: { j: Math.random() },
+				f: { j: 123.45 },
 				k: 'abc',
 			},
 			h: {
 				abc: {
 					i: pick([true, false])[0]!,
-					l: 12345,
+					l: 12345 as unknown as ServerTimestamp,
 					m: {
 						z: { n: '9' },
 						b: { n: '7' },
@@ -222,11 +222,11 @@ export const dataForQuery = (): Users['read'] => {
 						q: { n: '8' },
 					},
 					p: {
-						g: { r: 3426 },
-						i: { r: 6354 },
-						b: { r: 8938 },
-						v: { r: 9023 },
-						c: { r: 3721 },
+						g: { r: 3426 as unknown as ServerTimestamp },
+						i: { r: 6354 as unknown as ServerTimestamp },
+						b: { r: 8938 as unknown as ServerTimestamp },
+						v: { r: 9023 as unknown as ServerTimestamp },
+						c: { r: 3721 as unknown as ServerTimestamp },
 					},
 					s: {
 						91: { t: 7327 },
