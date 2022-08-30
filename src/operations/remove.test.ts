@@ -1,30 +1,29 @@
 import { set, get } from '../operations'
-import { initializeApp, usersCreator } from '../utilForTests'
+import { initializeApp, usersRef } from '../utilForTests'
 import { remove } from './remove'
 
 initializeApp()
-const users = usersCreator()
 describe('test remove]', () => {
 	it('test incorrect type', async () => {
 		remove(
 			// @ts-expect-error
-			users.ref('a')
+			usersRef('a')
 		)
 
 		remove(
 			// @ts-expect-error
-			users.ref('b/h')
+			usersRef('b/h')
 		)
 
 		remove(
 			// @ts-expect-error
-			users.ref('o')
+			usersRef('o')
 		)
 	})
 
 	it('test functionality', async () => {
-		const ref1 = users.ref('b/h/abc/m')
-		const ref2 = users.ref('b/d/k')
+		const ref1 = usersRef('b/h/abc/m')
+		const ref2 = usersRef('b/d/k')
 		await set(ref1, { abc: { n: '7' } })
 		await remove(ref1)
 		const data1 = (await get(ref1)).val()

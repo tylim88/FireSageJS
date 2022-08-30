@@ -13,7 +13,7 @@ import {
 	PseudoArray,
 	DataSnapshot,
 } from './types'
-import { getFiresage } from '.'
+import { createRef } from './refs'
 import { initializeApp as initializeApp_ } from 'firebase/app'
 import pick from 'pick-random'
 import { v4 } from 'uuid'
@@ -59,7 +59,7 @@ export type Users = MetaTypeCreator<{
 	w: PseudoArray<{ v: boolean }>
 }>
 
-export const usersCreator = getFiresage<Users>()
+export const usersRef = createRef<Users>()
 
 const getRandomCapitalAlphabet = () => pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 

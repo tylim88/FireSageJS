@@ -1,5 +1,5 @@
 import {
-	usersCreator,
+	usersRef,
 	initializeApp,
 	Users,
 	readAndExpectForSet,
@@ -10,7 +10,6 @@ import { child } from './child'
 import { set } from '../operations'
 
 initializeApp()
-const users = usersCreator()
 
 describe('test ref', () => {
 	it('test path type validation and return type', () => {
@@ -18,49 +17,49 @@ describe('test ref', () => {
 			const _123 = 123 as number
 			const abc = 'abc' as string
 
-			const a = child(users.ref(), 'b/c')
+			const a = child(usersRef(), 'b/c')
 
 			const b = child(
-				users.ref(),
+				usersRef(),
 				// @ts-expect-error
 				undefined // this will throw
 			)
 
 			const c = child(
-				users.ref('b/c'),
+				usersRef('b/c'),
 				// @ts-expect-error
 				''
 			)
 
 			const d = child(
-				users.ref('b/d/f/j'),
+				usersRef('b/d/f/j'),
 				// @ts-expect-error
 				''
 			)
 
-			const e = child(users.ref('b'), 'c')
+			const e = child(usersRef('b'), 'c')
 
-			const f = child(users.ref('b/h'), 'anything')
+			const f = child(usersRef('b/h'), 'anything')
 			const g = child(
-				users.ref('b/h'),
+				usersRef('b/h'),
 				// @ts-expect-error
 				'123'
 			)
-			const h = child(users.ref(`b/h/abc/s`), '123')
+			const h = child(usersRef(`b/h/abc/s`), '123')
 			const i = child(
-				users.ref(`b/h/abc/s`),
+				usersRef(`b/h/abc/s`),
 				// @ts-expect-error
 				'abc'
 			)
-			const j = child(users.ref('b/h'), abc)
+			const j = child(usersRef('b/h'), abc)
 			const k = child(
-				users.ref('b/h'),
+				usersRef('b/h'),
 				// @ts-expect-error
 				`${_123}`
 			)
-			const l = child(users.ref(`b/h/abc/s`), `${_123}`)
+			const l = child(usersRef(`b/h/abc/s`), `${_123}`)
 			const m = child(
-				users.ref(`b/h/abc/s`),
+				usersRef(`b/h/abc/s`),
 				// @ts-expect-error
 				abc
 			)
@@ -98,7 +97,7 @@ describe('test ref', () => {
 
 describe('test child runtime', () => {
 	it('test child "a" node', async () => {
-		const ref = child(users.ref(), 'a')
+		const ref = child(usersRef(), 'a')
 		const data = generateRandomData().data
 		await set(ref, data['a'])
 		await readAndExpectForSet(ref, 'a', data)
@@ -167,7 +166,7 @@ describe('test child runtime', () => {
 	})
 
 	it('test "b/c" node', async () => {
-		const ref = child(users.ref('b'), 'c')
+		const ref = child(usersRef('b'), 'c')
 		const data = generateRandomData().data
 		await set(ref, data['b']['c'])
 		await readAndExpectForSet(ref, 'b/c', data)
@@ -236,7 +235,7 @@ describe('test child runtime', () => {
 	})
 
 	it('test "b/d" node', async () => {
-		const ref = child(users.ref('b'), 'd')
+		const ref = child(usersRef('b'), 'd')
 		const data = generateRandomData().data
 		await set(ref, data['b']['d'])
 		await readAndExpectForSet(ref, 'b/d', data)
@@ -305,7 +304,7 @@ describe('test child runtime', () => {
 	})
 
 	it('test "b/d/f/j" node', async () => {
-		const ref = child(users.ref('b/d'), 'f/j')
+		const ref = child(usersRef('b/d'), 'f/j')
 		const data = generateRandomData().data
 		await set(ref, data['b']['d']['f']['j'])
 		await readAndExpectForSet(ref, 'b/d/f/j', data)
@@ -374,7 +373,7 @@ describe('test child runtime', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = child(users.ref(), `b/h/${randStringHKey}`)
+		const ref = child(usersRef(), `b/h/${randStringHKey}`)
 		await set(ref, data['b']['h'][randStringHKey]!)
 		await readAndExpectForSet(ref, `b/h/${randStringHKey}`, data)
 		;() => {
@@ -442,7 +441,7 @@ describe('test child runtime', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = child(users.ref(`b`), `h/${randStringHKey}/m`)
+		const ref = child(usersRef(`b`), `h/${randStringHKey}/m`)
 		await set(ref, data['b']['h'][randStringHKey]!['m'])
 		await readAndExpectForSet(ref, `b/h/${randStringHKey}/m`, data)
 		;() => {
@@ -511,7 +510,7 @@ describe('test child runtime', () => {
 		const randStringHKey = rand.randStringHKey
 		const randStringMKey = rand.randStringMKey
 		const data = rand.data
-		const ref = child(users.ref(), `b/h/${randStringHKey}/m/${randStringMKey}`)
+		const ref = child(usersRef(), `b/h/${randStringHKey}/m/${randStringMKey}`)
 		await set(ref, data['b']['h'][randStringHKey]!['m'][randStringMKey]!)
 		await readAndExpectForSet(
 			ref,
@@ -585,7 +584,7 @@ describe('test child runtime', () => {
 		const randStringMKey = rand.randStringMKey
 		const data = rand.data
 		const ref = child(
-			users.ref('b/h'),
+			usersRef('b/h'),
 			`${randStringHKey}/m/${randStringMKey}/n`
 		)
 		await set(ref, data['b']['h'][randStringHKey]!['m'][randStringMKey]!['n'])
@@ -659,7 +658,7 @@ describe('test child runtime', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = child(users.ref(`b`), `h/${randStringHKey}/p`)
+		const ref = child(usersRef(`b`), `h/${randStringHKey}/p`)
 		;() =>
 			set(
 				ref,
@@ -673,7 +672,7 @@ describe('test child runtime', () => {
 		const randStringHKey = rand.randStringHKey
 		const randStringPKey = rand.randStringPKey
 		const data = rand.data
-		const ref = child(users.ref(), `b/h/${randStringHKey}/p/${randStringPKey}`)
+		const ref = child(usersRef(), `b/h/${randStringHKey}/p/${randStringPKey}`)
 		await set(ref, data['b']['h'][randStringHKey]!['p'][randStringPKey]!)
 		await readAndExpectForSet(
 			ref,
@@ -747,7 +746,7 @@ describe('test child runtime', () => {
 		const randStringPKey = rand.randStringPKey
 		const data = rand.data
 		const ref = child(
-			users.ref('b/h'),
+			usersRef('b/h'),
 			`${randStringHKey}/p/${randStringPKey}/r`
 		)
 		await set(ref, data['b']['h'][randStringHKey]!['p'][randStringPKey]!['r'])
@@ -821,7 +820,7 @@ describe('test child runtime', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = child(users.ref(`b`), `h/${randStringHKey}/s`)
+		const ref = child(usersRef(`b`), `h/${randStringHKey}/s`)
 		await set(
 			ref,
 			data['b']['h'][randStringHKey]!['s'] as
@@ -900,7 +899,7 @@ describe('test child runtime', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = child(users.ref(), `b/h/${randStringHKey}/s/0`)
+		const ref = child(usersRef(), `b/h/${randStringHKey}/s/0`)
 		await set(
 			ref,
 			(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!
@@ -971,7 +970,7 @@ describe('test child runtime', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = child(users.ref('b/h'), `${randStringHKey}/s/0/t`)
+		const ref = child(usersRef('b/h'), `${randStringHKey}/s/0/t`)
 		await set(
 			ref,
 			(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!['t']

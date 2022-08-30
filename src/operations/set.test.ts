@@ -3,16 +3,14 @@ import {
 	readAndExpectForSet,
 	generateRandomData,
 	initializeApp,
-	usersCreator,
+	usersRef,
 } from '../utilForTests'
 
 initializeApp()
 
-const users = usersCreator()
-
 describe('test set and get', () => {
 	it('test root', async () => {
-		const ref = users.ref()
+		const ref = usersRef()
 		const data = generateRandomData().data
 		await set(ref, data)
 		await readAndExpectForSet(ref, undefined, data)
@@ -68,7 +66,7 @@ describe('test set and get', () => {
 		}
 	})
 	it('test "a" node', async () => {
-		const ref = users.ref('a')
+		const ref = usersRef('a')
 		const data = generateRandomData().data
 		await set(ref, data['a'])
 		await readAndExpectForSet(ref, 'a', data)
@@ -124,7 +122,7 @@ describe('test set and get', () => {
 		}
 	})
 	it('test "b/c" node', async () => {
-		const ref = users.ref('b/c')
+		const ref = usersRef('b/c')
 		const data = generateRandomData().data
 		await set(ref, data['b']['c'])
 		await readAndExpectForSet(ref, 'b/c', data)
@@ -192,7 +190,7 @@ describe('test set and get', () => {
 		}
 	})
 	it('test "b/d" node', async () => {
-		const ref = users.ref('b/d')
+		const ref = usersRef('b/d')
 		const data = generateRandomData().data
 		await set(ref, data['b']['d'])
 		await readAndExpectForSet(ref, 'b/d', data)
@@ -260,7 +258,7 @@ describe('test set and get', () => {
 		}
 	})
 	it('test "b/d/f/j" node', async () => {
-		const ref = users.ref('b/d/f/j')
+		const ref = usersRef('b/d/f/j')
 		const data = generateRandomData().data
 		await set(ref, data['b']['d']['f']['j'])
 		await readAndExpectForSet(ref, 'b/d/f/j', data)
@@ -328,7 +326,7 @@ describe('test set and get', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}`)
 		await set(ref, data['b']['h'][randStringHKey]!)
 		await readAndExpectForSet(ref, `b/h/${randStringHKey}`, data)
 		;() => {
@@ -395,7 +393,7 @@ describe('test set and get', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/i`)
+		const ref = usersRef(`b/h/${randStringHKey}/i`)
 		await set(ref, data['b']['h'][randStringHKey]!['i'])
 		await readAndExpectForSet(ref, `b/h/${randStringHKey}/i`, data)
 		;() => {
@@ -460,7 +458,7 @@ describe('test set and get', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/m`)
+		const ref = usersRef(`b/h/${randStringHKey}/m`)
 		await set(ref, data['b']['h'][randStringHKey]!['m'])
 		await readAndExpectForSet(ref, `b/h/${randStringHKey}/m`, data)
 		;() => {
@@ -529,7 +527,7 @@ describe('test set and get', () => {
 		const randStringHKey = rand.randStringHKey
 		const randStringMKey = rand.randStringMKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/m/${randStringMKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}/m/${randStringMKey}`)
 		await set(ref, data['b']['h'][randStringHKey]!['m'][randStringMKey]!)
 		await readAndExpectForSet(
 			ref,
@@ -602,7 +600,7 @@ describe('test set and get', () => {
 		const randStringHKey = rand.randStringHKey
 		const randStringMKey = rand.randStringMKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/m/${randStringMKey}/n`)
+		const ref = usersRef(`b/h/${randStringHKey}/m/${randStringMKey}/n`)
 		await set(ref, data['b']['h'][randStringHKey]!['m'][randStringMKey]!['n'])
 		await readAndExpectForSet(
 			ref,
@@ -674,7 +672,7 @@ describe('test set and get', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/p`)
+		const ref = usersRef(`b/h/${randStringHKey}/p`)
 		;() =>
 			set(
 				ref,
@@ -688,7 +686,7 @@ describe('test set and get', () => {
 		const randStringHKey = rand.randStringHKey
 		const randStringPKey = rand.randStringPKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/p/${randStringPKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}/p/${randStringPKey}`)
 		await set(ref, data['b']['h'][randStringHKey]!['p'][randStringPKey]!)
 		await readAndExpectForSet(
 			ref,
@@ -761,7 +759,7 @@ describe('test set and get', () => {
 		const randStringHKey = rand.randStringHKey
 		const randStringPKey = rand.randStringPKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/p/${randStringPKey}/r`)
+		const ref = usersRef(`b/h/${randStringHKey}/p/${randStringPKey}/r`)
 		await set(ref, data['b']['h'][randStringHKey]!['p'][randStringPKey]!['r'])
 		await readAndExpectForSet(
 			ref,
@@ -833,7 +831,7 @@ describe('test set and get', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/s`)
+		const ref = usersRef(`b/h/${randStringHKey}/s`)
 		await set(
 			ref,
 			data['b']['h'][randStringHKey]!['s'] as
@@ -912,7 +910,7 @@ describe('test set and get', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/s/0`)
+		const ref = usersRef(`b/h/${randStringHKey}/s/0`)
 		await set(
 			ref,
 			(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!
@@ -983,7 +981,7 @@ describe('test set and get', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = users.ref(`b/h/${randStringHKey}/s/0/t`)
+		const ref = usersRef(`b/h/${randStringHKey}/s/0/t`)
 		await set(
 			ref,
 			(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!['t']

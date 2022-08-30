@@ -4,17 +4,15 @@ import {
 	readAndExpectForUpdate,
 	generateRandomData,
 	initializeApp,
-	usersCreator,
+	usersRef,
 	readAndExpectForSet,
 } from '../utilForTests'
 
 initializeApp()
 
-const users = usersCreator()
-
 describe('test update and get', () => {
 	it('test a node', async () => {
-		const ref = users.ref()
+		const ref = usersRef()
 		const data = generateRandomData().data
 		const childPath = 'a'
 		await update(ref, [childPath], [data['a']])
@@ -95,7 +93,7 @@ describe('test update and get', () => {
 	})
 
 	it('test "b/c" node', async () => {
-		const ref = users.ref('b')
+		const ref = usersRef('b')
 		const data = generateRandomData().data
 		const childPath = 'c'
 		await update(ref, [childPath], [data['b']['c']])
@@ -175,7 +173,7 @@ describe('test update and get', () => {
 		}
 	})
 	it('test "b/d" node', async () => {
-		const ref = users.ref()
+		const ref = usersRef()
 		const data = generateRandomData().data
 		const childPath = 'b/d'
 		await update(ref, [childPath], [data['b']['d']])
@@ -255,7 +253,7 @@ describe('test update and get', () => {
 		}
 	})
 	it('test "b/d/f/j" node', async () => {
-		const ref = users.ref('b/d')
+		const ref = usersRef('b/d')
 		const data = generateRandomData().data
 		const childPath = 'f/j'
 		await update(ref, [childPath], [data['b']['d']['f']['j']])
@@ -335,7 +333,7 @@ describe('test update and get', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const childPath = randStringHKey
-		const ref = users.ref(`b/h`)
+		const ref = usersRef(`b/h`)
 		await update(ref, [childPath], [data['b']['h'][randStringHKey]!])
 		await readAndExpectForUpdate(
 			ref,
@@ -427,7 +425,7 @@ describe('test update and get', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const childPath = 'i'
-		const ref = users.ref(`b/h/${randStringHKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}`)
 		await update(ref, [childPath], [data['b']['h'][randStringHKey]!['i']])
 		await readAndExpectForUpdate(
 			ref,
@@ -510,7 +508,7 @@ describe('test update and get', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const childPath = 'm'
-		const ref = users.ref(`b/h/${randStringHKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}`)
 		await update(ref, [childPath], [data['b']['h'][randStringHKey]!['m']])
 		await readAndExpectForUpdate(
 			ref,
@@ -598,7 +596,7 @@ describe('test update and get', () => {
 		const randStringMKey = rand.randStringMKey
 		const data = rand.data
 		const childPath = `m/${randStringMKey}` as const
-		const ref = users.ref(`b/h/${randStringHKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}`)
 
 		await update(
 			ref,
@@ -691,7 +689,7 @@ describe('test update and get', () => {
 		const randStringMKey = rand.randStringMKey
 		const data = rand.data
 		const childPath = `m/${randStringMKey}/n` as const
-		const ref = users.ref(`b/h/${randStringHKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}`)
 		await update(
 			ref,
 			[childPath],
@@ -782,7 +780,7 @@ describe('test update and get', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const childPath = `p`
-		const ref = users.ref(`b/h/${randStringHKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}`)
 		await update(
 			ref,
 			[
@@ -799,7 +797,7 @@ describe('test update and get', () => {
 		const randStringPKey = rand.randStringPKey
 		const data = rand.data
 		const childPath = `p/${randStringPKey}` as const
-		const ref = users.ref(`b/h/${randStringHKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}`)
 
 		await update(
 			ref,
@@ -892,7 +890,7 @@ describe('test update and get', () => {
 		const randStringPKey = rand.randStringPKey
 		const data = rand.data
 		const childPath = `p/${randStringPKey}/r` as const
-		const ref = users.ref(`b/h/${randStringHKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}`)
 		await update(
 			ref,
 			[childPath],
@@ -986,7 +984,7 @@ describe('test update and get', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const childPath = 's'
-		const ref = users.ref(`b/h/${randStringHKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}`)
 		await update(
 			ref,
 			[childPath],
@@ -1091,7 +1089,7 @@ describe('test update and get', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const childPath = `s/0` as const
-		const ref = users.ref(`b/h/${randStringHKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}`)
 
 		await update(
 			ref,
@@ -1187,7 +1185,7 @@ describe('test update and get', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const childPath = `s/0/t` as const
-		const ref = users.ref(`b/h/${randStringHKey}`)
+		const ref = usersRef(`b/h/${randStringHKey}`)
 		await update(
 			ref,
 			[childPath],
@@ -1273,7 +1271,7 @@ describe('test update and get', () => {
 	})
 
 	it('test update multiple data type', async () => {
-		const ref = users.ref()
+		const ref = usersRef()
 		const oriRand = generateRandomData()
 		const oriData = oriRand.data
 		const oriRandStringHKey = oriRand.randStringHKey
@@ -1318,7 +1316,7 @@ describe('test update and get', () => {
 
 	it('test "q" node is push able only', async () => {
 		const childPath = `q`
-		const ref = users.ref()
+		const ref = usersRef()
 		;() =>
 			update(
 				ref,
@@ -1331,7 +1329,7 @@ describe('test update and get', () => {
 	})
 
 	it('test descendant path type exist or not', () => {
-		const ref = users.ref()
+		const ref = usersRef()
 		const abc = 'abc' as string
 		const _123 = 123 as number
 		;() =>
@@ -1364,7 +1362,7 @@ describe('test update and get', () => {
 	})
 
 	it('test path type', async () => {
-		const ref = users.ref()
+		const ref = usersRef()
 		const abc = 'abc' as string
 		const _123 = 123 as number
 		;() =>
@@ -1396,7 +1394,7 @@ describe('test update and get', () => {
 	})
 
 	it('test arr = string[] trigger error', async () => {
-		const ref = users.ref()
+		const ref = usersRef()
 		const abc = 'abc' as string
 		const _123 = 123 as number
 		const arr = [
@@ -1420,7 +1418,7 @@ describe('test update and get', () => {
 	})
 
 	it('test not enough data type', async () => {
-		const ref = users.ref()
+		const ref = usersRef()
 		const abc = 'abc' as string
 		const _123 = 123 as number
 		const arr = [

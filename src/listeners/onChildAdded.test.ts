@@ -2,7 +2,7 @@ import { onChildAdded } from './onChildAdded'
 import {
 	generateRandomData,
 	initializeApp,
-	usersCreator,
+	usersRef,
 	Users,
 	compareListeners,
 } from '../utilForTests'
@@ -11,7 +11,6 @@ import { IsSame, IsTrue, DataSnapshot } from '../types'
 import { query } from '../refs'
 
 initializeApp()
-const users = usersCreator()
 
 describe('test onChildAdded', () => {
 	it('test with nothing', done => {
@@ -19,7 +18,7 @@ describe('test onChildAdded', () => {
 		const randStringOKey = rand.randStringOKey
 		const data = rand.data
 		const path = `o` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onChildAdded(
 			query(ref),
@@ -42,7 +41,7 @@ describe('test onChildAdded', () => {
 		const randStringMKey = rand.randStringMKey
 		const data = rand.data
 		const path = `b/h/${randStringHKey}/m` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onChildAdded(
 			query(ref),
@@ -65,7 +64,7 @@ describe('test onChildAdded', () => {
 		const randStringPKey = rand.randStringPKey
 		const data = rand.data
 		const path = `b/h/${randStringHKey}/p` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 
 		const unsub = onChildAdded(
@@ -92,7 +91,7 @@ describe('test onChildAdded', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const path = `b/h/${randStringHKey}/s` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onChildAdded(
 			ref,
@@ -116,7 +115,7 @@ describe('test onChildAdded', () => {
 		;() => {
 			onChildAdded(
 				// @ts-expect-error
-				users.ref('a'),
+				usersRef('a'),
 				() => {
 					//
 				}
@@ -124,7 +123,7 @@ describe('test onChildAdded', () => {
 
 			onChildAdded(
 				// @ts-expect-error
-				users.ref('b/c'),
+				usersRef('b/c'),
 				() => {
 					//
 				}
@@ -132,7 +131,7 @@ describe('test onChildAdded', () => {
 
 			onChildAdded(
 				// @ts-expect-error
-				users.ref('b/d'),
+				usersRef('b/d'),
 				() => {
 					//
 				}
@@ -140,7 +139,7 @@ describe('test onChildAdded', () => {
 
 			onChildAdded(
 				// @ts-expect-error
-				users.ref('b/d/e'),
+				usersRef('b/d/e'),
 				() => {
 					//
 				}
@@ -148,7 +147,7 @@ describe('test onChildAdded', () => {
 
 			onChildAdded(
 				// @ts-expect-error
-				users.ref('b/d/k'),
+				usersRef('b/d/k'),
 				() => {
 					//
 				}

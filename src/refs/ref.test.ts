@@ -1,15 +1,15 @@
-import { usersCreator, initializeApp, Users } from '../utilForTests'
+import { usersRef, initializeApp, Users } from '../utilForTests'
 import { IsEqual, IsTrue, DatabaseReference } from '../types'
 
 initializeApp()
-const ref = usersCreator().ref
-describe('test ref', () => {
+
+describe('test usersRef', () => {
 	it('test return type', () => {
-		const a = ref()
-		const b = ref('a')
-		const c = ref('b')
-		const d = ref('b/d/f/j')
-		const e = ref('b/h')
+		const a = usersRef()
+		const b = usersRef('a')
+		const c = usersRef('b')
+		const d = usersRef('b/d/f/j')
+		const e = usersRef('b/h')
 
 		type A = typeof a
 		type B = typeof b
@@ -51,23 +51,23 @@ describe('test ref', () => {
 		const _123 = 123 as number
 		const abc = 'abc' as string
 		;() => {
-			const a = ref()
-			const b = ref('a')
-			const c = ref('b')
-			const d = ref('b/d/f/j')
-			const e = ref('b/h')
-			const f = ref('b/h/abc')
+			const a = usersRef()
+			const b = usersRef('a')
+			const c = usersRef('b')
+			const d = usersRef('b/d/f/j')
+			const e = usersRef('b/h')
+			const f = usersRef('b/h/abc')
 			// @ts-expect-error
-			const g = ref('b/h/123')
-			const h = ref('b/h/abc/s/123')
+			const g = usersRef('b/h/123')
+			const h = usersRef('b/h/abc/s/123')
 			// @ts-expect-error
-			const i = ref('b/h/abc/s/efg')
-			const j = ref(`b/h/${abc}`)
+			const i = usersRef('b/h/abc/s/efg')
+			const j = usersRef(`b/h/${abc}`)
 			// @ts-expect-error
-			const k = ref(`b/h/${_123}`)
-			const l = ref(`b/h/abc/s/${_123}`)
+			const k = usersRef(`b/h/${_123}`)
+			const l = usersRef(`b/h/abc/s/${_123}`)
 			// @ts-expect-error
-			const m = ref(`b/h/abc/s/${abc}`)
+			const m = usersRef(`b/h/abc/s/${abc}`)
 
 			type A = typeof a
 			type B = typeof b

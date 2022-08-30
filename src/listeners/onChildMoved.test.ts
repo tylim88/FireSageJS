@@ -2,7 +2,7 @@ import { onChildMoved } from './onChildMoved'
 import {
 	generateRandomData,
 	initializeApp,
-	usersCreator,
+	usersRef,
 	Users,
 	compareListeners,
 } from '../utilForTests'
@@ -11,14 +11,13 @@ import { IsSame, IsTrue, DataSnapshot } from '../types'
 import { query } from '../refs'
 
 initializeApp()
-const users = usersCreator()
 
 describe('test onChildMoved', () => {
 	it('test with nothing', done => {
 		const rand = generateRandomData()
 		const data = rand.data
 		const path = `w` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onChildMoved(
 			ref,
@@ -31,7 +30,7 @@ describe('test onChildMoved', () => {
 			{ onlyOnce: false }
 		)
 		set(ref, data['w']).then(async () => {
-			await setPriority(users.ref(`${path}/0`), 1000)
+			await setPriority(usersRef(`${path}/0`), 1000)
 			unsub()
 			done()
 		})
@@ -42,7 +41,7 @@ describe('test onChildMoved', () => {
 		const randStringMKey = rand.randStringMKey
 		const data = rand.data
 		const path = `b/h/${randStringHKey}/m` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onChildMoved(
 			query(ref),
@@ -55,7 +54,7 @@ describe('test onChildMoved', () => {
 			{ onlyOnce: false }
 		)
 		set(ref, data['b']['h'][randStringHKey]!['m']).then(async () => {
-			await setPriority(users.ref(`${path}/${randStringMKey}`), 1000)
+			await setPriority(usersRef(`${path}/${randStringMKey}`), 1000)
 			unsub()
 			done()
 		})
@@ -66,7 +65,7 @@ describe('test onChildMoved', () => {
 		const randStringPKey = rand.randStringPKey
 		const data = rand.data
 		const path = `b/h/${randStringHKey}/p` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onChildMoved(
 			ref,
@@ -82,7 +81,7 @@ describe('test onChildMoved', () => {
 		)
 		push(ref, data['b']['h'][randStringHKey]!['p'][randStringPKey]!).then(
 			async thenRef => {
-				await setPriority(users.ref(`${path}/${thenRef.key}`), 1000)
+				await setPriority(usersRef(`${path}/${thenRef.key}`), 1000)
 				unsub()
 				done()
 			}
@@ -93,7 +92,7 @@ describe('test onChildMoved', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const path = `b/h/${randStringHKey}/s` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onChildMoved(
 			query(ref),
@@ -110,7 +109,7 @@ describe('test onChildMoved', () => {
 		)
 		set(ref, data['b']['h'][randStringHKey]!['s']).then(async () => {
 			await setWithPriority(
-				users.ref(`${path}/0`),
+				usersRef(`${path}/0`),
 				(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!,
 				1000
 			)
@@ -122,7 +121,7 @@ describe('test onChildMoved', () => {
 		;() => {
 			onChildMoved(
 				// @ts-expect-error
-				users.ref('a'),
+				usersRef('a'),
 				() => {
 					//
 				}
@@ -130,7 +129,7 @@ describe('test onChildMoved', () => {
 
 			onChildMoved(
 				// @ts-expect-error
-				users.ref('b/c'),
+				usersRef('b/c'),
 				() => {
 					//
 				}
@@ -138,7 +137,7 @@ describe('test onChildMoved', () => {
 
 			onChildMoved(
 				// @ts-expect-error
-				users.ref('b/d'),
+				usersRef('b/d'),
 				() => {
 					//
 				}
@@ -146,7 +145,7 @@ describe('test onChildMoved', () => {
 
 			onChildMoved(
 				// @ts-expect-error
-				users.ref('b/d/e'),
+				usersRef('b/d/e'),
 				() => {
 					//
 				}
@@ -154,7 +153,7 @@ describe('test onChildMoved', () => {
 
 			onChildMoved(
 				// @ts-expect-error
-				users.ref('b/d/k'),
+				usersRef('b/d/k'),
 				() => {
 					//
 				}

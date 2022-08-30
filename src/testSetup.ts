@@ -1,11 +1,11 @@
-import { usersCreator, initializeApp } from './utilForTests'
+import { usersRef, initializeApp } from './utilForTests'
 import { set } from './operations'
 import 'dotenv/config'
 
 export default async () => {
 	initializeApp()
 	return set(
-		usersCreator().ref(),
+		usersRef(),
 		// @ts-expect-error
 		null
 	)

@@ -1,95 +1,95 @@
 import { setPriority } from './setPriority'
-import { usersCreator, initializeApp } from '../utilForTests'
+import { usersRef, initializeApp } from '../utilForTests'
 
 initializeApp()
-const ref = usersCreator().ref
+
 // functionality test is test with onChildMove and setWithPriority
 describe('test set priority type', () => {
 	it('fail type', () => {
 		;() => {
 			setPriority(
 				// @ts-expect-error
-				ref('a'),
+				usersRef('a'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('b'),
+				usersRef('b'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('b/c'),
+				usersRef('b/c'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('b/d'),
+				usersRef('b/d'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('b/h'),
+				usersRef('b/h'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('b/h/abc/i'),
+				usersRef('b/h/abc/i'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('b/h/abc/l'),
+				usersRef('b/h/abc/l'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('b/h/abc/m'),
+				usersRef('b/h/abc/m'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('b/h/abc/p'),
+				usersRef('b/h/abc/p'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('b/h/abc/l'),
+				usersRef('b/h/abc/l'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('b/h/abc/m'),
+				usersRef('b/h/abc/m'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('b/h/abc/p'),
+				usersRef('b/h/abc/p'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('b/h/abc/s'),
+				usersRef('b/h/abc/s'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('o'),
+				usersRef('o'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('q'),
+				usersRef('q'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('u'),
+				usersRef('u'),
 				1
 			)
 			setPriority(
 				// @ts-expect-error
-				ref('w'),
+				usersRef('w'),
 				1
 			)
 		}

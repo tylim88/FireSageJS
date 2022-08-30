@@ -2,7 +2,7 @@ import { onChildRemoved } from './onChildRemoved'
 import {
 	generateRandomData,
 	initializeApp,
-	usersCreator,
+	usersRef,
 	Users,
 	compareListeners,
 } from '../utilForTests'
@@ -11,14 +11,13 @@ import { IsSame, IsTrue, DataSnapshot } from '../types'
 import { query } from '../refs'
 
 initializeApp()
-const users = usersCreator()
 
 describe('test onChildRemoved', () => {
 	it('test with nothing', done => {
 		const rand = generateRandomData()
 		const data = rand.data
 		const path = `u` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onChildRemoved(
 			ref,
@@ -33,7 +32,7 @@ describe('test onChildRemoved', () => {
 			}
 		)
 		set(ref, data['u']).then(async () => {
-			await remove(users.ref(`${path}/0`))
+			await remove(usersRef(`${path}/0`))
 			unsub()
 			done()
 		})
@@ -44,7 +43,7 @@ describe('test onChildRemoved', () => {
 		const randStringMKey = rand.randStringMKey
 		const data = rand.data
 		const path = `b/h/${randStringHKey}/m` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 
 		expect.hasAssertions()
 		const unsub = onChildRemoved(
@@ -60,7 +59,7 @@ describe('test onChildRemoved', () => {
 			{ onlyOnce: false }
 		)
 		set(ref, data['b']['h'][randStringHKey]!['m']).then(() => {
-			remove(users.ref(`${path}/${randStringMKey}`))
+			remove(usersRef(`${path}/${randStringMKey}`))
 		})
 	})
 	it('test with cancel callback', done => {
@@ -69,7 +68,7 @@ describe('test onChildRemoved', () => {
 		const randStringPKey = rand.randStringPKey
 		const data = rand.data
 		const path = `b/h/${randStringHKey}/p` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onChildRemoved(
 			query(ref),
@@ -85,7 +84,7 @@ describe('test onChildRemoved', () => {
 		)
 		push(ref, data['b']['h'][randStringHKey]!['p'][randStringPKey]!).then(
 			async thenRef => {
-				await remove(users.ref(`${path}/${thenRef.key}`))
+				await remove(usersRef(`${path}/${thenRef.key}`))
 				unsub()
 				done()
 			}
@@ -96,7 +95,7 @@ describe('test onChildRemoved', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const path = `b/h/${randStringHKey}/s` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onChildRemoved(
 			query(ref),
@@ -112,7 +111,7 @@ describe('test onChildRemoved', () => {
 			{ onlyOnce: true }
 		)
 		set(ref, data['b']['h'][randStringHKey]!['s']).then(async () => {
-			await remove(users.ref(`${path}/0`))
+			await remove(usersRef(`${path}/0`))
 			unsub()
 			done()
 		})
@@ -121,7 +120,7 @@ describe('test onChildRemoved', () => {
 		;() => {
 			onChildRemoved(
 				// @ts-expect-error
-				users.ref('a'),
+				usersRef('a'),
 				() => {
 					//
 				}
@@ -129,7 +128,7 @@ describe('test onChildRemoved', () => {
 
 			onChildRemoved(
 				// @ts-expect-error
-				users.ref('b/c'),
+				usersRef('b/c'),
 				() => {
 					//
 				}
@@ -137,7 +136,7 @@ describe('test onChildRemoved', () => {
 
 			onChildRemoved(
 				// @ts-expect-error
-				users.ref('b/d'),
+				usersRef('b/d'),
 				() => {
 					//
 				}
@@ -145,7 +144,7 @@ describe('test onChildRemoved', () => {
 
 			onChildRemoved(
 				// @ts-expect-error
-				users.ref('b/d/e'),
+				usersRef('b/d/e'),
 				() => {
 					//
 				}
@@ -153,7 +152,7 @@ describe('test onChildRemoved', () => {
 
 			onChildRemoved(
 				// @ts-expect-error
-				users.ref('b/d/k'),
+				usersRef('b/d/k'),
 				() => {
 					//
 				}

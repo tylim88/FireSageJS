@@ -1,33 +1,33 @@
 import { set, get } from '../operations'
-import { initializeApp, usersCreator } from '../utilForTests'
+import { initializeApp, usersRef } from '../utilForTests'
 import { push } from './push'
 import { serverTimestamp } from '../fieldValue'
 
 initializeApp()
-const users = usersCreator()
+
 describe('test push]', () => {
 	it('test incorrect ref type', async () => {
 		;() => {
 			push(
 				// @ts-expect-error
-				users.ref('a'),
+				usersRef('a'),
 				1
 			)
 
 			push(
 				// @ts-expect-error
-				users.ref('b/h'),
+				usersRef('b/h'),
 				1
 			)
 
 			push(
 				// @ts-expect-error
-				users.ref('b/h/ushd/hdsghj'),
+				usersRef('b/h/ushd/hdsghj'),
 				1
 			)
 			push(
 				// @ts-expect-error
-				users.ref('b/h/abc/s'),
+				usersRef('b/h/abc/s'),
 				1
 			)
 		}
@@ -36,22 +36,22 @@ describe('test push]', () => {
 	it('test incorrect data type', async () => {
 		;() => {
 			push(
-				users.ref('b/h/abc/m'),
+				usersRef('b/h/abc/m'),
 				// @ts-expect-error
 				1
 			)
 			push(
-				users.ref('o'),
+				usersRef('o'),
 				// @ts-expect-error
 				'abc'
 			)
 			push(
-				users.ref('b/h/abc/p'),
+				usersRef('b/h/abc/p'),
 				// @ts-expect-error
 				1
 			)
 			push(
-				users.ref('q'),
+				usersRef('q'),
 				// @ts-expect-error
 				'abc'
 			)
@@ -59,7 +59,7 @@ describe('test push]', () => {
 	})
 
 	it('test functionality push able', async () => {
-		const ref1 = users.ref('b/h/abc/m')
+		const ref1 = usersRef('b/h/abc/m')
 		await set(
 			ref1,
 			// @ts-expect-error
@@ -69,7 +69,7 @@ describe('test push]', () => {
 		const data1 = (await get(ref1)).val()
 		expect(data1).not.toBe(null)
 
-		const ref2 = users.ref('o')
+		const ref2 = usersRef('o')
 		await set(
 			ref2,
 			// @ts-expect-error
@@ -81,7 +81,7 @@ describe('test push]', () => {
 	})
 
 	it('test functionality push able only', async () => {
-		const ref1 = users.ref('b/h/abc/p')
+		const ref1 = usersRef('b/h/abc/p')
 		await set(
 			ref1,
 			// @ts-expect-error
@@ -91,7 +91,7 @@ describe('test push]', () => {
 		const data1 = (await get(ref1)).val()
 		expect(data1).not.toBe(null)
 
-		const ref2 = users.ref('q')
+		const ref2 = usersRef('q')
 		await set(
 			ref2,
 			// @ts-expect-error

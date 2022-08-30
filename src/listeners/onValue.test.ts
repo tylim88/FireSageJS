@@ -2,7 +2,7 @@ import { onValue } from './onValue'
 import {
 	generateRandomData,
 	initializeApp,
-	usersCreator,
+	usersRef,
 	Users,
 	compareListeners,
 } from '../utilForTests'
@@ -11,13 +11,12 @@ import { IsSame, IsTrue, DataSnapshot } from '../types'
 import { query } from '../refs'
 
 initializeApp()
-const users = usersCreator()
 
 describe('test onValue', () => {
 	it('test with options', done => {
 		const rand = generateRandomData()
 		const data = rand.data
-		const ref = users.ref()
+		const ref = usersRef()
 		expect.hasAssertions()
 		const unsub = onValue(
 			ref,
@@ -39,7 +38,7 @@ describe('test onValue', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const path = `b/h/${randStringHKey}` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onValue(
 			ref,
@@ -63,7 +62,7 @@ describe('test onValue', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const path = `b/h/${randStringHKey}/i` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onValue(
 			ref,
@@ -88,7 +87,7 @@ describe('test onValue', () => {
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
 		const path = `b/h/${randStringHKey}/m` as const
-		const ref = users.ref(path)
+		const ref = usersRef(path)
 		expect.hasAssertions()
 		const unsub = onValue(query(ref), async dataSnapshot => {
 			type A = typeof dataSnapshot
@@ -105,7 +104,7 @@ describe('test onValue', () => {
 // it('test with options', done => {
 // 	const rand = generateRandomData()
 // 	const data = rand.data
-// 	const ref = users.ref()
+// 	const ref = usersRef()
 // 	expect.hasAssertions()
 // 	const unsub = onValue(
 // 		ref,
