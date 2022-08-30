@@ -5,7 +5,7 @@ import { listenerCreator } from './utils'
 export const onChildMoved: OnChildMoved = (
 	query,
 	callback,
-	cancelCallback?,
+	cancelCallback,
 	options?
 ) => {
 	return listenerCreator(

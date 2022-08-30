@@ -53,7 +53,7 @@ An optional callback that will be notified if your event subscription is ever ca
 	>(
 		query: Query<T, U> | DatabaseReference<T, U>,
 		callback: (snapshot: DataSnapshot<T, U>) => unknown,
-		cancelCallback?: (error: Error) => unknown,
+		cancelCallback: (error: Error) => unknown,
 		options?: ListenOptions
 	): Unsubscribe
 }

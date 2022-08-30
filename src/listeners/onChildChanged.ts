@@ -5,7 +5,7 @@ import { listenerCreator } from './utils'
 export const onChildChanged: OnChildChanged = (
 	query,
 	callback,
-	cancelCallback?,
+	cancelCallback,
 	options?
 ) => {
 	return listenerCreator(

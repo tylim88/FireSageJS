@@ -63,7 +63,7 @@ An optional callback that will be notified if your event subscription is ever ca
 	>(
 		query: string extends never ? Query<T, U> : IsValidOnChildRef<T, U>,
 		callback: (snapshot: GetOnChildSnapshot<T, U>) => unknown,
-		cancelCallback?: (error: Error) => unknown,
+		cancelCallback: (error: Error) => unknown,
 		options?: ListenOptions
 	): Unsubscribe
 }
