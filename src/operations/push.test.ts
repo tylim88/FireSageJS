@@ -1,7 +1,7 @@
 import { set, get } from '../operations'
 import { initializeApp, usersRef } from '../utilForTests'
 import { push } from './push'
-import { serverTimestamp } from '../fieldValue'
+import { serverTimestamp, increment } from '../fieldValue'
 
 initializeApp()
 
@@ -60,21 +60,13 @@ describe('test push]', () => {
 
 	it('test functionality push able', async () => {
 		const ref1 = usersRef('b/h/abc/m')
-		await set(
-			ref1,
-			// @ts-expect-error
-			null
-		)
+		await set(ref1, { abc: { n: '1' } })
 		await push(ref1, { n: '7' })
 		const data1 = (await get(ref1)).val()
 		expect(data1).not.toBe(null)
 
 		const ref2 = usersRef('o')
-		await set(
-			ref2,
-			// @ts-expect-error
-			null
-		)
+		await set(ref2, { abc: increment(1) })
 		await push(ref2, 1)
 		const data2 = (await get(ref2)).val()
 		expect(data2).not.toBe(null)
@@ -83,8 +75,8 @@ describe('test push]', () => {
 	it('test functionality push able only', async () => {
 		const ref1 = usersRef('b/h/abc/p')
 		await set(
-			ref1,
 			// @ts-expect-error
+			ref1,
 			null
 		)
 		await push(ref1, { r: serverTimestamp() })
@@ -93,8 +85,8 @@ describe('test push]', () => {
 
 		const ref2 = usersRef('q')
 		await set(
-			ref2,
 			// @ts-expect-error
+			ref2,
 			null
 		)
 		await push(ref2, 4)

@@ -3,7 +3,7 @@ import {
 	DatabaseReference,
 	MetaType,
 	IsValidSetPriorityRef,
-	IsValidSetDataType,
+	IsValidSetValue,
 } from '../types'
 /**
 Writes data the Database location. Like set() but also specifies the priority for that data.
@@ -27,7 +27,7 @@ export const setWithPriority = <
 	ref: string extends never
 		? DatabaseReference<T, U>
 		: IsValidSetPriorityRef<T, U>,
-	value: V extends never ? V : IsValidSetDataType<T, U, V>,
+	value: V extends never ? V : IsValidSetValue<T, U, V>,
 	priority: string | number | null
 ) => {
 	return setWithPriority_(

@@ -661,8 +661,8 @@ describe('test child runtime', () => {
 		const ref = child(usersRef(`b`), `h/${randStringHKey}/p`)
 		;() =>
 			set(
-				ref,
 				// @ts-expect-error
+				ref,
 				data['b']['h'][randStringHKey]!['p']
 			)
 	})

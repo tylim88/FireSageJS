@@ -1,5 +1,10 @@
 import { set as set_ } from 'firebase/database'
-import { DatabaseReference, MetaType, IsValidSetDataType } from '../types'
+import {
+	DatabaseReference,
+	MetaType,
+	IsValidSetValue,
+	IsValidSetRef,
+} from '../types'
 /**
 Writes data to this Database location.
 
@@ -20,10 +25,11 @@ A single set() will generate a single "value" event at the location where the se
 export const set = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
+	R extends DatabaseReference<T, U>,
 	V
 >(
-	ref: DatabaseReference<T, U>,
-	value: V extends never ? V : IsValidSetDataType<T, U, V>
+	ref: R extends never ? R : IsValidSetRef<T, U>,
+	value: V extends never ? V : IsValidSetValue<T, U, V>
 ) => {
-	return set_(ref, value)
+	return set_(ref as any, value)
 }

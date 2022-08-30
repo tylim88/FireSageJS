@@ -675,8 +675,8 @@ describe('test set and get', () => {
 		const ref = usersRef(`b/h/${randStringHKey}/p`)
 		;() =>
 			set(
-				ref,
 				// @ts-expect-error
+				ref,
 				data['b']['h'][randStringHKey]!['p']
 			)
 	})
