@@ -1,11 +1,7 @@
 import { CommonOrderBy, QueryConstraint, OrderBy } from '../queryConstraint'
 import { MetaType } from '../../metaType'
-import {
-	RemoveFirstSegment,
-	FindAllLevelChildKeys,
-	ValidateFullPath,
-	GetFirstSegment,
-} from '../../utils'
+import { FindAllLevelChildKeys, ValidateFullPath } from '../../utils'
+import { RemoveFirstSegment, GetFirstSegment } from '../../tsUtils'
 import {
 	ErrorOrderByChildMustStartAtGrandChildPath,
 	ErrorMultipleOrderBy,

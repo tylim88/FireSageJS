@@ -4,7 +4,7 @@ import {
 	CommonOrderBy,
 	CommonCursor,
 } from '../queryConstraint'
-import { IsTuple } from '../../utils'
+import { IsTuple } from '../../tsUtils'
 import { ErrorQueryConstraintsIsNotTuple } from './error'
 import { ValidateOrderByChildren, GetAllOrderByType } from './orderBy'
 import { ValidateCursor } from './cursor'

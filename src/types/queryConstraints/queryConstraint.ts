@@ -1,5 +1,5 @@
 import { QueryConstraintType, OriQueryConstraint } from '../alias'
-import { StrictExtract } from '../utils'
+import { StrictExtract } from '../tsUtils'
 
 const orderBySymbol: unique symbol = Symbol()
 const limitSymbol: unique symbol = Symbol()

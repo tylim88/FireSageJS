@@ -4,12 +4,14 @@ import {
 	ValidateRecordString,
 	GetFullPath,
 	GetAllPushAbleOnlyPaths,
-	GetNumberOfSlash,
-	IsSameOrSubStringOfEither,
-	IsAGreaterThanB,
-	CreateArrayWithLengthX,
 	ValidateChildPath,
 } from '../utils'
+import {
+	IsSameOrSubStringOfEither,
+	GetNumberOfSlash,
+	IsAGreaterThanB,
+	CreateArrayWithLengthX,
+} from '../tsUtils'
 import {
 	ErrorIsPushOnlyAbleType,
 	ErrorNeedTupleNotArray,

@@ -1,4 +1,4 @@
-import { RemoveLastSlash } from '../utils'
+import { RemoveLastSlash } from '../tsUtils'
 
 export type DeepKey<
 	T,

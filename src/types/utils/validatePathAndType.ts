@@ -6,7 +6,7 @@ import {
 	ErrorHasNoChild,
 } from '../error'
 import { FindMetaPathType } from './findTypeAndKey'
-import { IsNumericRecordType } from './common'
+import { IsNumericRecordType } from '../tsUtils'
 import { FindAllLevelChildKeys, GetFullPath } from '.'
 
 export type ValidateChildPath<

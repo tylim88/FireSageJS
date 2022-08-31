@@ -6,7 +6,7 @@ import {
 	PushAbleOnly,
 	PseudoArray,
 } from '../fieldType'
-import { IsTrue, IsSame } from '../utils'
+import { IsTrue, IsSame } from '../tsUtils'
 import { Users } from '../../utilForTests'
 
 describe('test generated meta type', () => {

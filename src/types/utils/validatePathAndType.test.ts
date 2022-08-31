@@ -1,6 +1,6 @@
 import { ValidateFullPath } from './validatePathAndType'
 import { Users } from '../../utilForTests'
-import { IsSame, IsTrue } from './common'
+import { IsSame, IsTrue } from '../tsUtils'
 import {
 	ErrorNeedStringSegment,
 	ErrorInvalidOrNeedNumericSegment,

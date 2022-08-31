@@ -1,5 +1,5 @@
 import { ObjectFlatten, DeepKey } from './objectFlatten'
-import { IsTrue, IsSame } from '../utils'
+import { IsTrue, IsSame } from '../tsUtils'
 
 describe('test object flatten type', () => {
 	it('test DeepKeyHybrid', () => {

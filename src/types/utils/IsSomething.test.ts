@@ -1,5 +1,5 @@
 import { IsValidKey } from './IsSomething'
-import { IsTrue, IsSame } from './common'
+import { IsTrue, IsSame } from '../tsUtils'
 
 describe('test IsSomething', () => {
 	it('test IsValidKey', () => {

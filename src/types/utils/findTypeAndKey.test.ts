@@ -9,7 +9,7 @@ import {
 	FindKeyOfWriteType,
 	FindNestedCompareTypeFromFullPath,
 } from './findTypeAndKey'
-import { IsTrue, IsSame } from './common'
+import { IsTrue, IsSame } from '../tsUtils'
 import { Users } from '../../utilForTests'
 import { Increment } from '../fieldType'
 

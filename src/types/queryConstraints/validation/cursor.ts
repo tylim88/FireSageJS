@@ -7,11 +7,11 @@ import {
 } from '../queryConstraint'
 import { CursorValue } from '../cursorConstraint'
 import {
-	GetFirstSegment,
 	FindKeyOfWriteType,
 	FindNestedCompareTypeFromFullPath,
 	FindAllLevelChildKeys,
 } from '../../utils'
+import { GetFirstSegment } from '../../tsUtils'
 import { MetaType } from '../../metaType'
 import {
 	ErrorCursorMustHasOrderBy,

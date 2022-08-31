@@ -3,10 +3,10 @@ import { DatabaseReference } from './databaseReference'
 import {
 	FindAllTopLevelChildKeys,
 	GetFullPath,
-	GetLastSegment,
 	FindNestedReadTypeFromFullPath,
 	ValidateChildPath,
 } from './utils'
+import { GetLastSegment } from './tsUtils'
 import { ErrorHasNoChild } from './error'
 
 export declare class DataSnapshot<

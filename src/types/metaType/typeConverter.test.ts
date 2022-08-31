@@ -1,6 +1,6 @@
 import { Users } from '../../utilForTests'
 import { MetaTypeCreator } from './creator'
-import { IsTrue, IsSame } from '../utils'
+import { IsTrue, IsSame } from '../tsUtils'
 
 describe('test type converter', () => {
 	it('test read all node as undefined', () => {

@@ -11,7 +11,8 @@ import {
 	PushAbleOnly,
 	PseudoArray,
 } from '../fieldType'
-import { IsUnion, IsValidKey } from '../utils'
+import { IsValidKey } from '../utils'
+import { IsUnion } from '../tsUtils'
 
 type IsValidFirebaseKey<K extends string, P> = IsValidKey<
 	K,

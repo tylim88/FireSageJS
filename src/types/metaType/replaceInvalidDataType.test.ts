@@ -14,7 +14,8 @@ import {
 	PushAbleOnly,
 	PseudoArray,
 } from '../fieldType'
-import { IsTrue, IsSame } from '../utils'
+import { IsTrue, IsSame } from '../tsUtils'
+
 describe('test replace invalid data type', () => {
 	it('test ReplaceUnionWithObjectWithErrorMessage, negative test', () => {
 		type A = ReplaceInvalidUnion<{
