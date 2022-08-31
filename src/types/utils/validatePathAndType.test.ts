@@ -1,7 +1,7 @@
 import { ValidateFullPath } from './validatePathAndType'
 import { Users } from '../../utilForTests'
 import { IsSame, IsTrue } from '../tsUtils'
-import { ErrorNeedStringKey, ErrorInvalidOrNeedNumericKey } from '../error'
+import { ErrorNeedStringKey, ErrorInvalidOrNeedNumericKey } from './error'
 
 describe('test ReplaceInvalidLastSegment', () => {
 	it('ReplaceInvalidLastSegment positive case', () => {
