@@ -42,9 +42,17 @@ export declare class DataSnapshot<
 	 *
 	 * @param path - A relative path to the location of child data.
 	 */
-	child<V extends string>(
-		path: V extends never ? V : ValidateChildPath<T, U, V>
-	): DataSnapshot<T, GetFullPath<T, U, V>>
+	child<
+		V extends string,
+		M extends MetaType = T,
+		N extends (keyof M['flatten_write'] & string) | undefined = U
+	>(
+		path: V extends never ? V : ValidateChildPath<M, N, V>
+	): DataSnapshot<T, GetFullPath<M, N, V>>
+	// ! this does not work, research, probably has something to do with site inference
+	// child<V extends string>(
+	// 	path: V extends never ? V : ValidateChildPath<T, U, V>
+	// ): DataSnapshot<T, GetFullPath<T, U, V>>
 	/**
 	 * Returns true if this `DataSnapshot` contains any data. It is slightly more
 	 * efficient than using `snapshot.val() !== null`.
@@ -87,9 +95,11 @@ export declare class DataSnapshot<
 	 * @returns `true` if data exists at the specified child path; else
 	 *  `false`.
 	 */
-	hasChild<V extends string>(
-		path: V extends never ? V : ValidateChildPath<T, U, V>
-	): boolean
+	hasChild<
+		V extends string,
+		M extends MetaType = T,
+		N extends (keyof M['flatten_write'] & string) | undefined = U
+	>(path: V extends never ? V : ValidateChildPath<M, N, V>): boolean
 	/**
 	 * Returns whether or not the `DataSnapshot` has any non-`null` child
 	 * properties.
