@@ -1,10 +1,7 @@
 import { ValidateFullPath } from './validatePathAndType'
 import { Users } from '../../utilForTests'
 import { IsSame, IsTrue } from '../tsUtils'
-import {
-	ErrorNeedStringSegment,
-	ErrorInvalidOrNeedNumericSegment,
-} from '../error'
+import { ErrorNeedStringKey, ErrorInvalidOrNeedNumericKey } from '../error'
 
 describe('test ReplaceInvalidLastSegment', () => {
 	it('ReplaceInvalidLastSegment positive case', () => {
@@ -32,10 +29,10 @@ describe('test ReplaceInvalidLastSegment', () => {
 		type D = ValidateFullPath<Users, `b/h/123`>
 		type E = ValidateFullPath<Users, `b/h/${string}/s/abc`>
 
-		IsTrue<IsSame<A, ErrorInvalidOrNeedNumericSegment>>()
-		IsTrue<IsSame<B, ErrorNeedStringSegment>>()
-		IsTrue<IsSame<C, ErrorInvalidOrNeedNumericSegment>>()
-		IsTrue<IsSame<D, ErrorNeedStringSegment>>()
-		IsTrue<IsSame<E, ErrorInvalidOrNeedNumericSegment>>()
+		IsTrue<IsSame<A, ErrorInvalidOrNeedNumericKey>>()
+		IsTrue<IsSame<B, ErrorNeedStringKey>>()
+		IsTrue<IsSame<C, ErrorInvalidOrNeedNumericKey>>()
+		IsTrue<IsSame<D, ErrorNeedStringKey>>()
+		IsTrue<IsSame<E, ErrorInvalidOrNeedNumericKey>>()
 	})
 })

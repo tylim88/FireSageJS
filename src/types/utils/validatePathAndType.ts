@@ -1,7 +1,7 @@
 import { MetaType } from '../metaType'
 import {
-	ErrorNeedStringSegment,
-	ErrorInvalidOrNeedNumericSegment,
+	ErrorNeedStringKey,
+	ErrorInvalidOrNeedNumericKey,
 	ErrorNeedNumericKey,
 	ErrorHasNoChild,
 } from '../error'
@@ -13,12 +13,11 @@ export type ValidateChildPath<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	ChildPath extends string,
-	ErrorInvalidOrNeedNumeric = ErrorInvalidOrNeedNumericSegment,
-	ErrorNeedString = ErrorNeedStringSegment
+	ErrorInvalidOrNeedNumeric = ErrorInvalidOrNeedNumericKey,
+	ErrorNeedString = ErrorNeedStringKey
 > = FindAllLevelChildKeys<T, U> extends never
 	? ErrorHasNoChild<U>
-	: // ! something wrong here, it distributes
-	ValidateFullPath<
+	: ValidateFullPath<
 			T,
 			GetFullPath<T, U, ChildPath>,
 			GetFullPath<T, U, ChildPath>,
@@ -44,23 +43,23 @@ export type ValidateFullPath<
 	T extends MetaType,
 	V extends keyof T['flatten_write'] & string,
 	Pass = V,
-	ErrorInvalidNeedNumericString = ErrorInvalidOrNeedNumericSegment,
-	ErrorNeedNonNumericString = ErrorNeedStringSegment,
+	ErrorInvalidOrNeedNumeric = ErrorInvalidOrNeedNumericKey,
+	ErrorNeedString = ErrorNeedStringKey,
 	L extends string = FindMetaPathType<T, V> & string,
 	H extends string = V
 > = L[] extends never[]
-	? ErrorInvalidNeedNumericString // return less specific error for string does not extends `${number}` case
-	: L extends `${infer M}/${infer N}`
+	? ErrorInvalidOrNeedNumeric // return less specific error for string does not extends `${number}` case
+	: L extends `${infer M}/${infer N}` // ! distribution in this line
 	? H extends `${infer I}/${infer J}`
 		? I extends `${number}`
 			? string extends M
-				? ErrorNeedNonNumericString
+				? ErrorNeedString
 				: ValidateFullPath<
 						T,
 						V,
 						Pass,
-						ErrorInvalidNeedNumericString,
-						ErrorNeedNonNumericString,
+						ErrorInvalidOrNeedNumeric,
+						ErrorNeedString,
 						N,
 						J
 				  >
@@ -68,15 +67,15 @@ export type ValidateFullPath<
 					T,
 					V,
 					Pass,
-					ErrorInvalidNeedNumericString,
-					ErrorNeedNonNumericString,
+					ErrorInvalidOrNeedNumeric,
+					ErrorNeedString,
 					N,
 					J
 			  >
 		: never // impossible route
 	: H extends `${number}`
 	? string extends L
-		? ErrorNeedNonNumericString
+		? ErrorNeedString
 		: Pass
 	: Pass
 

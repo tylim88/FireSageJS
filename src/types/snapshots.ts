@@ -106,7 +106,7 @@ export declare class DataSnapshot<
 	/**
 	 * Returns a JSON-serializable representation of this object.
 	 */
-	toJSON(): FindNestedReadTypeFromFullPath<T, U> | null
+	toJSON(): object | null
 	/**
 	 * Extracts a JavaScript value from a `DataSnapshot`.
 	 *

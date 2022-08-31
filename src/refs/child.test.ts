@@ -11,7 +11,7 @@ import { set } from '../operations'
 
 initializeApp()
 
-describe('test ref', () => {
+describe('test child', () => {
 	it('test path type validation and return type', () => {
 		expect(() => {
 			const _123 = 123 as number
@@ -93,9 +93,7 @@ describe('test ref', () => {
 			IsTrue<IsEqual<M, DatabaseReference<Users, never>>>()
 		}).toThrow()
 	})
-})
 
-describe('test child runtime', () => {
 	it('test child "a" node', async () => {
 		const ref = child(usersRef(), 'a')
 		const data = generateRandomData().data
@@ -899,7 +897,7 @@ describe('test child runtime', () => {
 		const rand = generateRandomData()
 		const randStringHKey = rand.randStringHKey
 		const data = rand.data
-		const ref = child(usersRef(), `b/h/${randStringHKey}/s/0`)
+		const ref = child(usersRef(`b/h/${randStringHKey}/s`), `0`)
 		await set(
 			ref,
 			(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!
@@ -1028,6 +1026,79 @@ describe('test child runtime', () => {
 				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
 			)
 			set(ref, (data['b']['h']['string']!['s'] as { t: number }[])[0]!['t'])
+		}
+	})
+
+	it('test "u/number" node', async () => {
+		const rand = generateRandomData()
+		const data = rand.data
+		const ref = child(usersRef('u'), `0`)
+		await set(ref, (data['u'] as string[])[0]!)
+		await readAndExpectForSet(ref, `u/0`, data)
+		;() => {
+			set(
+				ref,
+				// @ts-expect-error
+				data['a']
+			)
+			set(
+				ref, // @ts-expect-error
+				data['b']['c']
+			)
+			set(
+				ref, // @ts-expect-error
+				data['b']['d']
+			)
+			set(
+				ref,
+				// @ts-expect-error
+				data['b']['d']['f']['j']
+			)
+			set(
+				ref, // @ts-expect-error
+				data['b']['h']['string']!
+			)
+			set(
+				ref, // @ts-expect-error
+				data['b']['h']['string']!['i']
+			)
+			set(
+				ref, // @ts-expect-error
+				data['b']['h']['string']!['m']
+			)
+			set(
+				ref, // @ts-expect-error
+				data['b']['h']['string']!['m']['string']!
+			)
+			set(
+				ref,
+				data['b']['h']['string']!['m']['string']!['n'] // n is string literal
+			)
+			set(
+				ref, // @ts-expect-error
+				data['b']['h']['string']!['p']
+			)
+			set(
+				ref, // @ts-expect-error
+				data['b']['h']['string']!['p']['string']!
+			)
+			set(
+				ref, // @ts-expect-error
+				data['b']['h']['string']!['p']['string']!['r']
+			)
+			set(
+				ref, // @ts-expect-error
+				data['b']['h']['string']!['s'] as { t: number }[]
+			)
+			set(
+				ref, // @ts-expect-error
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!
+			)
+			set(
+				ref, // @ts-expect-error
+				(data['b']['h']['string']!['s'] as { t: number }[])[0]!['t']
+			)
+			set(ref, (data['u'] as string[])[0]!)
 		}
 	})
 })
