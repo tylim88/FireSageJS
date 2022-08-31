@@ -30,21 +30,44 @@ describe('test get and query', () => {
 		const val = snapshot.val()
 		expect(val).toEqual({ w: 4, x: 3 })
 		IsTrue<IsSame<typeof val, Users['read']['o'] | null>>()
+
+		const key = snapshot.key
+		expect(key).toBe('o')
+		IsTrue<IsSame<typeof key, 'o'>>()
+
+		expect(snapshot.size).toBe(val ? Object.keys(val).length : val)
+		expect(snapshot.exists()).toBe(true)
+		expect(snapshot.hasChild('w')).toBe(true)
+		expect(snapshot.hasChild('v')).toBe(false)
+		expect(snapshot.hasChildren()).toBe(true)
+
+		const json = snapshot.toJSON()
+		expect(json).toEqual(val)
+		IsTrue<IsSame<typeof json, typeof val>>()
+
+		const arr = Object.values(val || {}).sort((a, b) => a! - b!)
+		snapshot.forEach((child, i) => {
+			expect(child.val()).toBe(arr[i])
+		})
+
+		const childVal = snapshot.child('x').val()
+		expect(childVal).toBe(3)
+		IsTrue<IsSame<typeof childVal, Users['read']['o']['x'] | null>>()
 	})
 
-	it('test orderByValue, endAt with key and limitToLast', async () => {
-		const snapshot = await get(
-			query(usersRef('u'), orderByValue(), endAt('e', '3'), limitToLast(5))
-		)
-		const val = snapshot.val()
-		expect(val).toEqual({ 0: 'a', 1: 'b', 2: 'c', 3: 'd' })
-	})
+	// it('test orderByValue, endAt with key and limitToLast', async () => {
+	// 	const snapshot = await get(
+	// 		query(usersRef('u'), orderByValue(), endAt('e', '3'), limitToLast(5))
+	// 	)
+	// 	const val = snapshot.val()
+	// 	expect(val).toEqual({ 0: 'a', 1: 'b', 2: 'c', 3: 'd' })
+	// })
 
-	it('test orderByValue, startAfter', async () => {
-		const snapshot = await get(
-			query(usersRef('q'), orderByValue(), startAfter(0))
-		)
-		const val = snapshot.val()
-		expect(val).toEqual({ d: 5, p: 1, y: 4, b: 6 })
-	})
+	// it('test orderByValue, startAfter', async () => {
+	// 	const snapshot = await get(
+	// 		query(usersRef('q'), orderByValue(), startAfter(0))
+	// 	)
+	// 	const val = snapshot.val()
+	// 	expect(val).toEqual({ d: 5, p: 1, y: 4, b: 6 })
+	// })
 })

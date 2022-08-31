@@ -2,11 +2,11 @@ import { MetaType } from '../metaType'
 import { ErrorInvalidSetPriorityRef, ErrorIsPushOnlyAbleType } from './error'
 import {
 	GetAllPushAbleOnlyPaths,
-	ReplaceNumericRecordIfInputIsRecordString as ReplaceNumericIndexRecordIfInputIsStringIndexRecord,
+	ValidateRecordString as ReplaceNumericIndexRecordIfInputIsStringIndexRecord,
 	FindNestedWriteTypeFromFullPath,
 	IsParentRecordOrArray,
 } from '../utils'
-import { DatabaseReference } from '../refs'
+import { DatabaseReference } from '../databaseReference'
 
 export type IsValidSetPriorityRef<
 	T extends MetaType,

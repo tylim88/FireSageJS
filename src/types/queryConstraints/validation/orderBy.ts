@@ -3,7 +3,7 @@ import { MetaType } from '../../metaType'
 import {
 	RemoveFirstSegment,
 	FindAllLevelChildKeys,
-	ReplaceInvalidSegment,
+	ValidateFullPath,
 	GetFirstSegment,
 } from '../../utils'
 import {
@@ -35,7 +35,7 @@ export type ValidateOrderByChildren<
 								? `${U}/`
 								: ''}${GetFirstSegment<A>}/${X}` extends infer Z extends keyof T['flatten_write'] &
 								string
-							? ReplaceInvalidSegment<
+							? ValidateFullPath<
 									T,
 									Z,
 									X,

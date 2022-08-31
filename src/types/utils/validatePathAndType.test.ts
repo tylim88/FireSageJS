@@ -1,4 +1,4 @@
-import { ReplaceInvalidSegment } from './replacePathAndType'
+import { ValidateFullPath } from './validatePathAndType'
 import { Users } from '../../utilForTests'
 import { IsSame, IsTrue } from './common'
 import {
@@ -8,11 +8,11 @@ import {
 
 describe('test ReplaceInvalidLastSegment', () => {
 	it('ReplaceInvalidLastSegment positive case', () => {
-		type A = ReplaceInvalidSegment<Users, 'a'>
-		type B = ReplaceInvalidSegment<Users, `b/h/${string}`>
-		type C = ReplaceInvalidSegment<Users, `b/h/${string}/s/${number}`>
-		type D = ReplaceInvalidSegment<Users, `b/h/abc`>
-		type E = ReplaceInvalidSegment<Users, `b/h/${string}/s/123`>
+		type A = ValidateFullPath<Users, 'a'>
+		type B = ValidateFullPath<Users, `b/h/${string}`>
+		type C = ValidateFullPath<Users, `b/h/${string}/s/${number}`>
+		type D = ValidateFullPath<Users, `b/h/abc`>
+		type E = ValidateFullPath<Users, `b/h/${string}/s/123`>
 
 		IsTrue<IsSame<A, 'a'>>()
 		IsTrue<IsSame<B, `b/h/${string}`>>()
@@ -22,15 +22,15 @@ describe('test ReplaceInvalidLastSegment', () => {
 	})
 
 	it('ReplaceInvalidLastSegment negative case', () => {
-		type A = ReplaceInvalidSegment<
+		type A = ValidateFullPath<
 			Users,
 			// @ts-expect-error
 			'a/b'
 		>
-		type B = ReplaceInvalidSegment<Users, `b/h/${number}`>
-		type C = ReplaceInvalidSegment<Users, `b/h/${string}/s/${string}`>
-		type D = ReplaceInvalidSegment<Users, `b/h/123`>
-		type E = ReplaceInvalidSegment<Users, `b/h/${string}/s/abc`>
+		type B = ValidateFullPath<Users, `b/h/${number}`>
+		type C = ValidateFullPath<Users, `b/h/${string}/s/${string}`>
+		type D = ValidateFullPath<Users, `b/h/123`>
+		type E = ValidateFullPath<Users, `b/h/${string}/s/abc`>
 
 		IsTrue<IsSame<A, ErrorInvalidOrNeedNumericSegment>>()
 		IsTrue<IsSame<B, ErrorNeedStringSegment>>()

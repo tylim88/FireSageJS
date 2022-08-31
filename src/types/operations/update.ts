@@ -1,13 +1,14 @@
 import { MetaType } from '../metaType'
 import {
 	FindNestedWriteTypeFromFullPath,
-	ReplaceNumericRecordIfInputIsRecordString,
+	ValidateRecordString,
 	GetFullPath,
 	GetAllPushAbleOnlyPaths,
 	GetNumberOfSlash,
 	IsSameOrSubStringOfEither,
 	IsAGreaterThanB,
 	CreateArrayWithLengthX,
+	ValidateChildPath,
 } from '../utils'
 import {
 	ErrorIsPushOnlyAbleType,
@@ -15,7 +16,6 @@ import {
 	ErrorElementNeedConstAssertion,
 	ErrorPathHasAncestor,
 } from './error'
-import { ValidateChildPath } from '../refs'
 
 type ReplaceIfAncestorExist<
 	T extends readonly string[],
@@ -105,7 +105,7 @@ export type GetChildPathsType<
 				Y,
 				[
 					...ACC,
-					ReplaceNumericRecordIfInputIsRecordString<
+					ValidateRecordString<
 						X,
 						FindNestedWriteTypeFromFullPath<T, GetFullPath<T, U, P>>
 					>

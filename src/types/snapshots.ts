@@ -1,11 +1,11 @@
 import { MetaType } from './metaType'
-import { DatabaseReference } from './refs'
+import { DatabaseReference } from './databaseReference'
 import {
-	FindAllLevelChildKeys,
 	FindAllTopLevelChildKeys,
 	GetFullPath,
 	GetLastSegment,
 	FindNestedReadTypeFromFullPath,
+	ValidateChildPath,
 } from './utils'
 import { ErrorHasNoChild } from './error'
 
@@ -42,31 +42,42 @@ export declare class DataSnapshot<
 	 *
 	 * @param path - A relative path to the location of child data.
 	 */
-	child<
-		T extends MetaType,
-		V extends FindAllLevelChildKeys<T, U> extends never
-			? ErrorHasNoChild<U>
-			: FindAllLevelChildKeys<T, U>
-	>(path: V): DataSnapshot<T, GetFullPath<T, U, V>>
+	child<V extends string>(
+		path: V extends never ? V : ValidateChildPath<T, U, V>
+	): DataSnapshot<T, GetFullPath<T, U, V>>
 	/**
 	 * Returns true if this `DataSnapshot` contains any data. It is slightly more
 	 * efficient than using `snapshot.val() !== null`.
 	 */
 	exists(): boolean
+	/**
+	 * Enumerates the top-level children in the `DataSnapshot`.
+	 *
+	 * Because of the way JavaScript objects work, the ordering of data in the
+	 * JavaScript object returned by `val()` is not guaranteed to match the
+	 * ordering on the server nor the ordering of `onChildAdded()` events. That is
+	 * where `forEach()` comes in handy. It guarantees the children of a
+	 * `DataSnapshot` will be iterated in their query order.
+	 *
+	 * If no explicit `orderBy*()` method is used, results are returned
+	 * ordered by key (unless priorities are used, in which case, results are
+	 * returned by priority).
+	 *
+	 * @param action - A function that will be called for each child DataSnapshot.
+	 * The callback can return true to cancel further enumeration.
+	 * @returns true if enumeration was canceled due to your callback returning
+	 * true.
+	 */
 	forEach(
 		action: (
 			child: FindAllTopLevelChildKeys<T, U> extends never
 				? ErrorHasNoChild<U>
-				: (
-						U extends string
-							? `${U}/${FindAllTopLevelChildKeys<T, U>}`
-							: FindAllTopLevelChildKeys<T, U> &
-									((keyof T['flatten_write'] & string) | undefined)
-				  ) extends infer R
+				: GetFullPath<T, U, FindAllTopLevelChildKeys<T, U>> extends infer R
 				? R extends (keyof T['flatten_write'] & string) | undefined
-					? DataSnapshot<T, R> & { key: string }
+					? DataSnapshot<T, R>
 					: never
-				: never
+				: never,
+			index: number
 		) => boolean | void
 	): boolean
 	/**
@@ -76,7 +87,9 @@ export declare class DataSnapshot<
 	 * @returns `true` if data exists at the specified child path; else
 	 *  `false`.
 	 */
-	hasChild(path: FindAllLevelChildKeys<T, U>): boolean
+	hasChild<V extends string>(
+		path: V extends never ? V : ValidateChildPath<T, U, V>
+	): boolean
 	/**
 	 * Returns whether or not the `DataSnapshot` has any non-`null` child
 	 * properties.
@@ -93,7 +106,7 @@ export declare class DataSnapshot<
 	/**
 	 * Returns a JSON-serializable representation of this object.
 	 */
-	toJSON(): object | null
+	toJSON(): FindNestedReadTypeFromFullPath<T, U> | null
 	/**
 	 * Extracts a JavaScript value from a `DataSnapshot`.
 	 *

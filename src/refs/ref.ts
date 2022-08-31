@@ -3,7 +3,7 @@ import {
 	MetaType,
 	Database,
 	DatabaseReference,
-	ReplaceInvalidSegment,
+	ValidateFullPath,
 } from '../types'
 import { isDatabase, isString } from './utils'
 
@@ -33,11 +33,11 @@ If a path is provided, a Reference pointing to the provided path. Otherwise, a R
 	 */
 	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
 		path?: U extends keyof T['flatten_write'] & string
-			? ReplaceInvalidSegment<T, U>
+			? ValidateFullPath<T, U>
 			: U
 	): DatabaseReference<
 		T,
-		U extends string ? ReplaceInvalidSegment<T, U, U, never, never> : undefined
+		U extends string ? ValidateFullPath<T, U, U, never, never> : undefined
 	>
 	/**
 	 Returns a Reference representing the location in the Database corresponding to the provided path. If no path is provided, the Reference will point to the root of the Database.
@@ -53,10 +53,10 @@ If a path is provided, a Reference pointing to the provided path. Otherwise, a R
 	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
 		db: Database,
 		path?: U extends keyof T['flatten_write'] & string
-			? ReplaceInvalidSegment<T, U>
+			? ValidateFullPath<T, U>
 			: U
 	): DatabaseReference<
 		T,
-		U extends string ? ReplaceInvalidSegment<T, U, U, never, never> : undefined
+		U extends string ? ValidateFullPath<T, U, U, never, never> : undefined
 	>
 }

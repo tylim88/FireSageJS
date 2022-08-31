@@ -253,7 +253,7 @@ describe('test generated meta type', () => {
 					[x: `b/h/${string}/s/${number}/t`]: number | Increment
 				}
 			>
-		>
+		> // ! add bracket make the test fail, weird
 	})
 
 	it('test write', () => {

@@ -1,4 +1,4 @@
-import { OriDataSnapshot, StrictOmit, DataSnapshot, MetaType } from './types'
+import { OriDataSnapshot } from './types'
 
 export const convertArrayToObject = (data: unknown): unknown => {
 	if (Array.isArray(data)) {
@@ -50,19 +50,23 @@ export const dataSnapshotTransformer = (dataSnapshot: OriDataSnapshot) => {
 		exists: () => dataSnapshot.exists(),
 		forEach: (
 			action: (
-				dataSnapshot: OriDataSnapshot & { key: string }
+				dataSnapshot: OriDataSnapshot & { key: string },
+				index: number
 			) => boolean | void
+			// ! ts expect error not working properly here, use unknown instead, invisible error
 		): unknown => {
-			return dataSnapshot.forEach(dataSnapshot =>
-				action(
+			let i = 0
+			return dataSnapshot.forEach(dataSnapshot => {
+				return action(
 					// @ts-expect-error
-					dataSnapshotTransformer(dataSnapshot)
+					dataSnapshotTransformer(dataSnapshot),
+					i++
 				)
-			)
+			})
 		},
 		hasChild: (path: string) => dataSnapshot.hasChild(path),
 		hasChildren: () => dataSnapshot.hasChildren(),
-		toJSON: (): unknown => dataSnapshotTransformer(dataSnapshot).toJSON(),
+		toJSON: (): unknown => dataSnapshot.toJSON(), // ! ts expect error not working properly here, use unknown instead, invisible error
 		val: () => startRecurseObjectAndConvertArrayToObject(dataSnapshot.val()),
 	}
 }

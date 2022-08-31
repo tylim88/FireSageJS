@@ -1,5 +1,5 @@
 import { MetaType } from '../metaType'
-import { DatabaseReference } from '../refs'
+import { DatabaseReference } from '../databaseReference'
 import {
 	FindNestedWriteTypeFromFullPath,
 	FindParentNestedWriteTypeFromFullPath,

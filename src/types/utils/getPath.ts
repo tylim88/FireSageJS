@@ -1,6 +1,6 @@
 import { MetaType } from '../metaType'
 import { PushAble, Removable, PushAbleOnly, PseudoArray } from '../fieldType'
-import { ReplaceInvalidSegment } from './replacePathAndType'
+import { ValidateFullPath } from './validatePathAndType'
 
 export type GetFullPath<
 	T extends MetaType,
@@ -8,7 +8,7 @@ export type GetFullPath<
 	ChildRelativePath extends string
 > = `${ParentFullPath}/${ChildRelativePath}` extends keyof T['flatten_write'] &
 	string
-	? ReplaceInvalidSegment<
+	? ValidateFullPath<
 			T,
 			`${ParentFullPath}/${ChildRelativePath}`,
 			`${ParentFullPath}/${ChildRelativePath}`,
@@ -20,7 +20,6 @@ export type GetFullPath<
 		? ChildRelativePath
 		: never
 	: never
-
 export type GetAllVPath<
 	T,
 	V,
