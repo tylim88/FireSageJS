@@ -13,6 +13,7 @@ export type GetFullPath<
 			`${ParentFullPath}/${ChildRelativePath}`,
 			`${ParentFullPath}/${ChildRelativePath}`,
 			never,
+			never,
 			never
 	  >
 	: ParentFullPath extends undefined

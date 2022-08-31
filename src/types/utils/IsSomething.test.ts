@@ -1,17 +1,19 @@
-import { IsValidKey } from './IsSomething'
+import { IsCharacterValid } from './IsSomething'
 import { IsTrue, IsSame } from '../tsUtils'
 
 describe('test IsSomething', () => {
 	it('test IsValidKey', () => {
-		type A = IsValidKey<'abc', true, false>
-		type B = IsValidKey<'123', true, false>
-		type C = IsValidKey<'a/', true, false>
-		type D = IsValidKey<'a[h', true, false>
-		type E = IsValidKey<']l', true, false>
-		type F = IsValidKey<'7.l#p', true, false>
-		type G = IsValidKey<'$', true, false, '$'>
-		type H = IsValidKey<'', true, false>
-		type I = IsValidKey<string, true, false>
+		type A = IsCharacterValid<'abc', true, false>
+		type B = IsCharacterValid<'123', true, false>
+		type C = IsCharacterValid<'a/', true, false>
+		type D = IsCharacterValid<'a[h', true, false>
+		type E = IsCharacterValid<']l', true, false>
+		type F = IsCharacterValid<'7.l#p', true, false>
+		type G = IsCharacterValid<'$', true, false, '$'>
+		type H = IsCharacterValid<'', true, false>
+		type I = IsCharacterValid<string, true, false>
+		type J = IsCharacterValid<`${string}`, true, false>
+		type K = IsCharacterValid<`abc/${string}`, true, false, '/'>
 
 		IsTrue<IsSame<A, true>>()
 		IsTrue<IsSame<B, true>>()
@@ -22,5 +24,7 @@ describe('test IsSomething', () => {
 		IsTrue<IsSame<G, true>>()
 		IsTrue<IsSame<H, false>>()
 		IsTrue<IsSame<I, true>>()
+		IsTrue<IsSame<J, true>>()
+		IsTrue<IsSame<K, true>>()
 	})
 })

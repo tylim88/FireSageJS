@@ -5,7 +5,6 @@ import { RemoveFirstSegment, GetFirstSegment } from '../../tsUtils'
 import {
 	ErrorOrderByChildMustStartAtGrandChildPath,
 	ErrorMultipleOrderBy,
-	ErrorNeedNonNumericStringKey,
 } from './error'
 
 export type GetAllOrderByType<
@@ -31,13 +30,7 @@ export type ValidateOrderByChildren<
 								? `${U}/`
 								: ''}${GetFirstSegment<A>}/${X}` extends infer Z extends keyof T['flatten_write'] &
 								string
-							? ValidateFullPath<
-									T,
-									Z,
-									X,
-									`${number}`,
-									ErrorNeedNonNumericStringKey
-							  >
+							? ValidateFullPath<T, Z, X, `${number}`>
 							: RemoveFirstSegment<A>
 						: ErrorOrderByChildMustStartAtGrandChildPath<X, U>
 			  >

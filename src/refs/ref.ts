@@ -37,7 +37,9 @@ If a path is provided, a Reference pointing to the provided path. Otherwise, a R
 			: U
 	): DatabaseReference<
 		T,
-		U extends string ? ValidateFullPath<T, U, U, never, never> : undefined
+		U extends string
+			? ValidateFullPath<T, U, U, never, never, never>
+			: undefined
 	>
 	/**
 	 Returns a Reference representing the location in the Database corresponding to the provided path. If no path is provided, the Reference will point to the root of the Database.
@@ -57,6 +59,8 @@ If a path is provided, a Reference pointing to the provided path. Otherwise, a R
 			: U
 	): DatabaseReference<
 		T,
-		U extends string ? ValidateFullPath<T, U, U, never, never> : undefined
+		U extends string
+			? ValidateFullPath<T, U, U, never, never, never>
+			: undefined
 	>
 }

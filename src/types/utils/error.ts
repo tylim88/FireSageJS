@@ -4,4 +4,5 @@ export type ErrorInvalidOrNeedNumericKey =
 	`Error: possible cause: 1) incorrect path OR 2) you are trying to use non-numeric string key on numeric string key. Example: the path type is 'abc/${number}' but your input is 'abc/${string}'`
 export type ErrorNeedNumericKey =
 	'Error: Key must be numeric. Example: the data type is { 1: boolean} but your input is { a:boolean }'
-export type ErrorNoEmptyString = 'Error: argument cannot be an empty string'
+export type ErrorNoInValidCharacter =
+	`Error: Path Or Key must be non-empty strings and can't contain ".", "#", "$", "[", or "]"`

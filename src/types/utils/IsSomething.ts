@@ -4,6 +4,7 @@ import {
 	FindNestedWriteTypeFromFullPath,
 	FindParentNestedWriteTypeFromFullPath,
 } from '../utils'
+import { ErrorNoInValidCharacter } from './error'
 
 export type IsRecordOrArray<
 	T extends MetaType,
@@ -41,22 +42,24 @@ export type IsParentRecordOrArray<
 	? E
 	: DatabaseReference<T, U>
 
-type InvalidKey = '.' | '#' | '$' | '/' | '[' | ']'
+type InvalidCharacter = '.' | '#' | '$' | '/' | '[' | ']'
 
-export type IsValidKey<
-	T extends string,
-	PASS,
-	FAIL,
-	E extends InvalidKey = never,
-	ACC extends string = T
-> = string extends T
+export type IsCharacterValid<
+	V extends string,
+	PASS = V,
+	FAIL = ErrorNoInValidCharacter,
+	E extends InvalidCharacter = never,
+	ACC extends string = V
+> = string extends V
 	? PASS
-	: T extends ''
+	: V extends ''
 	? FAIL
 	: ACC extends `${infer H}${infer R}`
-	? H extends Exclude<InvalidKey, E>
+	? H extends Exclude<InvalidCharacter, E>
 		? FAIL
-		: IsValidKey<T, PASS, FAIL, E, R>
+		: IsCharacterValid<V, PASS, FAIL, E, R>
 	: ACC extends ''
+	? PASS
+	: string extends ACC
 	? PASS
 	: FAIL

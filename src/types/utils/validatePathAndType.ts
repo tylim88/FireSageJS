@@ -4,11 +4,12 @@ import {
 	ErrorNeedStringKey,
 	ErrorInvalidOrNeedNumericKey,
 	ErrorNeedNumericKey,
-	ErrorNoEmptyString,
+	ErrorNoInValidCharacter,
 } from './error'
 import { FindMetaPathType, FindAllLevelChildKeys } from './findTypeAndKey'
 import { IsNumericRecordType } from '../tsUtils'
 import { GetFullPath } from './getPath'
+import { IsCharacterValid } from './IsSomething'
 
 export type ValidateChildPath<
 	T extends MetaType,
@@ -16,7 +17,7 @@ export type ValidateChildPath<
 	ChildPath extends string,
 	ErrorINN = ErrorInvalidOrNeedNumericKey,
 	ErrorNS = ErrorNeedStringKey,
-	ErrorNE = ErrorNoEmptyString
+	ErrorNE = ErrorNoInValidCharacter
 > = FindAllLevelChildKeys<T, U> extends never
 	? ErrorHasNoChild<U>
 	: ValidateFullPath<
@@ -58,10 +59,10 @@ export type ValidateFullPath<
 	Pass = V,
 	ErrorINN = ErrorInvalidOrNeedNumericKey,
 	ErrorNS = ErrorNeedStringKey,
-	ErrorNE = ErrorNoEmptyString,
+	ErrorNE = ErrorNoInValidCharacter,
 	L extends string = FindMetaPathType<T, V> & string,
 	H extends string = V
-> = V extends ''
+> = IsCharacterValid<V, Pass, ErrorNE, '/'> extends ErrorNE
 	? ErrorNE
 	: L[] extends never[]
 	? ErrorINN // return less specific error for string does not extends `${number}` case
