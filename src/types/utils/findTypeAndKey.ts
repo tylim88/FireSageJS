@@ -113,10 +113,10 @@ export type FindNestedReadTypeFromFullPath<
 	? ACC[U]
 	: never // impossible route
 
-// only and must use with ReplaceInvalidSegment because ReplaceInvalidLastSegment check for ${number}
+// only and must use with ReplaceInvalidSegment because ValidateFullPath check for ${number}
 export type FindMetaPathType<
 	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
+	U extends string | undefined
 > = U extends string
 	? keyof T['flatten_write'] extends infer S // make distributive
 		? S extends S
@@ -127,7 +127,7 @@ export type FindMetaPathType<
 				: never
 			: never // impossible route
 		: never // impossible route
-	: undefined
+	: U
 
 export type FindKeyOfWriteType<
 	T extends MetaType,

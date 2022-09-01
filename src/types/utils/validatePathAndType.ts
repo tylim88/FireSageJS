@@ -23,7 +23,7 @@ export type ValidateChildPath<
 	: ValidateFullPath<
 			T,
 			GetFullPath<T, U, ChildPath>,
-			GetFullPath<T, U, ChildPath>,
+			`${U extends string ? `${U}/` : ''} ${ChildPath}`,
 			ErrorINN,
 			ErrorNS,
 			ErrorNE
@@ -32,7 +32,7 @@ export type ValidateChildPath<
 	: ValidateFullPath<
 			T,
 			GetFullPath<T, U, ChildPath>,
-			GetFullPath<T, U, ChildPath>,
+			`${U extends string ? `${U}/` : ''} ${ChildPath}`,
 			ErrorINN,
 			ErrorNS,
 			ErrorNE
@@ -41,7 +41,7 @@ export type ValidateChildPath<
 	: ValidateFullPath<
 			T,
 			GetFullPath<T, U, ChildPath>,
-			GetFullPath<T, U, ChildPath>,
+			`${U extends string ? `${U}/` : ''} ${ChildPath}`,
 			ErrorINN,
 			ErrorNS,
 			ErrorNE
@@ -55,30 +55,34 @@ export type ValidateChildPath<
 // if the path segment type is number and the input segment type is string, fail it (with less specific message because of some technical difficulty)
 export type ValidateFullPath<
 	T extends MetaType,
-	V extends keyof T['flatten_write'] & string,
+	V extends string | undefined,
 	Pass = V,
 	ErrorINN = ErrorInvalidOrNeedNumericKey,
 	ErrorNS = ErrorNeedStringKey,
 	ErrorNE = ErrorNoInValidCharacter,
-	L extends string = FindMetaPathType<T, V> & string,
-	H extends string = V
-> = IsCharacterValid<V, Pass, ErrorNE, '/'> extends ErrorNE
-	? ErrorNE
-	: L[] extends never[]
-	? ErrorINN // return less specific error for string does not extends `${number}` case
-	: L extends `${infer M}/${infer N}` // ! distribution in this line
-	? H extends `${infer I}/${infer J}`
-		? I extends `${number}`
-			? string extends M
-				? ErrorNS
+	L extends string | undefined = FindMetaPathType<T, V> & (string | undefined),
+	H extends string | undefined = V
+> = V extends string
+	? IsCharacterValid<V, Pass, ErrorNE, '/'> extends ErrorNE
+		? ErrorNE
+		: L[] extends never[]
+		? ErrorINN // return less specific error for string does not extends `${number}` case
+		: L extends `${infer M}/${infer N}` // ! distribution in this line
+		? H extends `${infer I}/${infer J}`
+			? I extends `${number}`
+				? string extends M
+					? ErrorNS
+					: ValidateFullPath<T, V, Pass, ErrorINN, ErrorNS, ErrorNE, N, J>
 				: ValidateFullPath<T, V, Pass, ErrorINN, ErrorNS, ErrorNE, N, J>
-			: ValidateFullPath<T, V, Pass, ErrorINN, ErrorNS, ErrorNE, N, J>
-		: never // impossible route
-	: H extends `${number}`
-	? string extends L
-		? ErrorNS
+			: never // impossible route
+		: H extends `${number}`
+		? string extends L
+			? ErrorNS
+			: Pass
 		: Pass
-	: Pass
+	: L extends undefined
+	? V
+	: ErrorINN
 
 // Record<string, any> and Record<number, any> extends each other
 // Record<string, any> does not extends Record<number, any> & Record<string, never>
