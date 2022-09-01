@@ -1,5 +1,6 @@
+import { Database as OriDatabase } from 'firebase/database'
+import { RulesTestContext } from '@firebase/rules-unit-testing'
 export type {
-	Database,
 	ListenOptions,
 	Unsubscribe,
 	TransactionOptions,
@@ -7,6 +8,7 @@ export type {
 	QueryConstraint as OriQueryConstraint,
 	DataSnapshot as OriDataSnapshot,
 } from 'firebase/database'
-import { RulesTestContext } from '@firebase/rules-unit-testing'
 
-export type FirestoreTesting = ReturnType<RulesTestContext['database']>
+export type DatabaseTesting = ReturnType<RulesTestContext['database']>
+export type Database = OriDatabase | DatabaseTesting
+export type { OriDatabase }

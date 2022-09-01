@@ -1,10 +1,5 @@
 import { ref, getDatabase } from 'firebase/database'
-import {
-	MetaType,
-	Database,
-	DatabaseReference,
-	ValidateFullPath,
-} from '../types'
+import { MetaType, Database, DatabaseReference, Ref } from '../types'
 import { isDatabase, isString } from './utils'
 
 /**
@@ -18,49 +13,9 @@ export const createRef =
 	(db: Database, path?: string) => {
 		const db_ = isDatabase(db) ? db : database || getDatabase()
 		const path_ = isString(db) ? db : path
-		return ref(db_, path_) as DatabaseReference<T, any>
+		return ref(
+			// @ts-expect-error
+			db_,
+			path_
+		) as DatabaseReference<T, any>
 	}
-
-type Ref<T extends MetaType> = {
-	/**
-	 Returns a Reference representing the location in the Database corresponding to the provided path. If no path is provided, the Reference will point to the root of the Database.
-
-@param path
-Optional path representing the location the returned Reference will point. If not provided, the returned Reference will point to the root of the Database.
-
-@returns
-If a path is provided, a Reference pointing to the provided path. Otherwise, a Reference pointing to the root of the Database.
-	 */
-	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
-		path?: U extends keyof T['flatten_write'] & string
-			? ValidateFullPath<T, U>
-			: U
-	): DatabaseReference<
-		T,
-		U extends string
-			? ValidateFullPath<T, U, U, never, never, never>
-			: undefined
-	>
-	/**
-	 Returns a Reference representing the location in the Database corresponding to the provided path. If no path is provided, the Reference will point to the root of the Database.
-
-@param db — The database instance to obtain a reference for.
-
-@param path
-Optional path representing the location the returned Reference will point. If not provided, the returned Reference will point to the root of the Database.
-
-@returns
-If a path is provided, a Reference pointing to the provided path. Otherwise, a Reference pointing to the root of the Database.
-	 */
-	<U extends (keyof T['flatten_write'] & string) | undefined = undefined>(
-		db: Database,
-		path?: U extends keyof T['flatten_write'] & string
-			? ValidateFullPath<T, U>
-			: U
-	): DatabaseReference<
-		T,
-		U extends string
-			? ValidateFullPath<T, U, U, never, never, never>
-			: undefined
-	>
-}

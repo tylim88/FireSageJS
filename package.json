@@ -21,7 +21,7 @@
 		"build": "rm -rf dist && tsc",
 		"link": "npm unlink firesagejs && npm link && npm link firesagejs",
 		"babel": "babel-node -x .ts -- src/fieldPath/documentId.ts",
-		"jest": "firebase emulators:exec --only database \"jest src/emulator.test.ts --collectCoverage=false\"",
+		"jest": "firebase emulators:exec --only database \"jest src/rulesUnitTesting.test.ts --collectCoverage=false\"",
 		"commit": "git commit --no-verify",
 		"dev": "---------------------dev------------------------",
 		"d-link": "npm run build && npm run link",
