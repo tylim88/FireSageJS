@@ -1,13 +1,14 @@
 {
 	"emulators": {
 		"database": {
-			"port": 8080
+			"port": 8080,
+			"rules": "database.rules.json"
 		},
 		"ui": {
 			"enabled": true
 		}
 	},
 	"database": {
-		"rules": "./database.rules.json"
+		"rules": "database.rules.json"
 	}
 }
