@@ -1,14 +1,13 @@
 import { MetaType } from '../metaType'
-import { ErrorHasNoChild } from '../error'
 import {
 	ErrorNeedStringKey,
 	ErrorInvalidOrNeedNumericKey,
 	ErrorNeedNumericKey,
 	ErrorNoInValidCharacter,
+	ErrorHasNoChild,
 } from './error'
 import { FindMetaPathType, FindAllLevelChildKeys } from './findTypeAndKey'
 import { IsNumericRecordType } from '../tsUtils'
-import { GetFullPath } from './getPath'
 import { IsCharacterValid } from './IsSomething'
 
 export type ValidateChildPath<
@@ -22,32 +21,12 @@ export type ValidateChildPath<
 	? ErrorHasNoChild<U>
 	: ValidateFullPath<
 			T,
-			GetFullPath<T, U, ChildPath>,
-			`${U extends string ? `${U}/` : ''} ${ChildPath}`,
+			`${U extends string ? `${U}/` : ''}${ChildPath}`,
+			ChildPath,
 			ErrorINN,
 			ErrorNS,
 			ErrorNE
-	  > extends ErrorNS
-	? ErrorNS
-	: ValidateFullPath<
-			T,
-			GetFullPath<T, U, ChildPath>,
-			`${U extends string ? `${U}/` : ''} ${ChildPath}`,
-			ErrorINN,
-			ErrorNS,
-			ErrorNE
-	  > extends ErrorINN
-	? ErrorINN
-	: ValidateFullPath<
-			T,
-			GetFullPath<T, U, ChildPath>,
-			`${U extends string ? `${U}/` : ''} ${ChildPath}`,
-			ErrorINN,
-			ErrorNS,
-			ErrorNE
-	  > extends ErrorNE
-	? ErrorNE
-	: ChildPath
+	  >
 
 // string does not extends `${number}`
 // `${number}` extends string
@@ -67,7 +46,7 @@ export type ValidateFullPath<
 		? ErrorNE
 		: L[] extends never[]
 		? ErrorINN // return less specific error for string does not extends `${number}` case
-		: L extends `${infer M}/${infer N}` // ! distribution in this line
+		: L extends `${infer M}/${infer N}`
 		? H extends `${infer I}/${infer J}`
 			? I extends `${number}`
 				? string extends M

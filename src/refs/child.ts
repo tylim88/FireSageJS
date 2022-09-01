@@ -20,10 +20,10 @@ export const child = <
 	V extends string
 >(
 	parent: S,
-	path: V extends never ? V : ValidateChildPath<T, U, V>
+	path: V extends never ? V : ValidateChildPath<T, U, Exclude<V, ''>> // ! why V union with empty string
 ) => {
 	return child_(parent as any, path) as DatabaseReference<
 		T,
-		GetFullPath<T, U, V>
+		GetFullPath<T, U, Exclude<V, ''>>
 	>
 }

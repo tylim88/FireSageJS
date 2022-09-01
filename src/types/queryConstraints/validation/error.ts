@@ -17,6 +17,6 @@ export type ErrorOrderingByKeyMustBeString =
 export type ErrorOderByPriority =
 	`Error: When ordering by priority, the first argument passed to startAt(), startAfter() endAt(), endBefore(), or equalTo() must be a valid priority value (null, a number, or a string).`
 export type ErrorNeedStringKeyCursor =
-	`Error: you are trying to use numeric string key on non-numeric string key. Example: the path type is '${string}' but your input is '${number}'`
+	`Error: you are trying to use numeric string key on non-numeric string key. Eg: the path type is '${string}' but your input is '${number}'`
 export type ErrorNeedNumericKeyCursor =
-	`Error: you are trying to use non-numeric string key on numeric string key. Example: the path type is '${number}' but your input is '${string}'`
+	`Error: you are trying to use non-numeric string key on numeric string key. Eg: the path type is '${number}' but your input is '${string}'`

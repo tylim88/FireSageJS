@@ -6,9 +6,9 @@ import {
 	FindNestedReadTypeFromFullPath,
 	ValidateChildPath,
 	FindMetaPathType,
+	ErrorHasNoChild,
 } from './utils'
 import { GetLastSegment } from './tsUtils'
-import { ErrorHasNoChild } from './error'
 
 export declare class DataSnapshot<
 	T extends MetaType,
@@ -48,10 +48,11 @@ export declare class DataSnapshot<
 		M extends MetaType = T,
 		N extends (keyof M['flatten_write'] & string) | undefined = U
 	>(
-		path: V extends never ? V : ValidateChildPath<M, N, V>
-	): FindMetaPathType<T, GetFullPath<M, N, V>> extends infer J extends
-		| (keyof T['flatten_write'] & string)
-		| undefined
+		path: V extends never ? V : ValidateChildPath<M, N, Exclude<V, ''>> // ! why V union with empty string
+	): FindMetaPathType<
+		T,
+		GetFullPath<M, N, Exclude<V, ''>>
+	> extends infer J extends (keyof T['flatten_write'] & string) | undefined
 		? DataSnapshot<T, J>
 		: never
 	// ! this does not work, research, probably has something to do with site inference
