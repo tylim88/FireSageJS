@@ -4,16 +4,20 @@ info
 3. orderBy first or cursor first doesnt matter
 
 query rules:
-1. Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo(). // actually include startAfter and endBefore
-2. When ordering by key, the argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string.
-3. You can't combine multiple orderBy calls.
-4. cursor does nothing without orderBy, ban cursor without orderBy
-5. When ordering by priority, the first argument passed to startAt(), startAfter() endAt(), endBefore(), or equalTo() must be a valid priority value (null, a number, or a string).
+1. Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo(). // actually include startAfter and endBefore - done
+2. When ordering by key, the argument passed to startAt(), startAfter(), endAt(), endBefore(), or equalTo() must be a string. - done
+3. You can't combine multiple orderBy calls. - done
+4. cursor does nothing without orderBy, ban cursor without orderBy - done
+5. When ordering by priority, the first argument passed to startAt(), startAfter() endAt(), endBefore(), or equalTo() must be a valid priority value (null, a number, or a string). - done
 
 key naming rule:
 Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]").
 
 
 todo:
-1. make sure all key check for numeric and empty string
-2. make sure all path check for numeric, empty string and number of slash 
+1. make sure all key check for numeric and empty string - done
+2. make sure all path check for numeric, empty string and number of slash - done
+3. orderByChild to reject arbitrary key
+
+bug:
+1. fix validate child path error suggestion

@@ -50,7 +50,9 @@ describe('test get and query', () => {
 			expect(child.val()).toBe(arr[i])
 		})
 
-		const childVal = snapshot.child('x').val()
+		const child = snapshot.child('x')
+		IsTrue<IsSame<typeof child, DataSnapshot<Users, `o/${string}`>>>()
+		const childVal = child.val()
 		expect(childVal).toBe(3)
 		IsTrue<IsSame<typeof childVal, Users['read']['o']['x'] | null>>()
 	})
@@ -82,7 +84,9 @@ describe('test get and query', () => {
 			expect(child.val()).toBe(arr[i])
 		})
 
-		const childVal = snapshot.child('2').val()
+		const child = snapshot.child('2')
+		IsTrue<IsSame<typeof child, DataSnapshot<Users, `u/${number}`>>>()
+		const childVal = child.val()
 		expect(childVal).toBe('c')
 		IsTrue<IsSame<typeof childVal, Users['read']['u']['2'] | null>>()
 	})
@@ -113,7 +117,9 @@ describe('test get and query', () => {
 			expect(child.val()).toBe(arr[i])
 		})
 
-		const childVal = snapshot.child('y').val()
+		const child = snapshot.child('y')
+		IsTrue<IsSame<typeof child, DataSnapshot<Users, `q/${string}`>>>()
+		const childVal = child.val()
 		expect(childVal).toBe(4)
 		IsTrue<IsSame<typeof childVal, Users['read']['q']['y'] | null>>()
 	})
@@ -146,7 +152,11 @@ describe('test get and query', () => {
 			expect(child.val()).toEqual(arr[i])
 		})
 
-		const childVal = snapshot.child('c').val()
+		const child = snapshot.child('c')
+		IsTrue<
+			IsSame<typeof child, DataSnapshot<Users, `b/h/${string}/p/${string}`>>
+		>()
+		const childVal = child.val()
 		expect(childVal).toEqual({ r: 3721 })
 		IsTrue<
 			IsSame<
@@ -188,7 +198,11 @@ describe('test get and query', () => {
 			expect(child.val()).toEqual(arr[i])
 		})
 
-		const childVal = snapshot.child('x').val()
+		const child = snapshot.child('x')
+		IsTrue<
+			IsSame<typeof child, DataSnapshot<Users, `b/h/${string}/m/${string}`>>
+		>()
+		const childVal = child.val()
 		expect(childVal).toEqual({ n: '1' })
 		IsTrue<
 			IsSame<
@@ -229,7 +243,11 @@ describe('test get and query', () => {
 			expect(child.val()).toEqual(arr[i])
 		})
 
-		const childVal = snapshot.child('64').val()
+		const child = snapshot.child('64')
+		IsTrue<
+			IsSame<typeof child, DataSnapshot<Users, `b/h/${string}/s/${number}`>>
+		>()
+		const childVal = child.val()
 		expect(childVal).toEqual({ t: 3297 })
 		IsTrue<
 			IsSame<
