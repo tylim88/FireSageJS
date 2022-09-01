@@ -14,7 +14,7 @@ import {
 	orderByValue,
 } from '../queryConstraints'
 import { set } from '../operations'
-import { IsTrue, IsSame } from '../types'
+import { IsTrue, IsSame, DataSnapshot } from '../types'
 
 initializeApp()
 
@@ -46,6 +46,7 @@ describe('test get and query', () => {
 
 		const arr = Object.values(val || {}).sort()
 		snapshot.forEach((child, i) => {
+			IsTrue<IsSame<typeof child, DataSnapshot<Users, `o/${string}`>>>()
 			expect(child.val()).toBe(arr[i])
 		})
 
@@ -77,6 +78,7 @@ describe('test get and query', () => {
 
 		const arr = Object.values(val || {}).sort()
 		snapshot.forEach((child, i) => {
+			IsTrue<IsSame<typeof child, DataSnapshot<Users, `u/${number}`>>>()
 			expect(child.val()).toBe(arr[i])
 		})
 
@@ -107,6 +109,7 @@ describe('test get and query', () => {
 
 		const arr = [0, 1, 4]
 		snapshot.forEach((child, i) => {
+			IsTrue<IsSame<typeof child, DataSnapshot<Users, `q/${string}`>>>()
 			expect(child.val()).toBe(arr[i])
 		})
 
@@ -115,63 +118,87 @@ describe('test get and query', () => {
 		IsTrue<IsSame<typeof childVal, Users['read']['q']['y'] | null>>()
 	})
 
-	it('test orderByKey, startAfter', async () => {
+	it('test orderByChild, endAt', async () => {
 		const snapshot = await get(
-			query(usersRef('q'), orderByKey(), startAfter('d'))
+			query(usersRef('b/h/abc/p'), orderByChild('r'), endAt(6354))
 		)
 		const val = snapshot.val()
-		expect(val).toEqual({ p: 1, y: 4, m: 0 })
+		expect(val).toEqual({ i: { r: 6354 }, g: { r: 3426 }, c: { r: 3721 } })
 
 		const key = snapshot.key
-		expect(key).toBe('q')
-		IsTrue<IsSame<typeof key, 'q'>>()
+		expect(key).toBe('p')
+		IsTrue<IsSame<typeof key, 'p'>>()
 
 		expect(snapshot.size).toBe(val ? Object.keys(val).length : val)
 		expect(snapshot.exists()).toBe(true)
-		expect(snapshot.hasChild('p')).toBe(true)
-		expect(snapshot.hasChild('b')).toBe(false)
+		expect(snapshot.hasChild('g')).toBe(true)
+		expect(snapshot.hasChild('o')).toBe(false)
 		expect(snapshot.hasChildren()).toBe(true)
 
 		const json = snapshot.toJSON()
 		expect(json).toEqual(val)
 
-		const arr = [0, 1, 4]
+		const arr = [{ r: 3426 }, { r: 3721 }, { r: 6354 }]
 		snapshot.forEach((child, i) => {
-			expect(child.val()).toBe(arr[i])
+			IsTrue<
+				IsSame<typeof child, DataSnapshot<Users, `b/h/${string}/p/${string}`>>
+			>()
+			expect(child.val()).toEqual(arr[i])
 		})
 
-		const childVal = snapshot.child('y').val()
-		expect(childVal).toBe(4)
-		IsTrue<IsSame<typeof childVal, Users['read']['q']['y'] | null>>()
+		const childVal = snapshot.child('c').val()
+		expect(childVal).toEqual({ r: 3721 })
+		IsTrue<
+			IsSame<
+				typeof childVal,
+				| {
+						r: number | undefined
+				  }
+				| null
+				| undefined
+			>
+		>()
 	})
 
-	// it('test orderByChild, equalTo', async () => {
-	// 	const snapshot = await get(
-	// 		query(usersRef('q'), orderByChild(), startAfter('d'))
-	// 	)
-	// 	const val = snapshot.val()
-	// 	expect(val).toEqual({ p: 1, y: 4, m: 0 })
+	it('test orderByChild, endBefore with key', async () => {
+		const snapshot = await get(
+			query(usersRef('b/h/abc/m'), orderByChild('n'), endBefore('2', 'x'))
+		)
+		const val = snapshot.val()
+		expect(val).toEqual({ x: { n: '1' }, c: { n: '2' } })
 
-	// 	const key = snapshot.key
-	// 	expect(key).toBe('q')
-	// 	IsTrue<IsSame<typeof key, 'q'>>()
+		const key = snapshot.key
+		expect(key).toBe('m')
+		IsTrue<IsSame<typeof key, 'm'>>()
 
-	// 	expect(snapshot.size).toBe(val ? Object.keys(val).length : val)
-	// 	expect(snapshot.exists()).toBe(true)
-	// 	expect(snapshot.hasChild('p')).toBe(true)
-	// 	expect(snapshot.hasChild('b')).toBe(false)
-	// 	expect(snapshot.hasChildren()).toBe(true)
+		expect(snapshot.size).toBe(val ? Object.keys(val).length : val)
+		expect(snapshot.exists()).toBe(true)
+		expect(snapshot.hasChild('c')).toBe(true)
+		expect(snapshot.hasChild('v')).toBe(false)
+		expect(snapshot.hasChildren()).toBe(true)
 
-	// 	const json = snapshot.toJSON()
-	// 	expect(json).toEqual(val)
+		const json = snapshot.toJSON()
+		expect(json).toEqual(val)
 
-	// 	const arr = [0, 1, 4]
-	// 	snapshot.forEach((child, i) => {
-	// 		expect(child.val()).toBe(arr[i])
-	// 	})
+		const arr = [{ n: '1' }, { n: '2' }]
+		snapshot.forEach((child, i) => {
+			IsTrue<
+				IsSame<typeof child, DataSnapshot<Users, `b/h/${string}/m/${string}`>>
+			>()
+			expect(child.val()).toEqual(arr[i])
+		})
 
-	// 	const childVal = snapshot.child('y').val()
-	// 	expect(childVal).toBe(4)
-	// 	IsTrue<IsSame<typeof childVal, Users['read']['q']['y'] | null>>()
-	// })
+		const childVal = snapshot.child('x').val()
+		expect(childVal).toEqual({ n: '1' })
+		IsTrue<
+			IsSame<
+				typeof childVal,
+				| {
+						n: '1' | '2' | '7' | '8' | '9' | undefined
+				  }
+				| null
+				| undefined
+			>
+		>()
+	})
 })

@@ -1,6 +1,10 @@
 import { CommonOrderBy, QueryConstraint, OrderBy } from '../queryConstraint'
 import { MetaType } from '../../metaType'
-import { FindAllLevelChildKeys, ValidateFullPath } from '../../utils'
+import {
+	FindAllLevelChildKeys,
+	ValidateFullPath,
+	FindNestedCompareTypeFromFullPath,
+} from '../../utils'
 import { RemoveFirstSegment, GetFirstSegment } from '../../tsUtils'
 import {
 	ErrorOrderByChildMustStartAtGrandChildPath,
@@ -25,12 +29,15 @@ export type ValidateOrderByChildren<
 		? FindAllLevelChildKeys<T, U> extends infer A extends string
 			? OrderBy<
 					'orderByChild',
-					X extends RemoveFirstSegment<A>
+					FindNestedCompareTypeFromFullPath<T, U> extends Record<
+						string,
+						infer L extends Record<string, unknown>
+					>
 						? `${U extends string
 								? `${U}/`
 								: ''}${GetFirstSegment<A>}/${X}` extends infer Z extends keyof T['flatten_write'] &
 								string
-							? ValidateFullPath<T, Z, X, `${number}`>
+							? ValidateFullPath<T, Z, X>
 							: RemoveFirstSegment<A>
 						: ErrorOrderByChildMustStartAtGrandChildPath<X, U>
 			  >

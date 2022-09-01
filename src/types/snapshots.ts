@@ -5,10 +5,12 @@ import {
 	GetFullPath,
 	FindNestedReadTypeFromFullPath,
 	ValidateChildPath,
+	FindMetaPathType,
 } from './utils'
 import { GetLastSegment } from './tsUtils'
 import { ErrorHasNoChild } from './error'
 
+type exp<T> = T
 export declare class DataSnapshot<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
@@ -48,7 +50,11 @@ export declare class DataSnapshot<
 		N extends (keyof M['flatten_write'] & string) | undefined = U
 	>(
 		path: V extends never ? V : ValidateChildPath<M, N, V>
-	): DataSnapshot<T, GetFullPath<M, N, V>>
+	): FindMetaPathType<T, GetFullPath<M, N, V>> extends infer J extends
+		| (keyof T['flatten_write'] & string)
+		| undefined
+		? DataSnapshot<T, J>
+		: never
 	// ! this does not work, research, probably has something to do with site inference
 	// child<V extends string>(
 	// 	path: V extends never ? V : ValidateChildPath<T, U, V>
@@ -82,7 +88,11 @@ export declare class DataSnapshot<
 				? ErrorHasNoChild<U>
 				: GetFullPath<T, U, FindAllTopLevelChildKeys<T, U>> extends infer R
 				? R extends (keyof T['flatten_write'] & string) | undefined
-					? DataSnapshot<T, R>
+					? FindMetaPathType<T, R> extends infer J extends
+							| (keyof T['flatten_write'] & string)
+							| undefined
+						? DataSnapshot<T, J>
+						: never
 					: never
 				: never,
 			index: number

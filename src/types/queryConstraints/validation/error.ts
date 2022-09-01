@@ -9,7 +9,7 @@ export type ErrorCursorMustHasOrderBy =
 export type ErrorOrderByChildMustStartAtGrandChildPath<
 	T extends string,
 	U extends string | undefined
-> = `Error: ${T} is not a valid orderByChild path of ${U}. The path must start at grandchild path. Eg the valid orderByChild path of node 'a/b/c/d' is 'c' or 'c/d'`
+> = `Error: '${T}' is not a valid orderByChild path of '${U}'. The path must start at grandchild path. Eg the valid orderByChild path of node 'a/b/c/d' is 'c' or 'c/d'. Path that has no grandchild key, eg 'a/b' are not able to orderbyChild.`
 export type ErrorOrderingByKeyOnlyOneArgument =
 	`Error: When ordering by key, you may only pass one argument to startAt(), startAfter(), endAt(), endBefore() or equalTo()`
 export type ErrorOrderingByKeyMustBeString =
