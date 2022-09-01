@@ -10,6 +10,7 @@ import {
 	FindKeyOfWriteType,
 	FindNestedCompareTypeFromFullPath,
 	FindAllLevelChildKeys,
+	ValidateFullPath,
 } from '../../utils'
 import { GetFirstSegment } from '../../tsUtils'
 import { MetaType } from '../../metaType'

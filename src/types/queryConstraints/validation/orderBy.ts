@@ -31,6 +31,7 @@ export type ValidateOrderByChildren<
 					'orderByChild',
 					FindNestedCompareTypeFromFullPath<T, U> extends Record<
 						string,
+						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						infer L extends Record<string, unknown>
 					>
 						? `${U extends string

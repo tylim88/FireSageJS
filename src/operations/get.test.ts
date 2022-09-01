@@ -201,4 +201,45 @@ describe('test get and query', () => {
 			>
 		>()
 	})
+	it('test orderByChild, equalTo with key', async () => {
+		const snapshot = await get(
+			query(usersRef('b/h/abc/s'), orderByChild('t'), equalTo(3297, '64'))
+		)
+		const val = snapshot.val()
+		expect(val).toEqual({ 64: { t: 3297 } })
+
+		const key = snapshot.key
+		expect(key).toBe('s')
+		IsTrue<IsSame<typeof key, 's'>>()
+
+		expect(snapshot.size).toBe(val ? Object.keys(val).length : val)
+		expect(snapshot.exists()).toBe(true)
+		expect(snapshot.hasChild('64')).toBe(true)
+		expect(snapshot.hasChild('91')).toBe(false)
+		expect(snapshot.hasChildren()).toBe(true)
+
+		const json = snapshot.toJSON()
+		expect(json).toEqual(val)
+
+		const arr = [{ t: 3297 }]
+		snapshot.forEach((child, i) => {
+			IsTrue<
+				IsSame<typeof child, DataSnapshot<Users, `b/h/${string}/s/${number}`>>
+			>()
+			expect(child.val()).toEqual(arr[i])
+		})
+
+		const childVal = snapshot.child('64').val()
+		expect(childVal).toEqual({ t: 3297 })
+		IsTrue<
+			IsSame<
+				typeof childVal,
+				| {
+						t: number | undefined
+				  }
+				| null
+				| undefined
+			>
+		>()
+	})
 })

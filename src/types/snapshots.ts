@@ -10,7 +10,6 @@ import {
 import { GetLastSegment } from './tsUtils'
 import { ErrorHasNoChild } from './error'
 
-type exp<T> = T
 export declare class DataSnapshot<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
