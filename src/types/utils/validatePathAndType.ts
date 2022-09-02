@@ -8,7 +8,7 @@ import {
 } from './error'
 import { FindMetaPathType, FindAllLevelChildKeys } from './findTypeAndKey'
 import { IsNumericRecordType } from '../tsUtils'
-import { IsCharacterValid } from './isSome2thing'
+import { IsCharacterValid } from './isSomething'
 
 export type ValidateChildPath<
 	T extends MetaType,
