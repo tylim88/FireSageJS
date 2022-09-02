@@ -1,3 +1,3 @@
 export * from './child'
-export * from './ref'
+export * from './createRef'
 export * from './query'

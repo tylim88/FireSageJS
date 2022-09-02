@@ -1,17 +1,11 @@
 import { MetaType } from '../metaType'
-import { ErrorInvalidSetPriorityRef, ErrorIsPushOnlyAbleType } from './error'
+import { ErrorIsPushOnlyAbleType } from './error'
 import {
 	GetAllPushAbleOnlyPaths,
 	ValidateRecordString,
 	FindNestedWriteTypeFromFullPath,
-	IsParentRecordOrArray,
 } from '../utils'
-import { DatabaseReference } from '../databaseReference'
-
-export type IsValidSetPriorityRef<
-	T extends MetaType,
-	U extends (keyof T['flatten_write'] & string) | undefined
-> = IsParentRecordOrArray<T, U, ErrorInvalidSetPriorityRef<U>>
+import { DatabaseReference } from '../refs'
 
 export type IsValidSetValue<
 	T extends MetaType,

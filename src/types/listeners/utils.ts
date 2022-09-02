@@ -6,7 +6,7 @@ import {
 	GetFullPath,
 	IsRecordOrArray,
 } from '../utils'
-import { Query, DatabaseReference } from '../databaseReference'
+import { Query, DatabaseReference } from '../refs'
 
 export type IsValidOnChildRef<
 	T extends MetaType,

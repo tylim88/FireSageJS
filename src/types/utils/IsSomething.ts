@@ -1,9 +1,9 @@
 import { MetaType } from '../metaType'
-import { DatabaseReference } from '../databaseReference'
+import { DatabaseReference } from '../refs'
 import {
 	FindNestedWriteTypeFromFullPath,
 	FindParentNestedWriteTypeFromFullPath,
-} from '../utils'
+} from '.'
 import { ErrorNoInValidCharacter } from './error'
 
 export type IsRecordOrArray<

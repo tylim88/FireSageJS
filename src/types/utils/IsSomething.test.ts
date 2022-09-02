@@ -1,4 +1,4 @@
-import { IsCharacterValid } from './IsSomething'
+import { IsCharacterValid } from './isSomething'
 import { IsTrue, IsSame } from '../tsUtils'
 
 describe('test IsSomething', () => {

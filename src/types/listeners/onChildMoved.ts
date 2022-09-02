@@ -1,5 +1,5 @@
 import { MetaType } from '../metaType'
-import { Query } from '../databaseReference'
+import { Query } from '../refs'
 import { Unsubscribe, ListenOptions } from '../alias'
 import { IsValidOnChildRef, GetOnChildSnapshot } from './utils'
 

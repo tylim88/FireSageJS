@@ -1,3 +1,7 @@
 export * from './set'
 export * from './update'
 export * from './error'
+export * from './get'
+export * from './push'
+export * from './remove'
+export * from './setPriority'
