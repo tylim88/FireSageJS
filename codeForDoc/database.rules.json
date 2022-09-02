@@ -1,0 +1,27 @@
+{
+	"rules": {
+		".read": true,
+		".write": true,
+		"o": {
+			".indexOn": ".value"
+		},
+		"u": {
+			".indexOn": ".value"
+		},
+		"b": {
+			"h": {
+				"$key": {
+					"s": {
+						".indexOn": "t"
+					},
+					"p": {
+						".indexOn": "r"
+					},
+					"m": {
+						".indexOn": "n"
+					}
+				}
+			}
+		}
+	}
+}

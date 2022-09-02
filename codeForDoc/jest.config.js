@@ -4,4 +4,5 @@ const sharedConfig = require('../jest.config.js')
 module.exports = {
 	...sharedConfig,
 	collectCoverage: false,
+	globalSetup: '../src/testSetup.ts',
 }

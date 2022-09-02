@@ -1,18 +1,18 @@
 {
 	"name": "code-for-doc",
 	"version": "1.0.0",
-	"description": "test published Firelordjs",
+	"description": "test published FireSageJS",
 	"main": "index.js",
 	"scripts": {
 		"uninstall": "rm -rf node_modules && rm -rf package-lock.json",
 		"reinstall": "npm run uninstall && npm i",
-		"test": "firebase emulators:exec --only firestore \"rm -rf coverage && jest\""
+		"test": "firebase emulators:exec --only database \"rm -rf coverage && jest\""
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
 		"firebase": "latest",
-		"firelordjs": "latest"
+		"firesagejs": "^0.0.2"
 	},
 	"devDependencies": {
 		"@firebase/rules-unit-testing": "^2.0.2",

@@ -24,8 +24,8 @@ import {
 	increment,
 	serverTimestamp,
 	ServerTimestamp,
-} from '.'
-import { setPriority } from './operations/setPriority'
+} from 'firesagejs'
+import { setPriority } from '../../src/operations/setPriority'
 import firebasejson from '../firebase.json'
 import {
 	generateRandomData,
@@ -35,8 +35,8 @@ import {
 	compareListeners,
 	dataForQuery,
 	Users,
-} from './utilForTests'
-import { Ref } from './types'
+} from '../../src/utilForTests'
+import { Ref } from '../../src/types'
 import fs from 'fs'
 
 initializeApp()

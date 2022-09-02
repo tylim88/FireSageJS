@@ -28,6 +28,7 @@ tsconfig.doc.json
 lgtm.yml
 tsconfig.prod.json
 .parcelrc
+**.rules.json
 
 # env
 env.json

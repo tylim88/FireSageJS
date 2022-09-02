@@ -17,8 +17,8 @@ import { createRef } from './refs'
 import { initializeApp as initializeApp_ } from 'firebase/app'
 import pick from 'pick-random'
 import { v4 } from 'uuid'
-import { get } from './operations'
 import betwin from 'betwin'
+import { get } from './operations'
 
 export const initializeApp = () => {
 	const env = process.env
