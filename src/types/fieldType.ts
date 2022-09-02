@@ -14,7 +14,8 @@ type PseudoArraySymbol = typeof pseudoArray
 
 declare class FieldType<T extends symbol> {
 	private constructor()
-	private symbol: T
+	// private symbol: T // ! this will get translated to "private symbol" only and it breaks the code, use protected instead!
+	protected symbol: T
 }
 
 export interface ServerTimestamp extends FieldType<ServerTimestampSymbol> {}
