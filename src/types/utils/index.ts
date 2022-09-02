@@ -1,5 +1,5 @@
 export * from './findTypeAndKey'
 export * from './getPath'
 export * from './validatePathAndType'
-export * from './isSomething'
+export * from './isSome2thing'
 export * from './error'
