@@ -1,6 +1,6 @@
 import { get } from './get'
-import { initializeApp, usersRef, dataForQuery, Users } from '../utilForTests'
-import { query } from '../refs'
+import { initializeApp, dataForQuery, Users } from '../utilForTests'
+import { query, createRef } from '../refs'
 import {
 	startAfter,
 	startAt,
@@ -14,13 +14,50 @@ import {
 	orderByValue,
 } from '../queryConstraints'
 import { set } from '../operations'
-import { IsTrue, IsSame, DataSnapshot } from '../types'
+import { IsTrue, IsSame, DataSnapshot, Ref } from '../types'
+import firebasejson from '../../firebase.json'
+import {
+	initializeTestEnvironment,
+	RulesTestContext,
+	RulesTestEnvironment,
+} from '@firebase/rules-unit-testing'
+import fs from 'fs'
+
+// have to use rules unit testing here
+// If emulator with database is detected, everything will use emulator, regardless explicitly connect to emulator or not
+// and emulator will use local database rules
+// this is not a problem, but emulator cannot read local database rules in github action
+// the only way to read local rule is explicitly state where the rules file located in code
+// we can explicitly state the file location in rules unit testing
 
 initializeApp()
 
+const port = firebasejson.emulators.database.port
+let db = undefined as unknown as ReturnType<RulesTestContext['database']>
+let testEnv = undefined as unknown as RulesTestEnvironment
+let usersRef = undefined as unknown as Ref<Users>
+
 describe('test get and query', () => {
-	beforeAll(() => {
+	beforeAll(async () => {
+		testEnv = await initializeTestEnvironment({
+			projectId: 'any',
+			database: {
+				host: 'localhost',
+				port,
+				rules: fs.readFileSync(firebasejson.database.rules, 'utf8'),
+			},
+		})
+		await testEnv.clearDatabase()
+		db = testEnv
+			.authenticatedContext('alice', {
+				email: 'alice@example.com',
+			})
+			.database()
+		usersRef = createRef<Users>(db)
 		return set(usersRef(), dataForQuery())
+	})
+	afterAll(() => {
+		testEnv.cleanup()
 	})
 
 	it('test orderByValue, startAt and limitToFirst', async () => {
