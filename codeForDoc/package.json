@@ -12,7 +12,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"firebase": "latest",
-		"firesagejs": "^0.0.5"
+		"firesagejs": "^0.0.6"
 	},
 	"devDependencies": {
 		"@firebase/rules-unit-testing": "^2.0.2",

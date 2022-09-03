@@ -1,7 +1,6 @@
 export * from './orderByChild'
 export * from './orderByKey'
 export * from './orderByValue'
-// export * from './orderByPriority'
 export * from './endAt'
 export * from './endBefore'
 export * from './equalTo'

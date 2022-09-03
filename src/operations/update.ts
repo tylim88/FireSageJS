@@ -8,5 +8,5 @@ export const update: Update = (ref, paths, values) => {
 		obj[item] = values[index]
 	})
 
-	return update_(ref, obj)
+	return update_(ref as any, obj)
 }

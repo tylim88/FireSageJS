@@ -29,6 +29,9 @@ lgtm.yml
 tsconfig.prod.json
 .parcelrc
 **.rules.json
+firebase.json
+.firebaserc
+.eslintignore
 
 # env
 env.json
@@ -46,8 +49,5 @@ env.json
 # misc
 CHANGELOG.md
 package-lock.json
-firebase.json
-.eslintignore
-.firebaserc
 note.txt
-firebase.json
+CONTRIBUTING.md
