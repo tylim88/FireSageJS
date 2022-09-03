@@ -24,6 +24,7 @@ import {
 	increment,
 	serverTimestamp,
 	ServerTimestamp,
+	Ref,
 } from '.'
 import { setPriority } from './operations/setPriority'
 import firebasejson from '../firebase.json'
@@ -36,7 +37,6 @@ import {
 	dataForQuery,
 	Users,
 } from './utilForTests'
-import { Ref } from './types'
 import fs from 'fs'
 
 initializeApp()

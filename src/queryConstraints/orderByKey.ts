@@ -1,4 +1,4 @@
-import { OrderBy } from '../types'
+import { OrderByConstraint } from '../types'
 import { orderByKey as orderByKey_ } from 'firebase/database'
 
 /**
@@ -15,5 +15,5 @@ export const orderByKey = () => {
 		type: 'orderByKey',
 		ref: orderByKey_(),
 		value: undefined,
-	} as OrderBy<'orderByKey', undefined>
+	} as OrderByConstraint<'orderByKey', undefined>
 }

@@ -26,8 +26,8 @@ jobs:
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
       - run: npm run build
       - run: npm run link
-        # - run: npm run b-tsc
-        # - run: npm run b-test
+      - run: npm run b-tsc
+      - run: npm run b-test
         env:
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
       - uses: codecov/codecov-action@v3
@@ -35,7 +35,8 @@ jobs:
       - run: npm publish || true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      # - run: npm run p-reinstall
-      # - run: npm run p-test
-      #   env:
-      #     PROJECT_ID: ${{ secrets.PROJECT_ID }}
+      - run: npm run p-reinstall
+      - run: npm run p-tsc
+      - run: npm run p-test
+        env:
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}

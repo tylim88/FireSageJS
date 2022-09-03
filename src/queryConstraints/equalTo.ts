@@ -1,5 +1,5 @@
 import { equalTo as equalTo_ } from 'firebase/database'
-import { CursorConstraint } from '../types'
+import { Cursor } from '../types'
 /**
 Creates a QueryConstraint that includes children that match the specified value.
 
@@ -16,6 +16,6 @@ The value to match for. The argument type depends on which orderBy*() function w
 The child key to start at, among the children with the previously specified priority. This argument is only allowed if ordering by child, value, or priority.
  */
 // @ts-expect-error
-export const equalTo: CursorConstraint = (value, key?) => {
+export const equalTo: Cursor = (value, key?) => {
 	return { ref: equalTo_(value, key) }
 }

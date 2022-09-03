@@ -1,5 +1,5 @@
 import { endAt as endAt_ } from 'firebase/database'
-import { CursorConstraint } from '../types'
+import { Cursor } from '../types'
 
 /**
 Creates a QueryConstraint with the specified ending point.
@@ -17,6 +17,6 @@ The value to end at. The argument type depends on which orderBy*() function was 
 The child key to end at, among the children with the previously specified priority. This argument is only allowed if ordering by child, value, or priority.
  */
 // @ts-expect-error
-export const endAt: CursorConstraint = (value, key?) => {
+export const endAt: Cursor = (value, key?) => {
 	return { ref: endAt_(value, key) }
 }

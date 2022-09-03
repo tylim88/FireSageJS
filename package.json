@@ -1,10 +1,10 @@
 {
 	"name": "firesagejs",
-	"version": "0.0.6",
+	"version": "0.0.10",
 	"description": "🔥Write type safe and scalable Firebase Realtime Database code!",
 	"source": "src/index.ts",
-	"main": "dist/src/index.js",
-	"types": "dist/src/index.d.ts",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"targets": {
 		"types": false,
 		"main": {
@@ -17,8 +17,8 @@
 		"lint": "eslint . --ext .ts --fix",
 		"pretty-quick": "pretty-quick --stage",
 		"test": "firebase emulators:exec --only database \"rm -rf coverage && jest\"",
-		"parcel": "npm un firebase && npm i firebase && rm -rf dist && tsc --emitDeclarationOnly true && parcel build && npm i -D firebase",
-		"build": "rm -rf dist && tsc",
+		"parcel": "npm un firebase && npm i firebase && npm run build --emitDeclarationOnly && parcel build && npm i -D firebase",
+		"build": "rm -rf dist && tsc -p tsconfig.prod.json",
 		"link": "npm unlink firesagejs && npm link && npm link firesagejs",
 		"babel": "babel-node -x .ts -- src/fieldPath/documentId.ts",
 		"jest": "firebase emulators:exec --only database \"jest src/rulesUnitTesting.test.ts --collectCoverage=false\"",
@@ -35,7 +35,8 @@
 		"b-uninstall": "npm --prefix codeForDoc run uninstall",
 		"published": "-------------test published file-----------------------",
 		"p-reinstall": "npm --prefix codeForDoc run reinstall && babel-node -x .ts scripts/installLatest.ts",
-		"p-test": "npm --prefix codeForDoc test"
+		"p-test": "npm --prefix codeForDoc test",
+		"p-tsc": "npm --prefix codeForDoc tsc"
 	},
 	"repository": {
 		"type": "git",

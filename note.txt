@@ -11,13 +11,13 @@ query rules:
 5. When ordering by priority, the first argument passed to startAt(), startAfter() endAt(), endBefore(), or equalTo() must be a valid priority value (null, a number, or a string). - done
 
 key naming rule:
-Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]").
+Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]"). - done
 
 
 todo:
 1. make sure all key check for numeric and empty string - done
 2. make sure all path check for numeric, empty string and number of slash - done
-3. orderByChild to reject arbitrary key
+3. orderByChild to reject arbitrary key - hmm, necessary?
 
 bug:
-1. fix validate child path error suggestion
+1. fix validate child path error suggestion - done

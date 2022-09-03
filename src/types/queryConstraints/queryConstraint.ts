@@ -22,7 +22,7 @@ type OrderByType = StrictExtract<
 	>
 >
 
-export interface OrderBy<
+export interface OrderByConstraint<
 	T extends OrderByType,
 	V extends T extends 'orderByChild' ? string : undefined
 > extends Constraint<OrderBySymbol> {
@@ -31,22 +31,29 @@ export interface OrderBy<
 	ref: OriQueryConstraint
 }
 
-export interface Limit extends Constraint<LimitSymbol> {
+export interface LimitConstraint extends Constraint<LimitSymbol> {
 	ref: OriQueryConstraint
 }
 
-export interface Cursor<V, K extends string> extends Constraint<CursorSymbol> {
+export interface CursorConstraint<V, K extends string>
+	extends Constraint<CursorSymbol> {
 	value: V
 	key: K
 	ref: OriQueryConstraint
 }
 
-export type CommonOrderBy =
-	| OrderBy<'orderByChild', string>
-	| OrderBy<'orderByKey' | 'orderByValue' | 'orderByPriority', undefined>
+export type AllOrderByConstraints =
+	| OrderByConstraint<'orderByChild', string>
+	| OrderByConstraint<
+			'orderByKey' | 'orderByValue' | 'orderByPriority',
+			undefined
+	  >
 
-export type CommonCursor = Cursor<unknown, string>
+export type AllCursorConstraints = CursorConstraint<unknown, string>
 
-export type QueryConstraint = Limit | CommonCursor | CommonOrderBy
+export type AllQueryConstraints =
+	| LimitConstraint
+	| AllCursorConstraints
+	| AllOrderByConstraints
 
 export type Priority = string | number | null

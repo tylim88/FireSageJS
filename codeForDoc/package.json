@@ -6,13 +6,15 @@
 	"scripts": {
 		"uninstall": "rm -rf node_modules && rm -rf package-lock.json",
 		"reinstall": "npm run uninstall && npm i",
-		"test": "firebase emulators:exec --only database \"rm -rf coverage && jest\""
+		"test": "firebase emulators:exec --only database \"rm -rf coverage && jest\"",
+		"tsc": "tsc --noEmit"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"code-for-doc": "file:",
 		"firebase": "latest",
-		"firesagejs": "^0.0.6"
+		"firesagejs": "^0.0.9"
 	},
 	"devDependencies": {
 		"@firebase/rules-unit-testing": "^2.0.2",

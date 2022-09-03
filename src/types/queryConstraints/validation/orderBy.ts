@@ -1,4 +1,8 @@
-import { CommonOrderBy, QueryConstraint, OrderBy } from '../queryConstraint'
+import {
+	AllOrderByConstraints,
+	AllQueryConstraints,
+	OrderByConstraint,
+} from '../queryConstraint'
 import { MetaType } from '../../metaType'
 import {
 	FindAllLevelChildKeys,
@@ -12,22 +16,25 @@ import {
 } from './error'
 
 export type GetAllOrderByType<
-	QC extends QueryConstraint[],
-	ACC extends CommonOrderBy[] = []
-> = QC extends [infer H, ...infer R extends QueryConstraint[]]
-	? GetAllOrderByType<R, [...ACC, ...(H extends CommonOrderBy ? [H] : [])]>
+	QC extends AllQueryConstraints[],
+	ACC extends AllOrderByConstraints[] = []
+> = QC extends [infer H, ...infer R extends AllQueryConstraints[]]
+	? GetAllOrderByType<
+			R,
+			[...ACC, ...(H extends AllOrderByConstraints ? [H] : [])]
+	  >
 	: ACC
 
 export type ValidateOrderByChildren<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
-	O extends CommonOrderBy[],
-	H extends CommonOrderBy
+	O extends AllOrderByConstraints[],
+	H extends AllOrderByConstraints
 	// Error: You can't combine multiple orderBy calls.
 > = O['length'] extends 0 | 1
-	? H extends OrderBy<'orderByChild', infer X>
+	? H extends OrderByConstraint<'orderByChild', infer X>
 		? FindAllLevelChildKeys<T, U> extends infer A extends string
-			? OrderBy<
+			? OrderByConstraint<
 					'orderByChild',
 					FindNestedCompareTypeFromFullPath<T, U> extends Record<
 						string,

@@ -1,5 +1,5 @@
 import { startAt as startAt_ } from 'firebase/database'
-import { CursorConstraint } from '../types'
+import { Cursor } from '../types'
 
 /**
 Creates a QueryConstraint with the specified starting point.
@@ -17,6 +17,6 @@ The value to start at. The argument type depends on which orderBy*() function wa
 The child key to start at. This argument is only allowed if ordering by child, value, or priority.
  */
 // @ts-expect-error
-export const startAt: CursorConstraint = (value, key?) => {
+export const startAt: Cursor = (value, key?) => {
 	return { ref: startAt_(value, key) }
 }

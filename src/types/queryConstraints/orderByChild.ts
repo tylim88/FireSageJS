@@ -1,5 +1,5 @@
 import { IsCharacterValid, ErrorNoInValidCharacter } from '../utils'
-import { OrderBy } from './queryConstraint'
+import { OrderByConstraint } from './queryConstraint'
 /**
 Creates a new QueryConstraint that orders by the specified child key.
 
@@ -15,4 +15,4 @@ export type OrderByChild = <V extends string>(
 	path: V extends never
 		? V
 		: IsCharacterValid<V, V, ErrorNoInValidCharacter, '/'>
-) => OrderBy<'orderByChild', V>
+) => OrderByConstraint<'orderByChild', V>

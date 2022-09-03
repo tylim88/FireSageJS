@@ -24,8 +24,8 @@ import {
 	increment,
 	serverTimestamp,
 	ServerTimestamp,
+	Ref,
 } from 'firesagejs'
-import { setPriority } from '../../src/operations/setPriority'
 import firebasejson from '../firebase.json'
 import {
 	generateRandomData,
@@ -35,8 +35,7 @@ import {
 	compareListeners,
 	dataForQuery,
 	Users,
-} from '../../src/utilForTests'
-import { Ref } from '../../src/types'
+} from './utilForTests'
 import fs from 'fs'
 
 initializeApp()
@@ -45,7 +44,7 @@ let db = undefined as unknown as ReturnType<RulesTestContext['database']>
 let testEnv = undefined as unknown as RulesTestEnvironment
 let usersRef = undefined as unknown as Ref<Users>
 
-describe('test whether works with emulator', () => {
+describe('test working with emulator', () => {
 	beforeAll(async () => {
 		testEnv = await initializeTestEnvironment({
 			projectId: 'any',
@@ -179,25 +178,6 @@ describe('test whether works with emulator', () => {
 		})
 		push(ref, data['q'][randStringQKey]!).then(async thenRef => {
 			await update(ref, [thenRef.key], [newData])
-			unsub()
-			done()
-		})
-	})
-	it('onChildMoved', done => {
-		const rand = generateRandomData()
-		const data = rand.data
-		const path = `w` as const
-		const ref = usersRef(path)
-		expect.hasAssertions()
-		const unsub = onChildMoved(
-			ref,
-			async dataSnapshot => {
-				compareListeners(`w/0`, dataSnapshot, data)
-			},
-			{ onlyOnce: false }
-		)
-		set(ref, data['w']).then(async () => {
-			await setPriority(usersRef(`${path}/0`), 1000)
 			unsub()
 			done()
 		})

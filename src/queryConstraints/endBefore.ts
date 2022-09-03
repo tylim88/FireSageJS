@@ -1,5 +1,5 @@
 import { endBefore as endBefore_ } from 'firebase/database'
-import { CursorConstraint } from '../types'
+import { Cursor } from '../types'
 /**
 Creates a QueryConstraint with the specified ending point (exclusive).
 
@@ -14,7 +14,7 @@ The value to end before. The argument type depends on which orderBy*() function 
 The child key to end before, among the children with the previously specified priority. This argument is only allowed if ordering by child, value, or priority.
  */
 // @ts-expect-error
-export const endBefore: CursorConstraint = (value, key) => {
+export const endBefore: Cursor = (value, key) => {
 	return { ref: endBefore_(value, key) }
 }
 // ! jsdoc typo

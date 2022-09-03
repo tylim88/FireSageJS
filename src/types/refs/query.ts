@@ -1,7 +1,7 @@
 import { DatabaseReference, Query } from './databaseRef'
 import { MetaType } from '../metaType'
 import {
-	QueryConstraint,
+	AllQueryConstraints,
 	IsValidQueryRef,
 	ValidateQueryConstraints,
 } from '../queryConstraints'
@@ -18,7 +18,7 @@ if any of the provided query constraints cannot be combined with the existing or
 export type Query_ = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
-	Q extends QueryConstraint[]
+	Q extends AllQueryConstraints[]
 >(
 	query: string extends never ? DatabaseReference<T, U> : IsValidQueryRef<T, U>,
 	...queryConstraint: Q extends never ? Q : ValidateQueryConstraints<T, U, Q>

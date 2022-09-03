@@ -26,4 +26,10 @@ export type {
 	DataSnapshot,
 	DatabaseReference,
 	Query,
+	Ref,
+	MetaType,
+	FindAllLevelChildKeys,
+	ErrorHasNoChild,
+	FindNestedWriteTypeFromFullPath,
+	RemoveLastSlash,
 } from './types'

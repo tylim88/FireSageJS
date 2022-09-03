@@ -93,10 +93,10 @@
 		<i>Typescript Wrapper for Realtime Database</i>
 </div>
 <br/>
-<!-- <div align="center">
-<a href="https://firelordjs.com/firesagejs/quick_start" target="_blank" style="color:blue"><strong>Documentation</strong></a>
+<div align="center">
+<a href="https://firelordjs.com/firesage/quick_start" target="_blank" style="color:blue"><strong>Documentation</strong></a>
 </div>
-<br/> -->
+<br/>
 
 Coming soon
 

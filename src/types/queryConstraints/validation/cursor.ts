@@ -1,8 +1,8 @@
 import {
-	Cursor,
-	OrderBy,
-	CommonOrderBy,
-	CommonCursor,
+	CursorConstraint,
+	OrderByConstraint,
+	AllOrderByConstraints,
+	AllCursorConstraints,
 	Priority,
 } from '../queryConstraint'
 import { CursorValue } from '../cursorConstraint'
@@ -40,25 +40,25 @@ type ValidateChildPathCursor<
 export type ValidateCursor<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
-	O extends CommonOrderBy[],
-	C extends CommonCursor
+	O extends AllOrderByConstraints[],
+	C extends AllCursorConstraints
 > = O['length'] extends 0
 	? // RTDB doesn't throw error but cursors must have orderBy to works
 	  ErrorCursorMustHasOrderBy
 	: O['length'] extends 1
 	? O[0] extends infer R
-		? C extends Cursor<infer A, infer B>
+		? C extends CursorConstraint<infer A, infer B>
 			? B[] extends string[]
 				? A[] extends CursorValue[]
-					? R extends OrderBy<'orderByKey', undefined>
-						? Cursor<
+					? R extends OrderByConstraint<'orderByKey', undefined>
+						? CursorConstraint<
 								A extends string
 									? ValidateChildPathCursor<T, U, A>
 									: ErrorOrderingByKeyMustBeString,
 								B[] extends never[] ? B : ErrorOrderingByKeyOnlyOneArgument
 						  >
-						: R extends OrderBy<'orderByValue', undefined>
-						? Cursor<
+						: R extends OrderByConstraint<'orderByValue', undefined>
+						? CursorConstraint<
 								FindNestedCompareTypeFromFullPath<T, U> extends Record<
 									string,
 									infer X
@@ -67,13 +67,13 @@ export type ValidateCursor<
 									: never, // impossible route
 								ValidateChildPathCursor<T, U, B>
 						  >
-						: R extends OrderBy<'orderByPriority', undefined>
-						? Cursor<
+						: R extends OrderByConstraint<'orderByPriority', undefined>
+						? CursorConstraint<
 								A extends Priority ? Priority : ErrorOderByPriority,
 								ValidateChildPathCursor<T, U, B>
 						  >
-						: R extends OrderBy<'orderByChild', infer X>
-						? Cursor<
+						: R extends OrderByConstraint<'orderByChild', infer X>
+						? CursorConstraint<
 								FindNestedCompareTypeFromFullPath<
 									T,
 									`${U extends string ? `${U}/` : ''}${GetFirstSegment<
