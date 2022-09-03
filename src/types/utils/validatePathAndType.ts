@@ -17,7 +17,9 @@ export type ValidateChildPath<
 	ErrorINN = ErrorInvalidOrNeedNumericKey,
 	ErrorNS = ErrorNeedStringKey,
 	ErrorNE = ErrorNoInValidCharacter
-> = FindAllLevelChildKeys<T, U> extends never
+> = IsCharacterValid<ChildPath, ChildPath, ErrorNE, '/'> extends ErrorNE
+	? ErrorNE
+	: FindAllLevelChildKeys<T, U> extends never
 	? ErrorHasNoChild<U>
 	: ValidateFullPath<
 			T,

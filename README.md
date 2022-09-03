@@ -90,8 +90,12 @@
 </div>
 <br/>
 <div align="center">
-		<i>Typescript Wrapper for Realtime Database</i>
+		Extreme Type Safe For Realtime Database Web, Write RTDB Code That Stand The Test Of Time
 </div>
+		<br />
+		<div align="center">
+			<i>In The Relentless Pursuit Of Correctness</i>
+		</div>
 <br/>
 <div align="center">
 <a href="https://firelordjs.com/firesage/quick_start" target="_blank" style="color:blue"><strong>Documentation</strong></a>
@@ -100,6 +104,19 @@
 
 Coming soon
 
+## Contributing
+
+Read [here](https://firelordjs.com/miscellaneous/contributing)
+
 ## Trivial
 
 1. The name FireSage is a reference to [Fire Sages of Avatar](https://avatar.fandom.com/wiki/Fire_Sages).
+2. This is very likely the only RTDB Typescript wrapper in existence.
+
+## Related Projects
+
+1. [FirelordJS](https://github.com/tylim88/FirelordJS) - Typescript wrapper for Firestore Web
+2. [Firelord](https://github.com/tylim88/firelord) - Typescript wrapper for Firestore admin
+3. [FirelordRN](https://github.com/tylim88/Firelordrn) - Typescript wrapper for Realtime Database
+4. [FireLaw](https://github.com/tylim88/firelaw) - Write Firestore security rule with Typescript, utilizing Firelord type engine.
+5. [FireCall](https://github.com/tylim88/FireCall) - Helper Function to write easier and safer Firebase onCall function.

@@ -1,7 +1,7 @@
 {
 	"name": "firesagejs",
 	"version": "0.0.10",
-	"description": "🔥Write type safe and scalable Firebase Realtime Database code!",
+	"description": "🔥Extreme Type Safe For Realtime Database Web, Write RTDB Code That Stand The Test Of Time",
 	"source": "src/index.ts",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",

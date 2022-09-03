@@ -61,17 +61,20 @@ describe('test ValidateFullPath', () => {
 		type J = ValidateChildPath<Users, `b/h/${string}/s/abc`, 't'>
 		type K = ValidateChildPath<Users, `u`, 'abc'>
 		type L = ValidateChildPath<Users, `b/h/${string}/s/`, 't'> // this case need granular error message
+		type M = ValidateChildPath<Users, 'q', ''>
+
 		IsTrue<IsSame<A, ErrorHasNoChild<'a'>>>()
 		IsTrue<IsSame<B, ErrorInvalidOrNeedNumericKey>>()
 		IsTrue<IsSame<C, ErrorInvalidOrNeedNumericKey>>()
 		IsTrue<IsSame<D, ErrorInvalidOrNeedNumericKey>>()
 		IsTrue<IsSame<E, ErrorInvalidOrNeedNumericKey>>()
-		IsTrue<IsSame<F, never>>()
+		IsTrue<IsSame<F, ErrorNoInValidCharacter>>()
 		IsTrue<IsSame<G, ErrorInvalidOrNeedNumericKey>>()
 		IsTrue<IsSame<H, ErrorHasNoChild<`b/h/${string}/s/abc`>>>()
 		IsTrue<IsSame<I, ErrorNeedStringKey>>()
 		IsTrue<IsSame<J, ErrorHasNoChild<`b/h/${string}/s/abc`>>>()
 		IsTrue<IsSame<K, ErrorInvalidOrNeedNumericKey>>()
 		IsTrue<IsSame<L, ErrorHasNoChild<`b/h/${string}/s/`>>>()
+		IsTrue<IsSame<M, ErrorNoInValidCharacter>>()
 	})
 })
