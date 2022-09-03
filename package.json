@@ -36,7 +36,7 @@
 		"published": "-------------test published file-----------------------",
 		"p-reinstall": "npm --prefix codeForDoc run reinstall && babel-node -x .ts scripts/installLatest.ts",
 		"p-test": "npm --prefix codeForDoc test",
-		"p-tsc": "npm --prefix codeForDoc tsc"
+		"p-tsc": "npm --prefix codeForDoc run tsc"
 	},
 	"repository": {
 		"type": "git",

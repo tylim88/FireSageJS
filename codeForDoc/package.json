@@ -7,7 +7,7 @@
 		"uninstall": "rm -rf node_modules && rm -rf package-lock.json",
 		"reinstall": "npm run uninstall && npm i",
 		"test": "firebase emulators:exec --only database \"rm -rf coverage && jest\"",
-		"tsc": "tsc --noEmit"
+		"tsc": "tsc"
 	},
 	"author": "",
 	"license": "ISC",
