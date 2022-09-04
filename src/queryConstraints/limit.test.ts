@@ -1,10 +1,10 @@
 import { limitToFirst, limitToLast } from './limit'
 
-// limit to last type also tested in orderBy
+// functionality test in get.test.ts
 describe('test limit type', () => {
 	it('test wide number type, should pass', () => {
 		;() => {
-			const num = 1
+			const num = 1 as number
 			limitToFirst(num)
 			limitToLast(num)
 		}

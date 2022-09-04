@@ -12,3 +12,6 @@ import {
 	limitToFirst,
 	limitToLast,
 } from 'firesagejs'
+
+//
+;() => {}
