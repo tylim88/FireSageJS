@@ -37,6 +37,8 @@ type ValidateChildPathCursor<
 	ErrorInvalidFirebaseKey
 >
 
+export type IsCursorConflicting = 1
+
 export type ValidateCursor<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
@@ -47,11 +49,12 @@ export type ValidateCursor<
 	  ErrorCursorMustHasOrderBy
 	: O['length'] extends 1
 	? O[0] extends infer R
-		? C extends CursorConstraint<infer A, infer B>
+		? C extends CursorConstraint<infer Z, infer A, infer B>
 			? B[] extends string[]
 				? A[] extends CursorValue[]
 					? R extends OrderByConstraint<'orderByKey', undefined>
 						? CursorConstraint<
+								Z,
 								A extends string
 									? ValidateChildPathCursor<T, U, A>
 									: ErrorOrderingByKeyMustBeString,
@@ -59,6 +62,7 @@ export type ValidateCursor<
 						  >
 						: R extends OrderByConstraint<'orderByValue', undefined>
 						? CursorConstraint<
+								Z,
 								FindNestedCompareTypeFromFullPath<T, U> extends Record<
 									string,
 									infer X
@@ -69,11 +73,13 @@ export type ValidateCursor<
 						  >
 						: R extends OrderByConstraint<'orderByPriority', undefined>
 						? CursorConstraint<
+								Z,
 								A extends Priority ? Priority : ErrorOderByPriority,
 								ValidateChildPathCursor<T, U, B>
 						  >
 						: R extends OrderByConstraint<'orderByChild', infer X>
 						? CursorConstraint<
+								Z,
 								FindNestedCompareTypeFromFullPath<
 									T,
 									`${U extends string ? `${U}/` : ''}${GetFirstSegment<

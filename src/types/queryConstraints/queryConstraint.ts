@@ -22,6 +22,14 @@ type OrderByType = StrictExtract<
 	>
 >
 
+export type CursorType = StrictExtract<
+	QueryConstraintType,
+	StrictExtract<
+		QueryConstraintType,
+		'startAt' | 'startAfter' | 'endAt' | 'endBefore' | 'equalTo'
+	>
+>
+
 export interface OrderByConstraint<
 	T extends OrderByType,
 	V extends T extends 'orderByChild' ? string : undefined
@@ -35,8 +43,9 @@ export interface LimitConstraint extends Constraint<LimitSymbol> {
 	ref: OriQueryConstraint
 }
 
-export interface CursorConstraint<V, K extends string>
+export interface CursorConstraint<T extends CursorType, V, K extends string>
 	extends Constraint<CursorSymbol> {
+	type: T
 	value: V
 	key: K
 	ref: OriQueryConstraint
@@ -49,7 +58,7 @@ export type AllOrderByConstraints =
 			undefined
 	  >
 
-export type AllCursorConstraints = CursorConstraint<unknown, string>
+export type AllCursorConstraints = CursorConstraint<CursorType, unknown, string>
 
 export type AllQueryConstraints =
 	| LimitConstraint
