@@ -17,18 +17,21 @@ export type ValidateChildPath<
 	ErrorINN = ErrorInvalidOrNeedNumericKey,
 	ErrorNS = ErrorNeedStringKey,
 	ErrorNE = ErrorNoInValidCharacter
-> = IsCharacterValid<ChildPath, ChildPath, ErrorNE, '/'> extends ErrorNE
-	? ErrorNE
-	: FindAllLevelChildKeys<T, U> extends never
-	? ErrorHasNoChild<U>
-	: ValidateFullPath<
-			T,
-			`${U extends string ? `${U}/` : ''}${ChildPath}`,
-			ChildPath,
-			ErrorINN,
-			ErrorNS,
-			ErrorNE
-	  >
+> = IsCharacterValid<
+	ChildPath,
+	FindAllLevelChildKeys<T, U> extends never
+		? ErrorHasNoChild<U>
+		: ValidateFullPath<
+				T,
+				`${U extends string ? `${U}/` : ''}${ChildPath}`,
+				ChildPath,
+				ErrorINN,
+				ErrorNS,
+				ErrorNE
+		  >,
+	ErrorNE,
+	'/'
+>
 
 // string does not extends `${number}`
 // `${number}` extends string

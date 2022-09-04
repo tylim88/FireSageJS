@@ -10,20 +10,19 @@ import {
 } from 'firesagejs'
 //
 ;async () => {
-	// it is impossible to use wrong path and wrong value
 	// you can skip db argument (the rest of examples will go without db)
 	// the type of node 'a' is numeric literal 1 | 90 | 3700, it is not possible to use `increment` on it
 	await set(exampleRef(db, 'a'), 1)
 
 	// 1st array is relative child paths
-	// 2nd array is values, 'b/c' is boolean, 'b/d/e' is server timestamp
-	// all paths and values are safely typed, it is impossible to use wrong path or match it with wrong value
+	// 2nd array is values, it will try to match the path by index, 'b/c' is boolean, 'b/d/e' is server timestamp
 	// the length of values will match the length of paths
-	// finally it scans all paths to find out whether a child path is also a child of another path (if exist it will throw at runtime).
+	// finally it scans all paths to find out whether a child path is also a child of another path (reduce runtime exception).
 	await update(exampleRef(), ['b/c', 'b/d/e'], [true, serverTimestamp()])
 
+	// snapshot return by get are fully typed
 	const snapshot = await get(exampleRef('f'))
-	const val = snapshot.val() // value type is what defined in MetaType union with null, in this case it is Record<string, 'a' | 'b' | 'c'> | null
+	const val = snapshot.val() // value type is what defined in MetaType, in this case it is Record<string, 'a' | 'b' | 'c'> | null
 	const exists = snapshot.exists() // boolean
 	const size = snapshot.size // number
 	const hasChild = snapshot.hasChild('k') // type of argument is what defined in MetaType, in this case it is `string` because 'f' is Record<string, 'a' | 'b' | 'c'>
@@ -38,8 +37,8 @@ import {
 	// only node with Removable type can be removed and b/c is boolean | Removable
 	await remove(exampleRef('b/c'))
 
-	// only PushAbleOnly node can be pushed
-	// you cannot set or update PushAbleOnly node
-	// you can update or set the child of PushAbleOnly node, as long as the child itself is not PushAbleOnly
-	await push(exampleRef('g'), { h: increment(1) })
+	// only PushAbleOnly node can be pushed and g is PushAbleOnly<{ h: number }>
+	// PushAbleOnly node cannot be set or updated
+	// Child of PushAbleOnly node can be set or updated, as long as the child itself is not PushAbleOnly
+	await push(exampleRef('g'), { h: increment(1), j: { k: true } })
 }

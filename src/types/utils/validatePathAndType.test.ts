@@ -68,7 +68,7 @@ describe('test ValidateFullPath', () => {
 		IsTrue<IsSame<C, ErrorInvalidOrNeedNumericKey>>()
 		IsTrue<IsSame<D, ErrorInvalidOrNeedNumericKey>>()
 		IsTrue<IsSame<E, ErrorInvalidOrNeedNumericKey>>()
-		IsTrue<IsSame<F, ErrorNoInValidCharacter>>()
+		IsTrue<IsSame<F, never>>()
 		IsTrue<IsSame<G, ErrorInvalidOrNeedNumericKey>>()
 		IsTrue<IsSame<H, ErrorHasNoChild<`b/h/${string}/s/abc`>>>()
 		IsTrue<IsSame<I, ErrorNeedStringKey>>()
