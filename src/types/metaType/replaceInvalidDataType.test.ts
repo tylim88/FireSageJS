@@ -4,7 +4,7 @@ import {
 } from './replaceInvalidDataType'
 import {
 	ErrorObjectTypeUnion,
-	ErrorUsePseudoArrayInstead,
+	ErrorUseNumericKeyRecordInstead,
 	ErrorInvalidKey,
 } from './error'
 import {
@@ -12,7 +12,7 @@ import {
 	PushAble,
 	Removable,
 	PushAbleOnly,
-	PseudoArray,
+	NumericKeyRecord,
 } from '../fieldType'
 import { IsTrue, IsSame } from '../tsUtils'
 
@@ -29,13 +29,13 @@ describe('test replace invalid data type', () => {
 			a: { b: 1; d: { e: { f: 2 } | null } }
 		}>
 		type E = ReplaceInvalidUnion<{
-			a: { b: 1; d: { e: PseudoArray<unknown> | undefined } }
+			a: { b: 1; d: { e: NumericKeyRecord<unknown> | undefined } }
 		}>
 		type F = ReplaceInvalidUnion<{
 			a: { b: 1; d: { e: PushAbleOnly<unknown> | string } }
 		}>
 		type G = ReplaceInvalidUnion<{
-			a: { b: 1; d: { e: { f: 2 } | PseudoArray<unknown> } }
+			a: { b: 1; d: { e: { f: 2 } | NumericKeyRecord<unknown> } }
 		}>
 		type H = ReplaceInvalidUnion<{
 			a: { b: 1; d: { e: { f: 2 } | PushAble<unknown> } }
@@ -83,8 +83,8 @@ describe('test replace invalid data type', () => {
 				A,
 				{
 					a: {
-						b: ErrorUsePseudoArrayInstead
-						d: { e: { f: ErrorUsePseudoArrayInstead }; g: boolean }
+						b: ErrorUseNumericKeyRecordInstead
+						d: { e: { f: ErrorUseNumericKeyRecordInstead }; g: boolean }
 					}
 				}
 			>

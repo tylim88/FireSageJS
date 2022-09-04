@@ -3,7 +3,7 @@ import {
 	Increment,
 	PushAble,
 	PushAbleOnly,
-	PseudoArray,
+	NumericKeyRecord,
 } from '../fieldType'
 
 export type ReadTypeConverter<T> = T extends Record<string, unknown>
@@ -12,7 +12,7 @@ export type ReadTypeConverter<T> = T extends Record<string, unknown>
 	? { [x in string]: ReadTypeConverter<X> }
 	: T extends PushAbleOnly<infer X>
 	? { [x in string]: ReadTypeConverter<X> }
-	: T extends PseudoArray<infer X>
+	: T extends NumericKeyRecord<infer X>
 	? Record<`${number}`, ReadTypeConverter<X>>
 	: T extends ServerTimestamp
 	? number
@@ -24,7 +24,7 @@ export type CompareTypeConverter<T> = T extends Record<string, unknown>
 	? { [x in string]: CompareTypeConverter<X> }
 	: T extends PushAbleOnly<infer X>
 	? { [x in string]: CompareTypeConverter<X> }
-	: T extends PseudoArray<infer X>
+	: T extends NumericKeyRecord<infer X>
 	? { [x in `${number}`]: CompareTypeConverter<X> }
 	: T extends ServerTimestamp
 	? number
@@ -36,7 +36,7 @@ export type WriteTypeConverter<T> = T extends Record<string, unknown>
 	? { [x in string]: WriteTypeConverter<X> }
 	: T extends PushAbleOnly<infer X>
 	? { [x in string]: WriteTypeConverter<X> }
-	: T extends PseudoArray<infer X>
+	: T extends NumericKeyRecord<infer X>
 	? { [x in `${number}`]: WriteTypeConverter<X> } | WriteTypeConverter<X>[]
 	: number extends T
 	? number | Increment

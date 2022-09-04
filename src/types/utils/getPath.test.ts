@@ -2,7 +2,7 @@ import {
 	GetAllRemovablePaths,
 	GetAllPushAblePaths,
 	GetAllPushAbleOnlyPaths,
-	GetAllPseudoArrayPaths,
+	GetAllNumericKeyRecordPaths,
 	GetFullPath,
 } from './getPath'
 import { IsTrue, IsSame } from '../tsUtils'
@@ -58,6 +58,8 @@ describe('test get path', () => {
 	})
 
 	it('test Get All Pseudo Array Path', () => {
-		IsTrue<IsSame<GetAllPseudoArrayPaths<Users>, `b/h/${string}/s` | 'u' | 'w'>>
+		IsTrue<
+			IsSame<GetAllNumericKeyRecordPaths<Users>, `b/h/${string}/s` | 'u' | 'w'>
+		>
 	})
 })

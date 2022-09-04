@@ -1,5 +1,5 @@
 export type ErrorInvalidQueryType<T extends string | undefined> =
-	`Error: You can only query data type Record<string, T>, PushAble<T>, PushAbleOnly<T>, OR PseudoArray<T>. But the data type of path ${T extends string
+	`Error: You can only query data type Record<string, T>, PushAble<T>, PushAbleOnly<T>, OR NumericKeyRecord<T>. But the data type of path ${T extends string
 		? T
 		: 'root'} is neither of those`
 export type ErrorLimitInvalidNumber =

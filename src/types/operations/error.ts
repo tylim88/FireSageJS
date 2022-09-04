@@ -3,7 +3,7 @@ export type ErrorPathHasAncestor<
 	Ancestor extends string
 > = `Error: values argument contains a path '${Ancestor}' that is ancestor of another path '${Descendent}'`
 export type ErrorInvalidSetPriorityRef<T extends string | undefined> =
-	`Error: You can only set or set with priority if the parent data type is Record<string, T>, PushAble<T>, PushAbleOnly<T>, OR PseudoArray<T>. But the data type of path ${T extends string
+	`Error: You can only set or set with priority if the parent data type is Record<string, T>, PushAble<T>, PushAbleOnly<T>, OR NumericKeyRecord<T>. But the data type of path ${T extends string
 		? T
 		: 'root'} is neither of those`
 export type ErrorNeedTupleNotArray =

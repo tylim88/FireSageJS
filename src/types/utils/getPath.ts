@@ -1,5 +1,10 @@
 import { MetaType } from '../metaType'
-import { PushAble, Removable, PushAbleOnly, PseudoArray } from '../fieldType'
+import {
+	PushAble,
+	Removable,
+	PushAbleOnly,
+	NumericKeyRecord,
+} from '../fieldType'
 import { ValidateFullPath } from './validatePathAndType'
 
 export type GetFullPath<
@@ -42,7 +47,7 @@ export type GetAllVPath<
 							Key extends undefined ? string : `${Key}/${string}`
 					  >
 					: never)
-			| (T extends PseudoArray<infer X>
+			| (T extends NumericKeyRecord<infer X>
 					? GetAllVPath<
 							X,
 							V,
@@ -63,7 +68,7 @@ export type GetAllVPath<
 	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${string}`>
 	: T extends PushAbleOnly<infer X>
 	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${string}`>
-	: T extends PseudoArray<infer X>
+	: T extends NumericKeyRecord<infer X>
 	? GetAllVPath<X, V, Key extends undefined ? string : `${Key}/${number}`>
 	: never
 
@@ -82,7 +87,7 @@ export type GetAllPushAbleOnlyPaths<T extends MetaType> = GetAllVPath<
 	PushAbleOnly<unknown>
 >
 
-export type GetAllPseudoArrayPaths<T extends MetaType> = GetAllVPath<
+export type GetAllNumericKeyRecordPaths<T extends MetaType> = GetAllVPath<
 	T['base'],
-	PseudoArray<unknown>
+	NumericKeyRecord<unknown>
 >

@@ -19,7 +19,7 @@ export type {
 	ServerTimestamp,
 	PushAble,
 	PushAbleOnly,
-	PseudoArray,
+	NumericKeyRecord,
 	Removable,
 	Increment,
 	MetaTypeCreator,

@@ -3,14 +3,14 @@ const incrementSymbol: unique symbol = Symbol()
 const pushAbleSymbol: unique symbol = Symbol()
 const pushAbleOnlySymbol: unique symbol = Symbol()
 const removeSymbol: unique symbol = Symbol()
-const pseudoArray: unique symbol = Symbol()
+const numericKeyRecord: unique symbol = Symbol()
 
 type ServerTimestampSymbol = typeof serverTimestampSymbol
 type IncrementSymbol = typeof incrementSymbol
 type PushAbleSymbol = typeof pushAbleSymbol
 type PushAbleOnlySymbol = typeof pushAbleOnlySymbol
 type RemoveSymbol = typeof removeSymbol
-type PseudoArraySymbol = typeof pseudoArray
+type NumericKeyRecordSymbol = typeof numericKeyRecord
 
 declare class FieldType<T extends symbol> {
 	private constructor()
@@ -31,7 +31,8 @@ export interface PushAble<T> extends FieldType<PushAbleSymbol> {}
 export interface PushAbleOnly<T> extends FieldType<PushAbleOnlySymbol> {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface PseudoArray<T> extends FieldType<PseudoArraySymbol> {}
+export interface NumericKeyRecord<T>
+	extends FieldType<NumericKeyRecordSymbol> {}
 
 export type AllFieldTypes =
 	| ServerTimestamp
@@ -39,4 +40,4 @@ export type AllFieldTypes =
 	| Removable
 	| PushAble<unknown>
 	| PushAbleOnly<unknown>
-	| PseudoArray<unknown>
+	| NumericKeyRecord<unknown>

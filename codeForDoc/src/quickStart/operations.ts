@@ -22,9 +22,8 @@ import {
 	// finally it scans all paths to find out whether a child path is also a child of another path (if exist it will throw at runtime).
 	await update(exampleRef(), ['b/c', 'b/d/e'], [true, serverTimestamp()])
 
-	// It is impossible to use wrong child name
 	const snapshot = await get(exampleRef('f'))
-	const val = snapshot.val() // value type is what defined in MetaType, in this case it is Record<string, 'a' | 'b' | 'c'> | null
+	const val = snapshot.val() // value type is what defined in MetaType union with null, in this case it is Record<string, 'a' | 'b' | 'c'> | null
 	const exists = snapshot.exists() // boolean
 	const size = snapshot.size // number
 	const hasChild = snapshot.hasChild('k') // type of argument is what defined in MetaType, in this case it is `string` because 'f' is Record<string, 'a' | 'b' | 'c'>

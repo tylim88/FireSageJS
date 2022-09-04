@@ -2,7 +2,7 @@ import {
 	MetaTypeCreator,
 	ServerTimestamp,
 	PushAbleOnly, // field type, special index signature, is Record<string, T> under the hood
-	PseudoArray, // field type, special index signature, is Record<number, T> under the hood
+	NumericKeyRecord, // field type, special index signature, is Record<number, T> under the hood
 	Removable, // field type, utility
 } from 'firesagejs'
 
@@ -16,5 +16,5 @@ export type Example = MetaTypeCreator<{
 	}
 	f: Record<string, 'a' | 'b' | 'c'> // normal index signature
 	g: PushAbleOnly<{ h: number }> // the child of PushAbleOnly node can only be created via `push` function.
-	i: PseudoArray<string> // Firesage replaces all numeric key node { 1:'a', 2:'b', 3:'c' } with error message, please use PseudoArray instead
+	i: NumericKeyRecord<string> // Firesage replaces all numeric key node { 1:'a', 2:'b', 3:'c' } with error message, please use NumericKeyRecord instead
 }>

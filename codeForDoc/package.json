@@ -14,7 +14,7 @@
 	"dependencies": {
 		"code-for-doc": "file:",
 		"firebase": "latest",
-		"firesagejs": "^0.0.9"
+		"firesagejs": "latest"
 	},
 	"devDependencies": {
 		"@firebase/rules-unit-testing": "^2.0.2",

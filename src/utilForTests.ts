@@ -10,7 +10,7 @@ import {
 	PushAble,
 	Removable,
 	PushAbleOnly,
-	PseudoArray,
+	NumericKeyRecord,
 	DataSnapshot,
 } from './types'
 import { createRef } from './refs'
@@ -49,14 +49,14 @@ export type Users = MetaTypeCreator<{
 				p:
 					| PushAbleOnly<{ r: ServerTimestamp | Removable } | Removable>
 					| Removable
-				s: PseudoArray<{ t: number | Removable } | Removable> | Removable
+				s: NumericKeyRecord<{ t: number | Removable } | Removable> | Removable
 			}
 		>
 	}
 	o: PushAble<number | Removable>
 	q: PushAbleOnly<0 | 1 | 4 | 5 | 6>
-	u: PseudoArray<string | Removable>
-	w: PseudoArray<{ v: boolean }>
+	u: NumericKeyRecord<string | Removable>
+	w: NumericKeyRecord<{ v: boolean }>
 }>
 
 export const usersRef = createRef<Users>()

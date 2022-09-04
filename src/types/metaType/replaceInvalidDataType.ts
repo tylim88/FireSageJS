@@ -1,7 +1,7 @@
 import {
 	ErrorInvalidDataType,
 	ErrorObjectTypeUnion,
-	ErrorUsePseudoArrayInstead,
+	ErrorUseNumericKeyRecordInstead,
 	ErrorInvalidKey,
 } from './error'
 import {
@@ -9,7 +9,7 @@ import {
 	PushAble,
 	Removable,
 	PushAbleOnly,
-	PseudoArray,
+	NumericKeyRecord,
 } from '../fieldType'
 import { IsCharacterValid } from '../utils'
 import { IsUnion } from '../tsUtils'
@@ -22,7 +22,7 @@ type IsValidFirebaseKey<K extends string, P> = IsCharacterValid<
 
 type ReplaceRecordNumber<T, U> = T extends Record<infer X, unknown>
 	? X extends number | `${number}`
-		? ErrorUsePseudoArrayInstead
+		? ErrorUseNumericKeyRecordInstead
 		: U
 	: never
 
@@ -48,8 +48,8 @@ export type ReplaceInvalidDataTypeBase<T> = T extends
 	? PushAble<ReplaceInvalidDataTypeBase<X>>
 	: T extends PushAbleOnly<infer X>
 	? PushAbleOnly<ReplaceInvalidDataTypeBase<X>>
-	: T extends PseudoArray<infer X>
-	? PseudoArray<ReplaceInvalidDataTypeBase<X>>
+	: T extends NumericKeyRecord<infer X>
+	? NumericKeyRecord<ReplaceInvalidDataTypeBase<X>>
 	: ErrorInvalidDataType
 
 export type ReplaceInvalidDataTypeRead<T> = T extends
@@ -74,8 +74,8 @@ export type ReplaceInvalidDataTypeRead<T> = T extends
 	? PushAble<ReplaceInvalidDataTypeRead<X>>
 	: T extends PushAbleOnly<infer X>
 	? PushAbleOnly<ReplaceInvalidDataTypeRead<X>>
-	: T extends PseudoArray<infer X>
-	? PseudoArray<ReplaceInvalidDataTypeRead<X>>
+	: T extends NumericKeyRecord<infer X>
+	? NumericKeyRecord<ReplaceInvalidDataTypeRead<X>>
 	: ErrorInvalidDataType
 
 export type ReplaceInvalidDataTypeWrite<T> = T extends
@@ -100,8 +100,8 @@ export type ReplaceInvalidDataTypeWrite<T> = T extends
 	? PushAble<ReplaceInvalidDataTypeWrite<X>>
 	: T extends PushAbleOnly<infer X>
 	? PushAbleOnly<ReplaceInvalidDataTypeWrite<X>>
-	: T extends PseudoArray<infer X>
-	? PseudoArray<ReplaceInvalidDataTypeWrite<X>>
+	: T extends NumericKeyRecord<infer X>
+	? NumericKeyRecord<ReplaceInvalidDataTypeWrite<X>>
 	: ErrorInvalidDataType
 
 export type ReplaceRemove<T> = T extends Removable
@@ -112,8 +112,8 @@ export type ReplaceRemove<T> = T extends Removable
 	? PushAble<ReplaceRemove<X>>
 	: T extends PushAbleOnly<infer X>
 	? PushAbleOnly<ReplaceRemove<X>>
-	: T extends PseudoArray<infer X>
-	? PseudoArray<ReplaceRemove<X>>
+	: T extends NumericKeyRecord<infer X>
+	? NumericKeyRecord<ReplaceRemove<X>>
 	: T
 
 export type ReplaceRemoveWithUndefined<T> = T extends Removable
@@ -124,8 +124,8 @@ export type ReplaceRemoveWithUndefined<T> = T extends Removable
 	? PushAble<ReplaceRemoveWithUndefined<X>>
 	: T extends PushAbleOnly<infer X>
 	? PushAbleOnly<ReplaceRemoveWithUndefined<X>>
-	: T extends PseudoArray<infer X>
-	? PseudoArray<ReplaceRemoveWithUndefined<X>>
+	: T extends NumericKeyRecord<infer X>
+	? NumericKeyRecord<ReplaceRemoveWithUndefined<X>>
 	: T
 
 export type ReplaceInvalidUnion<T> = Exclude<T, Removable> extends infer R
@@ -135,7 +135,7 @@ export type ReplaceInvalidUnion<T> = Exclude<T, Removable> extends infer R
 				| Record<string, unknown>
 				| PushAble<unknown>
 				| PushAbleOnly<unknown>
-				| PseudoArray<unknown>
+				| NumericKeyRecord<unknown>
 		  > extends never
 			? T
 			: ErrorObjectTypeUnion

@@ -4,7 +4,7 @@ import {
 	Removable,
 	PushAble,
 	PushAbleOnly,
-	PseudoArray,
+	NumericKeyRecord,
 } from '../fieldType'
 import { IsTrue, IsSame } from '../tsUtils'
 import { Users } from '../../utilForTests'
@@ -405,14 +405,14 @@ describe('test generated meta type', () => {
 									| PushAble<{ n: '1' | '2' | '7' | '8' | '9' | Removable }>
 									| Removable
 								p: PushAbleOnly<{ r: ServerTimestamp | Removable }> | Removable
-								s: PseudoArray<{ t: number | Removable }> | Removable
+								s: NumericKeyRecord<{ t: number | Removable }> | Removable
 							}
 						>
 					}
 					o: PushAble<number>
 					q: PushAbleOnly<0 | 1 | 4 | 5 | 6>
-					u: PseudoArray<string>
-					w: PseudoArray<boolean>
+					u: NumericKeyRecord<string>
+					w: NumericKeyRecord<boolean>
 					// * Note, the field type can accept any type and the test will still pass
 					// this is because the type exist only on generic and never pass down to any properties
 				}
