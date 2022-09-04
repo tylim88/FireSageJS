@@ -102,7 +102,7 @@
 </div>
 <br/>
 
-Coming soon
+Write mind-boggling type safe Realtime Database code with minimum learning curve. RTDB type level defensive programming at it best.
 
 ## Contributing
 
@@ -111,7 +111,8 @@ Read [here](https://firelordjs.com/miscellaneous/contributing)
 ## Trivial
 
 1. The name FireSage is a reference to [Fire Sages of Avatar](https://avatar.fandom.com/wiki/Fire_Sages).
-2. This is very likely the only RTDB Typescript wrapper in existence.
+2. This is most likely the only RTDB type safe wrapper in existence.
+3. FireSageJS is harder to code than its sister project [FirelordJS](https://github.com/tylim88/FirelordJS) because of the need of non-numeric and numeric string type validation. FirelordJS however is quirkier due to all kind of rules.
 
 ## Related Projects
 

@@ -132,11 +132,25 @@ describe('test query type', () => {
 				startAt('efg')
 			)
 			query(
+				usersRef('q'),
+				orderByKey(),
+				// @ts-expect-error
+				startAfter('abc'),
+				startAfter('efg')
+			)
+			query(
 				usersRef('o'),
 				orderByKey(),
 				// @ts-expect-error
 				startAt('efg'),
 				startAfter('abc')
+			)
+			query(
+				usersRef('o'),
+				orderByKey(),
+				// @ts-expect-error
+				startAt('abc'),
+				startAt('efg')
 			)
 			query(
 				usersRef('u'),
@@ -147,10 +161,24 @@ describe('test query type', () => {
 			)
 			query(
 				usersRef('u'),
+				orderByValue(),
+				// @ts-expect-error
+				endBefore('abc'),
+				endBefore('efg')
+			)
+			query(
+				usersRef('u'),
 				orderByKey(),
 				// @ts-expect-error
 				endBefore('123'),
 				endAt('456')
+			)
+			query(
+				usersRef('u'),
+				orderByKey(),
+				// @ts-expect-error
+				endAt('456'),
+				endAt('123')
 			)
 			query(
 				usersRef('w'),
