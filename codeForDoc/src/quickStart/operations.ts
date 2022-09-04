@@ -1,15 +1,25 @@
-import { exampleRef } from './createRef'
-import { set, get, update, serverTimestamp } from 'firesagejs'
+import { exampleRef, db } from './createRef'
+import {
+	set,
+	get,
+	update,
+	serverTimestamp,
+	remove,
+	push,
+	increment,
+} from 'firesagejs'
 //
 ;async () => {
 	// it is impossible to use wrong path and wrong value
-	await set(exampleRef('a'), 1)
+	// you can skip db argument (the rest of examples will go without db)
+	// the type of node 'a' is numeric literal 1 | 90 | 3700, it is not possible to use `increment` on it
+	await set(exampleRef(db, 'a'), 1)
 
 	// 1st array is relative child paths
 	// 2nd array is values, 'b/c' is boolean, 'b/d/e' is server timestamp
 	// all paths and values are safely typed, it is impossible to use wrong path or match it with wrong value
 	// the length of values will match the length of paths
-	// finally it scans all paths, determining whether a child path is also a child of another child path because this will trigger runtime error.
+	// finally it scans all paths to find out whether a child path is also a child of another path (if exist it will throw at runtime).
 	// all validations mentioned are done on type level
 	await update(exampleRef(), ['b/c', 'b/d/e'], [true, serverTimestamp()])
 
@@ -22,7 +32,16 @@ import { set, get, update, serverTimestamp } from 'firesagejs'
 	const hasChildren = snapshot.hasChildren() // boolean
 	const json = snapshot.toJSON() // object, this one you have to type cast it by yourself
 	snapshot.forEach((child, index) => {
-		// child is also snapshot and can access forEach, val, key, size, exists, child, hasChild, hasChildren, toJSON
-		// child is recursively typed, kaboom!!
+		// the official SDK does not provide index, but you get one here, for free
+		// like official SDK, child is also snapshot and can access forEach, val, key, size, exists, child, hasChild, hasChildren, toJSON
+		// child is recursively typed, hooray!!
 	})
+
+	// only node with Removable type can be removed and b/c is boolean | Removable
+	await remove(exampleRef('b/c'))
+
+	// only PushAbleOnly node can be pushed
+	// you cannot set or update PushAbleOnly node
+	// you can update or set the child of PushAbleOnly node, as long as the child itself is not PushAbleOnly
+	await push(exampleRef('g'), { h: increment(1) })
 }

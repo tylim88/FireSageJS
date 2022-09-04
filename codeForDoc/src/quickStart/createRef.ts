@@ -6,6 +6,6 @@ const app = initializeApp({
 	projectId: '### PROJECT ID ###',
 })
 
-const db = getDatabase() // or getDatabase(app)
+export const db = getDatabase() // or getDatabase(app), you can skip this
 
 export const exampleRef = createRef<Example>() // or createRef<Example>(db)

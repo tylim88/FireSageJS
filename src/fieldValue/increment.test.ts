@@ -6,7 +6,7 @@ import { increment } from './increment'
 
 initializeApp()
 describe('test increment', () => {
-	const ref = createRef<MetaTypeCreator<{ a: number }>>()
+	const ref = createRef<MetaTypeCreator<{ a: number; b: 1 | 2 | 3 }>>()
 	const node = ref('a')
 	const root = ref()
 	it('test with set', async () => {
@@ -21,5 +21,24 @@ describe('test increment', () => {
 		const dataSnapshot = await get(node)
 		const data = dataSnapshot.val()
 		expect(data).toBe(-100)
+	})
+
+	it('test with numeric literal, should fail', () => {
+		const node = ref('b')
+		;() => {
+			set(
+				node,
+				// @ts-expect-error
+				increment(100)
+			)
+			update(
+				root,
+				['b'],
+				[
+					// @ts-expect-error
+					increment(-100),
+				]
+			)
+		}
 	})
 })
