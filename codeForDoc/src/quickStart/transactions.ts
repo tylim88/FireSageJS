@@ -2,7 +2,7 @@ import { exampleRef } from './createRef'
 import { runTransaction } from 'firesagejs'
 
 // type of 'g' node is PushAbleOnly<{ h: number; j: { k: boolean } }>
-// that is why the return is { h: 123, j: { k: false } }
+// hence the return is { { h: number; j: { k: boolean } }
 ;async () => {
 	const result = await runTransaction(
 		exampleRef('g/a1b2c3'),

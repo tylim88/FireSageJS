@@ -19,7 +19,7 @@ import {
 // there can be only one orderBy clause (reduce runtime exception)
 // the type of cursor 1st argument must be at most string | boolean | number | null
 // the 2nd argument of cursor is optional except when order by key
-// any combination of cursor below will trigger type error(to reduce runtime exception):
+// any combination of cursor below will trigger type error(reduce runtime exception):
 // startAt and startAfter
 // endAt and endBefore
 // equalTo and any other cursor

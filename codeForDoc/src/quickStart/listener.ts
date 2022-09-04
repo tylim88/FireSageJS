@@ -17,7 +17,7 @@ import {
 // onChild listener only listen to node of type Record<string, T>, PushAbleOnly<T> or NumericKeyRecord<T> can be listened, similar rule to query
 // onValue listener can listen to any node
 // can listen to both ref and query
-// every listener can accept onError callback and options, both are optional
+// (function overloading)every listener can accept onError callback and options, both are optional
 // snapshot typing mechanism is same as 'get' snapshot
 
 onChildAdded(
