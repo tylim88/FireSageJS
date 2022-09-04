@@ -59,10 +59,7 @@ export type GetAllCursorTypes<
 > = CC extends [infer H, ...infer R extends AllCursorConstraints[]]
 	? GetAllCursorTypes<
 			R,
-			[
-				...ACC,
-				H extends CursorConstraint<infer T, infer V, infer K> ? T : never
-			]
+			[...ACC, H extends CursorConstraint<infer T, unknown, string> ? T : never]
 	  >
 	: ACC
 
