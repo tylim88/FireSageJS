@@ -15,11 +15,11 @@ import {
 	ErrorMultipleOrderBy,
 } from './error'
 
-export type GetAllOrderByType<
+export type GetAllOrderByConstraints<
 	QC extends AllQueryConstraints[],
 	ACC extends AllOrderByConstraints[] = []
 > = QC extends [infer H, ...infer R extends AllQueryConstraints[]]
-	? GetAllOrderByType<
+	? GetAllOrderByConstraints<
 			R,
 			[...ACC, ...(H extends AllOrderByConstraints ? [H] : [])]
 	  >

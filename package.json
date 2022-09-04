@@ -1,6 +1,6 @@
 {
 	"name": "firesagejs",
-	"version": "0.0.13",
+	"version": "0.0.14",
 	"description": "🔥Extreme Type Safe For Realtime Database Web, Write RTDB Code That Stand The Test Of Time",
 	"source": "src/index.ts",
 	"main": "dist/index.js",

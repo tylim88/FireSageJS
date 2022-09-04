@@ -9,8 +9,8 @@ query rules:
 3. You can't combine multiple orderBy calls. - done
 4. cursor does nothing without orderBy, ban cursor without orderBy - done
 5. When ordering by priority, the first argument passed to startAt(), startAfter() endAt(), endBefore(), or equalTo() must be a valid priority value (null, a number, or a string). - done
-6. Ending point was already set (by another call to endAt/endBefore or equalTo).
-7. Starting point was already set (by another call to startAt, startAfter, or equalTo).
+6. Ending point was already set (by another call to endAt/endBefore or equalTo). - done
+7. Starting point was already set (by another call to startAt, startAfter, or equalTo). - done
 
 key naming rule:
 Firebase keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]"). - done

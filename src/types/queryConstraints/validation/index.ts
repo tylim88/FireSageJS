@@ -6,8 +6,8 @@ import {
 } from '../queryConstraint'
 import { IsTuple } from '../../tsUtils'
 import { ErrorQueryConstraintsIsNotTuple } from './error'
-import { ValidateOrderByChildren, GetAllOrderByType } from './orderBy'
-import { ValidateCursor } from './cursor'
+import { ValidateOrderByChildren, GetAllOrderByConstraints } from './orderBy'
+import { ValidateCursor, GetAllCursorConstraints } from './cursor'
 
 export type ValidateQueryConstraints<
 	T extends MetaType,
@@ -17,21 +17,23 @@ export type ValidateQueryConstraints<
 	OriQC extends AllQueryConstraints[] = QC
 > = IsTuple<OriQC> extends false
 	? [ErrorQueryConstraintsIsNotTuple]
-	: GetAllOrderByType<OriQC> extends infer O extends AllOrderByConstraints[]
-	? QC extends [infer H, ...infer R extends AllQueryConstraints[]]
-		? ValidateQueryConstraints<
-				T,
-				U,
-				R,
-				[
-					...ACC,
-					H extends AllOrderByConstraints
-						? ValidateOrderByChildren<T, U, O, H>
-						: H extends AllCursorConstraints
-						? ValidateCursor<T, U, O, H>
-						: H
-				],
-				OriQC
-		  >
-		: ACC
+	: GetAllOrderByConstraints<OriQC> extends infer AllOrderBy extends AllOrderByConstraints[]
+	? GetAllCursorConstraints<OriQC> extends infer AllCursor extends AllCursorConstraints[]
+		? QC extends [infer CurrentCursor, ...infer R extends AllQueryConstraints[]]
+			? ValidateQueryConstraints<
+					T,
+					U,
+					R,
+					[
+						...ACC,
+						CurrentCursor extends AllOrderByConstraints
+							? ValidateOrderByChildren<T, U, AllOrderBy, CurrentCursor>
+							: CurrentCursor extends AllCursorConstraints
+							? ValidateCursor<T, U, AllOrderBy, CurrentCursor, AllCursor>
+							: CurrentCursor
+					],
+					OriQC
+			  >
+			: ACC
+		: never // impossible route
 	: never // impossible route

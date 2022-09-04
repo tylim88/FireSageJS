@@ -1,9 +1,11 @@
+import { CursorTypes } from '../queryConstraint'
+
 export type ErrorMultipleOrderBy =
 	`Error: You can't combine multiple orderBy calls.`
 export type ErrorMultipleOrderByCursor =
 	`Error: You can't combine multiple orderBy calls. Remove extra orderBy(s) before proceed`
 export type ErrorQueryConstraintsIsNotTuple =
-	`Error: The query constraints type must be a tuple. Note: array type is not tuple type but you can convert it to tuple by assert it as const, eg: "[1,2,3] as const`
+	`Error: The query constraints type must be a tuple. Note: array type is not tuple type but you can convert it to tuple by assert it as const, eg: '[1,2,3] as const'`
 export type ErrorCursorMustHasOrderBy =
 	`Error: missing orderBy clause, startAt, startAfter, endAt, endBefore or equalTo need orderBy to work`
 export type ErrorOrderByChildMustStartAtGrandChildPath<
@@ -17,6 +19,14 @@ export type ErrorOrderingByKeyMustBeString =
 export type ErrorOderByPriority =
 	`Error: When ordering by priority, the first argument passed to startAt(), startAfter() endAt(), endBefore(), or equalTo() must be a valid priority value (null, a number, or a string).`
 export type ErrorNeedStringKeyCursor =
-	`Error: you are trying to use numeric string key on non-numeric string key. Eg: the path type is '${string}' but your input is '${number}'`
+	`Error: You are trying to use numeric string key on non-numeric string key. Eg: the path type is '${string}' but your input is '${number}'`
 export type ErrorNeedNumericKeyCursor =
-	`Error: you are trying to use non-numeric string key on numeric string key. Eg: the path type is '${number}' but your input is '${string}'`
+	`Error: You are trying to use non-numeric string key on numeric string key. Eg: the path type is '${number}' but your input is '${string}'`
+export type ErrorCursorMustBeUnique<T extends CursorTypes> =
+	`Error: Cursor must be unique but you have duplicated cursor ${T}`
+export type ErrorCannotUseStartAtStartAfterTogether =
+	`Error: You cannot use both 'startAt' and 'startAfter' in the same query`
+export type ErrorCannotUseEndAtEndBeforeTogether =
+	`Error: You cannot use both 'endAt' and 'endBefore' in the same query`
+export type ErrorEqualToMustBeTheOnlyCursor =
+	`Error: You cannot use 'equalTo' with any other cursor in the same query`

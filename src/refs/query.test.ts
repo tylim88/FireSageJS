@@ -1,5 +1,15 @@
 import { query } from './query'
 import { usersRef, initializeApp } from '../utilForTests'
+import {
+	equalTo,
+	endAt,
+	endBefore,
+	startAfter,
+	startAt,
+	orderByKey,
+	orderByValue,
+	orderByChild,
+} from '../queryConstraints'
 
 initializeApp()
 
@@ -102,13 +112,69 @@ describe('test query type', () => {
 		)
 	})
 	it('test pass type', () => {
-		query(usersRef('b/h'))
-		query(usersRef('b/h/abc/m'))
-		query(usersRef('b/h/abc/p'))
+		query(usersRef('b/h'), orderByChild('i'))
+		query(usersRef('b/h/abc/m'), orderByKey())
+		query(usersRef('b/h/abc/p'), orderByValue())
 		query(usersRef('b/h/abc/s'))
 		query(usersRef('o'))
 		query(usersRef('q'))
 		query(usersRef('u'))
 		query(usersRef('w'))
+	})
+
+	it('test fail cursor combination', () => {
+		;() => {
+			query(
+				usersRef('q'),
+				orderByKey(),
+				// @ts-expect-error
+				startAfter('abc'),
+				startAt('efg')
+			)
+			query(
+				usersRef('o'),
+				orderByKey(),
+				// @ts-expect-error
+				startAt('efg'),
+				startAfter('abc')
+			)
+			query(
+				usersRef('u'),
+				orderByValue(),
+				// @ts-expect-error
+				endAt('efg'),
+				endBefore('abc')
+			)
+			query(
+				usersRef('u'),
+				orderByKey(),
+				// @ts-expect-error
+				endBefore('123'),
+				endAt('456')
+			)
+			query(
+				usersRef('w'),
+				orderByChild('v'),
+				// @ts-expect-error
+				equalTo(false),
+				startAt(true)
+			)
+			query(
+				usersRef('w'),
+				orderByKey(),
+				// @ts-expect-error
+				startAfter('456'),
+				equalTo('789')
+			)
+		}
+	})
+
+	it('test pass cursor combination', () => {
+		query(usersRef('q'), orderByKey(), startAfter('abc'), endAt('efg'))
+		query(usersRef('o'), orderByKey(), endBefore('efg'), startAfter('abc'))
+		query(usersRef('u'), orderByValue(), startAt('efg'), endBefore('abc'))
+		query(usersRef('u'), orderByKey(), startAt('123'), endAt('456'))
+		query(usersRef('w'), orderByChild('v'), equalTo(true))
+		query(usersRef('w'), orderByKey(), equalTo('789'))
 	})
 })
