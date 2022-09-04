@@ -253,7 +253,7 @@ describe('test generated meta type', () => {
 					[x: `b/h/${string}/s/${number}/t`]: number | Increment
 				}
 			>
-		> // ! add bracket make the test fail, weird
+		> // ! add bracket make the test fail but IsSame indeed return true, weird
 	})
 
 	it('test write', () => {
@@ -402,17 +402,19 @@ describe('test generated meta type', () => {
 								i: boolean
 								l: ServerTimestamp | Removable
 								m:
-									| PushAble<{ n: '1' | '2' | '7' | '8' | '9' | Removable }> // ! test still past if signature is wrong
+									| PushAble<{ n: '1' | '2' | '7' | '8' | '9' | Removable }>
 									| Removable
-								p: PushAbleOnly<{ r: ServerTimestamp | Removable }> | Removable // ! test still past if signature is wrong
-								s: PseudoArray<{ t: number | Removable }> | Removable // ! test still past if signature is wrong
+								p: PushAbleOnly<{ r: ServerTimestamp | Removable }> | Removable
+								s: PseudoArray<{ t: number | Removable }> | Removable
 							}
 						>
 					}
-					o: PushAble<number> // ! test still past if signature is wrong
-					q: PushAbleOnly<0 | 1 | 4 | 5 | 6> // ! test still past if signature is wrong
-					u: PseudoArray<string> // ! test still past if signature is wrong
-					w: PseudoArray<boolean> // ! test still past if signature is wrong
+					o: PushAble<number>
+					q: PushAbleOnly<0 | 1 | 4 | 5 | 6>
+					u: PseudoArray<string>
+					w: PseudoArray<boolean>
+					// * Note, the field type can accept any type and the test will still pass
+					// this is because the type exist only on generic and never pass down to any properties
 				}
 			>
 		>()
