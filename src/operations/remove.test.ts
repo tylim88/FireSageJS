@@ -3,7 +3,7 @@ import { initializeApp, usersRef } from '../utilForTests'
 import { remove } from './remove'
 
 initializeApp()
-describe('test remove]', () => {
+describe('test remove', () => {
 	it('test incorrect type', async () => {
 		remove(
 			// @ts-expect-error

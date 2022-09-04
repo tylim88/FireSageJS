@@ -402,17 +402,17 @@ describe('test generated meta type', () => {
 								i: boolean
 								l: ServerTimestamp | Removable
 								m:
-									| PushAble<{ n: '1' | '2' | '7' | '8' | '9' | Removable }>
+									| PushAble<{ n: '1' | '2' | '7' | '8' | '9' | Removable }> // ! test still past if signature is wrong
 									| Removable
-								p: PushAbleOnly<{ r: ServerTimestamp | Removable }> | Removable
-								s: PseudoArray<{ t: number | Removable }> | Removable
+								p: PushAbleOnly<{ r: ServerTimestamp | Removable }> | Removable // ! test still past if signature is wrong
+								s: PseudoArray<{ t: number | Removable }> | Removable // ! test still past if signature is wrong
 							}
 						>
 					}
-					o: PushAble<number>
-					q: PushAbleOnly<0 | 1 | 4 | 5 | 6> // ! pass still test if type is 4 | 5 | 6
-					u: PseudoArray<string>
-					w: PseudoArray<boolean>
+					o: PushAble<number> // ! test still past if signature is wrong
+					q: PushAbleOnly<0 | 1 | 4 | 5 | 6> // ! test still past if signature is wrong
+					u: PseudoArray<string> // ! test still past if signature is wrong
+					w: PseudoArray<boolean> // ! test still past if signature is wrong
 				}
 			>
 		>()
