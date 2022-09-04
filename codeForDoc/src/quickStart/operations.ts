@@ -14,7 +14,6 @@ import {
 	// you can skip db argument (the rest of examples will go without db)
 	// the type of node 'a' is numeric literal 1 | 90 | 3700, it is not possible to use `increment` on it
 	await set(exampleRef(db, 'a'), 1)
-	// for more about set, see test file https://github.com/tylim88/FireSageJS/blob/main/src/operations/set.test.ts
 
 	// 1st array is relative child paths
 	// 2nd array is values, 'b/c' is boolean, 'b/d/e' is server timestamp
@@ -22,7 +21,6 @@ import {
 	// the length of values will match the length of paths
 	// finally it scans all paths to find out whether a child path is also a child of another path (if exist it will throw at runtime).
 	await update(exampleRef(), ['b/c', 'b/d/e'], [true, serverTimestamp()])
-	// for more about update, see test file https://github.com/tylim88/FireSageJS/blob/main/src/operations/update.test.ts
 
 	// It is impossible to use wrong child name
 	const snapshot = await get(exampleRef('f'))
@@ -37,15 +35,12 @@ import {
 		// like official SDK, child is also snapshot and can access forEach, val, key, size, exists, child, hasChild, hasChildren, toJSON
 		// child is recursively typed, hooray!!
 	})
-	// for more about get, see test file https://github.com/tylim88/FireSageJS/blob/main/src/operations/get.test.ts
 
 	// only node with Removable type can be removed and b/c is boolean | Removable
 	await remove(exampleRef('b/c'))
-	// for more about remove, see test file https://github.com/tylim88/FireSageJS/blob/main/src/operations/remove.test.ts
 
 	// only PushAbleOnly node can be pushed
 	// you cannot set or update PushAbleOnly node
 	// you can update or set the child of PushAbleOnly node, as long as the child itself is not PushAbleOnly
 	await push(exampleRef('g'), { h: increment(1) })
-	// for more about push, see test file https://github.com/tylim88/FireSageJS/blob/main/src/operations/push.test.ts
 }
