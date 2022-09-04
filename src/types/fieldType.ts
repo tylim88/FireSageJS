@@ -1,9 +1,9 @@
-const serverTimestampSymbol: unique symbol = Symbol()
-const incrementSymbol: unique symbol = Symbol()
-const pushAbleSymbol: unique symbol = Symbol()
-const pushAbleOnlySymbol: unique symbol = Symbol()
-const removeSymbol: unique symbol = Symbol()
-const numericKeyRecord: unique symbol = Symbol()
+declare const serverTimestampSymbol: unique symbol
+declare const incrementSymbol: unique symbol
+declare const pushAbleSymbol: unique symbol
+declare const pushAbleOnlySymbol: unique symbol
+declare const removeSymbol: unique symbol
+declare const numericKeyRecord: unique symbol
 
 type ServerTimestampSymbol = typeof serverTimestampSymbol
 type IncrementSymbol = typeof incrementSymbol
