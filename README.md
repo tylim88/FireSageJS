@@ -90,7 +90,7 @@
 </div>
 <br/>
 <div align="center">
-		Extreme Type Safe For Realtime Database Web, Write RTDB Code That Stand The Test Of Time
+		Extreme Type Safe For Realtime Database Web, Write Realtime Database Code That Stand The Test Of Time
 </div>
 		<br />
 		<div align="center">
@@ -102,7 +102,7 @@
 </div>
 <br/>
 
-Write mind-boggling type safe Realtime Database code with minimum learning curve. RTDB type level defensive programming at it finest.
+Write mind-boggling type safe Realtime Database code with minimum learning curve. Type level Realtime Database defensive programming at it finest.
 
 ## Contributing
 
