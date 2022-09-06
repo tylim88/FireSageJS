@@ -10,7 +10,7 @@ import {
 	FindNestedCompareTypeFromFullPath,
 } from './findTypeAndKey'
 import { IsTrue, IsSame } from '../tsUtils'
-import { Users } from '../../utilForTests'
+import { Users, TopLevelRecord } from '../../utilForTests'
 import { Increment } from '../fieldType'
 
 describe('test', () => {
@@ -408,7 +408,7 @@ describe('test', () => {
 		IsTrue<IsSame<Q, number>>()
 	})
 
-	it('test Find Nested Read Type', () => {
+	it('test FindMetaPathType Type', () => {
 		type A = FindMetaPathType<Users, 'a'>
 		type B = FindMetaPathType<Users, 'b/h/abc'>
 		type C = FindMetaPathType<Users, 'b/h/123'>
@@ -416,14 +416,28 @@ describe('test', () => {
 		type E = FindMetaPathType<Users, 'b/h/abc/s'>
 		type F = FindMetaPathType<Users, 'b/h/abc/s/123'>
 		type G = FindMetaPathType<Users, 'b/h/abc/s/efg'>
+		type H = FindMetaPathType<Users, undefined>
 
 		IsTrue<IsSame<A, 'a'>>()
 		IsTrue<IsSame<B, `b/h/${string}`>>()
-		IsTrue<IsSame<C, `b/h/${string}`>>() // special case, because `${number}` extends string, ValidateFullPath will handle it
+		IsTrue<IsSame<C, `b/h/${string}`>>() // special case, should be `b/h/${number}`, because `${number}` extends string, ValidateFullPath will handle it
 		IsTrue<IsSame<D, never>>()
 		IsTrue<IsSame<E, `b/h/${string}/s`>>()
 		IsTrue<IsSame<F, `b/h/${string}/s/${number}`>>()
 		IsTrue<IsSame<G, never>>()
+		IsTrue<IsSame<H, undefined>>()
+	})
+
+	it('test FindMetaPathType Type For TopLevelRecord Type', () => {
+		type A = FindMetaPathType<TopLevelRecord, undefined>
+		type B = FindMetaPathType<TopLevelRecord, 'user1'>
+		type C = FindMetaPathType<TopLevelRecord, 'user1/a'>
+		type D = FindMetaPathType<TopLevelRecord, 'user1/k'>
+
+		IsTrue<IsSame<A, undefined>>()
+		IsTrue<IsSame<B, string>>()
+		IsTrue<IsSame<C, `${string}/a`>>()
+		IsTrue<IsSame<D, never>>()
 	})
 
 	it('test Find Key of WriteType', () => {

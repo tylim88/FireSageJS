@@ -6,26 +6,27 @@ import {
 	NumericKeyRecord,
 } from '../fieldType'
 import { ValidateFullPath } from './validatePathAndType'
+import { ErrorIsNotChildPathOf } from './error'
 
 export type GetFullPath<
 	T extends MetaType,
 	ParentFullPath extends (keyof T['flatten_write'] & string) | undefined,
 	ChildRelativePath extends string
-> = `${ParentFullPath}/${ChildRelativePath}` extends keyof T['flatten_write'] &
-	string
-	? ValidateFullPath<
-			T,
-			`${ParentFullPath}/${ChildRelativePath}`,
-			`${ParentFullPath}/${ChildRelativePath}`,
-			never,
-			never,
-			never
-	  >
+> = ParentFullPath extends string
+	? `${ParentFullPath}/${ChildRelativePath}` extends keyof T['flatten_write'] &
+			string
+		? ValidateFullPath<
+				T,
+				`${ParentFullPath}/${ChildRelativePath}`,
+				`${ParentFullPath}/${ChildRelativePath}`
+		  >
+		: ErrorIsNotChildPathOf<ParentFullPath, ChildRelativePath>
 	: ParentFullPath extends undefined
 	? ChildRelativePath extends keyof T['flatten_write'] & string
 		? ChildRelativePath
-		: never
-	: never
+		: ErrorIsNotChildPathOf<ParentFullPath, ChildRelativePath>
+	: never // impossible route
+
 export type GetAllVPath<
 	T,
 	V,

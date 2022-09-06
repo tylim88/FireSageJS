@@ -251,3 +251,11 @@ export const dataForQuery = (): Users['write'] => {
 		},
 	}
 }
+
+export type TopLevelRecord = MetaTypeCreator<
+	Record<string, { a: number; b: boolean }>
+>
+
+export type TopLevelPushAbleOnly = MetaTypeCreator<
+	PushAbleOnly<{ a: number; b: boolean }>
+>

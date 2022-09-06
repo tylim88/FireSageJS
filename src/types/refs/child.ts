@@ -20,4 +20,12 @@ export type Child = <
 >(
 	parent: S,
 	path: V extends never ? V : ValidateChildPath<T, U, Exclude<V, ''>> // ! why V union with empty string
-) => DatabaseReference<T, GetFullPath<T, U, Exclude<V, ''>>>
+) => DatabaseReference<
+	T,
+	// ! this generic does not trigger GetFullPath<T, U, V> is not assignable to (keyof T['flatten_write'] & string) | undefined
+	GetFullPath<T, U, V> extends infer A extends
+		| (keyof T['flatten_write'] & string)
+		| undefined
+		? A
+		: never
+>

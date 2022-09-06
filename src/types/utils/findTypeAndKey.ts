@@ -118,13 +118,27 @@ export type FindMetaPathType<
 	T extends MetaType,
 	U extends string | undefined
 > = U extends string
-	? keyof T['flatten_write'] extends infer S // make distributive
-		? S extends S
+	? keyof T['flatten_write'] extends infer S extends string
+		? S extends S // make distributive
 			? U extends S
-				? GetNumberOfSlash<U> extends GetNumberOfSlash<S & string>
+				? GetNumberOfSlash<U> extends GetNumberOfSlash<S>
 					? S
 					: never
 				: never
+			: never // impossible route
+		: T['flatten_write'] extends Record<string, unknown>
+		? keyof T['flatten_write'][string] extends infer A extends string
+			? `${string}/${A}` extends infer B extends string
+				? B extends B // make distributive
+					? U extends B
+						? GetNumberOfSlash<U> extends GetNumberOfSlash<B>
+							? B
+							: never
+						: GetNumberOfSlash<U> extends 0
+						? string
+						: never
+					: never // impossible route
+				: never // impossible route
 			: never // impossible route
 		: never // impossible route
 	: U

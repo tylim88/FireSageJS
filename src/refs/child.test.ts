@@ -5,7 +5,12 @@ import {
 	readAndExpectForSet,
 	generateRandomData,
 } from '../utilForTests'
-import { IsEqual, IsTrue, DatabaseReference } from '../types'
+import {
+	IsEqual,
+	IsTrue,
+	DatabaseReference,
+	ErrorIsNotChildPathOf,
+} from '../types'
 import { child } from './child'
 import { set } from '../operations'
 

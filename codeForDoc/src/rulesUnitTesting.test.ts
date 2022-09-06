@@ -44,7 +44,7 @@ let db = undefined as unknown as ReturnType<RulesTestContext['database']>
 let testEnv = undefined as unknown as RulesTestEnvironment
 let usersRef = undefined as unknown as Ref<Users>
 
-describe('test working with emulator', () => {
+describe('test working with rules unit testing', () => {
 	beforeAll(async () => {
 		testEnv = await initializeTestEnvironment({
 			projectId: 'any',

@@ -40,7 +40,7 @@ The value to end before. The argument type depends on which orderBy*() function 
 @param key
 The child key to end before, among the children with the previously specified priority. This argument is only allowed if ordering by child, value, or priority.
  */
-export type EndBefore = Cursor<'endBefore'> // ! jsdoc typo
+export type EndBefore = Cursor<'endBefore'>
 /**
 Creates a QueryConstraint with the specified starting point.
 

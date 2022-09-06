@@ -35,8 +35,17 @@ export type Push = <
 		: U extends GetAllPushAblePaths<T> | GetAllPushAbleOnlyPaths<T>
 		? DatabaseReference<T, U>
 		: ErrorNotPushAble<U>,
-	value: FindNestedWriteTypeFromFullPath<T, `${U}/string`>
+	value: FindNestedWriteTypeFromFullPath<
+		T,
+		U extends string ? `${U}/${string}` : keyof T['flatten_write'] & string
+	>
 ) => Promise<
-	DatabaseReference<T, GetFullPath<T, U, FindAllTopLevelChildKeys<T, U>>>
+	DatabaseReference<
+		T,
+		GetFullPath<T, U, FindAllTopLevelChildKeys<T, U>> extends infer A extends
+			| (keyof T['flatten_write'] & string)
+			| undefined
+			? A
+			: never
+	>
 >
-// ! jsdoc typo
