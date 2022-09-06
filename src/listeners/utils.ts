@@ -57,9 +57,9 @@ export const listenerCreator = (
 	const callback_ = callbackTransformer(callback)
 
 	return listener(
-		query as any, // ! error: Unused '@ts-expect-error' directive but ts expect error still working, invisible error
+		query as any, // ! Schrödinger's error
 		callback_,
 		cancelCallback_,
-		options_ as any // ! error: Unused '@ts-expect-error' directive but ts expect error still working, invisible error
+		options_ as any // ! Schrödinger's error
 	)
 }

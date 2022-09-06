@@ -6,13 +6,6 @@ import {
 	GetChildPathsType,
 } from '../operations'
 
-/**
- * Returns an `OnDisconnect` object - see
- * {@link https://firebase.google.com/docs/database/web/offline-capabilities | Enabling Offline Capabilities in JavaScript}
- * for more information on how to use it.
- *
- * @param ref - The reference to add OnDisconnect triggers for.
- */
 export type OnDisconnect = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
