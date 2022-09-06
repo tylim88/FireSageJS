@@ -17,7 +17,6 @@ import {
 	onValue,
 	onChildAdded,
 	onChildChanged,
-	onChildMoved,
 	onChildRemoved,
 	MetaTypeCreator,
 	createRef,

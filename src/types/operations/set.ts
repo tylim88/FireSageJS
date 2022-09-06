@@ -46,3 +46,4 @@ export type Set = <
 	ref: R extends never ? R : IsValidSetRef<T, U>,
 	value: V extends never ? V : IsValidSetValue<T, U, V>
 ) => Promise<void>
+// ! If you change this, change also onDisconnect set

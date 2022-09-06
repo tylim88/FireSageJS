@@ -3,7 +3,7 @@ import { Query } from '../refs'
 import { Unsubscribe, ListenOptions } from '../alias'
 import { IsValidOnChildRef, GetOnChildSnapshot } from './utils'
 
-export type OnChildAdded = {
+export declare type OnChildAdded = {
 	/**
 Listens for data changes at a particular location.
 

@@ -155,3 +155,4 @@ export type Update = <
 	paths: N extends never ? N : ValidateChildPaths<T, U, N>,
 	values: V extends never ? V : GetChildPathsType<T, U, N, V>
 ) => Promise<void>
+// ! If you change this, change also onDisconnect update

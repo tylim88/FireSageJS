@@ -7,6 +7,16 @@ export declare interface ThenableReference<
 	U extends (keyof T['flatten_write'] & string) | undefined
 > extends DatabaseReference<T, U> {}
 
+/**
+ * A `DatabaseReference` represents a specific location in your Database and can be used
+ * for reading or writing data to that Database location.
+ *
+ * You can reference the root or child location in your Database by calling
+ * `ref()` or `ref("child/path")`.
+ *
+ * Writing is done with the `set()` method and reading can be done with the
+ * `on*()` method. See [Read And Write](https://firebase.google.com/docs/database/web/read-and-write).
+ */
 export declare interface DatabaseReference<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
@@ -34,6 +44,22 @@ export declare interface DatabaseReference<
 	/** The root `DatabaseReference` of the Database. */
 	readonly root: DatabaseReference<MetaTypeCreator<T['base']>, undefined>
 }
+
+/**
+ * A `Query` sorts and filters the data at a Database location so only a subset
+ * of the child data is included. This can be used to order a collection of
+ * data by some attribute (for example, height of dinosaurs) as well as to
+ * restrict a large list of items (for example, chat messages) down to a number
+ * suitable for synchronizing to the client. Queries are created by chaining
+ * together one or more of the filter methods defined here.
+ *
+ * Just as with a `DatabaseReference`, you can receive data from a `Query` by using the
+ * `on*()` methods. You will only receive events and `DataSnapshot`s for the
+ * subset of the data that matches your query.
+ *
+ * See [Sorting And Filtering Data](https://firebase.google.com/docs/database/web/lists-of-data#sorting_and_filtering_data)
+ * for more information.
+ */
 export declare interface Query<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined

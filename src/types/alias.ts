@@ -7,6 +7,7 @@ export type {
 	QueryConstraintType,
 	QueryConstraint as OriQueryConstraint,
 	DataSnapshot as OriDataSnapshot,
+	EventType,
 } from 'firebase/database'
 
 export type DatabaseTesting = ReturnType<RulesTestContext['database']>

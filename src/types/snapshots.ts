@@ -10,6 +10,20 @@ import {
 } from './utils'
 import { GetLastSegment } from './tsUtils'
 
+/**
+ * A `DataSnapshot` contains data from a Database location.
+ *
+ * Any time you read data from the Database, you receive the data as a
+ * `DataSnapshot`. A `DataSnapshot` is passed to the event callbacks you attach
+ * with `on()` or `once()`. You can extract the contents of the snapshot as a
+ * JavaScript object by calling the `val()` method. Alternatively, you can
+ * traverse into the snapshot by calling `child()` to return child snapshots
+ * (which you could then call `val()` on).
+ *
+ * A `DataSnapshot` is an efficiently generated, immutable copy of the data at
+ * a Database location. It cannot be modified and will never change (to modify
+ * data, you always call the `set()` method on a `Reference` directly).
+ */
 export declare class DataSnapshot<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined

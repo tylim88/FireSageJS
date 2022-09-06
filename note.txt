@@ -20,6 +20,8 @@ todo:
 1. make sure all key check for numeric and empty string - done
 2. make sure all path check for numeric, empty string and number of slash - done
 3. orderByChild to reject arbitrary key - hmm, necessary?
+4. transform onDisconnect
+5. working on off and onDisconnect
 
 bug:
 1. fix validate child path error suggestion - done

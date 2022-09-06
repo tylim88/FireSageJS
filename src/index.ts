@@ -6,8 +6,6 @@ export {
 	goOnline,
 	forceLongPolling,
 	forceWebSockets,
-	off,
-	onDisconnect,
 } from 'firebase/database'
 export * from './fieldValue'
 export * from './listeners'
@@ -21,13 +19,12 @@ export type {
 	PushAbleOnly,
 	NumericKeyRecord,
 	Removable,
-	Increment,
-	MetaTypeCreator,
 	DataSnapshot,
 	DatabaseReference,
 	Query,
 	Ref,
 	MetaType,
+	MetaTypeCreator,
 	FindAllLevelChildKeys,
 	ErrorHasNoChild,
 	FindNestedWriteTypeFromFullPath,

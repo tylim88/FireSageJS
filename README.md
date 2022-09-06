@@ -102,7 +102,7 @@
 </div>
 <br/>
 
-Mind-boggling type safe Realtime Database code with minimum learning curve. Type level Realtime Database defensive programming at it finest.
+Mind-boggling type safe Realtime Database code with minimum learning curve, avoid runtime exceptions without runtime checks, type level Realtime Database defensive programming at it finest.
 
 ## Contributing
 
