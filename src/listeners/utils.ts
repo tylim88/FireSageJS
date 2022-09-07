@@ -15,7 +15,7 @@ import {
 	onValue,
 } from 'firebase/database'
 
-export const isOptions = (value: unknown): value is ListenOptions => {
+export const isListenOptions = (value: unknown): value is ListenOptions => {
 	const v = value as Partial<ListenOptions>
 	return v?.onlyOnce !== undefined // onlyOnce is boolean, so check for undefined
 }
@@ -45,7 +45,7 @@ export const listenerCreator = (
 	cancelCallback: ListenOptions | ((error: Error) => unknown) | undefined,
 	options: unknown // ! why type of options is unknown
 ) => {
-	const cancelCallback_ = isOptions(cancelCallback)
+	const cancelCallback_ = isListenOptions(cancelCallback)
 		? () => {
 				//
 		  }
@@ -53,7 +53,9 @@ export const listenerCreator = (
 		  (() => {
 				//
 		  })
-	const options_ = isOptions(cancelCallback) ? cancelCallback : options || {}
+	const options_ = isListenOptions(cancelCallback)
+		? cancelCallback
+		: options || {}
 	const callback_ = callbackTransformer(callback)
 
 	return listener(

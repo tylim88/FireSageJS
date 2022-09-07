@@ -1,9 +1,9 @@
-import { isOptions } from './utils'
+import { isListenOptions } from './utils'
 
 describe('test utils', () => {
 	it('test isOption', () => {
-		expect(isOptions({})).toBe(false)
-		expect(isOptions({ onlyOnce: false })).toBe(true)
-		expect(isOptions({ onlyOnce: true })).toBe(true)
+		expect(isListenOptions({})).toBe(false)
+		expect(isListenOptions({ onlyOnce: false })).toBe(true)
+		expect(isListenOptions({ onlyOnce: true })).toBe(true)
 	})
 })
