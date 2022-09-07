@@ -1,5 +1,6 @@
 import { update as update_ } from 'firebase/database'
 import { Update } from '../types'
+import { createObjectFromKeysAndValues } from '../utils'
 
 /**
  * Writes multiple values to the Database at once.
@@ -46,5 +47,5 @@ export const update: Update = (ref, paths, values) => {
 		obj[item] = values[index]
 	})
 
-	return update_(ref as any, obj)
+	return update_(ref as any, createObjectFromKeysAndValues(paths, values))
 }

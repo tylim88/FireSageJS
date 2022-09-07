@@ -5,6 +5,8 @@ import {
 	ValidateChildPaths,
 	GetChildPathsType,
 } from '../operations'
+import { GetAllRemovablePaths } from '../utils'
+import { ErrorNotRemoveAble } from '../error'
 
 export type OnDisconnect = <
 	T extends MetaType,
@@ -55,7 +57,11 @@ declare class OnDisconnect_<
 	 *
 	 * @returns Resolves when synchronization to the server is complete.
 	 */
-	remove(): Promise<void>
+	remove: U extends GetAllRemovablePaths<T>
+		? () => Promise<void>
+		: <V extends ErrorNotRemoveAble<U>>(
+				arg: V extends never ? V : never
+		  ) => Promise<void>
 	/**
 	 * Ensures the data at this location is set to the specified value when the
 	 * client is disconnected (due to closing the browser, navigating to a new page,
@@ -91,7 +97,8 @@ declare class OnDisconnect_<
 	 * only the referenced properties at the current location (instead of replacing
 	 * all the child properties at the current location).
 	 *
-	 * @param values - Object containing multiple values.
+	 * @param paths — array containing relative child paths.
+	 * @param values - array containing values respective to the paths.
 	 * @returns Resolves when synchronization to the Database is complete.
 	 */
 	update: <N extends readonly string[], V extends readonly unknown[]>(

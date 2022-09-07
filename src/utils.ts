@@ -1,5 +1,18 @@
 import { OriDataSnapshot } from './types'
 
+export const createObjectFromKeysAndValues = (
+	keys: string[],
+	values: unknown[]
+) => {
+	const obj: Record<string, unknown> = {}
+
+	keys.forEach((item, index) => {
+		obj[item] = values[index]
+	})
+
+	return obj
+}
+
 export const convertArrayToObject = (data: unknown): unknown => {
 	if (Array.isArray(data)) {
 		return { ...data }

@@ -13,3 +13,4 @@ export type Remove = <
 		? DatabaseReference<T, U>
 		: ErrorNotRemoveAble<U>
 ) => Promise<void>
+// ! If you change this, change also onDisconnect remove
