@@ -22,7 +22,7 @@ import {
 	PushAbleOnly,
 	Removable,
 } from 'firesagejs'
-import firebasejson from '../firebase.json'
+import firebasejson from '../../../firebase.json'
 import fs from 'fs'
 
 type Users = MetaTypeCreator<
