@@ -3,11 +3,6 @@ import { DatabaseReference } from '../refs'
 import { ValidateFullPath } from '../utils'
 import { Database } from '../alias'
 
-/**
- *
- * @param db optional, the database instance to obtain a reference for. If not provided will use the instance; If provided, the provided will become default instead(for this ref only).
- * @returns ref, similar to the original RTDB V9 ref.
- */
 export type CreateRef = <T extends MetaType>(database?: Database) => Ref<T>
 
 export type Ref<T extends MetaType> = {

@@ -1,9 +1,28 @@
 import {
 	convertArrayToObject,
 	startRecurseObjectAndConvertArrayToObject,
+	createObjectFromKeysAndValues,
 } from './utils'
 
 describe('test utils', () => {
+	it('test createObjectFromKeysAndValues', () => {
+		expect(
+			createObjectFromKeysAndValues(['a', '2', 'c', '4'], [1, 'b', 3, 'd'])
+		).toEqual({
+			a: 1,
+			2: 'b',
+			c: 3,
+			4: 'd',
+		})
+
+		createObjectFromKeysAndValues(
+			[
+				// @ts-expect-error
+				2,
+			],
+			[1]
+		)
+	})
 	it('test convertArrayToObject', () => {
 		expect(convertArrayToObject(123)).toBe(123)
 		expect(convertArrayToObject(true)).toBe(true)
