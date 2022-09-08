@@ -1,5 +1,9 @@
 # HISTORY
 
+## 1.2.3 8th Sept 22
+
+- add firebase as peer dependency
+
 ## 1.2.2 8th Sept 22
 
 - slightly reduce compiled size
