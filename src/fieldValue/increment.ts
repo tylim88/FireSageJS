@@ -7,6 +7,5 @@ Returns a placeholder value that can be used to atomically increment the current
 
 @returns — A placeholder value for modifying data atomically server-side.
  */
-export const increment = (delta: number) => {
-	return increment_(delta) as Increment
-}
+// @ts-expect-error
+export const increment: (delta: number) => Increment = increment_

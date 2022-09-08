@@ -1,9 +1,13 @@
 # HISTORY
 
+## 1.2.2 8th Sept 22
+
+- slightly reduce compiled size
+
 ## 1.2.0 7th Sept 22
 
 - no longer export `off`
-- onDisconnect is not wrapped
+- onDisconnect is wrapped
 - fix in code doc not working
 
 ## 1.1.0 6th Sept 22

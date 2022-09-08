@@ -39,10 +39,4 @@ import { RunTransaction } from '../types'
  * callback to handle success and failure.
  */
 // @ts-expect-error
-export const runTransaction: RunTransaction = (
-	ref,
-	transactionUpdate,
-	options
-) => {
-	return runTransaction_(ref, transactionUpdate, options)
-}
+export const runTransaction: RunTransaction = runTransaction_

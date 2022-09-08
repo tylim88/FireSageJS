@@ -30,10 +30,5 @@ import { Set } from '../types'
  *   array, or null).
  * @returns Resolves when write to server is complete.
  */
-export const set: Set = (ref, value) => {
-	return set_(
-		// @ts-expect-error
-		ref,
-		value
-	)
-}
+// @ts-expect-error
+export const set: Set = set_

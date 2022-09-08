@@ -13,11 +13,6 @@ import { SetPriority } from '../types'
  * @param priority - The priority to be written (string, number, or null).
  * @returns Resolves when write to server is complete.
  */
-export const setPriority: SetPriority = (ref, priority) => {
-	return setPriority_(
-		// @ts-expect-error
-		ref,
-		priority
-	)
-}
+// @ts-expect-error
+export const setPriority: SetPriority = setPriority_
 // internal use only

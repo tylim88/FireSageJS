@@ -15,9 +15,5 @@ import { Remove } from '../types'
  * @param ref - The location to remove.
  * @returns Resolves when remove on server is complete.
  */
-export const remove: Remove = ref => {
-	return remove_(
-		// @ts-expect-error
-		ref
-	)
-}
+// @ts-expect-error
+export const remove: Remove = remove_

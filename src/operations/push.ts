@@ -25,10 +25,4 @@ import { Push } from '../types'
  * but can be used immediately as the `Reference` to the child location.
  */
 // @ts-expect-error
-export const push: Push = (ref, value) => {
-	return push_(
-		// @ts-expect-error
-		ref,
-		value
-	)
-}
+export const push: Push = push_

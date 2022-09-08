@@ -13,6 +13,4 @@ import { Child } from '../types'
  * @returns The specified child location.
  */
 // @ts-expect-error
-export const child: Child = (parent, path) => {
-	return child_(parent as any, path)
-}
+export const child: Child = child_
