@@ -1,8 +1,8 @@
 import {
 	ErrorInvalidDataType,
-	ErrorObjectTypeUnion,
 	ErrorUseNumericKeyRecordInstead,
 	ErrorInvalidKey,
+	ErrorObjectTypeUnion,
 } from './error'
 import {
 	ServerTimestamp,
@@ -114,18 +114,6 @@ export type ReplaceRemove<T> = T extends Removable
 	? PushAbleOnly<ReplaceRemove<X>>
 	: T extends NumericKeyRecord<infer X>
 	? NumericKeyRecord<ReplaceRemove<X>>
-	: T
-
-export type ReplaceRemoveWithUndefined<T> = T extends Removable
-	? undefined
-	: T extends Record<string, unknown>
-	? { [K in keyof T]: ReplaceRemoveWithUndefined<T[K]> }
-	: T extends PushAble<infer X>
-	? PushAble<ReplaceRemoveWithUndefined<X>>
-	: T extends PushAbleOnly<infer X>
-	? PushAbleOnly<ReplaceRemoveWithUndefined<X>>
-	: T extends NumericKeyRecord<infer X>
-	? NumericKeyRecord<ReplaceRemoveWithUndefined<X>>
 	: T
 
 export type ReplaceInvalidUnion<T> = Exclude<T, Removable> extends infer R

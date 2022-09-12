@@ -199,7 +199,7 @@ describe('test get and query', () => {
 			IsSame<
 				typeof childVal,
 				| {
-						r: number | undefined
+						r: number | undefined | null
 				  }
 				| null
 				| undefined
@@ -245,7 +245,7 @@ describe('test get and query', () => {
 			IsSame<
 				typeof childVal,
 				| {
-						n: '1' | '2' | '7' | '8' | '9' | undefined
+						n: '1' | '2' | '7' | '8' | '9' | undefined | null
 				  }
 				| null
 				| undefined
@@ -290,7 +290,7 @@ describe('test get and query', () => {
 			IsSame<
 				typeof childVal,
 				| {
-						t: number | undefined
+						t: number | undefined | null
 				  }
 				| null
 				| undefined

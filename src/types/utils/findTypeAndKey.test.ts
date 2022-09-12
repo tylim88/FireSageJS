@@ -315,34 +315,37 @@ describe('test', () => {
 			IsSame<
 				J,
 				| {
-						n: '1' | '2' | '7' | '8' | '9' | undefined
+						n: '1' | '2' | '7' | '8' | '9' | undefined | null
 				  }
 				| undefined
+				| null
 			>
 		>()
-		IsTrue<IsSame<K, '1' | '2' | '7' | '8' | '9' | undefined>>()
+		IsTrue<IsSame<K, '1' | '2' | '7' | '8' | '9' | undefined | null>>()
 		IsTrue<IsSame<L, Users['read']['b']['h'][string]['p']>>()
 		IsTrue<
 			IsSame<
 				M,
 				| {
-						r: number | undefined
+						r: number | undefined | null
 				  }
 				| undefined
+				| null
 			>
 		>()
-		IsTrue<IsSame<N, number | undefined>>()
+		IsTrue<IsSame<N, number | undefined | null>>()
 		IsTrue<IsSame<O, Users['read']['b']['h'][string]['s']>>()
 		IsTrue<
 			IsSame<
 				P,
 				| {
-						t: number | undefined
+						t: number | undefined | null
 				  }
 				| undefined
+				| null
 			>
 		>()
-		IsTrue<IsSame<Q, number | undefined>>()
+		IsTrue<IsSame<Q, number | undefined | null>>()
 	})
 
 	it('test Find Nested Compare Type', () => {

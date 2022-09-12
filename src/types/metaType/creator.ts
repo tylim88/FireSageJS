@@ -3,15 +3,15 @@ import {
 	ReplaceInvalidDataTypeRead,
 	ReplaceInvalidDataTypeBase,
 	ReplaceInvalidDataTypeWrite,
-	ReplaceRemove,
-	ReplaceRemoveWithUndefined,
 	ReplaceInvalidUnion,
+	ReplaceRemove,
 } from './replaceInvalidDataType'
 import {
 	ReadTypeConverter,
 	WriteTypeConverter,
 	AllNodesPossiblyReadAsNullable,
 	CompareTypeConverter,
+	ReplaceRemoveWithNullable,
 } from './typeConverter'
 
 export type MetaType = {
@@ -31,7 +31,7 @@ export type MetaTypeCreator<
 		ReplaceRemove<ReplaceInvalidDataTypeWrite<ReplaceInvalidUnion<Base>>>
 	>,
 	Read = ReadTypeConverter<
-		ReplaceRemoveWithUndefined<
+		ReplaceRemoveWithNullable<
 			ReplaceInvalidDataTypeRead<ReplaceInvalidUnion<Base>>
 		>
 	>,

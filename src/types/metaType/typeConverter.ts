@@ -4,6 +4,7 @@ import {
 	PushAble,
 	PushAbleOnly,
 	NumericKeyRecord,
+	Removable,
 } from '../fieldValue'
 
 export type ReadTypeConverter<T> = T extends Record<string, unknown>
@@ -58,3 +59,15 @@ export type AllNodesPossiblyReadAsNullable<T> = T extends Record<
 	: T extends (infer X)[]
 	? (AllNodesPossiblyReadAsNullable<X> | undefined | null)[] | undefined | null
 	: T | undefined | null
+
+export type ReplaceRemoveWithNullable<T> = T extends Removable
+	? undefined | null
+	: T extends Record<string, unknown>
+	? { [K in keyof T]: ReplaceRemoveWithNullable<T[K]> }
+	: T extends PushAble<infer X>
+	? PushAble<ReplaceRemoveWithNullable<X>>
+	: T extends PushAbleOnly<infer X>
+	? PushAbleOnly<ReplaceRemoveWithNullable<X>>
+	: T extends NumericKeyRecord<infer X>
+	? NumericKeyRecord<ReplaceRemoveWithNullable<X>>
+	: T

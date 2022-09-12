@@ -309,32 +309,44 @@ describe('test generated meta type', () => {
 							| {
 									e: 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst'
 									f: { j: number }
-									k: string | undefined
+									k: string | undefined | null
 							  }
 							| undefined
+							| null
 						h: Record<
 							string,
 							{
 								i: boolean
-								l: number | undefined
+								l: number | undefined | null
 								m:
 									| Record<
 											string,
-											{ n: '1' | '2' | '7' | '8' | '9' | undefined } | undefined
+											| { n: '1' | '2' | '7' | '8' | '9' | undefined | null }
+											| undefined
+											| null
 									  >
 									| undefined
+									| null
 								p:
-									| Record<string, { r: number | undefined } | undefined>
+									| Record<
+											string,
+											{ r: number | undefined | null } | undefined | null
+									  >
 									| undefined
+									| null
 								s:
-									| Record<`${number}`, { t: number | undefined } | undefined>
+									| Record<
+											`${number}`,
+											{ t: number | undefined | null } | undefined | null
+									  >
 									| undefined
+									| null
 							}
 						>
 					}
-					o: Record<string, number | undefined>
+					o: Record<string, number | undefined | null>
 					q: Record<string, 0 | 1 | 4 | 5 | 6>
-					u: Record<`${number}`, string | undefined>
+					u: Record<`${number}`, string | undefined | null>
 					w: Record<`${number}`, { v: boolean }>
 				}
 			>

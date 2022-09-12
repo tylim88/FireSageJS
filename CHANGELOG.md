@@ -1,5 +1,12 @@
 # HISTORY
 
+## 1.2.5 12th Sept 22
+
+1. rename AllNodesPossiblyReadAsUndefined to AllNodesPossiblyReadAsNullable
+2. AllNodesPossiblyReadAsNullable union the type with null and undefined
+3. rename ReplaceRemoveWithUndefined with ReplaceRemoveWithNullable
+4. Removable now union with undefined and null
+
 ## 1.2.3 8th Sept 22
 
 - add firebase as peer dependency
