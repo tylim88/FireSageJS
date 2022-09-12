@@ -12,27 +12,27 @@ type PushAbleOnlySymbol = typeof pushAbleOnlySymbol
 type RemoveSymbol = typeof removeSymbol
 type NumericKeyRecordSymbol = typeof numericKeyRecord
 
-declare class FieldType<T extends symbol> {
+declare class FieldValue<T extends symbol> {
 	private constructor()
 	// private symbol: T // ! this will get translated to "private symbol" only and it breaks the code, use protected instead!
 	protected symbol: T
 }
 
-export interface ServerTimestamp extends FieldType<ServerTimestampSymbol> {}
+export interface ServerTimestamp extends FieldValue<ServerTimestampSymbol> {}
 
-export interface Increment extends FieldType<IncrementSymbol> {}
+export interface Increment extends FieldValue<IncrementSymbol> {}
 
-export interface Removable extends FieldType<RemoveSymbol> {}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface PushAble<T> extends FieldType<PushAbleSymbol> {}
+export interface Removable extends FieldValue<RemoveSymbol> {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface PushAbleOnly<T> extends FieldType<PushAbleOnlySymbol> {}
+export interface PushAble<T> extends FieldValue<PushAbleSymbol> {}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export interface PushAbleOnly<T> extends FieldValue<PushAbleOnlySymbol> {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface NumericKeyRecord<T>
-	extends FieldType<NumericKeyRecordSymbol> {}
+	extends FieldValue<NumericKeyRecordSymbol> {}
 
 export type AllFieldTypes =
 	| ServerTimestamp

@@ -11,7 +11,7 @@ import {
 } from './findTypeAndKey'
 import { IsTrue, IsSame } from '../tsUtils'
 import { Users, TopLevelRecord } from '../../utilForTests'
-import { Increment } from '../fieldType'
+import { Increment } from '../fieldValue'
 
 describe('test', () => {
 	it('test Find Parent Key', () => {

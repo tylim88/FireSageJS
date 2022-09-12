@@ -5,7 +5,7 @@ import {
 	PushAble,
 	PushAbleOnly,
 	NumericKeyRecord,
-} from '../fieldType'
+} from '../fieldValue'
 import { IsTrue, IsSame } from '../tsUtils'
 import { Users } from '../../utilForTests'
 

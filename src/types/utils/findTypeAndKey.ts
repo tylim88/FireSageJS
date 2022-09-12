@@ -1,6 +1,6 @@
 import { MetaType } from '../metaType'
 import { RemoveLastSegment, GetNumberOfSlash } from '../tsUtils'
-import { AllFieldTypes } from '../fieldType'
+import { AllFieldTypes } from '../fieldValue'
 
 export type FindParentKey<
 	T extends MetaType,

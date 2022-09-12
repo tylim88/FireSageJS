@@ -10,7 +10,7 @@ import {
 	Removable,
 	PushAbleOnly,
 	NumericKeyRecord,
-} from '../fieldType'
+} from '../fieldValue'
 import { IsCharacterValid } from '../utils'
 import { IsUnion } from '../tsUtils'
 

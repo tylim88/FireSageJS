@@ -4,7 +4,7 @@ import {
 	Removable,
 	PushAbleOnly,
 	NumericKeyRecord,
-} from '../fieldType'
+} from '../fieldValue'
 import { ValidateFullPath } from './validatePathAndType'
 import { ErrorIsNotChildPathOf } from './error'
 

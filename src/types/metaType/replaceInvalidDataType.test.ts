@@ -13,7 +13,7 @@ import {
 	Removable,
 	PushAbleOnly,
 	NumericKeyRecord,
-} from '../fieldType'
+} from '../fieldValue'
 import { IsTrue, IsSame } from '../tsUtils'
 
 describe('test replace invalid data type', () => {
