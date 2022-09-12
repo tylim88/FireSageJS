@@ -10,7 +10,7 @@ import {
 import {
 	ReadTypeConverter,
 	WriteTypeConverter,
-	AllNodesPossiblyReadAsUndefined,
+	AllNodesPossiblyReadAsNullable,
 	CompareTypeConverter,
 } from './typeConverter'
 
@@ -24,8 +24,8 @@ export type MetaType = {
 
 export type MetaTypeCreator<
 	Base,
-	Settings extends { AllNodesPossiblyReadAsUndefined?: boolean } = {
-		AllNodesPossiblyReadAsUndefined: false
+	Settings extends { AllNodesPossiblyReadAsNullable?: boolean } = {
+		AllNodesPossiblyReadAsNullable: false
 	},
 	Write = WriteTypeConverter<
 		ReplaceRemove<ReplaceInvalidDataTypeWrite<ReplaceInvalidUnion<Base>>>
@@ -42,8 +42,8 @@ export type MetaTypeCreator<
 	base: ReplaceInvalidDataTypeBase<ReplaceInvalidUnion<Base>>
 	write: Write
 	flatten_write: ObjectFlatten<Write>
-	read: Settings['AllNodesPossiblyReadAsUndefined'] extends true
-		? AllNodesPossiblyReadAsUndefined<Read>
+	read: Settings['AllNodesPossiblyReadAsNullable'] extends true
+		? AllNodesPossiblyReadAsNullable<Read>
 		: Read
 	compare: Compare
 }

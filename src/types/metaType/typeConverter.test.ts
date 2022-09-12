@@ -4,72 +4,105 @@ import { IsTrue, IsSame } from '../tsUtils'
 
 // the rest are tested in creator.test.ts
 describe('test type converter', () => {
-	it('test read all node as undefined', () => {
+	it('test read all node as undefined|null', () => {
 		type A = MetaTypeCreator<
 			Users['base'],
-			{ AllNodesPossiblyReadAsUndefined: true }
+			{ AllNodesPossiblyReadAsNullable: true }
 		>['read']
 
 		IsTrue<
 			IsSame<
 				A,
 				| {
-						a: 1 | 2 | 3 | undefined
+						a: 1 | 2 | 3 | undefined | null
 						b:
 							| {
-									c: true | undefined
+									c: true | undefined | null
 									d:
 										| {
-												e: 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst' | undefined
-												f: { j: number | undefined } | undefined
-												k: string | undefined
+												e:
+													| 'abc'
+													| 'xyz'
+													| 'efg'
+													| 'lmn'
+													| 'rst'
+													| undefined
+													| null
+												f: { j: number | undefined | null } | undefined | null
+												k: string | undefined | null
 										  }
 										| undefined
+										| null
 
 									h:
 										| Record<
 												string,
 												| {
-														i: boolean | undefined
-														l: number | undefined
+														i: boolean | undefined | null
+														l: number | undefined | null
 														m:
 															| Record<
 																	string,
 																	| {
-																			n: '1' | '2' | '7' | '8' | '9' | undefined
+																			n:
+																				| '1'
+																				| '2'
+																				| '7'
+																				| '8'
+																				| '9'
+																				| undefined
+																				| null
 																	  }
 																	| undefined
+																	| null
 															  >
 															| undefined
+															| null
 														p:
 															| Record<
 																	string,
 																	| {
-																			r: number | undefined
+																			r: number | undefined | null
 																	  }
 																	| undefined
+																	| null
 															  >
 															| undefined
+															| null
 														s:
 															| Record<
 																	`${number}`,
-																	{ t: number | undefined } | undefined
+																	| { t: number | undefined | null }
+																	| undefined
+																	| null
 															  >
 															| undefined
+															| null
 												  }
 												| undefined
+												| null
 										  >
 										| undefined
+										| null
 							  }
 							| undefined
-						o: Record<string, number | undefined> | undefined
-						q: Record<string, 0 | 1 | 4 | 5 | 6 | undefined> | undefined
-						u: Record<`${number}`, string | undefined> | undefined
-						w:
-							| Record<`${number}`, { v: boolean | undefined } | undefined>
+							| null
+						o: Record<string, number | undefined | null> | undefined | null
+						q:
+							| Record<string, 0 | 1 | 4 | 5 | 6 | undefined | null>
 							| undefined
+							| null
+						u: Record<`${number}`, string | undefined | null> | undefined | null
+						w:
+							| Record<
+									`${number}`,
+									{ v: boolean | undefined | null } | undefined | null
+							  >
+							| undefined
+							| null
 				  }
 				| undefined
+				| null
 			>
 		>
 	})
