@@ -4,14 +4,14 @@ import {
 	ReplaceInvalidDataTypeBase,
 	ReplaceInvalidDataTypeWrite,
 	ReplaceInvalidUnion,
-	ReplaceRemove,
 } from './replaceInvalidDataType'
 import {
 	ReadTypeConverter,
 	WriteTypeConverter,
-	AllNodesPossiblyReadAsNullable,
+	ReplaceAllNodesPossiblyReadAsNullableWithNullable,
 	CompareTypeConverter,
-	ReplaceRemoveWithNullable,
+	ReplaceRemoveAndPossiblyReadAsNullableWithNever,
+	ReplaceRemoveAndPossiblyReadAsNullableWithNullable,
 } from './typeConverter'
 
 export type MetaType = {
@@ -28,22 +28,26 @@ export type MetaTypeCreator<
 		AllNodesPossiblyReadAsNullable: false
 	},
 	Write = WriteTypeConverter<
-		ReplaceRemove<ReplaceInvalidDataTypeWrite<ReplaceInvalidUnion<Base>>>
+		ReplaceRemoveAndPossiblyReadAsNullableWithNever<
+			ReplaceInvalidDataTypeWrite<ReplaceInvalidUnion<Base>>
+		>
 	>,
 	Read = ReadTypeConverter<
-		ReplaceRemoveWithNullable<
+		ReplaceRemoveAndPossiblyReadAsNullableWithNullable<
 			ReplaceInvalidDataTypeRead<ReplaceInvalidUnion<Base>>
 		>
 	>,
 	Compare = CompareTypeConverter<
-		ReplaceRemove<ReplaceInvalidDataTypeRead<ReplaceInvalidUnion<Base>>>
+		ReplaceRemoveAndPossiblyReadAsNullableWithNever<
+			ReplaceInvalidDataTypeRead<ReplaceInvalidUnion<Base>>
+		>
 	>
 > = {
 	base: ReplaceInvalidDataTypeBase<ReplaceInvalidUnion<Base>>
 	write: Write
 	flatten_write: ObjectFlatten<Write>
 	read: Settings['AllNodesPossiblyReadAsNullable'] extends true
-		? AllNodesPossiblyReadAsNullable<Read>
+		? ReplaceAllNodesPossiblyReadAsNullableWithNullable<Read>
 		: Read
 	compare: Compare
 }

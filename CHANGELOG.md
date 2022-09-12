@@ -1,11 +1,12 @@
 # HISTORY
 
-## 1.2.5 12th Sept 22
+## 1.3.0 12th Sept 22
 
-1. rename AllNodesPossiblyReadAsUndefined to AllNodesPossiblyReadAsNullable
+1. rename AllNodesPossiblyReadAsUndefined to ReplaceRemoveAndPossiblyReadAsNullableWithNever(internal)
 2. AllNodesPossiblyReadAsNullable union the type with null and undefined
-3. rename ReplaceRemoveWithUndefined with ReplaceRemoveWithNullable
+3. rename ReplaceRemoveWithUndefined with ReplaceRemoveAndPossiblyReadAsNullableWithNullable(internal)
 4. Removable now union with undefined and null
+5. Add new field value PossiblyReadAsNullable and its implementation and test
 
 ## 1.2.3 8th Sept 22
 

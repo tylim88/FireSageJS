@@ -66,8 +66,6 @@ describe('test get path', () => {
 		IsTrue<
 			IsSame<
 				A,
-				| 'b/d'
-				| 'b/d/k'
 				| `b/h/${string}/l`
 				| `b/h/${string}/m`
 				| `b/h/${string}/p`

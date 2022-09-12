@@ -5,6 +5,7 @@ import {
 	PushAbleOnly,
 	NumericKeyRecord,
 	Removable,
+	PossiblyReadAsNullable,
 } from '../fieldValue'
 
 export type ReadTypeConverter<T> = T extends Record<string, unknown>
@@ -43,31 +44,54 @@ export type WriteTypeConverter<T> = T extends Record<string, unknown>
 	? number | Increment
 	: T
 
-export type AllNodesPossiblyReadAsNullable<T> = T extends Record<
-	string,
-	unknown
->
-	?
-			| {
-					[K in keyof T]:
-						| AllNodesPossiblyReadAsNullable<T[K]>
+export type ReplaceAllNodesPossiblyReadAsNullableWithNullable<T> =
+	T extends Record<string, unknown>
+		?
+				| {
+						[K in keyof T]:
+							| ReplaceAllNodesPossiblyReadAsNullableWithNullable<T[K]>
+							| undefined
+							| null
+				  }
+				| undefined
+				| null
+		: T extends (infer X)[]
+		?
+				| (
+						| ReplaceAllNodesPossiblyReadAsNullableWithNullable<X>
 						| undefined
 						| null
-			  }
-			| undefined
-			| null
-	: T extends (infer X)[]
-	? (AllNodesPossiblyReadAsNullable<X> | undefined | null)[] | undefined | null
-	: T | undefined | null
+				  )[]
+				| undefined
+				| null
+		: T | undefined | null
 
-export type ReplaceRemoveWithNullable<T> = T extends Removable
+export type ReplaceRemoveAndPossiblyReadAsNullableWithNever<T> = T extends
+	| Removable
+	| PossiblyReadAsNullable
+	? never
+	: T extends Record<string, unknown>
+	? { [K in keyof T]: ReplaceRemoveAndPossiblyReadAsNullableWithNever<T[K]> }
+	: T extends PushAble<infer X>
+	? PushAble<ReplaceRemoveAndPossiblyReadAsNullableWithNever<X>>
+	: T extends PushAbleOnly<infer X>
+	? PushAbleOnly<ReplaceRemoveAndPossiblyReadAsNullableWithNever<X>>
+	: T extends NumericKeyRecord<infer X>
+	? NumericKeyRecord<ReplaceRemoveAndPossiblyReadAsNullableWithNever<X>>
+	: T
+
+export type ReplaceRemoveAndPossiblyReadAsNullableWithNullable<T> = T extends
+	| Removable
+	| PossiblyReadAsNullable
 	? undefined | null
 	: T extends Record<string, unknown>
-	? { [K in keyof T]: ReplaceRemoveWithNullable<T[K]> }
+	? {
+			[K in keyof T]: ReplaceRemoveAndPossiblyReadAsNullableWithNullable<T[K]>
+	  }
 	: T extends PushAble<infer X>
-	? PushAble<ReplaceRemoveWithNullable<X>>
+	? PushAble<ReplaceRemoveAndPossiblyReadAsNullableWithNullable<X>>
 	: T extends PushAbleOnly<infer X>
-	? PushAbleOnly<ReplaceRemoveWithNullable<X>>
+	? PushAbleOnly<ReplaceRemoveAndPossiblyReadAsNullableWithNullable<X>>
 	: T extends NumericKeyRecord<infer X>
-	? NumericKeyRecord<ReplaceRemoveWithNullable<X>>
+	? NumericKeyRecord<ReplaceRemoveAndPossiblyReadAsNullableWithNullable<X>>
 	: T

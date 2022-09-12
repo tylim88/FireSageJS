@@ -12,6 +12,7 @@ import {
 	PushAbleOnly,
 	NumericKeyRecord,
 	DataSnapshot,
+	PossiblyReadAsNullable,
 } from './types'
 import { createRef } from './refs'
 import { initializeApp as initializeApp_ } from 'firebase/app'
@@ -35,9 +36,9 @@ export type Users = MetaTypeCreator<{
 			| {
 					e: 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst'
 					f: { j: number }
-					k: string | Removable
+					k: string | PossiblyReadAsNullable
 			  }
-			| Removable
+			| PossiblyReadAsNullable
 		h: Record<
 			string,
 			{

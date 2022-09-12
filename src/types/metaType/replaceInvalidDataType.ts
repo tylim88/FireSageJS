@@ -10,6 +10,7 @@ import {
 	Removable,
 	PushAbleOnly,
 	NumericKeyRecord,
+	PossiblyReadAsNullable,
 } from '../fieldValue'
 import { IsCharacterValid } from '../utils'
 import { IsUnion } from '../tsUtils'
@@ -26,12 +27,14 @@ type ReplaceRecordNumber<T, U> = T extends Record<infer X, unknown>
 		: U
 	: never
 
+type ValidUnion = Removable | PossiblyReadAsNullable
+
 export type ReplaceInvalidDataTypeBase<T> = T extends
 	| boolean
 	| string
 	| number
 	| ServerTimestamp
-	| Removable
+	| ValidUnion
 	| null
 	? T
 	: T extends Record<string, unknown>
@@ -57,7 +60,7 @@ export type ReplaceInvalidDataTypeRead<T> = T extends
 	| string
 	| number
 	| ServerTimestamp
-	| Removable
+	| ValidUnion
 	| null
 	? T
 	: T extends Record<string, unknown>
@@ -83,7 +86,7 @@ export type ReplaceInvalidDataTypeWrite<T> = T extends
 	| string
 	| number
 	| ServerTimestamp
-	| Removable
+	| ValidUnion
 	| null
 	? T
 	: T extends Record<string, unknown>
@@ -104,19 +107,7 @@ export type ReplaceInvalidDataTypeWrite<T> = T extends
 	? NumericKeyRecord<ReplaceInvalidDataTypeWrite<X>>
 	: ErrorInvalidDataType
 
-export type ReplaceRemove<T> = T extends Removable
-	? never
-	: T extends Record<string, unknown>
-	? { [K in keyof T]: ReplaceRemove<T[K]> }
-	: T extends PushAble<infer X>
-	? PushAble<ReplaceRemove<X>>
-	: T extends PushAbleOnly<infer X>
-	? PushAbleOnly<ReplaceRemove<X>>
-	: T extends NumericKeyRecord<infer X>
-	? NumericKeyRecord<ReplaceRemove<X>>
-	: T
-
-export type ReplaceInvalidUnion<T> = Exclude<T, Removable> extends infer R
+export type ReplaceInvalidUnion<T> = Exclude<T, ValidUnion> extends infer R
 	? IsUnion<R> extends true
 		? Extract<
 				R,
@@ -132,6 +123,6 @@ export type ReplaceInvalidUnion<T> = Exclude<T, Removable> extends infer R
 				| {
 						[K in keyof R]: ReplaceInvalidUnion<R[K]>
 				  }
-				| Extract<T, Removable>
+				| Extract<T, ValidUnion>
 		: T
 	: T

@@ -5,6 +5,7 @@ import {
 	PushAble,
 	PushAbleOnly,
 	NumericKeyRecord,
+	PossiblyReadAsNullable,
 } from '../fieldValue'
 import { IsTrue, IsSame } from '../tsUtils'
 import { Users } from '../../utilForTests'
@@ -405,28 +406,26 @@ describe('test generated meta type', () => {
 							| {
 									e: 'abc' | 'xyz' | 'efg' | 'lmn' | 'rst'
 									f: { j: number }
-									k: string | Removable
+									k: string | PossiblyReadAsNullable
 							  }
-							| Removable
+							| PossiblyReadAsNullable
 						h: Record<
 							string,
 							{
 								i: boolean
 								l: ServerTimestamp | Removable
-								m:
-									| PushAble<{ n: '1' | '2' | '7' | '8' | '9' | Removable }>
-									| Removable
-								p: PushAbleOnly<{ r: ServerTimestamp | Removable }> | Removable
-								s: NumericKeyRecord<{ t: number | Removable }> | Removable
+								m: PushAble<unknown> | Removable
+								p: PushAbleOnly<unknown> | Removable
+								s: NumericKeyRecord<unknown> | Removable
 							}
 						>
 					}
-					o: PushAble<number>
-					q: PushAbleOnly<0 | 1 | 4 | 5 | 6>
-					u: NumericKeyRecord<string>
-					w: NumericKeyRecord<boolean>
-					// * Note, the field type can accept any type and the test will still pass
-					// this is because the type exist only on generic and never pass down to any properties
+					o: PushAble<unknown>
+					q: PushAbleOnly<unknown>
+					u: NumericKeyRecord<unknown>
+					w: NumericKeyRecord<unknown>
+					// * Note, the field value can accept any type and the test will still pass
+					// * this is because the type exist only on generic and never pass down to any properties
 				}
 			>
 		>()

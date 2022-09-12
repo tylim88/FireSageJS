@@ -3,14 +3,16 @@ declare const incrementSymbol: unique symbol
 declare const pushAbleSymbol: unique symbol
 declare const pushAbleOnlySymbol: unique symbol
 declare const removeSymbol: unique symbol
-declare const numericKeyRecord: unique symbol
+declare const numericKeyRecordSymbol: unique symbol
+declare const possiblyReadAsNullableSymbol: unique symbol
 
 type ServerTimestampSymbol = typeof serverTimestampSymbol
 type IncrementSymbol = typeof incrementSymbol
 type PushAbleSymbol = typeof pushAbleSymbol
 type PushAbleOnlySymbol = typeof pushAbleOnlySymbol
 type RemoveSymbol = typeof removeSymbol
-type NumericKeyRecordSymbol = typeof numericKeyRecord
+type NumericKeyRecordSymbol = typeof numericKeyRecordSymbol
+type PossiblyReadAsNullableSymbol = typeof possiblyReadAsNullableSymbol
 
 declare class FieldValue<T extends symbol> {
 	private constructor()
@@ -24,15 +26,22 @@ export interface Increment extends FieldValue<IncrementSymbol> {}
 
 export interface Removable extends FieldValue<RemoveSymbol> {}
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface PushAble<T> extends FieldValue<PushAbleSymbol> {}
+export interface PushAble<
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	T
+> extends FieldValue<PushAbleSymbol> {}
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface PushAbleOnly<T> extends FieldValue<PushAbleOnlySymbol> {}
+export interface PushAbleOnly<
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	T
+> extends FieldValue<PushAbleOnlySymbol> {}
+export interface NumericKeyRecord<
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	T
+> extends FieldValue<NumericKeyRecordSymbol> {}
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface NumericKeyRecord<T>
-	extends FieldValue<NumericKeyRecordSymbol> {}
+export interface PossiblyReadAsNullable
+	extends FieldValue<PossiblyReadAsNullableSymbol> {}
 
 export type AllFieldTypes =
 	| ServerTimestamp
@@ -41,3 +50,4 @@ export type AllFieldTypes =
 	| PushAble<unknown>
 	| PushAbleOnly<unknown>
 	| NumericKeyRecord<unknown>
+	| PossiblyReadAsNullable
