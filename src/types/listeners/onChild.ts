@@ -3,7 +3,7 @@ import { Query } from '../refs'
 import { Unsubscribe, ListenOptions } from '../alias'
 import { IsValidOnChildRef, GetOnChildSnapshot } from './utils'
 
-export type OnChildChanged = {
+export type OnChild = {
 	<
 		T extends MetaType,
 		U extends (keyof T['flatten_write'] & string) | undefined
@@ -15,6 +15,7 @@ export type OnChildChanged = {
 		) => unknown,
 		options?: ListenOptions
 	): Unsubscribe
+
 	<
 		T extends MetaType,
 		U extends (keyof T['flatten_write'] & string) | undefined

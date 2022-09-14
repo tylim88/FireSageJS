@@ -1,5 +1,5 @@
 import { onChildChanged as onChildChanged_ } from 'firebase/database'
-import { OnChildChanged } from '../types'
+import { OnChild } from '../types'
 import { listenerCreator } from './utils'
 /**
  * Listens for data changes at a particular location.
@@ -31,7 +31,7 @@ import { listenerCreator } from './utils'
  * then removes the listener after its first invocation.
  * @returns A function that can be invoked to remove the listener.
  */
-export const onChildChanged: OnChildChanged = (
+export const onChildChanged: OnChild = (
 	query,
 	callback,
 	cancelCallback,

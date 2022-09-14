@@ -22,7 +22,8 @@ todo:
 3. orderByChild to reject arbitrary key - hmm, necessary?
 4. transform onDisconnect - done
 5. working onDisconnect - done
-6. add possibly read as undefined
+6. add possibly read as undefined - done
+7. better check for orderByChild
 
 bug:
 1. fix validate child path error suggestion - done

@@ -1,5 +1,5 @@
 import { onChildAdded as onChildAdded_ } from 'firebase/database'
-import { OnChildAdded } from '../types'
+import { OnChild } from '../types'
 import { listenerCreator } from './utils'
 
 /**
@@ -31,7 +31,7 @@ import { listenerCreator } from './utils'
  * then removes the listener after its first invocation.
  * @returns A function that can be invoked to remove the listener.
  */
-export const onChildAdded: OnChildAdded = (
+export const onChildAdded: OnChild = (
 	query,
 	callback,
 	cancelCallback,
