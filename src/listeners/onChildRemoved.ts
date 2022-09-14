@@ -30,7 +30,7 @@ import { listenerCreator } from './utils'
  * permission to read this data (or it had permission but has now lost it).
  * This callback will be passed an `Error` object indicating why the failure
  * occurred.
- * @param options - An object that can be used to configure `onlyOnce`, which
+ * @param options - optional, an object that can be used to configure `onlyOnce`, which
  * then removes the listener after its first invocation.
  * @returns A function that can be invoked to remove the listener.
  */
