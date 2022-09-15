@@ -13,6 +13,7 @@ import { RemoveFirstSegment, GetFirstSegment } from '../../tsUtils'
 import {
 	ErrorOrderByChildMustStartAtGrandChildPath,
 	ErrorMultipleOrderBy,
+	ErrorMustOrderByChildWithPrimitiveType,
 } from './error'
 
 export type GetAllOrderByConstraints<
@@ -36,11 +37,16 @@ export type ValidateOrderByChildren<
 		? FindAllLevelChildKeys<T, U> extends infer A extends string
 			? OrderByConstraint<
 					'orderByChild',
-					FindNestedCompareTypeFromFullPath<T, U> extends Record<
-						string,
-						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						infer L extends Record<string, unknown>
-					>
+					FindNestedCompareTypeFromFullPath<
+						T,
+						`${U extends string ? `${U}/` : ''}${GetFirstSegment<A>}/${X}`
+					> extends Record<string, unknown>
+						? ErrorMustOrderByChildWithPrimitiveType<X>
+						: FindNestedCompareTypeFromFullPath<T, U> extends Record<
+								string,
+								// eslint-disable-next-line @typescript-eslint/no-unused-vars
+								infer L extends Record<string, unknown>
+						  >
 						? `${U extends string
 								? `${U}/`
 								: ''}${GetFirstSegment<A>}/${X}` extends infer Z extends keyof T['flatten_write'] &

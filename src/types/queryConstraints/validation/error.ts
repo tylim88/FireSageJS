@@ -30,3 +30,5 @@ export type ErrorCannotUseEndAtEndBeforeTogether =
 	`Error: You cannot use both 'endAt' and 'endBefore' in the same query`
 export type ErrorEqualToMustBeTheOnlyCursor =
 	`Error: You cannot use 'equalTo' with any other cursor in the same query`
+export type ErrorMustOrderByChildWithPrimitiveType<T extends string> =
+	`Error: You can only order by child where the child type is string, number, boolean or null. But the type of '${T}' is neither of those.`

@@ -23,7 +23,7 @@ todo:
 4. transform onDisconnect - done
 5. working onDisconnect - done
 6. add possibly read as undefined - done
-7. better check for orderByChild
+7. better check for orderByChild - done
 
 bug:
 1. fix validate child path error suggestion - done

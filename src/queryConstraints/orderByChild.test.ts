@@ -7,25 +7,27 @@ import { serverTimestamp, increment } from '../fieldValue'
 initializeApp()
 
 describe('test orderByChild', () => {
-	it('incorrect value test, but also test for correct child path', () => {
+	it('test for child path where the type of child is not boolean, number, string or null', () => {
 		query(
 			usersRef('b/h'),
-			orderByChild('m'),
 			// @ts-expect-error
+			orderByChild('m'),
 			startAt('abc')
 		)
 		query(
 			usersRef('b/h'),
-			orderByChild('p'),
 			// @ts-expect-error
+			orderByChild('p'),
 			startAt(123)
 		)
 		query(
 			usersRef('b/h'),
-			orderByChild('s'),
 			// @ts-expect-error
+			orderByChild('s'),
 			startAt(true)
 		)
+	})
+	it('incorrect value test, but also test for correct child path', () => {
 		query(
 			usersRef('b/h/abc/m'),
 			orderByChild('n'),
