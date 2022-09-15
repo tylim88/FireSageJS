@@ -3,10 +3,11 @@ import {
 	readAndExpectForSet,
 	generateRandomData,
 	initializeApp,
-	usersRef,
+	usersRefCreator,
 } from '../utilForTests'
 
 initializeApp()
+const usersRef = usersRefCreator()
 
 describe('test set and get', () => {
 	it('test root', async () => {

@@ -1,9 +1,10 @@
 import { set, get, push } from '../operations'
-import { initializeApp, usersRef } from '../utilForTests'
+import { initializeApp, usersRefCreator } from '../utilForTests'
 import { remove } from './remove'
 import { serverTimestamp } from '../fieldValue'
 
 initializeApp()
+const usersRef = usersRefCreator()
 describe('test remove', () => {
 	it('test incorrect type', async () => {
 		remove(

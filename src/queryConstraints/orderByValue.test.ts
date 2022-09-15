@@ -1,10 +1,11 @@
 import { query } from '../refs'
-import { usersRef, initializeApp } from '../utilForTests'
+import { usersRefCreator, initializeApp } from '../utilForTests'
 import { orderByValue } from './orderByValue'
 import { startAt } from './startAt'
 import { serverTimestamp, increment } from '../fieldValue'
 
 initializeApp()
+const usersRef = usersRefCreator()
 
 describe('test orderByValue', () => {
 	it('incorrect value test', () => {

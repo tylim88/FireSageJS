@@ -24,6 +24,7 @@ import {
 	serverTimestamp,
 	ServerTimestamp,
 	Ref,
+	getDatabase,
 } from 'firesagejs'
 import firebasejson from '../firebase.json'
 import {
@@ -38,6 +39,7 @@ import {
 import fs from 'fs'
 
 initializeApp()
+
 const port = firebasejson.emulators.database.port
 let db = undefined as unknown as ReturnType<RulesTestContext['database']>
 let testEnv = undefined as unknown as RulesTestEnvironment
@@ -203,7 +205,7 @@ describe('test working with rules unit testing', () => {
 		})
 	})
 	it('test increment', async () => {
-		const ref = createRef<MetaTypeCreator<{ a: number }>>()
+		const ref = createRef<MetaTypeCreator<{ a: number }>>(getDatabase())
 		const node = ref('a')
 		await set(node, -100)
 		await set(node, increment(100)) // * unlike firestore, RTDB increment behave like update
@@ -212,7 +214,9 @@ describe('test working with rules unit testing', () => {
 		expect(data).toBe(0)
 	})
 	it('test server timestamp', async () => {
-		const ref = createRef<MetaTypeCreator<{ a: ServerTimestamp }>>()
+		const ref = createRef<MetaTypeCreator<{ a: ServerTimestamp }>>(
+			getDatabase()
+		)
 		const node = ref('a')
 		await set(node, serverTimestamp())
 		const dataSnapshot = await get(node)

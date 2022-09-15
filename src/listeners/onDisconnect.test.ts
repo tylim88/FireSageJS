@@ -1,8 +1,9 @@
 import { onDisconnect } from './onDisconnect'
-import { usersRef, initializeApp } from '../utilForTests'
+import { usersRefCreator, initializeApp } from '../utilForTests'
 import { serverTimestamp } from '../fieldValue'
 
 initializeApp()
+const usersRef = usersRefCreator()
 
 // ! how to simulate offline test?
 describe('test onDisconnect', () => {

@@ -1,5 +1,5 @@
 import {
-	usersRef,
+	usersRefCreator,
 	initializeApp,
 	Users,
 	readAndExpectForSet,
@@ -10,6 +10,7 @@ import { child } from './child'
 import { set } from '../operations'
 
 initializeApp()
+const usersRef = usersRefCreator()
 
 describe('test child', () => {
 	it('test path type validation and return type', () => {

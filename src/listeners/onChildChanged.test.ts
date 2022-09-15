@@ -2,7 +2,7 @@ import { onChildChanged } from './onChildChanged'
 import {
 	generateRandomData,
 	initializeApp,
-	usersRef,
+	usersRefCreator,
 	Users,
 	compareListeners,
 } from '../utilForTests'
@@ -11,6 +11,7 @@ import { IsSame, IsTrue, DataSnapshot } from '../types'
 import { query } from '../refs'
 
 initializeApp()
+const usersRef = usersRefCreator()
 
 describe('test onChildChanged', () => {
 	it('test with nothing', done => {

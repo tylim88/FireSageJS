@@ -14,6 +14,7 @@ import {
 	DataSnapshot,
 	createRef,
 	get,
+	getDatabase,
 } from 'firesagejs'
 import { initializeApp as initializeApp_ } from 'firebase/app'
 import pick from 'pick-random'
@@ -59,7 +60,7 @@ export type Users = MetaTypeCreator<{
 	w: NumericKeyRecord<{ v: boolean }>
 }>
 
-export const usersRef = createRef<Users>()
+export const usersRefCreator = () => createRef<Users>(getDatabase())
 
 const getRandomCapitalAlphabet = () => pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 

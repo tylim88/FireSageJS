@@ -20,6 +20,7 @@ import pick from 'pick-random'
 import { v4 } from 'uuid'
 import betwin from 'betwin'
 import { get } from './operations'
+import { getDatabase } from 'firebase/database'
 
 export const initializeApp = () => {
 	const env = process.env
@@ -60,7 +61,7 @@ export type Users = MetaTypeCreator<{
 	w: NumericKeyRecord<{ v: boolean }>
 }>
 
-export const usersRef = createRef<Users>()
+export const usersRefCreator = () => createRef<Users>(getDatabase())
 
 const getRandomCapitalAlphabet = () => pick(['A', ...betwin('A', 'Z'), 'Z'])[0]!
 

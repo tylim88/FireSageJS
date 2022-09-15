@@ -4,11 +4,12 @@ import {
 	readAndExpectForUpdate,
 	generateRandomData,
 	initializeApp,
-	usersRef,
+	usersRefCreator,
 	readAndExpectForSet,
 } from '../utilForTests'
 
 initializeApp()
+const usersRef = usersRefCreator()
 
 describe('test update and get', () => {
 	it('test a node', async () => {

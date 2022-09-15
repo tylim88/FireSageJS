@@ -8,4 +8,4 @@ const app = initializeApp({
 
 export const db = getDatabase()
 
-export const exampleRef = createRef<Example>()
+export const exampleRef = createRef<Example>(db)

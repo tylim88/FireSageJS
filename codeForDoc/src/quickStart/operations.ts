@@ -1,4 +1,4 @@
-import { exampleRef, db } from './createRef'
+import { exampleRef } from './createRef'
 import {
 	set,
 	get,
@@ -10,7 +10,7 @@ import {
 } from 'firesagejs'
 //
 ;async () => {
-	await set(exampleRef(db, 'a'), 1)
+	await set(exampleRef('a'), 1)
 
 	await update(exampleRef(), ['b/c', 'b/d/e'], [true, serverTimestamp()])
 

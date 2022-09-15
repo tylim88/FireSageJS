@@ -1,10 +1,11 @@
 import { query } from '../refs'
-import { usersRef, initializeApp } from '../utilForTests'
+import { usersRefCreator, initializeApp } from '../utilForTests'
 import { orderByChild } from './orderByChild'
 import { startAt } from './startAt'
 import { serverTimestamp, increment } from '../fieldValue'
 
 initializeApp()
+const usersRef = usersRefCreator()
 
 describe('test orderByChild', () => {
 	it('test for child path where the type of child is not boolean, number, string or null', () => {

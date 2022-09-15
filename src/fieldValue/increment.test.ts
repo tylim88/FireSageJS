@@ -3,10 +3,13 @@ import { set, get, update } from '../operations'
 import { initializeApp } from '../utilForTests'
 import { MetaTypeCreator } from '../types'
 import { increment } from './increment'
+import { getDatabase } from 'firebase/database'
 
 initializeApp()
 describe('test increment', () => {
-	const ref = createRef<MetaTypeCreator<{ a: number; b: 1 | 2 | 3 }>>()
+	const ref = createRef<MetaTypeCreator<{ a: number; b: 1 | 2 | 3 }>>(
+		getDatabase()
+	)
 	const node = ref('a')
 	const root = ref()
 	it('test with set', async () => {

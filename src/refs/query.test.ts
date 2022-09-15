@@ -1,5 +1,5 @@
 import { query } from './query'
-import { usersRef, initializeApp } from '../utilForTests'
+import { usersRefCreator, initializeApp } from '../utilForTests'
 import {
 	equalTo,
 	endAt,
@@ -12,6 +12,7 @@ import {
 } from '../queryConstraints'
 
 initializeApp()
+const usersRef = usersRefCreator()
 
 // functional test is tested with get and listener
 describe('test query type', () => {

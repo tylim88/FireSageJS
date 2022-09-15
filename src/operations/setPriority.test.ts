@@ -1,7 +1,8 @@
 import { setPriority } from './setPriority'
-import { usersRef, initializeApp } from '../utilForTests'
+import { usersRefCreator, initializeApp } from '../utilForTests'
 
 initializeApp()
+const usersRef = usersRefCreator()
 
 // functionality test is test with onChildMove and setWithPriority
 describe('test set priority type', () => {

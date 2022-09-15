@@ -1,8 +1,9 @@
 import { runTransaction } from './runTransaction'
-import { initializeApp, usersRef } from '../utilForTests'
+import { initializeApp, usersRefCreator } from '../utilForTests'
 import { serverTimestamp } from '../fieldValue'
 
 initializeApp()
+const usersRef = usersRefCreator()
 
 describe('test run transaction', () => {
 	it('test b/d/f path', async () => {

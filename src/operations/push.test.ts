@@ -1,9 +1,10 @@
 import { set, get } from '../operations'
-import { initializeApp, usersRef } from '../utilForTests'
+import { initializeApp, usersRefCreator } from '../utilForTests'
 import { push } from './push'
 import { serverTimestamp, increment } from '../fieldValue'
 
 initializeApp()
+const usersRef = usersRefCreator()
 
 describe('test push]', () => {
 	it('test incorrect ref type', async () => {
