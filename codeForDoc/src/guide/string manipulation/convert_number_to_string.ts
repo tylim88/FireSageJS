@@ -3,13 +3,14 @@ import {
 	NumericKeyRecord,
 	createRef,
 	update,
+	getDatabase,
 } from 'firesagejs'
 
 type Example = MetaTypeCreator<{
 	a: NumericKeyRecord<boolean>
 }>
 
-const ref = createRef<Example>()
+const ref = createRef<Example>(getDatabase())
 
 const numericKey = 123
 

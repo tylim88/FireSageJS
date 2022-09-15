@@ -1,10 +1,15 @@
-import { MetaTypeCreator, NumericKeyRecord, createRef } from 'firesagejs'
+import {
+	MetaTypeCreator,
+	NumericKeyRecord,
+	createRef,
+	getDatabase,
+} from 'firesagejs'
 
 type Example = MetaTypeCreator<{
 	a: { b: NumericKeyRecord<boolean>; c: Record<string, 1 | 2 | 3> }
 }>
 
-const ref = createRef<Example>()
+const ref = createRef<Example>(getDatabase())
 
 const numericKey = 123
 const nonNumericKey = 'x7y8z9'
