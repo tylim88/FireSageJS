@@ -6,6 +6,7 @@ import {
 	createRef,
 	set,
 	serverTimestamp,
+	getDatabase,
 } from 'firesagejs'
 
 export type Example = MetaTypeCreator<{
@@ -21,7 +22,7 @@ export type Example = MetaTypeCreator<{
 	i: NumericKeyRecord<string>
 }>
 
-const exampleRef = createRef<Example>()
+const exampleRef = createRef<Example>(getDatabase())
 
 ;async () => {
 	await set(exampleRef('b/d'), { e: serverTimestamp() }) // ok
