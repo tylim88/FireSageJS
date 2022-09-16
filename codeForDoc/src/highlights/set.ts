@@ -34,24 +34,6 @@ const exampleRef = createRef<Example>(getDatabase())
 	//
 	//
 	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	await set(
-		// @ts-expect-error
-		exampleRef('b/c/d'),
-		1
-	) // not ok, path b/c/d not exist
-	//
-	//
-	//
 	await set(
 		exampleRef('b/d/e'),
 		// @ts-expect-error
@@ -89,19 +71,4 @@ const exampleRef = createRef<Example>(getDatabase())
 		// @ts-expect-error
 		abc: false,
 	}) // not ok, expect the key to be numeric string
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	await set(
-		// @ts-expect-error
-		exampleRef('i/abc'),
-		false
-	) // not ok, expect the key to be numeric string
 }
