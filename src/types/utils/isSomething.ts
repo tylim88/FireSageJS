@@ -71,4 +71,4 @@ export type IsRecordString<T, PASS = true, FAIL = false> = T extends Record<
 	? string extends X
 		? PASS
 		: FAIL
-	: never
+	: never // impossible route
