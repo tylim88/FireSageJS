@@ -5,10 +5,11 @@ import {
 	ErrorNeedNumericKey,
 	ErrorNoInValidCharacter,
 	ErrorHasNoChild,
+	ErrorNeedNoNNumericKey,
 } from './error'
 import { FindMetaPathType, FindAllLevelChildKeys } from './findTypeAndKey'
 import { IsNumericRecordType } from '../tsUtils'
-import { IsCharacterValid } from './isWhat'
+import { IsCharacterValid, IsRecordString } from './isSomething'
 
 export type ValidateChildPath<
 	T extends MetaType,
@@ -68,18 +69,25 @@ export type ValidateFullPath<
 	? V
 	: ErrorINN
 
-// Record<string, any> and Record<number, any> extends each other
-// Record<string, any> does not extends Record<number, any> & Record<string, never>
-// Record<number, any> does not extends Record<number, any> & Record<string, never>
-// case 1: if the node type is not Record<number, any> OR input type is other than Record<string, any>, don't change the node type
-// case 2: if the node type is Record<number, any> AND the input type is Record<string, any>, return error message
-export type ValidateRecordString<Input, Node> =
+// Record<string, T> and Record<number, T> extends each other
+// Record<string, T> does not extends Record<number, T> & Record<string, never>
+// Record<number, T> does not extends Record<number, T> & Record<string, never>
+// case 1: if the node type is not Record<number, T> OR input type is other than Record<string, T>, don't change the node type
+// case 2: if the node type is Record<string, T> AND input type is Record<number, T>, return error message
+// case 3: if the node type is Record<number, T> AND the input type is Record<string, T>, return error message
+export type ValidateRecordStringNumber<Input, Node> =
 	IsNumericRecordType<Input> extends infer G
-		? G extends true // case 1
-			? Node
-			: Node extends Record<number, unknown> // case 2
+		? G extends true
+			? IsRecordString<
+					Node,
+					ErrorNeedNoNNumericKey, // case 2
+					Node // case 1
+			  >
+			: Node extends Record<number, unknown>
 			? IsNumericRecordType<Node> extends true
-				? ErrorNeedNumericKey
+				? Input extends Record<string, unknown>
+					? ErrorNeedNumericKey // case 3
+					: Node
 				: Node
 			: Node
 		: never

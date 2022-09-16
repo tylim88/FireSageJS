@@ -4,7 +4,7 @@ import { TransactionOptions } from './alias'
 import {
 	FindNestedReadTypeFromFullPath,
 	FindNestedWriteTypeFromFullPath,
-	ValidateRecordString,
+	ValidateRecordStringNumber,
 } from './utils'
 import { DatabaseReference } from './refs'
 
@@ -19,7 +19,7 @@ export type RunTransaction = <
 	) => V extends never
 		? V
 		:
-				| ValidateRecordString<
+				| ValidateRecordStringNumber<
 						V,
 						FindNestedWriteTypeFromFullPath<T, U, T['write']>
 				  >

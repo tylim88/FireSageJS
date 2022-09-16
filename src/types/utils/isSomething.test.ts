@@ -1,4 +1,4 @@
-import { IsCharacterValid } from './isWhat'
+import { IsCharacterValid, IsRecordString } from './isSomething'
 import { IsTrue, IsSame } from '../tsUtils'
 
 describe('test IsSomething', () => {
@@ -26,5 +26,16 @@ describe('test IsSomething', () => {
 		IsTrue<IsSame<I, true>>()
 		IsTrue<IsSame<J, true>>()
 		IsTrue<IsSame<K, true>>()
+	})
+
+	it('test IsRecordString', () => {
+		type A = IsRecordString<'abc'>
+		type B = IsRecordString<boolean>
+		type C = IsRecordString<Record<number, unknown>>
+		type D = IsRecordString<Record<string, unknown>>
+		IsTrue<IsSame<A, false>>()
+		IsTrue<IsSame<B, false>>()
+		IsTrue<IsSame<C, false>>()
+		IsTrue<IsSame<D, true>>()
 	})
 })

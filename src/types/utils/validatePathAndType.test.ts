@@ -1,4 +1,8 @@
-import { ValidateFullPath, ValidateChildPath } from './validatePathAndType'
+import {
+	ValidateFullPath,
+	ValidateChildPath,
+	ValidateRecordStringNumber,
+} from './validatePathAndType'
 import { Users } from '../../utilForTests'
 import { IsSame, IsTrue } from '../tsUtils'
 import {
@@ -6,6 +10,8 @@ import {
 	ErrorInvalidOrNeedNumericKey,
 	ErrorNoInValidCharacter,
 	ErrorHasNoChild,
+	ErrorNeedNumericKey,
+	ErrorNeedNoNNumericKey,
 } from './error'
 
 describe('test ValidateFullPath', () => {
@@ -76,5 +82,25 @@ describe('test ValidateFullPath', () => {
 		IsTrue<IsSame<K, ErrorInvalidOrNeedNumericKey>>()
 		IsTrue<IsSame<L, ErrorHasNoChild<`b/h/${string}/s/`>>>()
 		IsTrue<IsSame<M, ErrorNoInValidCharacter>>()
+	})
+
+	it('ValidateRecordString tests', () => {
+		type A = ValidateRecordStringNumber<number, Record<number, unknown>>
+		type B = ValidateRecordStringNumber<
+			Record<string, unknown>,
+			Record<number, unknown>
+		>
+		type C = ValidateRecordStringNumber<Record<string, unknown>, null>
+		type D = ValidateRecordStringNumber<null, Record<string, unknown>>
+		type E = ValidateRecordStringNumber<
+			Record<number, unknown>,
+			Record<string, unknown>
+		>
+
+		IsTrue<IsSame<A, Record<number, unknown>>>()
+		IsTrue<IsSame<B, ErrorNeedNumericKey>>()
+		IsTrue<IsSame<C, null>>()
+		IsTrue<IsSame<D, Record<string, unknown>>>()
+		IsTrue<IsSame<E, ErrorNeedNoNNumericKey>>()
 	})
 })

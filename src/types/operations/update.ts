@@ -1,7 +1,7 @@
 import { MetaType } from '../metaType'
 import {
 	FindNestedWriteTypeFromFullPath,
-	ValidateRecordString,
+	ValidateRecordStringNumber,
 	GetFullPath,
 	GetAllPushAbleOnlyPaths,
 	ValidateChildPath,
@@ -108,7 +108,7 @@ export type GetChildPathsType<
 				Y,
 				[
 					...ACC,
-					ValidateRecordString<
+					ValidateRecordStringNumber<
 						X,
 						FindNestedWriteTypeFromFullPath<T, GetFullPath<T, U, P>>
 					>

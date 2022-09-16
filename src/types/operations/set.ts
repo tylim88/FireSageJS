@@ -2,7 +2,7 @@ import { MetaType } from '../metaType'
 import { ErrorIsPushOnlyAbleType } from './error'
 import {
 	GetAllPushAbleOnlyPaths,
-	ValidateRecordString,
+	ValidateRecordStringNumber,
 	FindNestedWriteTypeFromFullPath,
 } from '../utils'
 import { DatabaseReference } from '../refs'
@@ -11,7 +11,7 @@ export type IsValidSetValue<
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
 	V
-> = ValidateRecordString<V, FindNestedWriteTypeFromFullPath<T, U>>
+> = ValidateRecordStringNumber<V, FindNestedWriteTypeFromFullPath<T, U>>
 
 export type IsValidSetRef<
 	T extends MetaType,

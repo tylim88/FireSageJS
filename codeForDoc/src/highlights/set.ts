@@ -19,7 +19,7 @@ export type Example = MetaTypeCreator<{
 		  }
 		| Removable
 	f: Record<string, 'a' | 'b' | 'c'>
-	i: NumericKeyRecord<string>
+	i: NumericKeyRecord<boolean>
 }>
 
 const exampleRef = createRef<Example>(getDatabase())
@@ -29,6 +29,36 @@ const exampleRef = createRef<Example>(getDatabase())
 	await set(exampleRef('b/d/e'), serverTimestamp()) // ok
 	await set(exampleRef('f'), { xyz: 'a' }) // ok
 	await set(exampleRef('f/xyz'), 'b') // ok
-
-	// await set(exampleRef('b/c/d'), 1)
+	await set(exampleRef('i'), { 123: false }) // ok
+	await set(exampleRef('i/123'), false) // ok
+	await set(
+		// @ts-expect-error
+		exampleRef('b/c/d'),
+		1
+	) // not ok, path b/c/d not exist
+	await set(
+		exampleRef('b/d/e'),
+		// @ts-expect-error
+		'incorrect type'
+	) // not ok, incorrect type
+	await set(
+		exampleRef('f'),
+		// @ts-expect-error
+		{ 123: 'a' }
+	) // not ok, expect the key to be non-numeric string
+	await set(
+		// @ts-expect-error
+		exampleRef('f/123'),
+		'b'
+	) // not ok, expect the key to be numeric string
+	await set(
+		exampleRef('i'),
+		// @ts-expect-error
+		{ abc: false }
+	) // not ok, expect the key to be non-numeric string
+	await set(
+		// @ts-expect-error
+		exampleRef('i/abc'),
+		false
+	) // not ok, expect the key to be numeric string
 }

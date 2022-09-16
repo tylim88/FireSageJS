@@ -63,3 +63,12 @@ export type IsCharacterValid<
 	: string extends ACC
 	? PASS
 	: FAIL
+
+export type IsRecordString<T, PASS = true, FAIL = false> = T extends Record<
+	infer X,
+	unknown
+>
+	? string extends X
+		? PASS
+		: FAIL
+	: never
