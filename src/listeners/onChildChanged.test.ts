@@ -4,7 +4,7 @@ import {
 	initializeApp,
 	usersRefCreator,
 	Users,
-	compareListeners,
+	assertDataFromListeners,
 } from '../utilForTests'
 import { set, push, update } from '../operations'
 import { IsSame, IsTrue, DataSnapshot } from '../types'
@@ -27,7 +27,7 @@ describe('test onChildChanged', () => {
 			type B = DataSnapshot<Users, `q/${string}`>
 			IsTrue<IsSame<B, A>>()
 			data['q'][randStringQKey] = newData
-			compareListeners(`${path}/${randStringQKey}`, dataSnapshot, data)
+			assertDataFromListeners(`${path}/${randStringQKey}`, dataSnapshot, data)
 		})
 		push(ref, data['q'][randStringQKey]!).then(async thenRef => {
 			await update(ref, [thenRef.key], [newData])
@@ -54,7 +54,7 @@ describe('test onChildChanged', () => {
 				type B = DataSnapshot<Users, `b/h/${string}/m/${string}`>
 				IsTrue<IsSame<B, A>>()
 				data['b']['h'][randStringHKey]!['m'][randStringMKey]!['n'] = newData
-				compareListeners(`${path}/${randStringMKey}`, dataSnapshot, data)
+				assertDataFromListeners(`${path}/${randStringMKey}`, dataSnapshot, data)
 			},
 			{ onlyOnce: false }
 		)
@@ -81,7 +81,7 @@ describe('test onChildChanged', () => {
 				IsTrue<IsSame<B, A>>()
 				// @ts-expect-error
 				data['b']['h'][randStringHKey]!['p'][randStringPKey]!['r'] = newData
-				compareListeners(`${path}/${randStringPKey}`, dataSnapshot, data)
+				assertDataFromListeners(`${path}/${randStringPKey}`, dataSnapshot, data)
 				unsub()
 				done()
 			},
@@ -125,7 +125,7 @@ describe('test onChildChanged', () => {
 						t: newData,
 					},
 				]
-				compareListeners(`${path}/0`, dataSnapshot, data)
+				assertDataFromListeners(`${path}/0`, dataSnapshot, data)
 			},
 			() => {
 				//

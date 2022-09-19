@@ -110,7 +110,7 @@ Read [here](https://firelordjs.com/miscellaneous/contributing)
 
 ## Trivial
 
-1. The name FireSage is a reference to [Fire Sages of Avatar](https://avatar.fandom.com/wiki/Fire_Sages).
+1. The name FireSage is a reference to the [Fire Sages of Avatar](https://avatar.fandom.com/wiki/Fire_Sages).
 2. This is most likely the only RTDB type safe wrapper in existence.
 3. FireSageJS is harder to code than its sister project [FirelordJS](https://github.com/tylim88/FirelordJS) because of RTDB path and data are deeply interrelated, another major challenge is non-numeric and numeric string type validation. FirelordJS however is quirkier due to all kind of rules.
 

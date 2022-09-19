@@ -32,10 +32,10 @@ import firebasejson from '../firebase.json'
 import {
 	generateRandomData,
 	initializeApp,
-	readAndExpectForSet,
-	readAndExpectForUpdate,
-	compareListeners,
-	dataForQuery,
+	readAndExpectForSetOp,
+	readAndExpectForUpdateOp,
+	assertDataFromListeners,
+	dataForQueryTests,
 	Users,
 } from './utilForTests'
 import fs from 'fs'
@@ -72,17 +72,17 @@ describe('test whether works with emulator', () => {
 		const ref = usersRef()
 		const data = generateRandomData().data
 		await set(ref, data)
-		await readAndExpectForSet(ref, undefined, data)
+		await readAndExpectForSetOp(ref, undefined, data)
 	})
 	it('test update', async () => {
 		const ref = usersRef()
 		const data = generateRandomData().data
 		const childPath = 'a'
 		await update(ref, [childPath], [data['a']])
-		await readAndExpectForUpdate(ref, childPath, data['a'])
+		await readAndExpectForUpdateOp(ref, childPath, data['a'])
 	})
 	it('test get', async () => {
-		await set(usersRef(), dataForQuery())
+		await set(usersRef(), dataForQueryTests())
 		const snapshot = await get(
 			query(usersRef('o'), orderByValue(), startAt(3), limitToFirst(2))
 		)
@@ -139,7 +139,7 @@ describe('test whether works with emulator', () => {
 		const unsub = onValue(
 			ref,
 			async dataSnapshot => {
-				compareListeners(undefined, dataSnapshot, data)
+				assertDataFromListeners(undefined, dataSnapshot, data)
 			},
 			{ onlyOnce: true }
 		)
@@ -158,7 +158,7 @@ describe('test whether works with emulator', () => {
 		const unsub = onChildAdded(
 			query(ref),
 			async dataSnapshot => {
-				compareListeners(`${path}/${randStringOKey}`, dataSnapshot, data)
+				assertDataFromListeners(`${path}/${randStringOKey}`, dataSnapshot, data)
 			},
 			{ onlyOnce: false }
 		)
@@ -177,7 +177,7 @@ describe('test whether works with emulator', () => {
 		expect.hasAssertions()
 		const unsub = onChildChanged(query(ref), async dataSnapshot => {
 			data['q'][randStringQKey] = newData
-			compareListeners(`${path}/${randStringQKey}`, dataSnapshot, data)
+			assertDataFromListeners(`${path}/${randStringQKey}`, dataSnapshot, data)
 		})
 		push(ref, data['q'][randStringQKey]!).then(async thenRef => {
 			await update(ref, [thenRef.key], [newData])
@@ -194,7 +194,7 @@ describe('test whether works with emulator', () => {
 		const unsub = onChildMoved(
 			ref,
 			async dataSnapshot => {
-				compareListeners(`w/0`, dataSnapshot, data)
+				assertDataFromListeners(`w/0`, dataSnapshot, data)
 			},
 			{ onlyOnce: false }
 		)
@@ -213,7 +213,7 @@ describe('test whether works with emulator', () => {
 		const unsub = onChildRemoved(
 			ref,
 			async dataSnapshot => {
-				compareListeners(`${path}/0`, dataSnapshot, data)
+				assertDataFromListeners(`${path}/0`, dataSnapshot, data)
 			},
 			() => {
 				//

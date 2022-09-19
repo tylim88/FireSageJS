@@ -1,7 +1,7 @@
 import { endAt } from './endAt'
 import { increment } from '../fieldValue'
 
-describe('test orderByChild', () => {
+describe('test endAt', () => {
 	it('The 1st argument of endAt(), startAfter(), endAt(), endBefore(), or equalTo() can only be string, boolean, number or null. negative test', () => {
 		endAt(
 			// @ts-expect-error

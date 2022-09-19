@@ -35,26 +35,30 @@ export type ValidateOrderByChildren<
 > = O['length'] extends 0 | 1
 	? H extends OrderByConstraint<'orderByChild', infer X>
 		? FindAllLevelChildKeys<T, U> extends infer A extends string
-			? OrderByConstraint<
-					'orderByChild',
-					FindNestedCompareTypeFromFullPath<
-						T,
-						`${U extends string ? `${U}/` : ''}${GetFirstSegment<A>}/${X}`
-					> extends Record<string, unknown>
-						? ErrorMustOrderByChildWithPrimitiveType<X>
-						: FindNestedCompareTypeFromFullPath<T, U> extends Record<
-								string,
-								// eslint-disable-next-line @typescript-eslint/no-unused-vars
-								infer L extends Record<string, unknown>
-						  >
-						? `${U extends string
-								? `${U}/`
-								: ''}${GetFirstSegment<A>}/${X}` extends infer Z extends keyof T['flatten_write'] &
-								string
-							? ValidateFullPath<T, Z, X>
-							: RemoveFirstSegment<A>
-						: ErrorOrderByChildMustStartAtGrandChildPath<X, U>
-			  >
+			? `${U extends string
+					? `${U}/`
+					: ''}${GetFirstSegment<A>}/${X}` extends infer K extends string
+				? OrderByConstraint<
+						'orderByChild',
+						FindNestedCompareTypeFromFullPath<T, K> extends Record<
+							string,
+							unknown
+						>
+							? ErrorMustOrderByChildWithPrimitiveType<K>
+							: FindNestedCompareTypeFromFullPath<T, U> extends Record<
+									string,
+									// eslint-disable-next-line @typescript-eslint/no-unused-vars
+									infer L extends Record<string, unknown>
+							  >
+							? `${U extends string
+									? `${U}/`
+									: ''}${GetFirstSegment<A>}/${X}` extends infer Z extends keyof T['flatten_write'] &
+									string
+								? ValidateFullPath<T, Z, X>
+								: RemoveFirstSegment<A>
+							: ErrorOrderByChildMustStartAtGrandChildPath<X, U>
+				  >
+				: never // impossible route
 			: never // impossible route
 		: H
 	: ErrorMultipleOrderBy

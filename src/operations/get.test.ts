@@ -1,5 +1,5 @@
 import { get } from './get'
-import { initializeApp, dataForQuery, Users } from '../utilForTests'
+import { initializeApp, dataForQueryTests, Users } from '../utilForTests'
 import { query, createRef } from '../refs'
 import {
 	startAfter,
@@ -54,7 +54,7 @@ describe('test get and query', () => {
 			})
 			.database()
 		usersRef = createRef<Users>(db)
-		return set(usersRef(), dataForQuery())
+		return set(usersRef(), dataForQueryTests())
 	})
 	afterAll(() => {
 		testEnv.cleanup()

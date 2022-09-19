@@ -14,8 +14,14 @@ const ref = createRef<Example>(getDatabase())
 
 const numericKey = 123
 
-// @ts-expect-error
-update(ref('a'), [numericKey.toString()], [true])
+update(
+	ref('a'),
+	[numericKey.toString()],
+	[
+		// @ts-expect-error
+		true,
+	]
+) // the data type is never
 //
 //
 //
@@ -23,7 +29,13 @@ update(ref('a'), [numericKey.toString()], [true])
 //
 //
 //
-// @ts-expect-error
-update(ref('a'), [numericKey], [true])
+update(
+	ref('a'),
+	[
+		// @ts-expect-error
+		numericKey,
+	],
+	[true]
+)
 
 update(ref('a'), [`${numericKey}`], [true])

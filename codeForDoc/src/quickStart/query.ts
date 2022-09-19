@@ -24,7 +24,7 @@ import {
 		query(
 			exampleRef('g'),
 			orderByChild('j/k'),
-			endAt(false, 'a1b2c3'),
+			equalTo(false, 'a1b2c3'),
 			limitToLast(2)
 		)
 	)

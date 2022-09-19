@@ -1,11 +1,11 @@
 import { update } from './update'
 import { set } from './set'
 import {
-	readAndExpectForUpdate,
+	readAndExpectForUpdateOp,
 	generateRandomData,
 	initializeApp,
 	usersRefCreator,
-	readAndExpectForSet,
+	readAndExpectForSetOp,
 } from '../utilForTests'
 
 initializeApp()
@@ -17,7 +17,7 @@ describe('test update and get', () => {
 		const data = generateRandomData().data
 		const childPath = 'a'
 		await update(ref, [childPath], [data['a']])
-		await readAndExpectForUpdate(ref, childPath, data['a'])
+		await readAndExpectForUpdateOp(ref, childPath, data['a'])
 		;() => {
 			update(ref, [childPath], [data['a']])
 			update(
@@ -98,7 +98,7 @@ describe('test update and get', () => {
 		const data = generateRandomData().data
 		const childPath = 'c'
 		await update(ref, [childPath], [data['b']['c']])
-		await readAndExpectForUpdate(ref, childPath, data['b']['c'])
+		await readAndExpectForUpdateOp(ref, childPath, data['b']['c'])
 		;() => {
 			update(
 				ref,
@@ -178,7 +178,7 @@ describe('test update and get', () => {
 		const data = generateRandomData().data
 		const childPath = 'b/d'
 		await update(ref, [childPath], [data['b']['d']])
-		await readAndExpectForUpdate(ref, childPath, data['b']['d'])
+		await readAndExpectForUpdateOp(ref, childPath, data['b']['d'])
 		;() => {
 			update(
 				ref,
@@ -258,7 +258,7 @@ describe('test update and get', () => {
 		const data = generateRandomData().data
 		const childPath = 'f/j'
 		await update(ref, [childPath], [data['b']['d']['f']['j']])
-		await readAndExpectForUpdate(ref, childPath, data['b']['d']['f']['j'])
+		await readAndExpectForUpdateOp(ref, childPath, data['b']['d']['f']['j'])
 		;() => {
 			update(ref, [childPath], [data['a']]) // 'j' is number
 			update(
@@ -336,7 +336,7 @@ describe('test update and get', () => {
 		const childPath = randStringHKey
 		const ref = usersRef(`b/h`)
 		await update(ref, [childPath], [data['b']['h'][randStringHKey]!])
-		await readAndExpectForUpdate(
+		await readAndExpectForUpdateOp(
 			ref,
 			`${childPath}/`,
 			data['b']['h'][randStringHKey]!
@@ -428,7 +428,7 @@ describe('test update and get', () => {
 		const childPath = 'i'
 		const ref = usersRef(`b/h/${randStringHKey}`)
 		await update(ref, [childPath], [data['b']['h'][randStringHKey]!['i']])
-		await readAndExpectForUpdate(
+		await readAndExpectForUpdateOp(
 			ref,
 			childPath,
 			data['b']['h'][randStringHKey]!['i']
@@ -511,7 +511,7 @@ describe('test update and get', () => {
 		const childPath = 'm'
 		const ref = usersRef(`b/h/${randStringHKey}`)
 		await update(ref, [childPath], [data['b']['h'][randStringHKey]!['m']])
-		await readAndExpectForUpdate(
+		await readAndExpectForUpdateOp(
 			ref,
 			childPath,
 			data['b']['h'][randStringHKey]!['m']
@@ -604,7 +604,7 @@ describe('test update and get', () => {
 			[childPath],
 			[data['b']['h'][randStringHKey]!['m'][randStringMKey]!]
 		)
-		await readAndExpectForUpdate(
+		await readAndExpectForUpdateOp(
 			ref,
 			childPath,
 			data['b']['h'][randStringHKey]!['m'][randStringMKey]!
@@ -696,7 +696,7 @@ describe('test update and get', () => {
 			[childPath],
 			[data['b']['h'][randStringHKey]!['m'][randStringMKey]!['n']]
 		)
-		await readAndExpectForUpdate(
+		await readAndExpectForUpdateOp(
 			ref,
 			childPath,
 			data['b']['h'][randStringHKey]!['m'][randStringMKey]!['n']
@@ -805,7 +805,7 @@ describe('test update and get', () => {
 			[childPath],
 			[data['b']['h'][randStringHKey]!['p'][randStringPKey]!]
 		)
-		await readAndExpectForUpdate(
+		await readAndExpectForUpdateOp(
 			ref,
 			childPath,
 			data['b']['h'][randStringHKey]!['p'][randStringPKey]!
@@ -897,7 +897,7 @@ describe('test update and get', () => {
 			[childPath],
 			[data['b']['h'][randStringHKey]!['p'][randStringPKey]!['r']]
 		)
-		await readAndExpectForUpdate(
+		await readAndExpectForUpdateOp(
 			ref,
 			childPath,
 			data['b']['h'][randStringHKey]!['p'][randStringPKey]!['r']
@@ -1001,7 +1001,7 @@ describe('test update and get', () => {
 					  }[],
 			]
 		)
-		await readAndExpectForUpdate(
+		await readAndExpectForUpdateOp(
 			ref,
 			childPath,
 			data['b']['h'][randStringHKey]!['s']
@@ -1097,7 +1097,7 @@ describe('test update and get', () => {
 			[childPath],
 			[(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!]
 		)
-		await readAndExpectForUpdate(
+		await readAndExpectForUpdateOp(
 			ref,
 			childPath,
 			(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!
@@ -1192,7 +1192,7 @@ describe('test update and get', () => {
 			[childPath],
 			[(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!['t']]
 		)
-		await readAndExpectForUpdate(
+		await readAndExpectForUpdateOp(
 			ref,
 			childPath,
 			(data['b']['h'][randStringHKey]!['s'] as { t: number }[])[0]!['t']
@@ -1312,7 +1312,7 @@ describe('test update and get', () => {
 			data['b']['h'][randStringHKey]!['s'] as { t: number }[]
 		)[0]!
 
-		await readAndExpectForSet(ref, undefined, oriData)
+		await readAndExpectForSetOp(ref, undefined, oriData)
 	})
 
 	it('test "q" node is push able only', async () => {

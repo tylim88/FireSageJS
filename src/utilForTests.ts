@@ -131,7 +131,7 @@ export const generateRandomData = (): {
 	}
 }
 
-export const readAndExpectForSet = async <
+export const readAndExpectForSetOp = async <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
 >(
@@ -164,7 +164,7 @@ const getNarrowedDataFromPath = (
 	}, fullData)
 }
 
-export const compareListeners = <
+export const assertDataFromListeners = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined
 >(
@@ -176,7 +176,7 @@ export const compareListeners = <
 	expect(getNarrowedDataFromPath(path, inputData)).toEqual(outputData)
 }
 
-export const readAndExpectForUpdate = async <
+export const readAndExpectForUpdateOp = async <
 	S extends DatabaseReference<any, any>,
 	T extends S extends DatabaseReference<infer X, any> ? X : never,
 	U extends S extends DatabaseReference<any, infer X> ? X : never,
@@ -202,7 +202,7 @@ export const readAndExpectForUpdate = async <
 	return snapshot
 }
 
-export const dataForQuery = (): Users['write'] => {
+export const dataForQueryTests = (): Users['write'] => {
 	return {
 		a: pick([1, 2, 3] as const)[0]!,
 		b: {

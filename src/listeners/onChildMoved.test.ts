@@ -4,7 +4,7 @@ import {
 	initializeApp,
 	usersRefCreator,
 	Users,
-	compareListeners,
+	assertDataFromListeners,
 } from '../utilForTests'
 import { set, push } from '../operations'
 import { setPriority } from '../operations/setPriority'
@@ -27,7 +27,7 @@ describe('test onChildMoved', () => {
 				type A = typeof dataSnapshot
 				type B = DataSnapshot<Users, `w/${number}`>
 				IsTrue<IsSame<B, A>>()
-				compareListeners(`w/0`, dataSnapshot, data)
+				assertDataFromListeners(`w/0`, dataSnapshot, data)
 			},
 			{ onlyOnce: false }
 		)
@@ -51,7 +51,7 @@ describe('test onChildMoved', () => {
 				type A = typeof dataSnapshot
 				type B = DataSnapshot<Users, `b/h/${string}/m/${string}`>
 				IsTrue<IsSame<B, A>>()
-				compareListeners(`${path}/${randStringMKey}`, dataSnapshot, data)
+				assertDataFromListeners(`${path}/${randStringMKey}`, dataSnapshot, data)
 			},
 			{ onlyOnce: false }
 		)
@@ -75,7 +75,7 @@ describe('test onChildMoved', () => {
 				type A = typeof dataSnapshot
 				type B = DataSnapshot<Users, `b/h/${string}/p/${string}`>
 				IsTrue<IsSame<B, A>>()
-				compareListeners(`${path}/${randStringPKey}`, dataSnapshot, data)
+				assertDataFromListeners(`${path}/${randStringPKey}`, dataSnapshot, data)
 			},
 			() => {
 				//
@@ -102,7 +102,7 @@ describe('test onChildMoved', () => {
 				type A = typeof dataSnapshot
 				type B = DataSnapshot<Users, `b/h/${string}/s/${number}`>
 				IsTrue<IsSame<B, A>>()
-				compareListeners(`${path}/0`, dataSnapshot, data)
+				assertDataFromListeners(`${path}/0`, dataSnapshot, data)
 			},
 			() => {
 				//

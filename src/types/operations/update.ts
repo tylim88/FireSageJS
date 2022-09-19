@@ -123,7 +123,6 @@ export type GetChildPathsType<
 		  >
 	: never
 
-// TODO research the 2 dimensions tuple inference issue, check old commit
 export type Update = <
 	T extends MetaType,
 	U extends (keyof T['flatten_write'] & string) | undefined,
