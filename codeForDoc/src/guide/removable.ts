@@ -7,6 +7,8 @@ import {
 	getDatabase,
 	remove,
 	get,
+	PushAble,
+	PushAbleOnly,
 } from 'firesagejs'
 
 export type Example = MetaTypeCreator<{
@@ -16,12 +18,7 @@ export type Example = MetaTypeCreator<{
 const exampleRef = createRef<Example>(getDatabase())
 
 remove(exampleRef('a')) // ok
-//
-//
-//
-//
-//
-//
+
 remove(
 	// @ts-expect-error
 	exampleRef('b')
@@ -56,6 +53,10 @@ export type Example2 = MetaTypeCreator<
 				| Removable
 			f: Record<string, 'a' | 'b' | 'c' | Removable> | Removable
 			i: NumericKeyRecord<boolean | Removable> | Removable
+			j: PushAble<1 | 2 | 3 | 4 | Removable> | Removable
+			k:
+				| PushAbleOnly<{ l: ServerTimestamp | Removable } | Removable>
+				| Removable
 	  }
 	| Removable
 >

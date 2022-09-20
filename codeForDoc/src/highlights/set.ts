@@ -31,14 +31,12 @@ const exampleRef = createRef<Example>(getDatabase())
 	await set(exampleRef('f/xyz'), 'b') // ok
 	await set(exampleRef('i'), { 123: false }) // ok
 	await set(exampleRef('i/123'), false) // ok
-	//
-	//
-	//
+
 	await set(
 		exampleRef('b/d/e'),
 		// @ts-expect-error
 		'incorrect value'
-	) // not ok, incorrect value
+	) // not ok, expect server timestamp
 	//
 	//
 	//

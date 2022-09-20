@@ -6,6 +6,8 @@ import {
 	createRef,
 	getDatabase,
 	get,
+	PushAble,
+	PushAbleOnly,
 } from 'firesagejs'
 
 export type Example = MetaTypeCreator<{
@@ -17,14 +19,6 @@ const exampleRef = createRef<Example>(getDatabase())
 get(exampleRef()).then(dataSnapshot => {
 	// type of data is { a: number | null | undefined; b: number} | null
 	// PossiblyReadAsNullable union node read type with null and undefined
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
 	const data = dataSnapshot.val()
 })
 
@@ -46,6 +40,15 @@ export type Example2 = MetaTypeCreator<
 				| PossiblyReadAsNullable
 			i:
 				| NumericKeyRecord<boolean | PossiblyReadAsNullable>
+				| PossiblyReadAsNullable
+			j:
+				| PushAble<1 | 2 | 3 | 4 | PossiblyReadAsNullable>
+				| PossiblyReadAsNullable
+			k:
+				| PushAbleOnly<
+						| { l: ServerTimestamp | PossiblyReadAsNullable }
+						| PossiblyReadAsNullable
+				  >
 				| PossiblyReadAsNullable
 	  }
 	| PossiblyReadAsNullable
