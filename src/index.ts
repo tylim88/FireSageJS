@@ -29,4 +29,5 @@ export type {
 	ErrorHasNoChild,
 	FindNestedWriteTypeFromFullPath,
 	RemoveLastSlash,
+	PossiblyReadAsNullable,
 } from './types'

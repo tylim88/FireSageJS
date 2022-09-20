@@ -20,13 +20,6 @@ const ref1 = ref('a/b/' + `${numericKey}`) // type error, type is string!
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 // @ts-expect-error
 const ref2 = ref('a/c/' + `${nonNumericKey}`) // type error, type is string!
 

@@ -1,5 +1,9 @@
 # HISTORY
 
+## 1.4.3 20th Sept 22
+
+- fix forgot to export `PossiblyReadAsNullable`
+
 ## 1.4.1 16th Sept 22
 
 - fix set does not error when the node type is Record<string, T> and the input type is Record<number, T>

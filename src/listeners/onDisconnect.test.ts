@@ -26,7 +26,7 @@ describe('test onDisconnect', () => {
 
 			onDc.remove(
 				// @ts-expect-error
-				"Error: The 'b' node is not removable, only Removable type can be removed. Please check the MetaType and union 'b' node with Removable"
+				"Error: The 'b' node is not removable, only Removable node can be removed. Please check the MetaType and union 'b' node with Removable"
 			)
 
 			const onDc2 = onDisconnect(usersRef('b/h/abc/p'))
