@@ -10,4 +10,4 @@ export type ErrorNeedTupleNotArray =
 export type ErrorIsPushOnlyAbleType<T extends string | undefined> =
 	`Error: The ${TransformUndefinedToRoot<T>} data type is PushAbleOnly<T>, you cannot set or update PushAbleOnly<T> node, to add new node use 'push' instead of 'set'. You can still set or update the child nodes as long as they are not PushAbleOnly<T>. If you intend to update or set PushAbleOnly<T> node, change its type to PushAble<T>.`
 export type ErrorElementNeedConstAssertion =
-	`Possible solutions: 1)Assert your string as const, eg: 'abc' as const; 2)turn number into string, eg: instead of 1, use '1' or use template string for ${'`${someNumericVariable}`'}; 3) Instead of 'a/b/' + someId, use template string to concat them ${'`a/b/${someId}`'}`
+	`Possible solutions: 1) Assert your string as const, eg: 'abc' as const; 2) turn number into string, eg: instead of 1, use '1' or use template string for ${'`${someNumericVariable}`'}; 3) Instead of 'a/b/' + someId, use template string to concat them ${'`a/b/${someId}`'}`

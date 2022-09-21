@@ -54,6 +54,20 @@ const exampleRef = createRef<Example>(getDatabase())
 		[{ e: serverTimestamp() }, 'a'] // not ok, the number of values does not match the number of paths
 	)
 	await update(
+		exampleRef(), // base path is root
+		['b/c', 'f', 'i/123'], // child path of 'root'
+		//
+		//
+		//
+		//
+		[
+			false,
+			// @ts-expect-error
+			{ 456: 'b' },
+			false,
+		] // not ok, the key of 'f' should be non-numeric
+	)
+	await update(
 		exampleRef('b'), // base path is 'b'
 		//
 		//
@@ -69,20 +83,6 @@ const exampleRef = createRef<Example>(getDatabase())
 			'i',
 		], // not ok, 'b/d', 'f/xyz', 'i' are not child path of 'b'
 		[]
-	)
-	await update(
-		exampleRef(), // base path is root
-		['b/c', 'f', 'i/123'], // child path of 'root'
-		//
-		//
-		//
-		//
-		[
-			false,
-			// @ts-expect-error
-			{ 456: 'b' },
-			false,
-		] // not ok, the key of 'f' should be non-numeric
 	)
 	await update(
 		exampleRef(), // base path is root
