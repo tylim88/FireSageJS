@@ -87,7 +87,7 @@ push(
 	// @ts-expect-error
 	exampleRef('a'),
 	{ 123: { c: 999 } }
-) // ok, cannot push NumericKeyRecord<T>
+) // not ok, cannot push NumericKeyRecord<T>
 //
 //
 //
@@ -98,7 +98,7 @@ push(
 	// @ts-expect-error
 	exampleRef('b'),
 	{ abc: { c: 999 } }
-) // ok, cannot push Record<string, T>
+) // not ok, cannot push Record<string, T>
 //
 //
 //
@@ -113,7 +113,7 @@ update(
 		123,
 	],
 	[{ c: 999 }]
-) // ok, is number but expect numeric string
+) // not ok, is number but expect numeric string
 
 // Record<`${number}`, T> and Record<number, T> is invalid type.
 // use NumericKeyRecord<T> instead
