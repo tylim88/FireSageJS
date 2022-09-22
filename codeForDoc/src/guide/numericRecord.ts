@@ -16,7 +16,7 @@ type Example = MetaTypeCreator<{
 const exampleRef = createRef<Example>(getDatabase())
 
 set(exampleRef('a'), { 123: { c: 999 } }) // ok, key is numeric
-set(exampleRef('a'), [{ c: 999 }, { c: 111 }]) // ok, accept array, store in db as { 1:{ c: 999 }, 2:{ c: 111 } }
+set(exampleRef('a'), [{ c: 999 }, { c: 111 }]) // ok, accept array, store in db as { 0:{ c: 999 }, 1:{ c: 111 } }
 set(exampleRef('b'), { abc: { c: 999 } }) // ok, key is non-numeric
 
 update(exampleRef('a'), ['123'], [{ c: 999 }]) // ok, key is numeric
@@ -25,7 +25,7 @@ update(
 	exampleRef(),
 	['a', 'b'],
 	[[{ c: 999 }, { c: 111 }], { abc: { c: 999 }, efg: { c: 111 } }]
-) // ok, accept array, store in db as { a: { 1: { c: 999 }, 2: { c: 111 } }, b: { abc: { c: 999 }, efg: { c: 111 } }
+) // ok, accept array, store in db as { a: { 0: { c: 999 }, 1: { c: 111 } }, b: { abc: { c: 999 }, efg: { c: 111 } }
 //
 //
 //
