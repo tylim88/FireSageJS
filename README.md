@@ -129,6 +129,5 @@ Read [here](https://firelordjs.com/miscellaneous/contributing)
 
 1. [FirelordJS](https://github.com/tylim88/FirelordJS) - Typescript wrapper for Firestore Web
 2. [Firelord](https://github.com/tylim88/firelord) - Typescript wrapper for Firestore admin
-3. [FirelordRN](https://github.com/tylim88/Firelordrn) - Typescript wrapper for Realtime Database
-4. [FireLaw](https://github.com/tylim88/firelaw) - Write Firestore security rule with Typescript, utilizing Firelord type engine.
-5. [FireCall](https://github.com/tylim88/FireCall) - Helper Function to write easier and safer Firebase onCall function.
+3. [FireSword](https://github.com/tylim88/firesword) - Filter Firestore and RTDB Unknown Keys.
+4. [FireCall](https://github.com/tylim88/FireCall) - Helper Function to write easier and safer Firebase onCall function.
