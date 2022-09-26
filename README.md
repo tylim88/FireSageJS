@@ -109,12 +109,6 @@ I am confident it has the best type safe and nothing come close to it. I put mon
 1. found something better: 75 cups.
 2. created something better: 1000 cups (you don't need to a make full fledge library, something minimally better is enough, open an issue if you want to take this challenge)
 
-In CI we test:
-
-Development code: check logic correctness
-Built code: check compiler setting
-Published code: check package.json entry point
-
 ## Contributing
 
 Read [here](https://firelordjs.com/miscellaneous/contributing)
