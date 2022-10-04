@@ -18,20 +18,18 @@
 .npmignore
 
 # config file
-jest.config.js
-tsconfig.json
+jest.**
 .eslintrc.js
 .prettierrc.js
-babel.config.js    
-jest.config.doc.js
-tsconfig.doc.json
+babel.**
+tsconfig.**
 lgtm.yml
-tsconfig.prod.json
 .parcelrc
 **.rules.json
 firebase.json
 .firebaserc
 .eslintignore
+rollup.**
 
 # env
 env.json

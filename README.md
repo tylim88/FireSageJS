@@ -92,6 +92,9 @@
 <div align="center">
 		Extreme Type Safe For Realtime Database Web, Write Realtime Database Code That Stands The Test Of Time
 </div>
+<div align="center">
+		<i>Immaculate, One of a Kind, Unorthodox, Craftsmanship, Art</i>
+</div>
 		<br />
 		<div align="center">
 			<i>In The Relentless Pursuit Of Correctness</i>
@@ -102,7 +105,15 @@
 </div>
 <br/>
 
-Mind-boggling type safe Realtime Database code with minimum learning curve, avoid runtime exceptions without runtime checks, type level Realtime Database defensive programming at it finest.
+State-of-the-art type safe Realtime Database code with minimum learning curve, avoid runtime exceptions without runtime checks, type level Realtime Database defensive programming at it finest.
+
+FiresageJS has:
+
+- The lowest learning curve (API is nearly identical to the original API).
+- The lowest technical debt (easiest to revert to the original API).
+- The ultimate type safety.
+- Effortless solutions for RTDB [quirks](https://firelordjs.com/firesage/highlights/query).
+- Possibly also the smallest.
 
 I am confident it has the best type safe and nothing come close to it. I put money on my words and I will buy you [x cups of coffee](https://www.buymeacoffee.com/) if you:
 
@@ -111,7 +122,7 @@ I am confident it has the best type safe and nothing come close to it. I put mon
 
 ## Contributing
 
-Read [here](https://firelordjs.com/miscellaneous/contributing)
+Read [here](https://firelordjs.com/firesage/contributing)
 
 ## Trivial
 
