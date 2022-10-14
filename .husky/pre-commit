@@ -4,4 +4,5 @@
 npm run lint --fix
 npm run pretty-quick
 npm run d-test
+npm run kill-8080
 npm run d-b-test

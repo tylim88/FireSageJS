@@ -90,7 +90,7 @@
 </div>
 <br/>
 <div align="center">
-		Extreme Type Safe For Realtime Database Web, Write Realtime Database Code That Stands The Test Of Time
+		Surgical Precision Type Safe For Realtime Database Web, Write Realtime Database Code That Stands The Test Of Time
 </div>
 <br />
 <div align="center">
@@ -106,7 +106,7 @@
 </div>
 <br/>
 
-State-of-the-art type safe Realtime Database code with minimum learning curve, avoid runtime exceptions without runtime checks, type level Realtime Database defensive programming at it finest.
+State-of-the-art type safe RTDB code with minimum learning curve, avoid runtime exceptions without runtime checks, type level RTDB defensive programming at it finest.
 
 FiresageJS has:
 
@@ -115,6 +115,8 @@ FiresageJS has:
 - The ultimate type safety.
 - Effortless solutions for RTDB [quirks](https://firelordjs.com/firesage/highlights/query).
 - Possibly also the smallest.
+
+Support [@firebase/rules-unit-testing and emulator](https://firelordjs.com/firesage/guides/tests)
 
 I am confident it has the best type safe and nothing come close to it. I put money on my words and I will buy you [x cups of coffee](https://www.buymeacoffee.com/) if you:
 
