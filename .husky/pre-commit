@@ -8,3 +8,4 @@ npm run d-test
 npm run kill-8080
 npm run d-b-test
 npm run kill-8080
+git add package-lock.json
