@@ -1,5 +1,9 @@
 # HISTORY
 
+## 1.4.14 15th Dec 22
+
+- add support for numeric literal key
+
 ## 1.4.3 20th Sept 22
 
 - fix forgot to export `PossiblyReadAsNullable`

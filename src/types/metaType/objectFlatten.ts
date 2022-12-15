@@ -2,34 +2,31 @@ import { RemoveLastSlash } from '../tsUtils'
 
 export type DeepKey<
 	T,
-	Mode extends 'read' | 'write',
+	Mode extends 'read' | 'write', // ! removing this useless generic fail everything, why?
 	K extends keyof T = keyof T
-> = K extends string | number | `${number}`
+> = K extends string | number
 	? T[K] extends infer R
-		? R extends Record<string, unknown>
-			?
-					| (`${K}/` & (Mode extends 'write' ? unknown : never))
-					| `${K}/${DeepKey<R, Mode>}`
+		? R extends Record<string, unknown> // * make R distributive
+			? // * trailing '/' is needed because string | `${string}/something` will collapse into string
+			  `${K}/` | `${K}/${DeepKey<R, Mode>}`
 			: `${K}/`
 		: never // impossible route
 	: never // impossible route
 
-type DeepValue<
+export type DeepValue<
 	T,
 	P extends string,
 	Mode extends 'read' | 'write'
-	// ! P extends `${infer K extends keyof T}/${infer Rest extends DeepKey<T[K],Mode>}` causes error
+	// ! P extends `${infer K extends keyof T}/${infer Rest extends DeepKey<T[K],Mode>}` causes TS to hang, why?
 > = P extends `${infer K}/${infer Rest}`
-	? T[K & keyof T] extends infer S
-		? S extends unknown[]
+	? T[(K extends `${infer R extends number}` ? R : K) & keyof T] extends infer S
+		? S extends unknown[] // * make S distributive
 			? never
-			: DeepKey<S, Mode> extends infer W // ! need distribution because RemoveLastSlash<DeepKey<S, Mode>> may result in string | `${string}/something` which will collapse into string
-			? Rest extends RemoveLastSlash<W & string>
-				? DeepValue<S, Rest, Mode>
-				: never // impossible route
+			: Rest extends RemoveLastSlash<DeepKey<S, Mode>>
+			? DeepValue<S, Rest, Mode>
 			: never // impossible route
 		: never // impossible route
-	: T[P & keyof T]
+	: T[(P extends `${infer R extends number}` ? R : P) & keyof T]
 
 export type ObjectFlatten<Data> = Data extends string | unknown[]
 	? Data
