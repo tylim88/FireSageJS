@@ -64,7 +64,7 @@
 			<a href="https://snyk.io/test/github/tylim88/firesagejs" target="_blank">
 				<img
 					src="https://snyk.io/test/github/tylim88/firesagejs/badge.svg"
-					alt="code coverage"
+					alt="vulnerabilities"
 				/>
 			</a>
 			&nbsp;
