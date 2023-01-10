@@ -36,7 +36,7 @@
 			</a>
 			&nbsp;
 			<img
-				src="https://img.shields.io/badge/gzipped-4KB-brightgreen"
+				src="https://img.shields.io/badge/gzipped-1.3KB-brightgreen"
 				alt="package size"
 			/>
 			&nbsp;
@@ -65,26 +65,6 @@
 				<img
 					src="https://snyk.io/test/github/tylim88/firesagejs/badge.svg"
 					alt="vulnerabilities"
-				/>
-			</a>
-			&nbsp;
-			<a
-				href="https://lgtm.com/projects/g/tylim88/FireSageJS/alerts/"
-				target="_blank"
-			>
-				<img
-					alt="Total alerts"
-					src="https://img.shields.io/lgtm/alerts/g/tylim88/FireSageJS.svg?logo=lgtm&logoWidth=18"
-				/>
-			</a>
-			&nbsp;
-			<a
-				href="https://lgtm.com/projects/g/tylim88/FireSageJS/context:javascript"
-				target="_blank"
-			>
-				<img
-					alt="Language grade: JavaScript"
-					src="https://img.shields.io/lgtm/grade/javascript/g/tylim88/FireSageJS.svg?logo=lgtm&logoWidth=18"
 				/>
 			</a>
 </div>
