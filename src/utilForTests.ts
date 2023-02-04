@@ -24,8 +24,11 @@ import { getDatabase } from 'firebase/database'
 
 export const initializeApp = () => {
 	const env = process.env
+	if (!env.PROJECT_ID) {
+		throw 'PROJECT_ID is empty'
+	}
 	const config = {
-		projectId: env.PROJECT_ID!,
+		projectId: env.PROJECT_ID,
 	}
 	return initializeApp_(config)
 }

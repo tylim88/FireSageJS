@@ -1,5 +1,9 @@
 # HISTORY
 
+## 1.4.16 5th Feb 23
+
+- remove object flatten useless generic
+
 ## 1.4.14 15th Dec 22
 
 - add support for numeric literal key

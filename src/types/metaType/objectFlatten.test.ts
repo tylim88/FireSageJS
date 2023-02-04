@@ -17,7 +17,7 @@ type ABC = {
 
 describe('test object flatten type', () => {
 	it('test DeepKey', () => {
-		type A = DeepKey<ABC, 'write'>
+		type A = DeepKey<ABC>
 
 		IsTrue<
 			IsSame<
@@ -44,7 +44,7 @@ describe('test object flatten type', () => {
 
 	it('test DeepValue', () => {
 		// TODO add more tests
-		type A = DeepValue<ABC, `b/d/123`, 'write'>
+		type A = DeepValue<ABC, `b/d/123`>
 
 		IsTrue<IsSame<boolean, A>>
 	})
