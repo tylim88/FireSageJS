@@ -12,7 +12,7 @@ export * from './listeners'
 export * from './operations'
 export * from './queryConstraints'
 export * from './refs'
-export * from './runTransaction'
+export * from './transaction'
 export type {
 	ServerTimestamp,
 	PushAble,
