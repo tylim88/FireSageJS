@@ -95,7 +95,7 @@ FiresageJS has:
 - The lowest learning curve (API is nearly identical to the original API).
 - The lowest technical debt (easiest to revert to the original API).
 - The ultimate type safety.
-- Effortless solutions for RTDB [quirks](https://firelordjs.com/firesage/highlights/query).
+- Effortless solutions for RTDB [quirks](https://firelordjs.com/firesage/highlights/query/#understanding-error-messages).
 - Possibly also the smallest.
 
 Support [@firebase/rules-unit-testing and emulator](https://firelordjs.com/firesage/guides/tests)
