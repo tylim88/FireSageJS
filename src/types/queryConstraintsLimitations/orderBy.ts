@@ -2,14 +2,14 @@ import {
 	AllOrderByConstraints,
 	AllQueryConstraints,
 	OrderByConstraint,
-} from '../queryConstraint'
-import { MetaType } from '../../metaType'
+} from '../queryConstraints'
+import { MetaType } from '../metaType'
 import {
 	FindAllLevelChildKeys,
 	ValidateFullPath,
 	FindNestedCompareTypeFromFullPath,
-} from '../../utils'
-import { RemoveFirstSegment, GetFirstSegment } from '../../tsUtils'
+} from '../utils'
+import { RemoveFirstSegment, GetFirstSegment } from '../tsUtils'
 import {
 	ErrorOrderByChildMustStartAtGrandChildPath,
 	ErrorMultipleOrderBy,

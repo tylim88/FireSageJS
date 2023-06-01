@@ -6,15 +6,17 @@ import {
 	AllQueryConstraints,
 	Priority,
 	CursorTypes,
-} from '../queryConstraint'
-import { CursorValue } from '../cursorConstraint'
+	CursorValue,
+	ErrorInvalidCursorValue,
+	ErrorInvalidFirebaseKey,
+} from '../queryConstraints'
 import {
 	FindNestedCompareTypeFromFullPath,
 	FindAllLevelChildKeys,
 	ValidateChildPath,
-} from '../../utils'
-import { GetFirstSegment } from '../../tsUtils'
-import { MetaType } from '../../metaType'
+} from '../utils'
+import { GetFirstSegment } from '../tsUtils'
+import { MetaType } from '../metaType'
 import {
 	ErrorCursorMustHasOrderBy,
 	ErrorMultipleOrderByCursor,
@@ -28,7 +30,6 @@ import {
 	ErrorCannotUseEndAtEndBeforeTogether,
 	ErrorEqualToMustBeTheOnlyCursor,
 } from './error'
-import { ErrorInvalidCursorValue, ErrorInvalidFirebaseKey } from '../error'
 
 type ValidateChildPathCursor<
 	T extends MetaType,

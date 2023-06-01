@@ -1,4 +1,4 @@
-import { CursorTypes } from '../queryConstraint'
+import { CursorTypes } from '../queryConstraints/query'
 
 export type ErrorMultipleOrderBy =
 	`Error: You can't combine multiple orderBy calls.`

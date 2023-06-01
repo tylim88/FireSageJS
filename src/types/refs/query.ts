@@ -1,10 +1,7 @@
 import { DatabaseReference, Query } from './databaseRef'
 import { MetaType } from '../metaType'
-import {
-	AllQueryConstraints,
-	IsValidQueryRef,
-	ValidateQueryConstraints,
-} from '../queryConstraints'
+import { AllQueryConstraints, IsValidQueryRef } from '../queryConstraints'
+import { ValidateQueryConstraints } from '../queryConstraintsLimitations'
 
 export type Query_ = <
 	T extends MetaType,

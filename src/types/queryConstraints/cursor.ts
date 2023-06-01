@@ -1,5 +1,5 @@
 import { ErrorInvalidFirebaseKey, ErrorInvalidCursorValue } from './error'
-import { CursorConstraint, CursorTypes } from './queryConstraint'
+import { CursorConstraint, CursorTypes } from './query'
 import { IsCharacterValid } from '../utils'
 
 export type CursorValue = string | boolean | number | null

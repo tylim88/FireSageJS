@@ -1,10 +1,10 @@
-import { MetaType } from '../../metaType'
+import { MetaType } from '../metaType'
 import {
 	AllQueryConstraints,
 	AllOrderByConstraints,
 	AllCursorConstraints,
-} from '../queryConstraint'
-import { IsTuple } from '../../tsUtils'
+} from '../queryConstraints'
+import { IsTuple } from '../tsUtils'
 import { ErrorQueryConstraintsIsNotTuple } from './error'
 import { ValidateOrderByChildren, GetAllOrderByConstraints } from './orderBy'
 import { ValidateCursor, GetAllCursorConstraints } from './cursor'
